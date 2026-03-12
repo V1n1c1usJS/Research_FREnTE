@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local env/config
+.env
+.env.*
+
+# Data outputs
+data/raw/
+data/interim/
+data/processed/
+reports/output/
+
+# Pipeline runtime artifacts
+data/runs/
+reports/run-*.md
+reports/run-*.csv
+reports/run-*.reexport.csv
