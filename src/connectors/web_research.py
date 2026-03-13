@@ -4,6 +4,9 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from datetime import datetime, timezone
+from html import unescape
+import re
+from urllib.parse import parse_qs, urlparse
 
 import httpx
 
@@ -145,6 +148,8 @@ class DuckDuckGoWebResearchConnector(WebResearchConnector):
     """
 
     base_url = "https://api.duckduckgo.com/"
+    html_search_url = "https://duckduckgo.com/html/"
+    bing_search_url = "https://www.bing.com/search"
 
     def __init__(self, timeout_seconds: float = 8.0) -> None:
         self.timeout_seconds = timeout_seconds
@@ -174,6 +179,11 @@ class DuckDuckGoWebResearchConnector(WebResearchConnector):
                     continue
 
                 items = self._extract_items(payload)
+                if not items:
+                    items = self._search_html(client=client, term=term)
+                if not items:
+                    items = self._search_bing_html(client=client, term=term)
+
                 for item in items:
                     if len(results) >= limit:
                         break
@@ -182,6 +192,108 @@ class DuckDuckGoWebResearchConnector(WebResearchConnector):
                     results.append(self._to_record(item=item, term=term))
 
         return results
+
+
+
+    def _search_bing_html(self, client: httpx.Client, term: str) -> list[dict[str, str]]:
+        try:
+            response = client.get(
+                self.bing_search_url,
+                params={"q": term},
+                headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"},
+            )
+            response.raise_for_status()
+            body = response.text
+        except httpx.HTTPError:
+            return []
+
+        pattern = re.compile(
+            r'<h2[^>]*>\s*<a[^>]*href="(?P<url>[^"]+)"[^>]*>(?P<title>.*?)</a>\s*</h2>.*?'
+            r'(?:<p[^>]*>(?P<snippet>.*?)</p>)?',
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        items: list[dict[str, str]] = []
+        for match in pattern.finditer(body):
+            raw_url = unescape(match.group("url") or "")
+            url = self._decode_bing_redirect(raw_url)
+            if not url.startswith("http"):
+                continue
+            title = re.sub(r"<[^>]+>", "", match.group("title") or "").strip()
+            snippet = re.sub(r"<[^>]+>", "", match.group("snippet") or "").strip()
+            items.append(
+                {
+                    "title": title or "Web result",
+                    "url": url,
+                    "snippet": snippet,
+                    "source": "Bing HTML",
+                }
+            )
+            if len(items) >= 5:
+                break
+
+        return items
+
+    @staticmethod
+    def _decode_bing_redirect(url: str) -> str:
+        parsed = urlparse(url)
+        if '/ck/a' not in parsed.path:
+            return url
+        params = parse_qs(parsed.query)
+        token = params.get('u', [''])[0]
+        if not token:
+            return url
+        if token.startswith('a1'):
+            token = token[2:]
+        try:
+            import base64
+            padding = '=' * (-len(token) % 4)
+            decoded = base64.urlsafe_b64decode((token + padding).encode('utf-8')).decode('utf-8', errors='ignore')
+            return decoded if decoded.startswith('http') else url
+        except Exception:  # noqa: BLE001
+            return url
+
+    def _search_html(self, client: httpx.Client, term: str) -> list[dict[str, str]]:
+        try:
+            response = client.get(self.html_search_url, params={"q": term})
+            response.raise_for_status()
+            body = response.text
+        except httpx.HTTPError:
+            return []
+
+        pattern = re.compile(
+            r'<a[^>]*class="[^"]*result__a[^"]*"[^>]*href="(?P<href>[^"]+)"[^>]*>(?P<title>.*?)</a>.*?'
+            r'(?:<a[^>]*class="[^"]*result__snippet[^"]*"[^>]*>(?P<snippet_a>.*?)</a>|'
+            r'<div[^>]*class="[^"]*result__snippet[^"]*"[^>]*>(?P<snippet_div>.*?)</div>)?',
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        items: list[dict[str, str]] = []
+        for match in pattern.finditer(body):
+            raw_url = unescape(match.group("href") or "")
+            parsed = urlparse(raw_url)
+            if parsed.path.startswith("/l/"):
+                qs = parse_qs(parsed.query)
+                raw_url = unescape(qs.get("uddg", [raw_url])[0])
+
+            clean_title = re.sub(r"<[^>]+>", "", match.group("title") or "").strip()
+            snippet_html = match.group("snippet_a") or match.group("snippet_div") or ""
+            clean_snippet = re.sub(r"<[^>]+>", "", snippet_html).strip()
+
+            if not raw_url.startswith("http"):
+                continue
+            items.append(
+                {
+                    "title": clean_title or "Web result",
+                    "url": raw_url,
+                    "snippet": clean_snippet,
+                    "source": "DuckDuckGo HTML",
+                }
+            )
+            if len(items) >= 5:
+                break
+
+        return items
 
     @staticmethod
     def _extract_items(payload: dict) -> list[dict[str, str]]:
@@ -221,25 +333,78 @@ class DuckDuckGoWebResearchConnector(WebResearchConnector):
 
         return items
 
-    @staticmethod
-    def _to_record(item: dict[str, str], term: str) -> WebResearchResultRecord:
+    @classmethod
+    def _to_record(cls, item: dict[str, str], term: str) -> WebResearchResultRecord:
         source_url = item["url"]
         now = datetime.now(timezone.utc).isoformat()
+        title = item.get("title") or "Web result"
+        snippet = item.get("snippet") or ""
+        source_type = cls._infer_source_type(source_url)
+        publisher = cls._infer_publisher(item.get("source") or "", source_url)
+        variables = cls._extract_variables(title, snippet, term)
+        dataset_mentions = cls._extract_dataset_mentions(title, snippet)
+
         return WebResearchResultRecord(
             source_id=f"real-{abs(hash((source_url, term))) % 10_000_000}",
-            source_title=item.get("title") or "Web result",
-            source_type="web_result",
+            source_title=title,
+            source_type=source_type,
             source_url=source_url,
-            publisher_or_org=item.get("source") or "Web",
-            dataset_names_mentioned=[],
-            variables_mentioned=[],
+            publisher_or_org=publisher,
+            dataset_names_mentioned=dataset_mentions,
+            variables_mentioned=variables,
             geographic_scope="não identificado",
             relevance_to_100k="Triagem inicial automática; requer validação posterior.",
-            evidence_notes=f"Resultado coletado por conector real (DuckDuckGo) em {now}.",
+            evidence_notes=(
+                f"Resultado coletado por conector real (DuckDuckGo) em {now}. "
+                f"Snippet: {snippet[:220]}"
+            ),
             search_terms_extracted=[term],
             citations=[source_url],
             confidence=0.55,
         )
+
+    @staticmethod
+    def _infer_source_type(source_url: str) -> str:
+        host = urlparse(source_url).netloc.lower()
+        if ".gov" in host:
+            return "institutional_documentation"
+        if any(token in host for token in ["scielo", "springer", "elsevier", "wiley", "periodicos", "doi"]):
+            return "academic_literature"
+        return "web_result"
+
+    @staticmethod
+    def _infer_publisher(source_hint: str, source_url: str) -> str:
+        if source_hint and source_hint.lower() not in {"duckduckgo", "duckduckgo relatedtopics"}:
+            return source_hint
+        host = urlparse(source_url).netloc.lower()
+        if not host:
+            return "Web"
+        host = host.replace("www.", "")
+        return host.split(".")[0].upper()
+
+    @staticmethod
+    def _extract_variables(title: str, snippet: str, term: str) -> list[str]:
+        text = f"{title} {snippet} {term}".lower()
+        mapping = {
+            "hidrologia": ["hidrologia", "hydrology", "vazão", "streamflow", "bacia"],
+            "qualidade da água": ["qualidade da água", "water quality", "ph", "turbidez"],
+            "uso da terra": ["uso da terra", "land use", "land cover"],
+            "bacia hidrográfica": ["bacia hidrográfica", "watershed", "river basin"],
+            "rio tietê": ["rio tietê", "tietê", "tiete"],
+        }
+        found = []
+        for label, tokens in mapping.items():
+            if any(token in text for token in tokens):
+                found.append(label)
+        return found
+
+    @staticmethod
+    def _extract_dataset_mentions(title: str, snippet: str) -> list[str]:
+        text = f"{title} {snippet}".strip()
+        lowered = text.lower()
+        if any(token in lowered for token in ["dataset", "base", "dados", "portal", "sistema"]):
+            return [title[:180]]
+        return []
 
 
 class PreparedWebResearchConnector(DuckDuckGoWebResearchConnector):
