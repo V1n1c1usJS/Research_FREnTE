@@ -16,15 +16,21 @@ class ExtractionPlanAgent(BaseAgent):
 
         plan = []
         for dataset in context["datasets"]:
-            if dataset.priority == "high":
+            if dataset.priority == "critical":
+                strategy = "ingest-immediate"
+                order = 0
+            elif dataset.priority == "high":
                 strategy = "ingest-first"
                 order = 1
             elif dataset.priority == "medium":
                 strategy = "ingest-second"
                 order = 2
-            else:
+            elif dataset.priority == "low":
                 strategy = "ingest-later"
                 order = 3
+            else:
+                strategy = "discard-or-review"
+                order = 4
 
             plan.append(
                 {

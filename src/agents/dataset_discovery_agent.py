@@ -1,10 +1,14 @@
-"""Agente para descoberta simulada de datasets."""
+"""Agente para consolidar candidatos de datasets a partir do scout e query expansion."""
 
 from __future__ import annotations
 
+import re
+import unicodedata
+from collections import defaultdict
 from typing import Any
 
 from src.agents.base import BaseAgent
+from src.schemas.records import DatasetCandidate
 
 
 class DatasetDiscoveryAgent(BaseAgent):
@@ -13,147 +17,269 @@ class DatasetDiscoveryAgent(BaseAgent):
 
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()
-        sources = context["sources"]
-        query_tracks = context["expanded_queries"]
+        findings = context.get("web_research_results", [])
+        expanded_queries = context.get("expanded_queries", [])
         limit = context["settings"].limit
 
-        source_index = {source.source_id: source for source in sources}
-        mock_blueprints = [
-            {
-                "dataset_id": "mock-ana-qualidade-agua",
-                "source_id": "src-ana",
-                "title": "Série Histórica de Qualidade da Água em Pontos do Rio Tietê",
-                "description": "Registros simulados de parâmetros físico-químicos em pontos de monitoramento.",
-                "dataset_kind": "water-quality",
-                "temporal_coverage": "2010-2023",
-                "spatial_coverage": "Trecho médio e baixo do Rio Tietê",
-                "update_frequency": "mensal",
-                "formats": ["csv", "xlsx"],
-                "tags": ["qualidade da água", "rio tietê", "monitoramento"],
-                "priority_hint": "high",
-                "methodological_notes": [
-                    "Dataset mock inspirado em estruturas de monitoramento hidrológico.",
-                    "Não representa consulta direta à base oficial.",
-                ],
-            },
-            {
-                "dataset_id": "mock-hidroweb-vazao",
-                "source_id": "src-hidroweb",
-                "title": "Séries de Vazão e Nível em Estações Hidrométricas do Corredor Tietê",
-                "description": "Série simulada de vazão e cotas para análise hidrológica de impacto.",
-                "dataset_kind": "hydrology",
-                "temporal_coverage": "1995-2023",
-                "spatial_coverage": "Bacia do Tietê até conexão com Jupiá",
-                "update_frequency": "diária",
-                "formats": ["csv"],
-                "tags": ["hidrologia", "vazão", "nível"],
-                "priority_hint": "high",
-                "methodological_notes": [
-                    "Compatível com análise temporal de extremos hidrológicos.",
-                ],
-            },
-            {
-                "dataset_id": "mock-mapbiomas-uso-solo",
-                "source_id": "src-mapbiomas",
-                "title": "Cobertura e Uso do Solo na Bacia do Tietê",
-                "description": "Recortes simulados de classes de uso do solo por ano para análise de pressão antrópica.",
-                "dataset_kind": "land-use",
-                "temporal_coverage": "1985-2022",
-                "spatial_coverage": "São Paulo a Três Lagoas",
-                "update_frequency": "anual",
-                "formats": ["geotiff", "csv"],
-                "tags": ["uso do solo", "mapbiomas", "pressão antrópica"],
-                "priority_hint": "high",
-                "methodological_notes": [
-                    "Relevante para relacionar mudanças de cobertura com qualidade da água.",
-                ],
-            },
-            {
-                "dataset_id": "mock-inpe-clima",
-                "source_id": "src-inpe",
-                "title": "Indicadores Climáticos e Eventos Extremos no Centro-Sul",
-                "description": "Série simulada de precipitação e temperatura para contextualizar variabilidade hidrológica.",
-                "dataset_kind": "climate",
-                "temporal_coverage": "2000-2023",
-                "spatial_coverage": "Centro-Sul com recorte para bacia do Tietê",
-                "update_frequency": "mensal",
-                "formats": ["csv", "netcdf"],
-                "tags": ["clima", "precipitação", "eventos extremos"],
-                "priority_hint": "medium",
-                "methodological_notes": [
-                    "Complementar para explicar variabilidade de séries de água e vazão.",
-                ],
-            },
-            {
-                "dataset_id": "mock-ibge-municipal",
-                "source_id": "src-ibge",
-                "title": "Indicadores Municipais no Eixo São Paulo-Três Lagoas",
-                "description": "Conjunto simulado de população, urbanização e atividade econômica por município.",
-                "dataset_kind": "socioeconomic",
-                "temporal_coverage": "2010-2022",
-                "spatial_coverage": "Municípios do corredor São Paulo-Três Lagoas",
-                "update_frequency": "anual",
-                "formats": ["csv"],
-                "tags": ["municípios", "demografia", "pressão urbana"],
-                "priority_hint": "medium",
-                "methodological_notes": [
-                    "Base de apoio para contextualização de impactos antrópicos.",
-                ],
-            },
-            {
-                "dataset_id": "mock-snis-saneamento",
-                "source_id": "src-snis",
-                "title": "Indicadores de Saneamento e Esgotamento Sanitário",
-                "description": "Série simulada de cobertura de coleta e tratamento de esgoto em municípios-chave.",
-                "dataset_kind": "sanitation",
-                "temporal_coverage": "2012-2022",
-                "spatial_coverage": "Municípios com influência no Rio Tietê",
-                "update_frequency": "anual",
-                "formats": ["csv", "pdf"],
-                "tags": ["snis", "saneamento", "esgoto"],
-                "priority_hint": "high",
-                "methodological_notes": [
-                    "Importante para inferir pressão sobre qualidade hídrica.",
-                ],
-            },
-            {
-                "dataset_id": "mock-academic-relatorios",
-                "source_id": "src-academic",
-                "title": "Relatórios Técnicos e Estudos Acadêmicos sobre Tietê-Jupiá",
-                "description": "Inventário simulado de literatura técnica com métodos e evidências relevantes.",
-                "dataset_kind": "literature",
-                "temporal_coverage": "2015-2024",
-                "spatial_coverage": "Rio Tietê e Reservatório de Jupiá",
-                "update_frequency": "irregular",
-                "formats": ["pdf", "bibtex"],
-                "tags": ["literatura", "relatório técnico", "metodologia"],
-                "priority_hint": "medium",
-                "methodological_notes": [
-                    "Usado para triangulação de hipóteses e limitações de dados.",
-                ],
-            },
-        ]
+        query_list = [item["query"] for item in expanded_queries if isinstance(item, dict) and "query" in item]
+        query_list = query_list or [context["settings"].query]
 
-        raw_datasets: list[dict[str, Any]] = []
-        for idx in range(limit):
-            blueprint = mock_blueprints[idx % len(mock_blueprints)]
-            source = source_index[blueprint["source_id"]]
-            query_track = query_tracks[idx % len(query_tracks)]
+        grouped: dict[str, dict[str, Any]] = defaultdict(
+            lambda: {
+                "dataset_name": "",
+                "aliases": set(),
+                "variables_mentioned": set(),
+                "source_ids": set(),
+                "source_urls": set(),
+                "source_mentions": [],
+                "mention_origins": set(),
+                "evidence_notes": [],
+                "supporting_queries": set(),
+                "formats": set(),
+                "tags": set(),
+                "role_votes": [],
+                "accessibility_votes": [],
+                "confidence_values": [],
+            }
+        )
 
-            raw_datasets.append(
+        for finding in findings:
+            for dataset_name in finding.dataset_names_mentioned:
+                key = self._canonical_key(dataset_name)
+                bucket = grouped[key]
+                canonical_name = dataset_name.strip()
+                bucket["dataset_name"] = bucket["dataset_name"] or canonical_name
+                bucket["aliases"].update({canonical_name.lower(), key})
+                bucket["variables_mentioned"].update(finding.variables_mentioned)
+                bucket["source_ids"].add(finding.source_id)
+                bucket["source_urls"].add(finding.source_url)
+                bucket["confidence_values"].append(finding.confidence)
+
+                role_vote = self._role_from_finding(dataset_name, finding.source_type)
+                bucket["role_votes"].append(role_vote)
+                accessibility_vote = self._accessibility_from_source_type(finding.source_type)
+                bucket["accessibility_votes"].append(accessibility_vote)
+                bucket["mention_origins"].add(self._origin_from_source_type(finding.source_type))
+
+                evidence_line = f"{finding.source_title}: {finding.evidence_notes}"
+                bucket["evidence_notes"].append(evidence_line)
+                bucket["source_mentions"].append(
+                    {
+                        "source_id": finding.source_id,
+                        "source_type": finding.source_type,
+                        "source_url": finding.source_url,
+                        "source_title": finding.source_title,
+                        "mention_type": accessibility_vote,
+                        "evidence": finding.evidence_notes,
+                    }
+                )
+
+                bucket["supporting_queries"].add(query_list[len(bucket["source_ids"]) % len(query_list)])
+                bucket["formats"].update(self._infer_formats(dataset_name, finding.source_type))
+                bucket["tags"].update(self._infer_tags(dataset_name, finding.variables_mentioned))
+
+        candidates: list[DatasetCandidate] = []
+        preliminary_catalog: list[dict[str, Any]] = []
+
+        for idx, bucket in enumerate(grouped.values(), start=1):
+            role = self._resolve_role(bucket["dataset_name"], bucket["role_votes"])
+            confidence_hint = (
+                round(sum(bucket["confidence_values"]) / len(bucket["confidence_values"]), 2)
+                if bucket["confidence_values"]
+                else 0.5
+            )
+            canonical_url = sorted(bucket["source_urls"])[0] if bucket["source_urls"] else ""
+            accessibility = self._resolve_accessibility(bucket["accessibility_votes"])
+            verifiability = self._resolve_verifiability_status(
+                role=role,
+                source_urls=bucket["source_urls"],
+                source_mentions=bucket["source_mentions"],
+                accessibility=accessibility,
+            )
+            mention_origins = sorted(bucket["mention_origins"])
+            evidence_count = len(bucket["source_mentions"])
+
+            candidate = DatasetCandidate(
+                candidate_id=f"cand-{idx:03d}",
+                dataset_name=bucket["dataset_name"],
+                aliases=sorted(bucket["aliases"]),
+                canonical_url=canonical_url,
+                dataset_type="dataset" if role == "dataset" else "reference",
+                candidate_role=role,
+                description=(
+                    "Candidato consolidado a partir de menções em portais institucionais, "
+                    "bases acadêmicas e documentação técnica."
+                ),
+                variables_mentioned=sorted(bucket["variables_mentioned"]),
+                source_ids=sorted(bucket["source_ids"]),
+                source_urls=sorted(bucket["source_urls"]),
+                source_mentions=bucket["source_mentions"],
+                mention_origins=mention_origins,
+                evidence_notes=bucket["evidence_notes"],
+                supporting_queries=sorted(bucket["supporting_queries"]),
+                temporal_coverage="não informado",
+                update_frequency="não informado",
+                formats=sorted(bucket["formats"]),
+                tags=sorted(bucket["tags"]),
+                evidence_count=evidence_count,
+                accessibility=accessibility,
+                verifiability_status=verifiability,
+                confidence_hint=confidence_hint,
+                priority_hint=self._infer_priority(bucket["source_ids"]),
+            )
+            candidates.append(candidate)
+            preliminary_catalog.append(
                 {
-                    **blueprint,
-                    "dataset_id": f"{blueprint['dataset_id']}-{idx + 1:02d}",
-                    "source_name": source.name,
-                    "source_url": f"{source.base_url}/mock-datasets/{idx + 1}",
-                    "query_used": query_track["query"],
-                    "query_focus": query_track["focus"],
-                    "discovery_stage": query_track["stage"],
-                    "evidence_origin": [
-                        f"Fonte inspiradora: {source.name}",
-                        f"Consulta simulada: {query_track['query']}",
-                    ],
+                    "candidate_id": candidate.candidate_id,
+                    "dataset_name": candidate.dataset_name,
+                    "candidate_role": candidate.candidate_role,
+                    "accessibility": candidate.accessibility,
+                    "verifiability_status": candidate.verifiability_status,
+                    "mention_origins": candidate.mention_origins,
+                    "source_ids": candidate.source_ids,
+                    "source_urls": candidate.source_urls,
+                    "evidence_count": candidate.evidence_count,
+                    "confidence_hint": candidate.confidence_hint,
                 }
             )
 
-        return {"raw_datasets": raw_datasets}
+        selected = candidates[:limit]
+        selected_catalog = preliminary_catalog[:limit]
+
+        report_lines = ["# Dataset Discovery - Catálogo Preliminar", ""]
+        for item in selected:
+            report_lines.append(
+                "- "
+                f"{item.dataset_name} | role={item.candidate_role} | acesso={item.accessibility} "
+                f"| verificabilidade={item.verifiability_status} | fontes={', '.join(item.source_ids)}"
+            )
+            report_lines.append(
+                f"  - origens={', '.join(item.mention_origins)} | confiança={item.confidence_hint}"
+            )
+            report_lines.append(f"  - evidência: {item.evidence_notes[0] if item.evidence_notes else 'n/a'}")
+
+        return {
+            "dataset_candidates": selected,
+            "preliminary_catalog": selected_catalog,
+            "dataset_discovery_report": "\n".join(report_lines),
+        }
+
+    @staticmethod
+    def _canonical_key(dataset_name: str) -> str:
+        lowered = dataset_name.lower().strip()
+        lowered = "".join(ch for ch in unicodedata.normalize("NFKD", lowered) if not unicodedata.combining(ch))
+        lowered = re.sub(r"[^a-z0-9à-ÿ\s]+", " ", lowered)
+        lowered = re.sub(r"\s+", " ", lowered).strip()
+        tokens = [t for t in lowered.split() if t not in {"de", "da", "do", "dos", "das", "e"}]
+        return " ".join(tokens)
+
+    @classmethod
+    def _resolve_role(cls, dataset_name: str, role_votes: list[str]) -> str:
+        lexical = cls._infer_role(dataset_name)
+        if role_votes:
+            if "portal" in role_votes:
+                return "portal"
+            if "documentation" in role_votes:
+                return "documentation"
+            if "academic_source" in role_votes:
+                return "academic_source"
+        return lexical
+
+    @staticmethod
+    def _role_from_finding(dataset_name: str, source_type: str) -> str:
+        lexical = DatasetDiscoveryAgent._infer_role(dataset_name)
+        if lexical != "dataset":
+            return lexical
+        if source_type == "academic_literature":
+            return "academic_source"
+        if source_type == "institutional_documentation":
+            return "documentation"
+        return "dataset"
+
+    @staticmethod
+    def _infer_role(dataset_name: str) -> str:
+        lowered = dataset_name.lower()
+        if any(token in lowered for token in ["portal", "painel"]):
+            return "portal"
+        if any(token in lowered for token in ["relatório", "tese", "artigo", "documento"]):
+            return "documentation"
+        if any(token in lowered for token in ["scielo", "capes", "acadêmic"]):
+            return "academic_source"
+        return "dataset"
+
+    @staticmethod
+    def _accessibility_from_source_type(source_type: str) -> str:
+        if source_type == "primary_data_portal":
+            return "direct_access"
+        if source_type == "academic_literature":
+            return "literature_citation"
+        return "institutional_reference"
+
+    @staticmethod
+    def _origin_from_source_type(source_type: str) -> str:
+        mapping = {
+            "primary_data_portal": "primary",
+            "academic_literature": "academic",
+            "institutional_documentation": "institutional",
+            "web_result": "web",
+        }
+        return mapping.get(source_type, "unknown")
+
+    @staticmethod
+    def _resolve_accessibility(votes: list[str]) -> str:
+        unique = set(votes)
+        if "direct_access" in unique and "literature_citation" in unique:
+            return "mixed"
+        if "direct_access" in unique:
+            return "direct_access"
+        if "literature_citation" in unique:
+            return "literature_citation"
+        return "institutional_reference"
+
+    @staticmethod
+    def _resolve_verifiability_status(
+        role: str,
+        source_urls: set[str],
+        source_mentions: list[dict[str, str]],
+        accessibility: str,
+    ) -> str:
+        has_url = bool(source_urls)
+        unique_source_types = {item.get("source_type", "") for item in source_mentions}
+        if not has_url:
+            return "unverifiable"
+        if accessibility == "literature_citation":
+            return "cited_not_directly_accessible"
+        if accessibility == "mixed":
+            return "partially_verifiable"
+        if role in {"portal", "dataset"} and "primary_data_portal" in unique_source_types:
+            return "verifiable"
+        if role in {"documentation", "academic_source"}:
+            return "evidence_only"
+        return "needs_manual_validation"
+
+    @staticmethod
+    def _infer_formats(dataset_name: str, source_type: str) -> set[str]:
+        lowered = dataset_name.lower()
+        formats: set[str] = set()
+        if "séries" in lowered or "indicadores" in lowered:
+            formats.update({"csv", "xlsx"})
+        if "relatório" in lowered or source_type in {"academic_literature", "institutional_documentation"}:
+            formats.add("pdf")
+        if not formats:
+            formats.add("csv")
+        return formats
+
+    @staticmethod
+    def _infer_tags(dataset_name: str, variables: list[str]) -> set[str]:
+        tags = {"rio tietê", "reservatório de jupiá", "100k"}
+        tags.update(v.lower() for v in variables)
+        tags.add(dataset_name.lower())
+        return tags
+
+    @staticmethod
+    def _infer_priority(source_ids: set[str]) -> str:
+        if any(source in source_ids for source in {"src-hidroweb", "src-mapbiomas", "src-snis"}):
+            return "high"
+        if any(source in source_ids for source in {"src-ana", "src-ibge", "src-inpe"}):
+            return "medium"
+        return "low"

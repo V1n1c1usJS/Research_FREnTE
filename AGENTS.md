@@ -15,7 +15,7 @@ O trabalho está alinhado ao **projeto 100K**, com foco em identificar fontes ú
 ## 2) Arquitetura planejada
 Agentes planejados (modulares e evolutivos):
 
-1. **ResearchScoutAgent**
+1. **ResearchScoutAgent** (pesquisa aberta na web via conector abstrato)
 2. **QueryExpansionAgent**
 3. **DatasetDiscoveryAgent**
 4. **NormalizationAgent**
@@ -34,11 +34,7 @@ Agentes planejados (modulares e evolutivos):
 - Não inventar metadados não verificados.
 - Preservar URLs, citações e origem das informações coletadas.
 - Priorizar fontes oficiais, institucionais e acadêmicas.
-- Manter separação clara entre:
-  - descoberta,
-  - normalização,
-  - avaliação,
-  - relatório.
+- Manter separação clara entre descoberta, normalização, avaliação e relatório.
 
 ---
 
@@ -48,6 +44,7 @@ Agentes planejados (modulares e evolutivos):
 - Garantir execução por CLI (ex.: `python -m src.main`).
 - Incluir testes básicos para cada etapa principal.
 - Preparar e manter modo **dry-run** com mocks/stubs para integrações externas.
+- Conectores externos devem implementar interface abstrata (evitar acoplamento por portal único).
 
 ---
 
@@ -61,6 +58,12 @@ Agentes planejados (modulares e evolutivos):
 ---
 
 ## 6) Próximas fases
-1. Implementar arquitetura base e mocks (sem conectores reais).
-2. Integrar conectores reais para descoberta e acesso.
+1. Implementar conectores reais de busca web e scraping controlado.
+2. Integrar descoberta web com expansão avançada de consultas.
 3. Evoluir scoring de relevância e qualidade dos relatórios.
+
+## 7) Estado atual de conectores de pesquisa web
+- Interface base disponível em `src/connectors/web_research.py` (`WebResearchConnector`).
+- Modo mock obrigatório para dry-run (`MockWebResearchConnector`).
+- Conector real inicial desacoplado (`DuckDuckGoWebResearchConnector`), com timeout e fallback para mock no `ResearchScoutAgent`.
+- Persistir evidências de execução (`web_research_meta`) nos artefatos do run para auditoria.

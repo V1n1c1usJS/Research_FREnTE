@@ -6,6 +6,8 @@ pipeline:
   query: "impactos humanos no Rio Tietê"
   limit: 10
   dry_run: true
+  web_research_mode: "mock"  # mock | real
+  web_timeout_seconds: 8
 
 outputs:
   reports_dir: "reports/"

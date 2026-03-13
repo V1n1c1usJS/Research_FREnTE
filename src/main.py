@@ -31,6 +31,18 @@ def build_parser() -> argparse.ArgumentParser:
 def _add_common_run_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--query", default="impactos humanos no Rio Tietê", help="Tema de pesquisa")
     parser.add_argument("--limit", type=int, default=10, help="Limite de datasets simulados")
+    parser.add_argument(
+        "--web-mode",
+        choices=["mock", "real"],
+        default="mock",
+        help="Seleciona conector de pesquisa web (run permite real; dry-run força mock)",
+    )
+    parser.add_argument(
+        "--web-timeout",
+        type=float,
+        default=8.0,
+        help="Timeout em segundos para o conector real de pesquisa web",
+    )
 
 
 def run(argv: list[str] | None = None) -> int:
@@ -41,10 +53,15 @@ def run(argv: list[str] | None = None) -> int:
     if args.command == "export":
         return _run_export(catalog_path=Path(args.catalog), output_path=Path(args.output))
 
+    dry_run = args.command == "dry-run"
+    web_mode = "mock" if dry_run else args.web_mode
+
     settings = PipelineSettings(
         query=args.query,
         limit=args.limit,
-        dry_run=args.command == "dry-run",
+        dry_run=dry_run,
+        web_research_mode=web_mode,
+        web_timeout_seconds=args.web_timeout,
     )
     pipeline = MultiAgentPipeline(settings=settings)
     result = pipeline.execute()

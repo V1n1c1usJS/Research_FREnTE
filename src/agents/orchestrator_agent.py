@@ -29,7 +29,10 @@ class OrchestratorAgent:
     def __init__(self, settings: PipelineSettings) -> None:
         self.settings = settings
         self.agents = [
-            ResearchScoutAgent(),
+            ResearchScoutAgent(
+                web_research_mode="mock" if settings.dry_run else settings.web_research_mode,
+                timeout_seconds=settings.web_timeout_seconds,
+            ),
             QueryExpansionAgent(),
             DatasetDiscoveryAgent(),
             NormalizationAgent(),

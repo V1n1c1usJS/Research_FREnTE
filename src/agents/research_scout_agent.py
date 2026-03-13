@@ -1,91 +1,133 @@
-"""Agente para mapear fontes iniciais de pesquisa."""
+"""Agente para descoberta aberta de fontes de dados, literatura e documentação técnica."""
 
 from __future__ import annotations
 
 from typing import Any
 
 from src.agents.base import BaseAgent
-from src.schemas.records import ResearchSourceRecord
+from src.connectors.web_research import (
+    DuckDuckGoWebResearchConnector,
+    MockWebResearchConnector,
+    WebResearchConnector,
+)
+from src.schemas.records import ResearchSourceRecord, WebResearchResultRecord
 
 
 class ResearchScoutAgent(BaseAgent):
     name = "research-scout"
     prompt_filename = "research_scout_agent.txt"
 
+    def __init__(
+        self,
+        connector: WebResearchConnector | None = None,
+        web_research_mode: str = "mock",
+        timeout_seconds: float = 8.0,
+    ) -> None:
+        self.web_research_mode = web_research_mode
+        self.timeout_seconds = timeout_seconds
+        self.connector = connector or self._build_connector()
+
+    def _build_connector(self) -> WebResearchConnector:
+        if self.web_research_mode == "real":
+            return DuckDuckGoWebResearchConnector(timeout_seconds=self.timeout_seconds)
+        return MockWebResearchConnector()
+
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()
-        query = context["settings"].query
+        settings = context["settings"]
 
-        sources = [
-            ResearchSourceRecord(
-                source_id="src-ana",
-                name="ANA",
-                base_url="https://www.gov.br/ana",
-                source_type="official",
-                citation="Agência Nacional de Águas e Saneamento Básico",
-                query=query,
-                priority="high",
-                methodological_note="Fonte regulatória para hidrologia, qualidade e usos da água.",
-            ),
-            ResearchSourceRecord(
-                source_id="src-hidroweb",
-                name="Hidroweb",
-                base_url="https://www.snirh.gov.br/hidroweb",
-                source_type="official",
-                citation="Plataforma Hidroweb / SNIRH",
-                query=query,
-                priority="high",
-                methodological_note="Séries hidrológicas para contexto do Rio Tietê e afluentes.",
-            ),
-            ResearchSourceRecord(
-                source_id="src-mapbiomas",
-                name="MapBiomas",
-                base_url="https://mapbiomas.org",
-                source_type="scientific",
-                citation="Coleções MapBiomas",
-                query=query,
-                priority="high",
-                methodological_note="Cobertura e uso do solo para pressão antrópica na bacia.",
-            ),
-            ResearchSourceRecord(
-                source_id="src-inpe",
-                name="INPE",
-                base_url="https://www.gov.br/inpe",
-                source_type="official",
-                citation="Instituto Nacional de Pesquisas Espaciais",
-                query=query,
-                priority="medium",
-                methodological_note="Produtos remotos e séries ambientais complementares.",
-            ),
-            ResearchSourceRecord(
-                source_id="src-ibge",
-                name="IBGE",
-                base_url="https://www.ibge.gov.br",
-                source_type="official",
-                citation="Instituto Brasileiro de Geografia e Estatística",
-                query=query,
-                priority="medium",
-                methodological_note="Indicadores territoriais e socioeconômicos de apoio.",
-            ),
-            ResearchSourceRecord(
-                source_id="src-snis",
-                name="SNIS",
-                base_url="https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis",
-                source_type="official",
-                citation="Sistema Nacional de Informações sobre Saneamento",
-                query=query,
-                priority="medium",
-                methodological_note="Saneamento e infraestrutura com impacto em corpos hídricos.",
-            ),
-            ResearchSourceRecord(
-                source_id="src-academic",
-                name="Bases Acadêmicas e Relatórios Técnicos",
-                base_url="https://exemplo.local/academic-catalog",
-                source_type="academic",
-                citation="Repositórios institucionais e literatura técnica (mock)",
-                query=query,
-                priority="medium",
-                methodological_note="Usado para complementar lacunas e triangulação metodológica.",
-            ),
+        expanded = context.get("expanded_queries", [])
+        expanded_terms = [item["query"] for item in expanded if isinstance(item, dict) and "query" in item]
+
+        search_terms = self._build_search_terms(settings.query, expanded_terms)
+
+        findings: list[WebResearchResultRecord] = []
+        fallback_reason = ""
+        connector_mode_used = self.web_research_mode
+        try:
+            findings = self.connector.search(
+                query=settings.query,
+                search_terms=search_terms,
+                limit=settings.limit * 3,
+            )
+        except Exception as exc:  # noqa: BLE001
+            fallback_reason = f"connector_error:{type(exc).__name__}"
+
+        if not findings and self.web_research_mode == "real":
+            fallback_reason = fallback_reason or "empty_real_results"
+            connector_mode_used = "mock-fallback"
+            findings = MockWebResearchConnector().search(
+                query=settings.query,
+                search_terms=search_terms,
+                limit=settings.limit * 2,
+            )
+
+        sources = self._build_sources(findings, settings.query)
+        return {
+            "web_research_results": findings,
+            "sources": sources,
+            "search_terms": search_terms,
+            "web_research_meta": {
+                "requested_mode": self.web_research_mode,
+                "connector_mode_used": connector_mode_used,
+                "timeout_seconds": self.timeout_seconds,
+                "fallback_reason": fallback_reason,
+                "result_count": len(findings),
+            },
+        }
+
+    @staticmethod
+    def _build_search_terms(query: str, expanded_terms: list[str]) -> list[str]:
+        core_terms = [
+            query,
+            "rio tietê",
+            "reservatório de jupiá",
+            "são paulo três lagoas",
+            "uso da terra",
+            "desmatamento",
+            "queimadas",
+            "relevo",
+            "hidrologia",
+            "qualidade da água",
+            "esgoto",
+            "resíduos",
+            "sedimentos",
+            "material orgânico",
+            "ocupação urbana",
+            "meteorologia",
+            "artigos científicos",
+            "relatórios técnicos",
         ]
-        return {"sources": sources}
+        return list(dict.fromkeys(core_terms + expanded_terms))
+
+    @staticmethod
+    def _build_sources(findings: list[WebResearchResultRecord], query: str) -> list[ResearchSourceRecord]:
+        sources: list[ResearchSourceRecord] = []
+        seen_ids: set[str] = set()
+
+        for item in findings:
+            if item.source_id in seen_ids:
+                continue
+
+            if item.source_type == "primary_data_portal":
+                priority = "high"
+            elif item.source_type == "institutional_documentation":
+                priority = "medium"
+            else:
+                priority = "medium"
+
+            sources.append(
+                ResearchSourceRecord(
+                    source_id=item.source_id,
+                    name=item.publisher_or_org,
+                    base_url=item.source_url,
+                    source_type=item.source_type,
+                    citation=item.source_title,
+                    query=query,
+                    priority=priority,
+                    methodological_note=item.evidence_notes,
+                )
+            )
+            seen_ids.add(item.source_id)
+
+        return sources
