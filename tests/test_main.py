@@ -35,6 +35,7 @@ def test_dry_run_pipeline_outputs_consistent_mock_structure() -> None:
     catalog = json.loads((latest_run / "catalog.json").read_text(encoding="utf-8"))
 
     assert scout["web_research_results"]
+    assert "discarded_irrelevant_count" in scout["web_research_meta"]
     source_types = {item["source_type"] for item in scout["web_research_results"]}
     assert {"primary_data_portal", "academic_literature", "institutional_documentation"}.issubset(
         source_types
@@ -68,6 +69,9 @@ def test_dry_run_pipeline_outputs_consistent_mock_structure() -> None:
     assert {"ANA", "Hidroweb", "MapBiomas"}.issubset(source_names)
 
     for row in catalog["datasets"]:
+        assert row["source_class"] in {"analytical_data_source", "scientific_knowledge_source"}
+        assert isinstance(row["source_roles"], list)
+        assert row["data_extractability"] in {"high", "medium", "low", "unknown"}
         assert 0.0 <= row["relevance_score"] <= 1.0
         assert 0.0 <= row["confidence"] <= 1.0
         assert row["priority"] in {"critical", "high", "medium", "low", "discard"}

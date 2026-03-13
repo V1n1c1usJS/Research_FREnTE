@@ -17,6 +17,25 @@ O `ResearchScoutAgent` está preparado para pesquisa aberta (web discovery) sem 
 - aplica construção de consultas específicas + filtro de irrelevância (filmes, restaurantes, marcas e páginas genéricas).
 - prioriza domínios institucionais/acadêmicos e registra descarte por irrelevância em `web_research_meta.discarded_irrelevant_count`.
 
+
+## Classificação formal de fontes (novo)
+
+O pipeline agora distingue duas classes principais de fonte:
+
+- `analytical_data_source`: fonte com dados utilizáveis diretamente em análise (exportação estruturada, histórico e/ou extração controlada).
+- `scientific_knowledge_source`: fonte de conhecimento científico/metodológico (artigos, revisões, relatórios técnicos, teses).
+
+Campos adicionados em scout/normalização/catálogo:
+- `source_class` (classe principal única)
+- `source_roles` (papéis híbridos)
+- `data_extractability`
+- `historical_records_available`
+- `structured_export_available`
+- `scientific_value`
+- `recommended_pipeline_use`
+
+A classificação é inferida no `ResearchScoutAgent`, preservada no `NormalizationAgent`, usada no `RelevanceAgent` com critérios específicos por tipo e exibida em seções separadas no `ReportAgent`.
+
 ## Query expansion (novo)
 
 O `QueryExpansionAgent` agora recebe `web_research_results` do `ResearchScoutAgent` e:
@@ -107,6 +126,12 @@ reports/
 tests/
 ```
 
+## Formatos padrão do pipeline
+
+- **JSON** é o formato nativo de comunicação entre agentes e artefatos intermediários.
+- **Markdown** é reservado para consumo humano (relatórios finais em `reports/`).
+- **YAML** é o formato padrão dos system prompts dos agentes (`prompts/*.yaml`).
+
 ## Execução
 
 ### Dry-run
@@ -135,7 +160,7 @@ python -m src.main export --catalog data/runs/<run_id>/catalog.json --output rep
 
 ## Artefatos
 
-- `data/runs/<run_id>/01_research-scout.json`: achados de pesquisa aberta (`web_research_results` + `sources`) e `web_research_meta` (modo, timeout, fallback).
+- `data/runs/<run_id>/01_research-scout.json`: achados de pesquisa aberta (`web_research_results`, `web_research_results_raw`, `web_research_results_discarded`, `web_research_results_kept`, `sources`) e `web_research_meta` (modo, timeout, status de recuperação).
 - `data/runs/<run_id>/02_query-expansion.json`: expansões de consulta e queries geradas.
 - `data/runs/<run_id>/03_dataset-discovery.json`: candidatos consolidados (`dataset_candidates`), `preliminary_catalog` (origem/confiança/verificabilidade) e relatório simples de evidências.
 - `data/runs/<run_id>/06_access.json`: catálogo com classificação de acesso, links e observações de extração.
@@ -149,8 +174,15 @@ python -m src.main export --catalog data/runs/<run_id>/catalog.json --output rep
 - Adicionar normalização de metadados por conector em `src/connectors/`.
 - Evoluir o `QueryExpansionAgent` com ranking semântico de termos por domínio.
 
+## Status de recuperação no `ResearchScoutAgent`
+
+- `no_results`: o conector real não retornou resultados úteis (ou houve erro de rede/timeout). O pipeline permanece em modo real.
+- `all_filtered`: houve resultados reais, mas todos foram descartados por irrelevância após filtro/ranking. O pipeline permanece em modo real e registra os descartes.
+- `low_recall`: houve resultados reais válidos, mas em quantidade baixa após filtragem. O pipeline permanece em modo real.
+- `mock_fallback`: uso de dados mock (dry-run ou modo `--web-mode mock`).
+
 ## Limitações atuais
 
-- O conector real inicial é de triagem geral (DuckDuckGo Instant Answer), podendo retornar cobertura limitada para consultas especializadas.
-- Em falha/timeout/resultado vazio no modo real, há fallback automático para mock para preservar execução.
+- O conector real inicial é de triagem geral (DuckDuckGo + fallback HTML), podendo retornar cobertura limitada para consultas especializadas.
+- Em `--web-mode real`, não há substituição silenciosa por mock quando ocorre baixa recuperação (`all_filtered`/`low_recall`).
 - Dry-run sempre usa dados mock plausíveis; não representa consulta em tempo real.

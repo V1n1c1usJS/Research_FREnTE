@@ -9,7 +9,7 @@ from src.agents.base import BaseAgent
 
 class ExtractionPlanAgent(BaseAgent):
     name = "extraction-plan"
-    prompt_filename = "extraction_plan_agent.txt"
+    prompt_filename = "extraction_plan_agent.yaml"
 
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()

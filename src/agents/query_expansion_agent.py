@@ -10,7 +10,7 @@ from src.schemas.records import QueryExpansionRecord
 
 class QueryExpansionAgent(BaseLLMAgent):
     name = "query-expansion"
-    prompt_filename = "query_expansion_agent.txt"
+    prompt_filename = "query_expansion_agent.yaml"
 
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.build_prompt(context)

@@ -9,7 +9,7 @@ from src.agents.base import BaseAgent
 
 class AccessAgent(BaseAgent):
     name = "access"
-    prompt_filename = "access_agent.txt"
+    prompt_filename = "access_agent.yaml"
 
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()

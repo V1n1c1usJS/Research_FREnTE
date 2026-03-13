@@ -9,7 +9,7 @@ from src.agents.base import BaseAgent
 
 class RelevanceAgent(BaseAgent):
     name = "relevance"
-    prompt_filename = "relevance_agent.txt"
+    prompt_filename = "relevance_agent.yaml"
 
     # Pesos explícitos (somam 1.0) para saída auditável/reproduzível.
     CRITERIA_WEIGHTS = {
@@ -121,19 +121,44 @@ class RelevanceAgent(BaseAgent):
         pressure = 1.0 if pool & {t.lower() for t in self.PRESSURE_TERMS} else 0.2
         physical = 1.0 if pool & {t.lower() for t in self.PHYSICAL_TERMS} else 0.2
         response = 1.0 if pool & {t.lower() for t in self.RESPONSE_TERMS} else 0.2
-        # Distinção explícita entre pressão antrópica, contexto físico e resposta ambiental.
-        return round((pressure + physical + response) / 3, 3)
+        base = (pressure + physical + response) / 3
+
+        if dataset.source_class == "scientific_knowledge_source":
+            methodological_bonus = 0.25 if any(
+                token in " ".join(dataset.methodological_notes).lower()
+                for token in ["métod", "method", "review", "artigo", "tese", "literatura"]
+            ) else 0.0
+            citation_discovery_bonus = 0.2 if "dataset_discovery_from_citations" in dataset.recommended_pipeline_use else 0.0
+            return round(min(base + methodological_bonus + citation_discovery_bonus, 1.0), 3)
+
+        return round(base, 3)
 
     @staticmethod
     def _score_data_readiness(dataset: Any) -> float:
+        if dataset.source_class == "scientific_knowledge_source":
+            score = 0.2
+            if dataset.scientific_value == "high":
+                score += 0.45
+            elif dataset.scientific_value == "medium":
+                score += 0.3
+            if "dataset_discovery_from_citations" in dataset.recommended_pipeline_use:
+                score += 0.2
+            if dataset.entity_type in {"documentation", "academic_source"}:
+                score += 0.1
+            return round(min(score, 1.0), 3)
+
         score = 0.0
         structured_formats = {"csv", "xlsx", "parquet", "netcdf", "geotiff", "json"}
         if set(f.lower() for f in dataset.formats) & structured_formats:
-            score += 0.5
-        if dataset.update_frequency != "não informado":
+            score += 0.35
+        if dataset.structured_export_available is True:
             score += 0.25
-        if dataset.entity_type == "dataset":
-            score += 0.25
+        if dataset.historical_records_available is True:
+            score += 0.2
+        if dataset.data_extractability == "high":
+            score += 0.2
+        elif dataset.data_extractability == "medium":
+            score += 0.1
         return round(min(score, 1.0), 3)
 
     @staticmethod

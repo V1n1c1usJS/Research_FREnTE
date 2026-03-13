@@ -10,7 +10,7 @@ from src.schemas.records import DatasetRecord
 
 class NormalizationAgent(BaseAgent):
     name = "normalization"
-    prompt_filename = "normalization_agent.txt"
+    prompt_filename = "normalization_agent.yaml"
 
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()
@@ -43,6 +43,13 @@ class NormalizationAgent(BaseAgent):
                     "temporal_coverage": candidate.temporal_coverage,
                     "spatial_coverage": candidate.geographic_scope,
                     "update_frequency": candidate.update_frequency,
+                    "source_class_votes": [],
+                    "source_roles": set(),
+                    "data_extractability_votes": [],
+                    "historical_records_flags": [],
+                    "structured_export_flags": [],
+                    "scientific_value_votes": [],
+                    "recommended_pipeline_use": set(),
                 }
 
             bucket = buckets[key]
@@ -59,6 +66,28 @@ class NormalizationAgent(BaseAgent):
 
             for source_id in candidate.source_ids:
                 finding = findings_by_source.get(source_id)
+                source = source_lookup.get(source_id)
+                if finding:
+                    bucket["source_class_votes"].append(finding.source_class)
+                    bucket["source_roles"].update(finding.source_roles)
+                    bucket["data_extractability_votes"].append(finding.data_extractability)
+                    if finding.historical_records_available is not None:
+                        bucket["historical_records_flags"].append(finding.historical_records_available)
+                    if finding.structured_export_available is not None:
+                        bucket["structured_export_flags"].append(finding.structured_export_available)
+                    bucket["scientific_value_votes"].append(finding.scientific_value)
+                    bucket["recommended_pipeline_use"].update(finding.recommended_pipeline_use)
+                if source:
+                    bucket["source_class_votes"].append(source.source_class)
+                    bucket["source_roles"].update(source.source_roles)
+                    bucket["data_extractability_votes"].append(source.data_extractability)
+                    if source.historical_records_available is not None:
+                        bucket["historical_records_flags"].append(source.historical_records_available)
+                    if source.structured_export_available is not None:
+                        bucket["structured_export_flags"].append(source.structured_export_available)
+                    bucket["scientific_value_votes"].append(source.scientific_value)
+                    bucket["recommended_pipeline_use"].update(source.recommended_pipeline_use)
+
                 bucket["provenance"].append(
                     {
                         "source_id": source_id,
@@ -83,6 +112,12 @@ class NormalizationAgent(BaseAgent):
             )
             confidence = round(sum(bucket["confidence_values"]) / len(bucket["confidence_values"]), 2)
 
+            source_class = self._majority_choice(bucket["source_class_votes"], default="analytical_data_source")
+            data_extractability = self._majority_choice(bucket["data_extractability_votes"], default="unknown")
+            scientific_value = self._majority_choice(bucket["scientific_value_votes"], default="medium")
+            hist = self._bool_vote(bucket["historical_records_flags"])
+            structured = self._bool_vote(bucket["structured_export_flags"])
+
             normalized.append(
                 DatasetRecord(
                     dataset_id=f"norm-{idx:03d}",
@@ -94,6 +129,13 @@ class NormalizationAgent(BaseAgent):
                     source_id=primary_source_id,
                     source_name=source.name if source else "Fonte não identificada",
                     source_url=source_url,
+                    source_class=source_class,
+                    source_roles=sorted(bucket["source_roles"]),
+                    data_extractability=data_extractability,
+                    historical_records_available=hist,
+                    structured_export_available=structured,
+                    scientific_value=scientific_value,
+                    recommended_pipeline_use=sorted(bucket["recommended_pipeline_use"]),
                     organization_normalized=self._normalize_organization(source.name if source else ""),
                     dataset_kind=bucket["entity_type"],
                     temporal_coverage=bucket["temporal_coverage"],
@@ -126,6 +168,23 @@ class NormalizationAgent(BaseAgent):
             alias_part = "|".join(normalized_aliases)
             return f"name::{normalized_name}::aliases::{alias_part}"
         return f"name::{normalized_name}"
+
+
+    @staticmethod
+    def _majority_choice(values: list[str], default: str) -> str:
+        if not values:
+            return default
+        counts: dict[str, int] = {}
+        for value in values:
+            counts[value] = counts.get(value, 0) + 1
+        return sorted(counts.items(), key=lambda item: item[1], reverse=True)[0][0]
+
+    @staticmethod
+    def _bool_vote(values: list[bool]) -> bool | None:
+        if not values:
+            return None
+        positives = sum(1 for value in values if value)
+        return positives >= (len(values) / 2)
 
     @staticmethod
     def _normalize_organization(org_name: str) -> str:

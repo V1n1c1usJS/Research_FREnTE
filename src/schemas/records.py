@@ -19,6 +19,13 @@ class DatasetRecord(BaseModel):
     source_id: str
     source_name: str
     source_url: str
+    source_class: str = "analytical_data_source"
+    source_roles: list[str] = Field(default_factory=list)
+    data_extractability: str = "unknown"
+    historical_records_available: bool | None = None
+    structured_export_available: bool | None = None
+    scientific_value: str = "medium"
+    recommended_pipeline_use: list[str] = Field(default_factory=list)
     organization_normalized: str = ""
     source_inspiration_note: str = "Mock inspirado em fonte plausível; não consultado em tempo real."
     dataset_kind: str = "environmental"
@@ -88,6 +95,13 @@ class ResearchSourceRecord(BaseModel):
     source_type: str
     citation: str
     query: str
+    source_class: str = "scientific_knowledge_source"
+    source_roles: list[str] = Field(default_factory=list)
+    data_extractability: str = "unknown"
+    historical_records_available: bool | None = None
+    structured_export_available: bool | None = None
+    scientific_value: str = "medium"
+    recommended_pipeline_use: list[str] = Field(default_factory=list)
     priority: str = "medium"
     methodological_note: str = "Fonte incluída como inspiração estrutural para dry-run."
     discovered_at: datetime = Field(default_factory=datetime.utcnow)
@@ -110,6 +124,13 @@ class WebResearchResultRecord(BaseModel):
     citations: list[str] = Field(default_factory=list)
     confidence: float = Field(default=0.5, ge=0.0, le=1.0)
     relevance_hint: float = Field(default=0.0, ge=0.0, le=1.0)
+    source_class: str = "scientific_knowledge_source"
+    source_roles: list[str] = Field(default_factory=list)
+    data_extractability: str = "unknown"
+    historical_records_available: bool | None = None
+    structured_export_available: bool | None = None
+    scientific_value: str = "medium"
+    recommended_pipeline_use: list[str] = Field(default_factory=list)
 
 
 class QueryExpansionRecord(BaseModel):

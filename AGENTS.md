@@ -40,7 +40,7 @@ Agentes planejados (modulares e evolutivos):
 
 ## 4) Regras de implementação
 - Usar **Pydantic** para definição e validação de schemas.
-- Organizar prompts em arquivos separados no diretório `prompts/`.
+- Organizar prompts em arquivos YAML no diretório `prompts/` (`*.yaml`).
 - Garantir execução por CLI (ex.: `python -m src.main`).
 - Incluir testes básicos para cada etapa principal.
 - Preparar e manter modo **dry-run** com mocks/stubs para integrações externas.
@@ -67,3 +67,9 @@ Agentes planejados (modulares e evolutivos):
 - Modo mock obrigatório para dry-run (`MockWebResearchConnector`).
 - Conector real inicial desacoplado (`DuckDuckGoWebResearchConnector`), com timeout e fallback para mock no `ResearchScoutAgent`.
 - Persistir evidências de execução (`web_research_meta`) nos artefatos do run para auditoria.
+
+
+## 8) Formatos de comunicação
+- Comunicação entre agentes e artefatos intermediários: **JSON**.
+- Relatório final para humanos: **Markdown**.
+- System prompts dos agentes: **YAML** em `prompts/`.

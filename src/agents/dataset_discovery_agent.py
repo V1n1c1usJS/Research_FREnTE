@@ -13,7 +13,7 @@ from src.schemas.records import DatasetCandidate
 
 class DatasetDiscoveryAgent(BaseAgent):
     name = "dataset-discovery"
-    prompt_filename = "dataset_discovery_agent.txt"
+    prompt_filename = "dataset_discovery_agent.yaml"
 
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()

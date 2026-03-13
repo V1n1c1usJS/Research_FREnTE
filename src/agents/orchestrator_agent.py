@@ -24,7 +24,7 @@ from src.utils.prompts import load_prompt
 class OrchestratorAgent:
     """Executa os agentes em sequência e salva artefatos rastreáveis."""
 
-    prompt_filename = "orchestrator_agent.txt"
+    prompt_filename = "orchestrator_agent.yaml"
 
     def __init__(self, settings: PipelineSettings) -> None:
         self.settings = settings

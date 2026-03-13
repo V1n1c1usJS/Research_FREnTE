@@ -1,16 +1,28 @@
-# Prompts
+# Prompts de sistema (YAML)
 
-Prompts de sistema versionados por agente.
+Todos os prompts de sistema dos agentes ficam neste diretório em **YAML**.
 
 Arquivos atuais:
-- `research_scout_agent.txt`
-- `query_expansion_agent.txt`
-- `dataset_discovery_agent.txt`
-- `normalization_agent.txt`
-- `relevance_agent.txt`
-- `access_agent.txt`
-- `extraction_plan_agent.txt`
-- `report_agent.txt`
-- `orchestrator_agent.txt`
+- `research_scout_agent.yaml`
+- `query_expansion_agent.yaml`
+- `dataset_discovery_agent.yaml`
+- `normalization_agent.yaml`
+- `relevance_agent.yaml`
+- `access_agent.yaml`
+- `extraction_plan_agent.yaml`
+- `report_agent.yaml`
+- `orchestrator_agent.yaml`
 
-Todos os prompts devem preservar: foco geográfico, prioridade por fontes oficiais/acadêmicas, proibição de invenção de dados e saída estruturada.
+Estrutura YAML padrão esperada pelo loader:
+- `agent.name`
+- `agent.version`
+- `agent.role`
+- `objective`
+- `context`
+- `input`
+- `output`
+- `rules`
+- `classification`
+- `runtime`
+
+O loader valida campos obrigatórios e monta o prompt textual consumível pela LLM.
