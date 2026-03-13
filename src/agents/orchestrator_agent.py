@@ -17,7 +17,7 @@ from src.agents.report_agent import ReportAgent
 from src.agents.research_scout_agent import ResearchScoutAgent
 from src.schemas.records import PipelineRunMetadata
 from src.schemas.settings import PipelineSettings
-from src.utils.io import ensure_dir, write_catalog_csv, write_json, write_markdown
+from src.utils.io import ensure_dir, write_json, write_markdown
 from src.utils.prompts import load_prompt
 
 
@@ -81,24 +81,6 @@ class OrchestratorAgent:
         write_json(catalog_path, context["catalog_export"].model_dump(mode="json"))
         metadata.intermediate_files.append(str(catalog_path))
 
-        export_path = Path("reports") / f"{run_id}.csv"
-        rows = [
-            {
-                "dataset_id": d.dataset_id,
-                "title": d.title,
-                "source_name": d.source_name,
-                "source_url": d.source_url,
-                "relevance_score": d.relevance_score,
-                "access_level": d.access_level,
-                "priority": d.priority,
-                "dataset_kind": d.dataset_kind,
-                "methodological_note": " | ".join(d.methodological_notes[:1]),
-            }
-            for d in context["datasets"]
-        ]
-        write_catalog_csv(export_path, rows)
-        metadata.export_file = str(export_path)
-
         metadata.finished_at = datetime.utcnow()
         metadata.status = "completed"
         metadata_path = run_dir / "run_metadata.json"
@@ -108,7 +90,6 @@ class OrchestratorAgent:
             "run_id": run_id,
             "report_path": str(report_path),
             "catalog_path": str(catalog_path),
-            "export_path": str(export_path),
             "metadata_path": str(metadata_path),
             "dataset_count": len(context["datasets"]),
         }

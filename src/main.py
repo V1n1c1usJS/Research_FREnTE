@@ -70,7 +70,6 @@ def run(argv: list[str] | None = None) -> int:
     print(f"Datasets: {result['dataset_count']}")
     print(f"Report: {result['report_path']}")
     print(f"Catalog: {result['catalog_path']}")
-    print(f"CSV: {result['export_path']}")
     return 0
 
 

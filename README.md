@@ -152,12 +152,6 @@ python -m src.main run --query "qualidade da água" --limit 7 --web-mode mock
 python -m src.main run --query "qualidade da água" --limit 7 --web-mode real --web-timeout 8
 ```
 
-### Exportação CSV
-
-```bash
-python -m src.main export --catalog data/runs/<run_id>/catalog.json --output reports/<run_id>.csv
-```
-
 ## Artefatos
 
 - `data/runs/<run_id>/01_research-scout.json`: achados de pesquisa aberta (`web_research_results`, `web_research_results_raw`, `web_research_results_discarded`, `web_research_results_kept`, `sources`) e `web_research_meta` (modo, timeout, status de recuperação).
@@ -166,7 +160,6 @@ python -m src.main export --catalog data/runs/<run_id>/catalog.json --output rep
 - `data/runs/<run_id>/06_access.json`: catálogo com classificação de acesso, links e observações de extração.
 - `data/runs/<run_id>/catalog.json`: catálogo consolidado.
 - `reports/<run_id>.md`: relatório de execução.
-- `reports/<run_id>.csv`: export tabular.
 
 ## Pontos de extensão
 
