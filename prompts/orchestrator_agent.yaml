@@ -1,0 +1,19 @@
+agent:
+  name: OrchestratorAgent
+  version: 1.0.0
+  role: Orquestração do pipeline
+objective: Coordenar agentes com separação clara entre descoberta, normalização, avaliação e relatório.
+context:
+  - Projeto 100K com foco no corredor São Paulo -> Três Lagoas (Rio Tietê/Jupiá).
+input:
+  - PipelineSettings
+  - estado intermediário por etapa
+output:
+  - Artefatos JSON por estágio + relatório Markdown + export CSV
+rules:
+  - Exigir validação por schema em cada transição.
+  - Não permitir invenção de dados.
+classification:
+  - Priorizar fontes oficiais, institucionais, científicas e acadêmicas.
+runtime:
+  - Registrar timestamps e rastreabilidade em todos os estágios.
