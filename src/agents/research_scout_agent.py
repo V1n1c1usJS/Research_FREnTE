@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 
 from src.agents.base import BaseAgent
 from src.connectors.web_research import (
+    BingWebResearchConnector,
     DuckDuckGoWebResearchConnector,
     MockWebResearchConnector,
     WebResearchConnector,
@@ -117,6 +118,11 @@ class ResearchScoutAgent(BaseAgent):
         self.web_research_mode = web_research_mode
         self.timeout_seconds = timeout_seconds
         self.connector = connector or self._build_connector()
+        self.secondary_connector = (
+            BingWebResearchConnector(timeout_seconds=self.timeout_seconds)
+            if self.web_research_mode == "real" and connector is None
+            else None
+        )
 
     def _build_connector(self) -> WebResearchConnector:
         if self.web_research_mode == "real":
@@ -143,6 +149,23 @@ class ResearchScoutAgent(BaseAgent):
             )
         except Exception as exc:  # noqa: BLE001
             fallback_reason = f"connector_error:{type(exc).__name__}"
+
+        if self.web_research_mode == "real" and self.secondary_connector is not None:
+            try:
+                secondary_findings = self.secondary_connector.search(
+                    query=settings.query,
+                    search_terms=search_terms,
+                    limit=settings.limit * 3,
+                )
+            except Exception:  # noqa: BLE001
+                secondary_findings = []
+
+            if secondary_findings:
+                existing_urls = {item.source_url for item in findings}
+                for candidate in secondary_findings:
+                    if candidate.source_url not in existing_urls:
+                        findings.append(candidate)
+                        existing_urls.add(candidate.source_url)
 
         if not findings and self.web_research_mode == "mock":
             findings = MockWebResearchConnector().search(
@@ -285,7 +308,7 @@ class ResearchScoutAgent(BaseAgent):
 
             tier = cls._domain_tier(item.source_url)
             score = cls._relevance_score(item)
-            threshold = 0.65 if tier == 3 else 0.45 if tier == 2 else 0.30
+            threshold = 0.52 if tier == 3 else 0.38 if tier == 2 else 0.26
             if score < threshold:
                 discarded.append(
                     {
@@ -297,7 +320,7 @@ class ResearchScoutAgent(BaseAgent):
                 )
                 continue
 
-            if tier == 3 and not cls._has_strong_thematic_signal(item):
+            if tier == 3 and cls._relevance_score(item) < 0.58 and not cls._has_strong_thematic_signal(item):
                 discarded.append(
                     {
                         "source_id": item.source_id,
