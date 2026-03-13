@@ -361,15 +361,18 @@ class DuckDuckGoWebResearchConnector(WebResearchConnector):
             search_terms_extracted=[term],
             citations=[source_url],
             confidence=0.55,
+            relevance_hint=0.15,
         )
 
     @staticmethod
     def _infer_source_type(source_url: str) -> str:
-        host = urlparse(source_url).netloc.lower()
-        if ".gov" in host:
-            return "institutional_documentation"
-        if any(token in host for token in ["scielo", "springer", "elsevier", "wiley", "periodicos", "doi"]):
+        host = urlparse(source_url).netloc.lower().replace("www.", "")
+        if any(token in host for token in ["scielo", "springer", "elsevier", "wiley", "periodicos", "doi.org"]):
             return "academic_literature"
+        if any(token in host for token in ["snirh.gov.br", "mapbiomas.org", "ibge.gov.br", "inpe.br"]):
+            return "primary_data_portal"
+        if ".gov" in host or host.endswith("gov.br"):
+            return "institutional_documentation"
         return "web_result"
 
     @staticmethod

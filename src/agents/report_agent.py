@@ -18,6 +18,7 @@ class ReportAgent(BaseAgent):
         sources = context["sources"]
         extraction_plan = context["extraction_plan"]
         settings = context["settings"]
+        web_meta = context.get("web_research_meta", {})
 
         literature = [d for d in datasets if d.dataset_kind == "literature"]
         data_catalog = [d for d in datasets if d.dataset_kind != "literature"]
@@ -30,6 +31,7 @@ class ReportAgent(BaseAgent):
             "- Nenhuma fonte foi consultada em tempo real nesta execução.",
             f"- Query: `{settings.query}`",
             f"- Total de registros simulados: `{len(datasets)}`",
+            f"- Resultados de pesquisa descartados por irrelevância: `{web_meta.get('discarded_irrelevant_count', 0)}`",
             "",
             "## Descoberta de datasets",
         ]

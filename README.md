@@ -14,6 +14,8 @@ O `ResearchScoutAgent` está preparado para pesquisa aberta (web discovery) sem 
 - suporta modo `mock` (`MockWebResearchConnector`) com achados realistas e auditáveis;
 - possui modo real inicial (`DuckDuckGoWebResearchConnector`) e alias de compatibilidade (`PreparedWebResearchConnector`), sem acoplamento a um único portal;
 - retorna resultados estruturados (`WebResearchResultRecord`) com URL, evidência, variáveis e confiança.
+- aplica construção de consultas específicas + filtro de irrelevância (filmes, restaurantes, marcas e páginas genéricas).
+- prioriza domínios institucionais/acadêmicos e registra descarte por irrelevância em `web_research_meta.discarded_irrelevant_count`.
 
 ## Query expansion (novo)
 

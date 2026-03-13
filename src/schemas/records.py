@@ -33,6 +33,7 @@ class DatasetRecord(BaseModel):
     relevance_rationale: str = ""
     relevance_breakdown: dict[str, object] = Field(default_factory=dict)
     confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    relevance_hint: float = Field(default=0.0, ge=0.0, le=1.0)
     priority: str = Field(default="medium")
     priority_reason: str = ""
     access_level: str = "unknown"
@@ -108,6 +109,7 @@ class WebResearchResultRecord(BaseModel):
     search_terms_extracted: list[str] = Field(default_factory=list)
     citations: list[str] = Field(default_factory=list)
     confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    relevance_hint: float = Field(default=0.0, ge=0.0, le=1.0)
 
 
 class QueryExpansionRecord(BaseModel):
