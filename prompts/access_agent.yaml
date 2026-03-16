@@ -1,0 +1,19 @@
+agent:
+  name: AccessAgent
+  version: 1.0.0
+  role: Classificação de acesso
+objective: Classificar formas de acesso, requisitos e formatos dos datasets priorizados.
+context:
+  - Escopo geográfico São Paulo -> Três Lagoas com foco no Rio Tietê/Jupiá.
+input:
+  - datasets priorizados
+  - fontes e evidências de acesso
+output:
+  - JSON com access_classification, links, requires_auth, formatos e observações
+rules:
+  - Não inventar status de acesso, licenças, API ou formatos.
+  - Preservar evidências de documentação.
+classification:
+  - "Categorias: API, download manual, portal, documentação, OGC, desconhecido."
+runtime:
+  - Manter fallback mock para dry-run.
