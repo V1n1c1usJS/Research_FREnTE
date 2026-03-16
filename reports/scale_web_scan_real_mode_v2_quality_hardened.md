@@ -1,51 +1,52 @@
-# Varredura web em escala (modo real) - Qualidade endurecida (re-run)
+# Varredura web em escala (modo real) - Qualidade endurecida
 
-- Consolidado JSON: `data/runs/scale_web_scan_real_mode_v2_quality_hardened.json`
-- CSV final: `reports/scale_web_scan_real_mode_v2_quality_hardened.csv`
-- Lotes executados: `14`
+- Arquivo consolidado JSON: `data/runs/scale_web_scan_real_mode_v2_quality_hardened.json`
+- Total de lotes: `14`
 - Status de recuperação: `{'low_recall': 14}`
-- Totais raw/descartados/mantidos: `695` / `663` / `32`
-- Fontes únicas após deduplicação: `6`
-- source_class_totals: `{'scientific_knowledge_source': 14, 'analytical_data_source': 18}`
+- Totais (raw/descartados/mantidos): `826` / `724` / `78`
+- Fontes únicas após deduplicação: `12`
+- Failed quality gate runs: `2`
 
-## Antes vs Depois
-- Antes (`reports/scale_web_scan_real_mode.md`): forte ruído irrelevante com classificação desequilibrada.
-- Depois (este re-run): filtros negativos e tiers reduziram ruído; execução manteve modo real em todos os lotes.
-- Resultado: houve recuperação útil (`low_recall`), com separação entre fontes analíticas e científicas.
+## Before vs After
+- Before: `reports/scale_web_scan_real_mode.md` mostrou domínio de resultados irrelevantes e `analytical_data_source=0`.
+- After: esta execução aplica hardening de consulta, tiers de domínio, filtro negativo forte e quality gates por lote.
 
-## Top domínios encontrados
-- gov.br: 14
-- www3.inpe.br: 14
-- docs.microsoft.com: 2
-- testberichte.de: 1
-- apps.microsoft.com: 1
+## Analytical vs Scientific
+- source_class_totals: `{'scientific_knowledge_source': 12, 'analytical_data_source': 66}`
 
-## Top fontes por relevância/evidência
-- INPE - Instituto Nacional de Pesquisas Espaciais | https://www.gov.br/inpe/pt-br | class=scientific_knowledge_source | type=institutional_documentation | confidence=0.55 | evidence_count=14
-- 50 years INPE - National Institute for Space Research | http://www3.inpe.br/50anos/english/presentation.php | class=analytical_data_source | type=primary_data_portal | confidence=0.55 | evidence_count=14
-- Fotodrucker Vergleich: Papierwahl beeinflusst Druckqualit&#228;t | https://www.testberichte.de/testsieger/level3_drucker_fotodrucker_181.html | class=analytical_data_source | type=web_result | confidence=0.55 | evidence_count=1
-- Destiny Item Manager (DIM) - Free download and install on Windows ... | https://apps.microsoft.com/detail/9p8q2xrw9cv7 | class=analytical_data_source | type=web_result | confidence=0.55 | evidence_count=1
-- Microsoft Learn - in dynamics365-business-central-192 | https://docs.microsoft.com/api/search/rss?locale=en-us&$filter=scopes/any(t:%20t%20eq%20%27dynamics365-business-central-192%27) | class=analytical_data_source | type=web_result | confidence=0.55 | evidence_count=1
-- Microsoft Learn - in dynamics365-customer-service-192 | https://docs.microsoft.com/api/search/rss?locale=en-us&$filter=scopes%2Fany(t%3A%20t%20eq%20%27dynamics365-customer-service-192%27) | class=analytical_data_source | type=web_result | confidence=0.55 | evidence_count=1
+## Top domínios
+- sigrh.sp.gov.br: 12
+- mapbiomas.org: 12
+- plataforma.brasil.mapbiomas.org: 12
+- brasil.mapbiomas.org: 12
+- www3.inpe.br: 12
+- weforum.org: 12
+- turbotax.community.intuit.ca: 1
+- freesolitaire.com: 1
+- microsoft.com: 1
+- microsoft-excel-preview.en.uptodown.com: 1
+- gizmodo.com: 1
+- healthcare.gov: 1
 
-## Cobertura por tema (mantidos)
-- hidrologia: kept=2 | raw=50 | discarded=48 | mode=real | status=low_recall
-- qualidade da água: kept=2 | raw=50 | discarded=48 | mode=real | status=low_recall
-- uso da terra: kept=2 | raw=47 | discarded=45 | mode=real | status=low_recall
-- desmatamento: kept=3 | raw=50 | discarded=47 | mode=real | status=low_recall
-- queimadas: kept=3 | raw=50 | discarded=47 | mode=real | status=low_recall
-- saneamento e esgoto: kept=2 | raw=50 | discarded=48 | mode=real | status=low_recall
-- resíduos e lixo: kept=2 | raw=55 | discarded=53 | mode=real | status=low_recall
-- relevo: kept=2 | raw=50 | discarded=48 | mode=real | status=low_recall
-- reservatórios: kept=2 | raw=50 | discarded=48 | mode=real | status=low_recall
-- limites hidrográficos: kept=4 | raw=50 | discarded=46 | mode=real | status=low_recall
-- sedimentos: kept=2 | raw=47 | discarded=45 | mode=real | status=low_recall
-- material orgânico: kept=2 | raw=46 | discarded=44 | mode=real | status=low_recall
-- meteorologia: kept=2 | raw=50 | discarded=48 | mode=real | status=low_recall
-- ocupação urbana: kept=2 | raw=50 | discarded=48 | mode=real | status=low_recall
+## Estatísticas por lote
+- hidrologia | run=run-ae09554a | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=52 | kept=8
+- qualidade da água | run=run-6d34e621 | mode=real | status=low_recall | quality_gate=passed | raw=56 | discarded=50 | kept=6
+- uso da terra | run=run-b41e5141 | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=54 | kept=6
+- desmatamento | run=run-1d81ba5d | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=54 | kept=6
+- queimadas | run=run-6551013a | mode=real | status=low_recall | quality_gate=passed | raw=53 | discarded=47 | kept=6
+- saneamento e esgoto | run=run-90a7488d | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=51 | kept=9
+- resíduos e lixo | run=run-1caed848 | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=54 | kept=6
+- relevo | run=run-8f792da7 | mode=real | status=low_recall | quality_gate=failed_quality_gate | raw=60 | discarded=49 | kept=0
+- reservatórios | run=run-4c5a2bc9 | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=54 | kept=6
+- limites hidrográficos | run=run-ee38c13a | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=54 | kept=6
+- sedimentos | run=run-ea1d0678 | mode=real | status=low_recall | quality_gate=passed | raw=61 | discarded=54 | kept=7
+- material orgânico | run=run-cf094e0a | mode=real | status=low_recall | quality_gate=passed | raw=60 | discarded=54 | kept=6
+- meteorologia | run=run-d9f6e369 | mode=real | status=low_recall | quality_gate=failed_quality_gate | raw=60 | discarded=47 | kept=0
+- ocupação urbana | run=run-dec0f16c | mode=real | status=low_recall | quality_gate=passed | raw=56 | discarded=50 | kept=6
 
-## Artefatos gerados por lote (JSON)
-- `data/runs/<run_id>/01_research-scout.json` (raw/discarded/kept + quality gate)
+## JSON outputs gerados
+- `data/runs/scale_web_scan_real_mode_v2_quality_hardened.json`
+- `data/runs/<run_id>/01_research-scout.json` (raw/discarded/kept + quality gate por lote)
 - `data/runs/<run_id>/02_query-expansion.json`
 - `data/runs/<run_id>/03_dataset-discovery.json`
 - `data/runs/<run_id>/04_normalization.json`
@@ -54,8 +55,3 @@
 - `data/runs/<run_id>/07_extraction-plan.json`
 - `data/runs/<run_id>/08_report.json`
 - `data/runs/<run_id>/catalog.json`
-
-## Gargalos e próximos ajustes antes de escalar mais
-- Recuperação ainda em `low_recall` em todos os lotes; ampliar multiconector e consultas por endpoint.
-- Refinar score semântico por campo (title/snippet/url) para premiar entidades ambientais e reduzir falsos positivos técnicos genéricos.
-- Expandir seeds analíticas (ANA/SNIRH/SIDRA/MapBiomas/INPE) com consultas por produto/dataset específico.
