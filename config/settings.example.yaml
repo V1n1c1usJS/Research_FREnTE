@@ -1,13 +1,25 @@
 project:
   name: "Research_FREnTE"
-  region_focus: "São Paulo -> Três Lagoas"
+  region_focus: "Sao Paulo -> Tres Lagoas"
 
 pipeline:
-  query: "impactos humanos no Rio Tietê"
+  query: "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua"
   limit: 10
-  dry_run: true
-  web_research_mode: "mock"  # mock | real
-  web_timeout_seconds: 8
+  dry_run: false
+  web_research_mode: "real"  # mock | real
+  web_timeout_seconds: 5
+
+llm:
+  mode: "auto"  # off | auto | openai | groq
+  model: "gpt-4.1-nano"
+  timeout_seconds: 60
+  temperature: 0.2
+  max_output_tokens: 1800
+  fail_on_error: false
+
+llm_test:
+  groq_mode: "groq"
+  groq_model: "groq/compound-mini"
 
 outputs:
   reports_dir: "reports/"

@@ -1,5 +1,11 @@
 """Conectores para fontes externas."""
 
+from src.connectors.llm import (
+    GroqResponsesConnector,
+    LLMConnector,
+    LLMConnectorError,
+    OpenAIResponsesConnector,
+)
 from src.connectors.web_research import (
     DuckDuckGoWebResearchConnector,
     MockWebResearchConnector,
@@ -8,6 +14,10 @@ from src.connectors.web_research import (
 )
 
 __all__ = [
+    "LLMConnector",
+    "LLMConnectorError",
+    "GroqResponsesConnector",
+    "OpenAIResponsesConnector",
     "WebResearchConnector",
     "MockWebResearchConnector",
     "DuckDuckGoWebResearchConnector",

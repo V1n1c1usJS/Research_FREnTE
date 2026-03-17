@@ -1,0 +1,93 @@
+{
+  "bootstrap_id": "real-init-2653813e",
+  "generated_at": "2026-03-17T22:03:41.282189+00:00",
+  "mode": "real-init",
+  "limit_per_run": 10,
+  "web_timeout_seconds": 5.0,
+  "seed_queries": [
+    "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua",
+    "Rio Tiete ANA Hidroweb vazao nivel chuva dados",
+    "Rio Tiete MapBiomas uso da terra cobertura do solo dados",
+    "Rio Tiete IBGE SIDRA indicadores territoriais dados",
+    "Rio Tiete SNIS agua esgoto saneamento dados",
+    "Reservatorio de Jupia hidrologia qualidade da agua dados",
+    "Rio Tiete INPE queimadas focos de calor dados",
+    "Rio Tiete SciELO artigos bases de dados qualidade da agua"
+  ],
+  "attempted_query_count": 8,
+  "run_count": 8,
+  "failed_query_count": 0,
+  "dataset_count": 0,
+  "manual_guides_count": 6,
+  "manual_guides_mode": "validated_seed_portals",
+  "manual_guides_path": "data\\initializations\\real-init-2653813e\\manual_research_guides.json",
+  "manual_guides_report_path": "reports\\real-init-2653813e-manual-guide.md",
+  "runs": [
+    {
+      "run_id": "run-97ff86f4",
+      "query": "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua",
+      "dataset_count": 0,
+      "report_path": "reports\\run-97ff86f4.md",
+      "catalog_path": "data\\runs\\run-97ff86f4\\catalog.json",
+      "export_path": "reports\\run-97ff86f4.csv"
+    },
+    {
+      "run_id": "run-68d09637",
+      "query": "Rio Tiete ANA Hidroweb vazao nivel chuva dados",
+      "dataset_count": 0,
+      "report_path": "reports\\run-68d09637.md",
+      "catalog_path": "data\\runs\\run-68d09637\\catalog.json",
+      "export_path": "reports\\run-68d09637.csv"
+    },
+    {
+      "run_id": "run-a5a4eea2",
+      "query": "Rio Tiete MapBiomas uso da terra cobertura do solo dados",
+      "dataset_count": 0,
+      "report_path": "reports\\run-a5a4eea2.md",
+      "catalog_path": "data\\runs\\run-a5a4eea2\\catalog.json",
+      "export_path": "reports\\run-a5a4eea2.csv"
+    },
+    {
+      "run_id": "run-0317cf97",
+      "query": "Rio Tiete IBGE SIDRA indicadores territoriais dados",
+      "dataset_count": 0,
+      "report_path": "reports\\run-0317cf97.md",
+      "catalog_path": "data\\runs\\run-0317cf97\\catalog.json",
+      "export_path": "reports\\run-0317cf97.csv"
+    },
+    {
+      "run_id": "run-90aa4ef2",
+      "query": "Rio Tiete SNIS agua esgoto saneamento dados",
+      "dataset_count": 0,
+      "report_path": "reports\\run-90aa4ef2.md",
+      "catalog_path": "data\\runs\\run-90aa4ef2\\catalog.json",
+      "export_path": "reports\\run-90aa4ef2.csv"
+    },
+    {
+      "run_id": "run-f331ad83",
+      "query": "Reservatorio de Jupia hidrologia qualidade da agua dados",
+      "dataset_count": 0,
+      "report_path": "reports\\run-f331ad83.md",
+      "catalog_path": "data\\runs\\run-f331ad83\\catalog.json",
+      "export_path": "reports\\run-f331ad83.csv"
+    },
+    {
+      "run_id": "run-2777a178",
+      "query": "Rio Tiete INPE queimadas focos de calor dados",
+      "dataset_count": 0,
+      "report_path": "reports\\run-2777a178.md",
+      "catalog_path": "data\\runs\\run-2777a178\\catalog.json",
+      "export_path": "reports\\run-2777a178.csv"
+    },
+    {
+      "run_id": "run-fb7aaad3",
+      "query": "Rio Tiete SciELO artigos bases de dados qualidade da agua",
+      "dataset_count": 0,
+      "report_path": "reports\\run-fb7aaad3.md",
+      "catalog_path": "data\\runs\\run-fb7aaad3\\catalog.json",
+      "export_path": "reports\\run-fb7aaad3.csv"
+    }
+  ],
+  "failed_queries": [],
+  "datasets": []
+}

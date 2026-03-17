@@ -1,4 +1,4 @@
-"""Agente para consolidar saída textual do pipeline."""
+"""Agente para consolidar saida textual do pipeline."""
 
 from __future__ import annotations
 
@@ -13,7 +13,6 @@ class ReportAgent(BaseAgent):
     prompt_filename = "report_agent.yaml"
 
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
-        _prompt = self.get_system_prompt()
         datasets = context["datasets"]
         sources = context["sources"]
         analytical_sources = [s for s in sources if s.source_class == "analytical_data_source"]
@@ -21,21 +20,25 @@ class ReportAgent(BaseAgent):
         extraction_plan = context["extraction_plan"]
         settings = context["settings"]
         web_meta = context.get("web_research_meta", {})
+        scout_triage_meta = context.get("research_scout_triage_meta", {})
+        query_expansion_meta = context.get("query_expansion_meta", {})
+        llm_runtime = context.get("llm_runtime", {})
 
         literature = [d for d in datasets if d.dataset_kind == "literature"]
         data_catalog = [d for d in datasets if d.dataset_kind != "literature"]
 
         lines = [
-            "# Relatório de Exemplo - Pipeline 100K (Dry-Run)",
+            f"# Relatorio de Execucao - Pipeline 100K ({'Dry-Run' if settings.dry_run else 'Run'})",
             "",
             "## Contexto",
-            "- Este relatório usa dados **simulados** para validar arquitetura do pipeline.",
-            "- Nenhuma fonte foi consultada em tempo real nesta execução.",
             f"- Query: `{settings.query}`",
-            f"- Total de registros simulados: `{len(datasets)}`",
+            f"- Total de registros: `{len(datasets)}`",
             f"- Modo web solicitado/usado: `{web_meta.get('requested_mode', 'n/a')}` / `{web_meta.get('connector_mode_used', 'n/a')}`",
-            f"- Status de recuperação web: `{web_meta.get('retrieval_status', 'n/a')}`",
+            f"- Status de recuperacao web: `{web_meta.get('retrieval_status', 'n/a')}`",
             f"- Resultados brutos/kept/discarded: `{web_meta.get('raw_result_count', 0)}` / `{web_meta.get('kept_result_count', 0)}` / `{web_meta.get('discarded_irrelevant_count', 0)}`",
+            f"- Scout triage via: `{scout_triage_meta.get('execution_mode', 'heuristic')}`",
+            f"- Query expansion via: `{query_expansion_meta.get('execution_mode', 'heuristic')}`",
+            f"- Provedor/modelo LLM ativos: `{llm_runtime.get('active_provider', 'heuristic')}` / `{llm_runtime.get('active_model', 'n/a')}`",
             "",
             "## Descoberta de datasets",
         ]
@@ -51,23 +54,22 @@ class ReportAgent(BaseAgent):
             for item in literature:
                 lines.append(
                     f"- `{item.dataset_id}` | **{item.title}** | score={item.relevance_score} "
-                    f"| observação={'; '.join(item.methodological_notes[:1])}"
+                    f"| observacao={'; '.join(item.methodological_notes[:1])}"
                 )
         else:
-            lines.append("- Nenhum registro de literatura gerado para este limite de execução.")
+            lines.append("- Nenhum registro de literatura gerado para este limite de execucao.")
 
-
-        lines.extend(["", "## Fontes para coleta de dados analíticos", ""])
+        lines.extend(["", "## Fontes para coleta de dados analiticos", ""])
         if analytical_sources:
             for source in analytical_sources[:8]:
                 lines.append(
                     f"- {source.name} ({source.base_url}) | extractability={source.data_extractability} "
-                    f"| histórico={source.historical_records_available} | export={source.structured_export_available}"
+                    f"| historico={source.historical_records_available} | export={source.structured_export_available}"
                 )
         else:
-            lines.append("- Nenhuma fonte analítica classificada nesta execução.")
+            lines.append("- Nenhuma fonte analitica classificada nesta execucao.")
 
-        lines.extend(["", "## Fontes para fundamentação científica e metodológica", ""])
+        lines.extend(["", "## Fontes para fundamentacao cientifica e metodologica", ""])
         if scientific_sources:
             for source in scientific_sources[:8]:
                 lines.append(
@@ -75,26 +77,32 @@ class ReportAgent(BaseAgent):
                     f"| uso_recomendado={', '.join(source.recommended_pipeline_use[:2])}"
                 )
         else:
-            lines.append("- Nenhuma fonte científica classificada nesta execução.")
+            lines.append("- Nenhuma fonte cientifica classificada nesta execucao.")
 
-        lines.extend(["", "## Avaliação", ""])
+        lines.extend(["", "## Avaliacao", ""])
         for dataset in datasets[:6]:
             lines.append(
                 f"- {dataset.title}: score={dataset.relevance_score}, prioridade={dataset.priority}, "
                 f"acesso={dataset.access_level}."
             )
 
-        lines.extend(["", "## Plano de extração (simulado)"])
+        lines.extend(["", "## Plano de extracao"])
         for item in extraction_plan[:6]:
             lines.append(
                 f"- {item['dataset_id']}: {item['strategy']} (ordem {item['execution_order']}) "
                 f"- {item['methodological_observation']}"
             )
 
-        lines.extend(["", "## Observações metodológicas", ""])
-        lines.append("- Scores e prioridades são simulados para validação de fluxo ponta a ponta.")
-        lines.append("- Separação entre descoberta, avaliação e relatório foi mantida por agente.")
-        lines.append("- Fontes listadas foram usadas apenas como inspiração estrutural no mock.")
+        lines.extend(["", "## Observacoes metodologicas", ""])
+        lines.append("- A execucao preserva separacao entre descoberta, avaliacao e relatorio.")
+        lines.append("- O uso de LLM foi restringido a descoberta de fontes e expansao de queries.")
+        lines.append("- O relatorio final permanece deterministico para reduzir deriva narrativa.")
+        if llm_runtime.get("setup_error"):
+            lines.append(f"- Configuracao LLM com ressalva: {llm_runtime['setup_error']}")
+        if scout_triage_meta.get("error"):
+            lines.append(f"- Scout triage caiu em fallback: {scout_triage_meta['error']}")
+        if query_expansion_meta.get("error"):
+            lines.append(f"- Query expansion caiu em fallback: {query_expansion_meta['error']}")
 
         catalog = CatalogExportRecord(
             run_id=context["run_metadata"].run_id,
@@ -102,4 +110,13 @@ class ReportAgent(BaseAgent):
             datasets=datasets,
             sources=sources,
         )
-        return {"report_markdown": "\n".join(lines), "catalog_export": catalog}
+        return {
+            "report_markdown": "\n".join(lines),
+            "catalog_export": catalog,
+            "report_meta": {
+                "execution_mode": "heuristic",
+                "provider": None,
+                "model": None,
+                "error": None,
+            },
+        }

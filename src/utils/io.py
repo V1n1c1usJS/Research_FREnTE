@@ -23,12 +23,19 @@ def write_markdown(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
-def write_catalog_csv(path: Path, rows: list[dict[str, Any]]) -> None:
+def write_catalog_csv(
+    path: Path,
+    rows: list[dict[str, Any]],
+    *,
+    fieldnames: list[str] | None = None,
+) -> None:
     ensure_dir(path.parent)
-    if not rows:
+    resolved_fieldnames = fieldnames or (list(rows[0].keys()) if rows else [])
+    if not resolved_fieldnames:
         return
 
     with path.open("w", encoding="utf-8", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(file, fieldnames=resolved_fieldnames)
         writer.writeheader()
-        writer.writerows(rows)
+        if rows:
+            writer.writerows(rows)

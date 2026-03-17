@@ -1,101 +1,18 @@
 # Research_FREnTE
 
-Pipeline multiagente para descoberta, avaliação e documentação de bases de dados ambientais no contexto do projeto 100K.
+Pipeline multiagente para descoberta, avaliacao e documentacao de bases de dados ambientais no contexto do projeto 100K.
 
-## Objetivo científico
+## Objetivo cientifico
 
-Identificar bases úteis para estudar impactos humanos em rios e reservatórios no corredor **São Paulo → Três Lagoas**, com foco no **Rio Tietê** e conexão com o **Reservatório de Jupiá**.
+Identificar bases uteis para estudar impactos humanos em rios e reservatorios no corredor **Sao Paulo -> Tres Lagoas**, com foco no **Rio Tiete** e conexao com o **Reservatorio de Jupia**.
 
-## Nova capacidade: pesquisa aberta na web
+## Arquitetura
 
-O `ResearchScoutAgent` está preparado para pesquisa aberta (web discovery) sem depender de lista fixa:
-
-- usa conector abstrato (`WebResearchConnector`);
-- suporta modo `mock` (`MockWebResearchConnector`) com achados realistas e auditáveis;
-- possui modo real inicial (`DuckDuckGoWebResearchConnector`) e alias de compatibilidade (`PreparedWebResearchConnector`), sem acoplamento a um único portal;
-- retorna resultados estruturados (`WebResearchResultRecord`) com URL, evidência, variáveis e confiança.
-- aplica construção de consultas específicas + filtro de irrelevância (filmes, restaurantes, marcas e páginas genéricas).
-- prioriza domínios institucionais/acadêmicos e registra descarte por irrelevância em `web_research_meta.discarded_irrelevant_count`.
-
-
-## Classificação formal de fontes (novo)
-
-O pipeline agora distingue duas classes principais de fonte:
-
-- `analytical_data_source`: fonte com dados utilizáveis diretamente em análise (exportação estruturada, histórico e/ou extração controlada).
-- `scientific_knowledge_source`: fonte de conhecimento científico/metodológico (artigos, revisões, relatórios técnicos, teses).
-
-Campos adicionados em scout/normalização/catálogo:
-- `source_class` (classe principal única)
-- `source_roles` (papéis híbridos)
-- `data_extractability`
-- `historical_records_available`
-- `structured_export_available`
-- `scientific_value`
-- `recommended_pipeline_use`
-
-A classificação é inferida no `ResearchScoutAgent`, preservada no `NormalizationAgent`, usada no `RelevanceAgent` com critérios específicos por tipo e exibida em seções separadas no `ReportAgent`.
-
-## Query expansion (novo)
-
-O `QueryExpansionAgent` agora recebe `web_research_results` do `ResearchScoutAgent` e:
-
-- extrai sinônimos, termos técnicos, aliases de variáveis e expressões metodológicas;
-- gera novas consultas para descoberta de datasets e literatura;
-- persiste saídas em `data/runs/<run_id>/02_query-expansion.json`.
-
-
-## Normalização robusta (novo)
-
-O `NormalizationAgent` consolida resultados do scout + discovery com:
-
-- deduplicação por nome, aliases e URL canônica;
-- separação explícita entre `dataset`, `portal`, `documentation` e `academic_source`;
-- normalização de organização responsável, variáveis e temas;
-- registro de evidências de origem com `provenance`;
-- campo `confidence` para apoiar priorização posterior.
-
-
-
-## Access evaluation (novo)
-
-O `AccessAgent` classifica formas de acesso dos datasets priorizados e adiciona metadados de extração:
-
-- classes: `api`, `download_manual`, `portal`, `documentation`, `ogc`, `unknown`;
-- coleta de `access_links` e `documentation_links`;
-- inferência de `requires_auth`;
-- preservação de `formats`;
-- `extraction_observations` para orientar ingestão futura e fallback mock quando necessário.
-
-## Relevance scoring (novo)
-
-O `RelevanceAgent` usa critérios explícitos e ponderados para o projeto 100K:
-
-- `geographic_adherence` (peso `0.25`): aderência ao eixo São Paulo → Três Lagoas, Rio Tietê e Jupiá.
-- `thematic_adherence` (peso `0.35`): cobertura de variáveis/temas de interesse.
-- `data_readiness` (peso `0.15`): prontidão de uso (formato, frequência, tipo de entidade).
-- `evidence_strength` (peso `0.15`): quantidade de evidências/proveniência no registro.
-- `source_confidence` (peso `0.10`): confiança de origem herdada do scout/normalização.
-
-Fórmula: `score = sum(weight_i * score_i)`.
-
-Prioridade final:
-- `critical` (`>= 0.85`)
-- `high` (`>= 0.72`)
-- `medium` (`>= 0.55`)
-- `low` (`>= 0.35`)
-- `discard` (`< 0.35`)
-
-A saída é auditável em `relevance_breakdown`, incluindo:
-- pesos usados,
-- scores por critério,
-- categorias: `anthropic_pressure`, `physical_context`, `environmental_response`.
-
-## Arquitetura resumida (ordem de execução)
+Ordem de execucao atual:
 
 1. `ResearchScoutAgent`
 2. `QueryExpansionAgent`
-3. `DatasetDiscoveryAgent` (consolida e deduplica candidatos com evidências por fonte)
+3. `DatasetDiscoveryAgent`
 4. `NormalizationAgent`
 5. `RelevanceAgent`
 6. `AccessAgent`
@@ -103,56 +20,93 @@ A saída é auditável em `relevance_breakdown`, incluindo:
 8. `ReportAgent`
 9. `OrchestratorAgent`
 
-### Saída ampliada do DatasetDiscoveryAgent
+## Estado atual dos agentes
 
-Cada candidato agora inclui:
-- relacionamento explícito dataset ↔ fontes (`source_mentions` e `source_ids`);
-- distinção de acessibilidade (`direct_access`, `literature_citation`, `mixed`);
-- status de verificabilidade (`verifiable`, `partially_verifiable`, `cited_not_directly_accessible`, etc.);
-- consolidação por evidência com `evidence_count`, origem (`mention_origins`) e `confidence_hint`.
+- `ResearchScoutAgent` usa conector abstrato de pesquisa web, com modo `mock` e modo `real`, e pode usar LLM para triagem e enriquecimento de links/fontes.
+- `QueryExpansionAgent` pode usar LLM real para ampliar queries a partir dos achados do scout, mantendo fallback heuristico.
+- `ReportAgent` permanece deterministico para reduzir deriva narrativa.
+- Os demais agentes seguem deterministicos e auditaveis.
 
-## Estrutura
+## Configuracao de LLM
 
-```text
-src/
-  agents/
-  connectors/
-  schemas/
-  pipelines/
-  utils/
-prompts/
-data/
-reports/
-tests/
+O projeto esta preparado para usar a API da OpenAI com o modelo `gpt-4.1-nano`.
+Tambem existe um modo de teste com Groq usando `groq/compound-mini`.
+
+1. Instale as dependencias do projeto.
+2. Copie `.env.example` para `.env`.
+3. Preencha `OPENAI_API_KEY` no `.env`.
+
+Exemplo de `.env`:
+
+```env
+OPENAI_API_KEY=...
+GROQ_API_KEY=
+RESEARCH_FRENTE_LLM_MODE=auto
+RESEARCH_FRENTE_LLM_MODEL=gpt-4.1-nano
+RESEARCH_FRENTE_GROQ_TEST_MODEL=groq/compound-mini
 ```
 
-## Formatos padrão do pipeline
+Com `RESEARCH_FRENTE_LLM_MODE=auto`, o pipeline:
 
-- **JSON** é o formato nativo de comunicação entre agentes e artefatos intermediários.
-- **Markdown** é reservado para consumo humano (relatórios finais em `reports/`).
-- **YAML** é o formato padrão dos system prompts dos agentes (`prompts/*.yaml`).
+- usa OpenAI quando `OPENAI_API_KEY` estiver presente;
+- usa Groq quando nao houver `OPENAI_API_KEY` mas existir `GROQ_API_KEY`;
+- cai para fallback heuristico quando a chave nao estiver definida;
+- desabilita LLM automaticamente em `dry-run`.
 
-## Execução
+## Configuracao YAML de referencia
+
+O arquivo [config/settings.example.yaml](d:/Projetos/Github_ViniciusJ/Research_FREnTE/config/settings.example.yaml) documenta a configuracao recomendada:
+
+```yaml
+pipeline:
+  query: "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua"
+  limit: 10
+  dry_run: false
+  web_research_mode: "real"
+  web_timeout_seconds: 5
+
+llm:
+  mode: "auto"
+  model: "gpt-4.1-nano"
+  timeout_seconds: 60
+  temperature: 0.2
+  max_output_tokens: 1800
+  fail_on_error: false
+```
+
+## Execucao
 
 ### Dry-run
 
 ```bash
-python -m src.main dry-run --query "impactos humanos no Rio Tietê" --limit 7
+python -m src.main dry-run --query "impactos humanos no Rio Tiete" --limit 7
 ```
 
-### Pipeline (modo run, mock por padrão)
+### Run com fallback automatico para OpenAI
 
 ```bash
-python -m src.main run --query "qualidade da água" --limit 7 --web-mode mock
+python -m src.main run --query "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua" --limit 10 --web-mode real
 ```
 
-### Pipeline (modo run com conector real inicial)
+### Run forcando OpenAI
 
 ```bash
-python -m src.main run --query "qualidade da água" --limit 7 --web-mode real --web-timeout 8
+python -m src.main run --query "impactos humanos no Rio Tiete" --limit 10 --web-mode real --llm-mode openai --llm-model gpt-4.1-nano
 ```
 
-### Exportação CSV
+### Run de teste com Groq
+
+```bash
+python -m src.main run --query "impactos humanos no Rio Tiete" --limit 10 --web-mode real --llm-mode groq --llm-model groq/compound-mini
+```
+
+### Inicializacao real em larga escala
+
+```bash
+python -m src.main real-init --limit-per-run 10 --max-queries 8 --web-timeout 5 --llm-mode auto
+```
+
+### Exportacao CSV
 
 ```bash
 python -m src.main export --catalog data/runs/<run_id>/catalog.json --output reports/<run_id>.csv
@@ -160,29 +114,31 @@ python -m src.main export --catalog data/runs/<run_id>/catalog.json --output rep
 
 ## Artefatos
 
-- `data/runs/<run_id>/01_research-scout.json`: achados de pesquisa aberta (`web_research_results`, `web_research_results_raw`, `web_research_results_discarded`, `web_research_results_kept`, `sources`) e `web_research_meta` (modo, timeout, status de recuperação).
-- `data/runs/<run_id>/02_query-expansion.json`: expansões de consulta e queries geradas.
-- `data/runs/<run_id>/03_dataset-discovery.json`: candidatos consolidados (`dataset_candidates`), `preliminary_catalog` (origem/confiança/verificabilidade) e relatório simples de evidências.
-- `data/runs/<run_id>/06_access.json`: catálogo com classificação de acesso, links e observações de extração.
-- `data/runs/<run_id>/catalog.json`: catálogo consolidado.
-- `reports/<run_id>.md`: relatório de execução.
-- `reports/<run_id>.csv`: export tabular.
+- `data/runs/<run_id>/01_research-scout.json`
+- `data/runs/<run_id>/02_query-expansion.json`
+- `data/runs/<run_id>/03_dataset-discovery.json`
+- `data/runs/<run_id>/04_normalization.json`
+- `data/runs/<run_id>/05_relevance.json`
+- `data/runs/<run_id>/06_access.json`
+- `data/runs/<run_id>/07_extraction-plan.json`
+- `data/runs/<run_id>/08_report.json`
+- `data/runs/<run_id>/catalog.json`
+- `data/runs/<run_id>/run_metadata.json`
+- `reports/<run_id>.md`
+- `reports/<run_id>.csv`
 
-## Pontos de extensão
+`run_metadata.json` agora registra tambem:
 
-- Evoluir o conector real para múltiplos provedores e scraping controlado com compliance.
-- Adicionar normalização de metadados por conector em `src/connectors/`.
-- Evoluir o `QueryExpansionAgent` com ranking semântico de termos por domínio.
+- `llm_mode_requested`
+- `llm_provider_used`
+- `llm_model_used`
+- `llm_enabled_agents`
+- `llm_setup_error`
 
-## Status de recuperação no `ResearchScoutAgent`
+## Dependencias principais
 
-- `no_results`: o conector real não retornou resultados úteis (ou houve erro de rede/timeout). O pipeline permanece em modo real.
-- `all_filtered`: houve resultados reais, mas todos foram descartados por irrelevância após filtro/ranking. O pipeline permanece em modo real e registra os descartes.
-- `low_recall`: houve resultados reais válidos, mas em quantidade baixa após filtragem. O pipeline permanece em modo real.
-- `mock_fallback`: uso de dados mock (dry-run ou modo `--web-mode mock`).
-
-## Limitações atuais
-
-- O conector real inicial é de triagem geral (DuckDuckGo + fallback HTML), podendo retornar cobertura limitada para consultas especializadas.
-- Em `--web-mode real`, não há substituição silenciosa por mock quando ocorre baixa recuperação (`all_filtered`/`low_recall`).
-- Dry-run sempre usa dados mock plausíveis; não representa consulta em tempo real.
+- `pydantic`
+- `httpx`
+- `PyYAML`
+- `openai`
+- `python-dotenv`

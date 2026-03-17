@@ -101,8 +101,62 @@ def test_cli_run_accepts_web_mode_flag() -> None:
     assert exit_code == 0
 
 
+def test_cli_run_accepts_llm_flags() -> None:
+    exit_code = run(
+        [
+            "run",
+            "--query",
+            "rio tiete",
+            "--limit",
+            "2",
+            "--web-mode",
+            "mock",
+            "--llm-mode",
+            "off",
+            "--llm-model",
+            "gpt-4.1-nano",
+            "--llm-timeout",
+            "45",
+            "--llm-temperature",
+            "0.1",
+            "--llm-max-output-tokens",
+            "900",
+        ]
+    )
+    assert exit_code == 0
+
+
+def test_cli_run_accepts_groq_test_mode(monkeypatch) -> None:
+    monkeypatch.setenv("GROQ_API_KEY", "test-groq-key")
+    exit_code = run(
+        [
+            "dry-run",
+            "--query",
+            "rio tiete",
+            "--limit",
+            "2",
+            "--web-mode",
+            "mock",
+            "--llm-mode",
+            "groq",
+            "--llm-model",
+            "groq/compound-mini",
+        ]
+    )
+    assert exit_code == 0
+
+
 def test_dry_run_forces_mock_mode() -> None:
     run(["dry-run", "--query", "rio tiete", "--limit", "2", "--web-mode", "real"])
     latest_run = sorted(Path("data/runs").glob("run-*"), key=lambda p: p.stat().st_mtime)[-1]
     scout = json.loads((latest_run / "01_research-scout.json").read_text(encoding="utf-8"))
     assert scout["web_research_meta"]["requested_mode"] == "mock"
+
+
+def test_run_metadata_records_llm_runtime() -> None:
+    run(["dry-run", "--query", "rio tiete", "--limit", "2", "--llm-mode", "auto"])
+    latest_run = sorted(Path("data/runs").glob("run-*"), key=lambda p: p.stat().st_mtime)[-1]
+    metadata = json.loads((latest_run / "run_metadata.json").read_text(encoding="utf-8"))
+    assert metadata["llm_mode_requested"] == "auto"
+    assert metadata["llm_provider_used"] is None
+    assert "query-expansion" not in metadata["llm_enabled_agents"]

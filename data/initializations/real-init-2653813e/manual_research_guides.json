@@ -1,0 +1,773 @@
+[
+  {
+    "guide_key": "hidroweb",
+    "title": "Hidroweb",
+    "category": "dados_analiticos",
+    "entrypoint_url": "https://www.snirh.gov.br/hidroweb",
+    "direct_access_url": "https://www.snirh.gov.br/hidroweb",
+    "access_mode": "portal",
+    "navigation_steps": [
+      "Abrir o Hidroweb.",
+      "Entrar em Series Historicas.",
+      "Filtrar por estacao, rio, estado ou municipio.",
+      "Executar a consulta e baixar os arquivos da estacao ou do lote selecionado."
+    ],
+    "portal_filters": [
+      "Tipo Estacao.",
+      "Codigo da Estacao.",
+      "Nome Estacao.",
+      "Bacia.",
+      "SubBacia.",
+      "Rio.",
+      "Estado.",
+      "Municipio.",
+      "Operando.",
+      "Responsavel (Sigla).",
+      "Operadora (Sigla)."
+    ],
+    "study_filters": [
+      "Priorizar recortes do corredor Sao Paulo -> Tres Lagoas.",
+      "Quando o portal exigir territorio administrativo, priorizar SP, MS e municipios associados ao Tiete/Jupia.",
+      "Favorecer series historicas, indicadores anuais ou mensais e tabelas exportaveis.",
+      "Para hidrologia do corredor, priorizar vazao, nivel e chuva.",
+      "Para Jupia, incluir Castilho, Tiete, Parana e estacoes proximas ao reservatorio."
+    ],
+    "search_terms": [
+      "rio tiete",
+      "reservatorio de jupia",
+      "castilho",
+      "tres lagoas",
+      "vazao",
+      "nivel",
+      "chuva"
+    ],
+    "expected_outputs": [
+      "Series historicas por estacao.",
+      "Metadados da estacao.",
+      "Arquivos TXT, CSV e MDB."
+    ],
+    "official_reference_urls": [
+      "https://www.snirh.gov.br/hidroweb"
+    ],
+    "notes": [
+      "A navegacao real confirmou o menu Series Historicas e os botoes de download por linha e por lote.",
+      "A API aparece como fluxo separado em Solicite Acesso API e nao foi seguida nesta rodada."
+    ],
+    "validated_via_mcp": false,
+    "validated_via_browser": true,
+    "validation_method": "playwright_cli_skill",
+    "exact_navigation_steps": [
+      "Abrir `https://www.snirh.gov.br/hidroweb`.",
+      "Clicar em `Series Historicas`.",
+      "Preencher `Estado`, `Municipio`, `Rio`, `Bacia` ou `Tipo Estacao`.",
+      "Clicar em `Consultar`.",
+      "No grid, usar `baixar txt`, `baixar csv` ou `baixar mdb` por estacao.",
+      "Para lote, marcar estacoes, escolher `Texto (.txt)` ou `Excel (.csv)` e clicar em `Baixar Arquivo`."
+    ],
+    "visible_ui_labels": [
+      "Series Historicas",
+      "Tipo Estacao",
+      "Bacia",
+      "SubBacia",
+      "Rio (Selecione Bacia)",
+      "Estado",
+      "Municipio",
+      "Consultar",
+      "baixar txt",
+      "baixar csv",
+      "baixar mdb",
+      "Download para as estacoes selecionadas",
+      "Texto (.txt)",
+      "Excel (.csv)",
+      "Baixar Arquivo",
+      "Solicite Acesso API",
+      "Acesso Restrito"
+    ],
+    "recommended_filter_values_for_100k": {
+      "estado": [
+        "Sao Paulo",
+        "Mato Grosso do Sul"
+      ],
+      "municipio": [
+        "Castilho",
+        "Tres Lagoas"
+      ],
+      "rio": [
+        "Rio Tiete",
+        "Rio Parana"
+      ],
+      "tipo_estacao": [
+        "Fluviometrica",
+        "Pluviometrica"
+      ],
+      "variavel_operacional": [
+        "Vazao",
+        "Nivel",
+        "Chuva"
+      ]
+    },
+    "download_or_export_path": {
+      "summary": "O download publico aparece diretamente na grade de Series Historicas, por estacao ou em lote.",
+      "steps": [
+        "Abrir a consulta em `Series Historicas`.",
+        "Filtrar o recorte desejado.",
+        "Clicar em `Consultar`.",
+        "Baixar por linha ou em lote no rodape do grid."
+      ],
+      "observed_controls": [
+        "baixar txt",
+        "baixar csv",
+        "baixar mdb",
+        "Texto (.txt)",
+        "Excel (.csv)",
+        "Baixar Arquivo"
+      ],
+      "observed_urls": [
+        "https://www.snirh.gov.br/hidroweb",
+        "https://www.snirh.gov.br/hidroweb/serieshistoricas"
+      ]
+    },
+    "available_formats": [
+      "TXT",
+      "CSV",
+      "MDB"
+    ],
+    "requires_auth": false,
+    "blockers": []
+  },
+  {
+    "guide_key": "mapbiomas",
+    "title": "MapBiomas",
+    "category": "dados_analiticos",
+    "entrypoint_url": "https://plataforma.brasil.mapbiomas.org/",
+    "direct_access_url": "https://plataforma.brasil.mapbiomas.org/",
+    "access_mode": "portal",
+    "navigation_steps": [
+      "Abrir a plataforma.",
+      "Selecionar tema, territorio e periodo.",
+      "Entrar em Downloads.",
+      "Baixar o GeoTIFF rapido por territorio ou gerar um mapa personalizado."
+    ],
+    "portal_filters": [
+      "Tema.",
+      "Colecao.",
+      "Territorio.",
+      "Minha geometria.",
+      "Ano."
+    ],
+    "study_filters": [
+      "Priorizar recortes do corredor Sao Paulo -> Tres Lagoas.",
+      "Quando o portal exigir territorio administrativo, priorizar SP, MS e municipios associados ao Tiete/Jupia.",
+      "Favorecer series historicas, indicadores anuais ou mensais e tabelas exportaveis.",
+      "Para o projeto 100K, priorizar uso e cobertura da terra, transicoes, agua e fogo.",
+      "Para recorte fino, preferir geometria propria cobrindo Tiete e Jupia."
+    ],
+    "search_terms": [
+      "rio tiete",
+      "uso da terra",
+      "cobertura do solo",
+      "transicoes",
+      "fogo",
+      "tres lagoas"
+    ],
+    "expected_outputs": [
+      "Mapas GeoTIFF.",
+      "Estatisticas por territorio.",
+      "Recorte personalizado por geometria."
+    ],
+    "official_reference_urls": [
+      "https://plataforma.brasil.mapbiomas.org/"
+    ],
+    "notes": [
+      "A navegacao real confirmou o painel `Downloads` e o card `Gerar mapa personalizado (GeoTiff)`.",
+      "A plataforma exibiu modais informativos antes de liberar o painel de download."
+    ],
+    "validated_via_mcp": false,
+    "validated_via_browser": true,
+    "validation_method": "playwright_cli_skill",
+    "exact_navigation_steps": [
+      "Abrir `https://plataforma.brasil.mapbiomas.org/`.",
+      "Fechar os modais informativos com `Continuar`.",
+      "Clicar em `Downloads`.",
+      "Escolher `Territorio` para o download rapido ou usar `Gerar mapa personalizado (GeoTiff)`.",
+      "Acionar `Download (.TIFF)` quando o territorio estiver definido."
+    ],
+    "visible_ui_labels": [
+      "Temas",
+      "Cobertura",
+      "Transicoes",
+      "Agua",
+      "Fogo",
+      "Downloads",
+      "Pesquise um ou mais territorios",
+      "Minha geometria",
+      "Download de Mapas (GeoTiffs)",
+      "Territorio",
+      "Download (.TIFF)",
+      "Gerar mapa personalizado (GeoTiff)"
+    ],
+    "recommended_filter_values_for_100k": {
+      "tema": [
+        "Cobertura",
+        "Transicoes",
+        "Agua",
+        "Fogo"
+      ],
+      "territorio": [
+        "Municipios do corredor Sao Paulo -> Tres Lagoas"
+      ],
+      "geometria": [
+        "Bacia/trecho cobrindo Rio Tiete e Reservatorio de Jupia"
+      ],
+      "ano": [
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ]
+    },
+    "download_or_export_path": {
+      "summary": "O download publico fica no painel `Downloads`, com GeoTIFF rapido por territorio ou geracao personalizada.",
+      "steps": [
+        "Abrir a plataforma.",
+        "Entrar em `Downloads`.",
+        "Selecionar um `Territorio` ou optar por `Gerar mapa personalizado (GeoTiff)`.",
+        "Clicar em `Download (.TIFF)`."
+      ],
+      "observed_controls": [
+        "Downloads",
+        "Territorio",
+        "Download (.TIFF)",
+        "Gerar mapa personalizado (GeoTiff)"
+      ],
+      "observed_urls": [
+        "https://plataforma.brasil.mapbiomas.org/"
+      ]
+    },
+    "available_formats": [
+      "GeoTIFF"
+    ],
+    "requires_auth": false,
+    "blockers": []
+  },
+  {
+    "guide_key": "inpe_queimadas",
+    "title": "Programa Queimadas - INPE",
+    "category": "dados_analiticos",
+    "entrypoint_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/",
+    "direct_access_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/",
+    "access_mode": "portal",
+    "navigation_steps": [
+      "Abrir o portal do Programa Queimadas.",
+      "Entrar em Download > Dados Abertos para acesso direto aos arquivos.",
+      "Usar Estatisticas quando precisar de recorte por estado, regiao ou bioma.",
+      "Baixar os arquivos do dataserver ou usar Geoservicos OGC."
+    ],
+    "portal_filters": [
+      "Estado.",
+      "Regiao.",
+      "Bioma.",
+      "Periodicidade do arquivo.",
+      "Tipo de dado."
+    ],
+    "study_filters": [
+      "Priorizar recortes do corredor Sao Paulo -> Tres Lagoas.",
+      "Quando o portal exigir territorio administrativo, priorizar SP, MS e municipios associados ao Tiete/Jupia.",
+      "Favorecer series historicas, indicadores anuais ou mensais e tabelas exportaveis.",
+      "Priorizar Sao Paulo e Mato Grosso do Sul.",
+      "Cruzar foco de calor com recorte mensal, diario ou anual conforme a analise."
+    ],
+    "search_terms": [
+      "sao paulo",
+      "mato grosso do sul",
+      "focos ativos",
+      "csv",
+      "risco de fogo",
+      "precipitacao"
+    ],
+    "expected_outputs": [
+      "Arquivos CSV e KML de focos.",
+      "TIFF e Shapefile de area queimada.",
+      "Arquivos diarios observados e previstos de risco de fogo e meteorologia.",
+      "Servicos WMS/WFS."
+    ],
+    "official_reference_urls": [
+      "https://terrabrasilis.dpi.inpe.br/queimadas/portal/",
+      "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_downloads/dados-abertos/#da-focos"
+    ],
+    "notes": [
+      "A navegacao real confirmou a pagina `Dados Abertos` com links publicos diretos do dataserver do INPE.",
+      "Para comparativos territoriais, o portal principal tambem exibe `Estatisticas: Estados, Regioes e Biomas`."
+    ],
+    "validated_via_mcp": false,
+    "validated_via_browser": true,
+    "validation_method": "playwright_cli_skill",
+    "exact_navigation_steps": [
+      "Abrir `https://terrabrasilis.dpi.inpe.br/queimadas/portal/`.",
+      "Entrar em `Download` > `Dados Abertos`.",
+      "Na secao `Focos de Queimadas e Incendios`, escolher CSV (`10 min`, `Diarios`, `Mensais`, `Anuais`) ou KML.",
+      "Na secao `Area Queimada`, escolher `Mensais` em `Tiff` ou `Shapefile`.",
+      "Na secao `Risco de Fogo e Meteorologia`, escolher observado diario ou previsto para os proximos 3 dias."
+    ],
+    "visible_ui_labels": [
+      "Download",
+      "Dados Abertos",
+      "Focos de Queimadas e Incendios",
+      "Arquivos CSV",
+      "10 min",
+      "Diarios",
+      "Mensais",
+      "Anuais",
+      "Arquivos KML",
+      "Area Queimada",
+      "AQ 1km",
+      "Tiff",
+      "Shapefile",
+      "Risco de Fogo e Meteorologia",
+      "Risco de Fogo Observado",
+      "Risco de Fogo Previsto",
+      "Geoservicos OGC"
+    ],
+    "recommended_filter_values_for_100k": {
+      "estado": [
+        "Sao Paulo",
+        "Mato Grosso do Sul"
+      ],
+      "regiao": [
+        "Sudeste",
+        "Centro-Oeste"
+      ],
+      "bioma": [
+        "Mata Atlantica",
+        "Cerrado"
+      ],
+      "periodicidade": [
+        "Diario",
+        "Mensal",
+        "Anual"
+      ],
+      "tipo_dado": [
+        "Focos",
+        "Area Queimada",
+        "Risco de Fogo",
+        "Precipitacao",
+        "Temperatura",
+        "Umidade relativa"
+      ]
+    },
+    "download_or_export_path": {
+      "summary": "O portal expoe links publicos diretos para o dataserver do INPE por tipo de dado e periodicidade.",
+      "steps": [
+        "Abrir a pagina `Dados Abertos`.",
+        "Escolher a secao do dado.",
+        "Clicar no card de periodicidade ou formato desejado.",
+        "Baixar diretamente do dataserver do INPE."
+      ],
+      "observed_controls": [
+        "10 min",
+        "Diarios",
+        "Mensais",
+        "Anuais",
+        "Focos diarios web",
+        "Mensais Tiff",
+        "Mensais Shapefile",
+        "Risco de Fogo Observado",
+        "Risco de Fogo Previsto"
+      ],
+      "observed_urls": [
+        "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_downloads/dados-abertos/#da-focos",
+        "https://dataserver-coids.inpe.br/queimadas/queimadas/focos/csv/diario/",
+        "https://dataserver-coids.inpe.br/queimadas/queimadas/area_queimada/colecao2/tif/",
+        "https://dataserver-coids.inpe.br/queimadas/queimadas/area_queimada/colecao2/shp/",
+        "https://terrabrasilis.dpi.inpe.br/queimadas/geoserver/ows?SERVICE=WMS&VERSION=1.3.0&REQUEST=Getcapabilities"
+      ]
+    },
+    "available_formats": [
+      "CSV",
+      "KML",
+      "TIFF",
+      "Shapefile",
+      "WMS",
+      "WFS"
+    ],
+    "requires_auth": false,
+    "blockers": []
+  },
+  {
+    "guide_key": "sidra",
+    "title": "SIDRA - IBGE",
+    "category": "dados_analiticos",
+    "entrypoint_url": "https://sidra.ibge.gov.br/",
+    "direct_access_url": "https://sidra.ibge.gov.br/",
+    "access_mode": "portal",
+    "navigation_steps": [
+      "Abrir o SIDRA.",
+      "Entrar em Acervo.",
+      "Filtrar pesquisa, assunto e tabela.",
+      "Abrir a tabela, ajustar os editores e usar Download."
+    ],
+    "portal_filters": [
+      "Pesquisa.",
+      "Assunto.",
+      "Tabela de dados agregados.",
+      "Variavel.",
+      "Atividades economicas e familias.",
+      "Ano.",
+      "Unidade Territorial."
+    ],
+    "study_filters": [
+      "Priorizar recortes do corredor Sao Paulo -> Tres Lagoas.",
+      "Quando o portal exigir territorio administrativo, priorizar SP, MS e municipios associados ao Tiete/Jupia.",
+      "Favorecer series historicas, indicadores anuais ou mensais e tabelas exportaveis.",
+      "Priorizar recortes de meio ambiente, agua e indicadores territoriais.",
+      "Cruzar o corredor via municipio, UF ou agregados nacionais quando a tabela nao descer ao nivel local."
+    ],
+    "search_terms": [
+      "contas economicas ambientais da agua",
+      "meio ambiente",
+      "indicadores de desenvolvimento sustentavel",
+      "sao paulo",
+      "tres lagoas"
+    ],
+    "expected_outputs": [
+      "Tabelas agregadas com URL persistida.",
+      "Download tabular em formatos multiplos.",
+      "Quadro salvo para reproducao da consulta."
+    ],
+    "official_reference_urls": [
+      "https://sidra.ibge.gov.br/",
+      "https://sidra.ibge.gov.br/acervo",
+      "https://sidra.ibge.gov.br/Tabela/9688"
+    ],
+    "notes": [
+      "A navegacao real confirmou o fluxo `Acervo -> Assunto -> Tabela de dados agregados -> Tabela -> Download`.",
+      "Na validacao real, a tabela 9688 exibiu apenas `Brasil` em Unidade Territorial no recorte testado."
+    ],
+    "validated_via_mcp": false,
+    "validated_via_browser": true,
+    "validation_method": "playwright_cli_skill",
+    "exact_navigation_steps": [
+      "Abrir `https://sidra.ibge.gov.br/`.",
+      "Clicar em `Acervo`.",
+      "Selecionar a pesquisa `C4 - Contas Economicas Ambientais da Agua`.",
+      "Selecionar o assunto `274 - Meio ambiente`.",
+      "Abrir a tabela `9688` pelo icone de tabela.",
+      "Ajustar os editores `Variavel`, `Atividades economicas e familias`, `Ano` e `Unidade Territorial`.",
+      "Clicar em `Download` e escolher o formato."
+    ],
+    "visible_ui_labels": [
+      "Acervo",
+      "Filtros ativos",
+      "Pesquisa",
+      "Assunto",
+      "Tabela de dados agregados",
+      "Contas Economicas Ambientais da Agua",
+      "Variavel",
+      "Atividades economicas e familias",
+      "Ano",
+      "Unidade Territorial",
+      "Visualizar",
+      "Download",
+      "Salvar Quadro"
+    ],
+    "recommended_filter_values_for_100k": {
+      "pesquisa": [
+        "C4 - Contas Economicas Ambientais da Agua",
+        "IU - Indicadores de Desenvolvimento Sustentavel",
+        "DU - uso da terra nos biomas brasileiros"
+      ],
+      "assunto": [
+        "274 - Meio ambiente"
+      ],
+      "tabelas_uteis": [
+        "9688",
+        "9687",
+        "9692",
+        "9693"
+      ],
+      "unidade_territorial": [
+        "Brasil",
+        "Sao Paulo",
+        "Mato Grosso do Sul",
+        "Municipios do corredor quando a tabela permitir"
+      ],
+      "ano": [
+        "2018",
+        "2019",
+        "2020"
+      ]
+    },
+    "download_or_export_path": {
+      "summary": "O download publico aparece diretamente dentro da pagina da tabela selecionada.",
+      "steps": [
+        "Abrir a tabela desejada.",
+        "Configurar os editores da tabela.",
+        "Clicar em `Download`.",
+        "Definir nome do arquivo e formato.",
+        "Usar o link final de download gerado pela propria tabela."
+      ],
+      "observed_controls": [
+        "Download",
+        "Nome do arquivo",
+        "Formato",
+        "XLSX",
+        "ODS",
+        "HTML",
+        "CSV (BR)",
+        "CSV (US)",
+        "TSV (BR)",
+        "TSV (US)"
+      ],
+      "observed_urls": [
+        "https://sidra.ibge.gov.br/acervo#/S/C4/A/274/T/Q",
+        "https://sidra.ibge.gov.br/Tabela/9688"
+      ]
+    },
+    "available_formats": [
+      "XLSX",
+      "ODS",
+      "HTML",
+      "CSV (BR)",
+      "CSV (US)",
+      "TSV (BR)",
+      "TSV (US)"
+    ],
+    "requires_auth": false,
+    "blockers": []
+  },
+  {
+    "guide_key": "snis",
+    "title": "SNIS",
+    "category": "dados_analiticos",
+    "entrypoint_url": "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis",
+    "direct_access_url": "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis",
+    "access_mode": "portal",
+    "navigation_steps": [
+      "Abrir a pagina principal do SNIS.",
+      "Escolher entre Painel ou Serie Historica.",
+      "Para consulta reproduzivel, entrar em Serie Historica > Municipios.",
+      "Preencher filtros territoriais e de ano e seguir para o relatorio."
+    ],
+    "portal_filters": [
+      "Componente.",
+      "Tipo Informacao.",
+      "Ano de Referencia.",
+      "Regiao.",
+      "Estado.",
+      "Municipios.",
+      "Prestador de servico.",
+      "Familia de informacoes e indicadores.",
+      "Informacoes e Indicadores."
+    ],
+    "study_filters": [
+      "Priorizar recortes do corredor Sao Paulo -> Tres Lagoas.",
+      "Quando o portal exigir territorio administrativo, priorizar SP, MS e municipios associados ao Tiete/Jupia.",
+      "Favorecer series historicas, indicadores anuais ou mensais e tabelas exportaveis.",
+      "Priorizar Agua e Esgotos e, quando fizer sentido, Aguas Pluviais.",
+      "Usar Castilho, Panorama, Tres Lagoas e outros municipios do eixo Tiete/Jupia como primeiro recorte."
+    ],
+    "search_terms": [
+      "agua e esgotos",
+      "serie historica",
+      "castilho",
+      "panorama",
+      "tres lagoas",
+      "prestador"
+    ],
+    "expected_outputs": [
+      "Indicadores consolidados em painel.",
+      "Series historicas por municipio ou prestador.",
+      "Planilhas exportaveis e glossarios de apoio."
+    ],
+    "official_reference_urls": [
+      "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis",
+      "https://app4.cidades.gov.br/serieHistorica/",
+      "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis/painel/ab"
+    ],
+    "notes": [
+      "A navegacao real confirmou a pagina principal, o `Painel` com Power BI e a tela de filtros da `Serie Historica`.",
+      "O aplicativo da Serie Historica declara no proprio texto que permite exportacao para Excel e planilhas eletronicas."
+    ],
+    "validated_via_mcp": false,
+    "validated_via_browser": true,
+    "validation_method": "playwright_cli_skill",
+    "exact_navigation_steps": [
+      "Abrir a pagina principal do SNIS.",
+      "Entrar em `Serie Historica` pelo card `bt_serie_historica.png`.",
+      "Na aplicacao `SNIS - Serie Historica`, abrir `Municipios`.",
+      "Entrar em `Informacoes e indicadores municipais consolidados`.",
+      "Preencher `Ano de Referencia`, `Estado` e `Municipios (*)` e clicar em `Continuar`.",
+      "Se precisar de leitura agregada rapida, usar o `Painel` e filtrar o `Ano` no Power BI."
+    ],
+    "visible_ui_labels": [
+      "Painel",
+      "Serie Historica",
+      "Diagnosticos",
+      "Abastecimento de Agua",
+      "Esgotamento Sanitario",
+      "Manejo dos Residuos Solidos Urbanos",
+      "Drenagem e Manejo das Aguas Pluviais Urbanas",
+      "Filtros",
+      "Tipo Informacao",
+      "Ano de Referencia",
+      "Regiao",
+      "Estado",
+      "Municipios (*)",
+      "Continuar",
+      "Relatorio do Power BI",
+      "Ano"
+    ],
+    "recommended_filter_values_for_100k": {
+      "componente": [
+        "Agua e Esgotos",
+        "Aguas Pluviais"
+      ],
+      "estado": [
+        "Sao Paulo",
+        "Mato Grosso do Sul"
+      ],
+      "municipios": [
+        "Castilho/SP",
+        "Panorama/SP",
+        "Tres Lagoas/MS"
+      ],
+      "ano": [
+        "2022"
+      ],
+      "familias": [
+        "Operacionais - agua",
+        "Operacionais - esgotos",
+        "Qualidade",
+        "Informacoes sobre PMSB"
+      ]
+    },
+    "download_or_export_path": {
+      "summary": "O melhor caminho operacional e `Serie Historica`; a tela de filtros foi validada, mas o passo final da exportacao nao foi concluido na automacao desta rodada.",
+      "steps": [
+        "Abrir `Serie Historica`.",
+        "Entrar em `Municipios`.",
+        "Abrir `Informacoes e indicadores municipais consolidados`.",
+        "Selecionar `Ano de Referencia`, `Estado` e `Municipios (*)`.",
+        "Clicar em `Continuar` para gerar o relatorio e a exportacao."
+      ],
+      "observed_controls": [
+        "Filtros",
+        "Tipo Informacao",
+        "Ano de Referencia",
+        "Estado",
+        "Municipios (*)",
+        "Continuar",
+        "Relatorio do Power BI",
+        "Ano"
+      ],
+      "observed_urls": [
+        "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis",
+        "https://app4.cidades.gov.br/serieHistorica/",
+        "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis/painel/ab"
+      ]
+    },
+    "available_formats": [
+      "Excel (declarado pela aplicacao)",
+      "Planilhas eletronicas (declarado pela aplicacao)"
+    ],
+    "requires_auth": false,
+    "blockers": [
+      "Na automacao Playwright da Serie Historica, o app exibiu o alerta `E necessario selecionar ao menos um(a) Municipio.` mesmo com municipio marcado na interface.",
+      "O caminho ate a tela final de exportacao ficou parcialmente validado, mas o clique final no relatorio nao foi concluido de ponta a ponta nesta rodada."
+    ]
+  },
+  {
+    "guide_key": "scielo",
+    "title": "SciELO",
+    "category": "literatura_documentacao",
+    "entrypoint_url": "https://search.scielo.org/?lang=pt",
+    "direct_access_url": "https://www.scielo.br/",
+    "access_mode": "documentation",
+    "navigation_steps": [
+      "Abrir a busca da SciELO.",
+      "Executar a consulta por rio, reservatorio ou variavel.",
+      "Usar filtros de colecao, periodico, idioma e ano.",
+      "Abrir texto e PDF para rastrear fontes citadas."
+    ],
+    "portal_filters": [
+      "Colecoes.",
+      "Periodico.",
+      "Idioma.",
+      "Ano.",
+      "Area tematica.",
+      "Tipo de literatura."
+    ],
+    "study_filters": [
+      "Priorizar recortes do corredor Sao Paulo -> Tres Lagoas.",
+      "Quando o portal exigir territorio administrativo, priorizar SP, MS e municipios associados ao Tiete/Jupia.",
+      "Favorecer series historicas, indicadores anuais ou mensais e tabelas exportaveis.",
+      "Priorizar ciencias ambientais, recursos hidricos, saneamento e geografia.",
+      "Fechar por anos recentes para rastrear bases ainda ativas."
+    ],
+    "search_terms": [
+      "\"rio tiete\"",
+      "\"reservatorio de jupia\"",
+      "\"qualidade da agua\"",
+      "sedimentos",
+      "uso da terra",
+      "saneamento"
+    ],
+    "expected_outputs": [
+      "Artigos e revisoes.",
+      "PDFs e textos completos.",
+      "Referencias de datasets e metodos."
+    ],
+    "official_reference_urls": [
+      "https://search.scielo.org/?lang=pt",
+      "https://www.scielo.br/"
+    ],
+    "notes": [
+      "SciELO segue sendo uma trilha de descoberta metodologica e bibliografica, nao um dataset operacional direto.",
+      "Nesta rodada, a validacao real detectou bloqueio HTTP na busca publica automatizada."
+    ],
+    "validated_via_mcp": false,
+    "validated_via_browser": true,
+    "validation_method": "playwright_cli_skill",
+    "exact_navigation_steps": [
+      "Abrir `https://search.scielo.org/?lang=pt`.",
+      "A navegacao automatizada encontrou `403 Forbidden` antes de expor os filtros da busca.",
+      "Usar `https://www.scielo.br/` manualmente se precisar continuar a pesquisa bibliografica fora da automacao."
+    ],
+    "visible_ui_labels": [
+      "403 Forbidden"
+    ],
+    "recommended_filter_values_for_100k": {
+      "consulta": [
+        "\"rio tiete\"",
+        "\"reservatorio de jupia\"",
+        "\"qualidade da agua\""
+      ],
+      "uso": [
+        "Literatura",
+        "Metodologia",
+        "Referencias de datasets"
+      ]
+    },
+    "download_or_export_path": {
+      "summary": "Nao houve caminho de download validado nesta rodada porque a busca automatizada retornou `403 Forbidden`.",
+      "steps": [
+        "Abrir a busca publica.",
+        "Registrar o bloqueio HTTP.",
+        "Tratar a fonte como apoio bibliografico, nao como fonte operacional nesta rodada."
+      ],
+      "observed_controls": [
+        "403 Forbidden"
+      ],
+      "observed_urls": [
+        "https://search.scielo.org/?lang=pt"
+      ]
+    },
+    "available_formats": [],
+    "requires_auth": false,
+    "blockers": [
+      "A busca automatizada em `https://search.scielo.org/?lang=pt` retornou `403 Forbidden` no navegador real."
+    ]
+  }
+]
