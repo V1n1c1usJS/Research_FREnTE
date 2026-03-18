@@ -6,26 +6,29 @@ Pipeline multiagente para descoberta, avaliacao e documentacao de bases de dados
 
 Identificar bases uteis para estudar impactos humanos em rios e reservatorios no corredor **Sao Paulo -> Tres Lagoas**, com foco no **Rio Tiete** e conexao com o **Reservatorio de Jupia**.
 
-## Arquitetura
-
-Ordem de execucao atual:
-
-1. `ResearchScoutAgent`
-2. `QueryExpansionAgent`
-3. `DatasetDiscoveryAgent`
-4. `NormalizationAgent`
-5. `RelevanceAgent`
-6. `AccessAgent`
-7. `ExtractionPlanAgent`
-8. `ReportAgent`
-9. `OrchestratorAgent`
-
-## Estado atual dos agentes
+## Capacidades atuais
 
 - `ResearchScoutAgent` usa conector abstrato de pesquisa web, com modo `mock` e modo `real`, e pode usar LLM para triagem e enriquecimento de links/fontes.
 - `QueryExpansionAgent` pode usar LLM real para ampliar queries a partir dos achados do scout, mantendo fallback heuristico.
 - `ReportAgent` permanece deterministico para reduzir deriva narrativa.
 - Os demais agentes seguem deterministicos e auditaveis.
+
+## Classificacao de fontes
+
+O pipeline distingue duas classes principais:
+
+- `analytical_data_source`: fonte com dados utilizaveis diretamente em analise.
+- `scientific_knowledge_source`: fonte de conhecimento cientifico/metodologico.
+
+Campos relevantes preservados no scout, normalizacao e catalogo:
+
+- `source_class`
+- `source_roles`
+- `data_extractability`
+- `historical_records_available`
+- `structured_export_available`
+- `scientific_value`
+- `recommended_pipeline_use`
 
 ## Configuracao de LLM
 
@@ -50,7 +53,7 @@ Com `RESEARCH_FRENTE_LLM_MODE=auto`, o pipeline:
 
 - usa OpenAI quando `OPENAI_API_KEY` estiver presente;
 - usa Groq quando nao houver `OPENAI_API_KEY` mas existir `GROQ_API_KEY`;
-- cai para fallback heuristico quando a chave nao estiver definida;
+- cai para fallback heuristico quando nenhuma chave estiver definida;
 - desabilita LLM automaticamente em `dry-run`.
 
 ## Configuracao YAML de referencia
@@ -73,6 +76,18 @@ llm:
   max_output_tokens: 1800
   fail_on_error: false
 ```
+
+## Arquitetura resumida
+
+1. `ResearchScoutAgent`
+2. `QueryExpansionAgent`
+3. `DatasetDiscoveryAgent`
+4. `NormalizationAgent`
+5. `RelevanceAgent`
+6. `AccessAgent`
+7. `ExtractionPlanAgent`
+8. `ReportAgent`
+9. `OrchestratorAgent`
 
 ## Execucao
 
@@ -114,26 +129,33 @@ python -m src.main export --catalog data/runs/<run_id>/catalog.json --output rep
 
 ## Artefatos
 
-- `data/runs/<run_id>/01_research-scout.json`
-- `data/runs/<run_id>/02_query-expansion.json`
-- `data/runs/<run_id>/03_dataset-discovery.json`
-- `data/runs/<run_id>/04_normalization.json`
-- `data/runs/<run_id>/05_relevance.json`
-- `data/runs/<run_id>/06_access.json`
-- `data/runs/<run_id>/07_extraction-plan.json`
-- `data/runs/<run_id>/08_report.json`
-- `data/runs/<run_id>/catalog.json`
-- `data/runs/<run_id>/run_metadata.json`
-- `reports/<run_id>.md`
-- `reports/<run_id>.csv`
+- `data/runs/<run_id>/01_research-scout.json`: achados de pesquisa aberta (`web_research_results`, `web_research_results_raw`, `web_research_results_discarded`, `web_research_results_kept`, `sources`) e `web_research_meta`.
+- `data/runs/<run_id>/02_query-expansion.json`: expansoes de consulta e queries geradas.
+- `data/runs/<run_id>/03_dataset-discovery.json`: candidatos consolidados e catalogo preliminar.
+- `data/runs/<run_id>/04_normalization.json`: datasets normalizados e evidencias consolidadas.
+- `data/runs/<run_id>/05_relevance.json`: scoring e justificativas de relevancia.
+- `data/runs/<run_id>/06_access.json`: classificacao de acesso, links e observacoes de extracao.
+- `data/runs/<run_id>/07_extraction-plan.json`: plano de extracao priorizado.
+- `data/runs/<run_id>/08_report.json`: metadados do relatorio final.
+- `data/runs/<run_id>/catalog.json`: catalogo consolidado.
+- `data/runs/<run_id>/run_metadata.json`: metadados da execucao.
+- `reports/<run_id>.md`: relatorio de execucao.
+- `reports/<run_id>.csv`: exportacao tabular do catalogo.
 
-`run_metadata.json` agora registra tambem:
+`run_metadata.json` registra:
 
 - `llm_mode_requested`
 - `llm_provider_used`
 - `llm_model_used`
 - `llm_enabled_agents`
 - `llm_setup_error`
+
+## Status de recuperacao no `ResearchScoutAgent`
+
+- `no_results`: o conector real nao retornou resultados uteis ou houve erro de rede/timeout.
+- `all_filtered`: houve resultados reais, mas todos foram descartados por irrelevancia.
+- `low_recall`: houve resultados reais validos, mas em quantidade baixa apos filtragem.
+- `mock_fallback`: uso de dados mock em `dry-run` ou com `--web-mode mock`.
 
 ## Dependencias principais
 

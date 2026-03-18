@@ -468,4 +468,28 @@ __all__ = [
     "MockWebResearchConnector",
     "DuckDuckGoWebResearchConnector",
     "PreparedWebResearchConnector",
+    "BingWebResearchConnector",
 ]
+
+
+class BingWebResearchConnector(DuckDuckGoWebResearchConnector):
+    """Conector real alternativo focado em busca HTML do Bing (sem modo mock)."""
+
+    def search(self, query: str, search_terms: list[str], limit: int = 20) -> list[WebResearchResultRecord]:
+        results: list[WebResearchResultRecord] = []
+        requests_budget = max(1, min(limit, 8))
+        terms_to_use = [query] + search_terms[: requests_budget - 1]
+
+        with httpx.Client(timeout=self.timeout_seconds, follow_redirects=True) as client:
+            for term in terms_to_use:
+                if len(results) >= limit:
+                    break
+                items = self._search_bing_html(client=client, term=term)
+                for item in items:
+                    if len(results) >= limit:
+                        break
+                    if not item.get("url"):
+                        continue
+                    results.append(self._to_record(item=item, term=term))
+
+        return results

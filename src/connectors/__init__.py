@@ -7,6 +7,7 @@ from src.connectors.llm import (
     OpenAIResponsesConnector,
 )
 from src.connectors.web_research import (
+    BingWebResearchConnector,
     DuckDuckGoWebResearchConnector,
     MockWebResearchConnector,
     PreparedWebResearchConnector,
@@ -20,6 +21,7 @@ __all__ = [
     "OpenAIResponsesConnector",
     "WebResearchConnector",
     "MockWebResearchConnector",
+    "BingWebResearchConnector",
     "DuckDuckGoWebResearchConnector",
     "PreparedWebResearchConnector",
 ]
