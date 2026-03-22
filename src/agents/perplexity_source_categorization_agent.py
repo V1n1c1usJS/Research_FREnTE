@@ -107,6 +107,9 @@ class PerplexitySourceCategorizationAgent(BaseLLMAgent):
                     source_type=item["source_type"],
                     citation=item["url"],
                     query=" | ".join(sorted(item["search_profiles"])),
+                    search_profiles=sorted(item["search_profiles"]),
+                    research_tracks=sorted(item["research_tracks"]),
+                    target_intent=item["target_intent"],
                     source_class=item["source_class"],
                     source_roles=item["source_roles"],
                     data_extractability=item["data_extractability"],
@@ -144,6 +147,9 @@ class PerplexitySourceCategorizationAgent(BaseLLMAgent):
                         f"amostra={snippets[0] if snippets else 'sem snippet'}"
                     ),
                     search_terms_extracted=sorted(item["search_profiles"]),
+                    search_profiles=sorted(item["search_profiles"]),
+                    research_tracks=sorted(item["research_tracks"]),
+                    target_intent=item["target_intent"],
                     citations=[item["url"]],
                     confidence=item["confidence"],
                     relevance_hint=item["relevance_hint"],
@@ -291,6 +297,9 @@ class PerplexitySourceCategorizationAgent(BaseLLMAgent):
                     f"Escopo geografico: {', '.join(master_context.geographic_scope) or 'nao informado'}",
                     f"Eixos tematicos: {', '.join(master_context.thematic_axes) or 'nao informados'}",
                     f"Fontes preferidas: {', '.join(master_context.preferred_sources) or 'nao informadas'}",
+                    f"Saidas esperadas: {', '.join(master_context.expected_outputs) or 'nao informadas'}",
+                    f"Exclusoes: {', '.join(master_context.exclusions) or 'nao informadas'}",
+                    f"Notas metodologicas: {', '.join(master_context.notes) or 'nao informadas'}",
                 ]
             )
 

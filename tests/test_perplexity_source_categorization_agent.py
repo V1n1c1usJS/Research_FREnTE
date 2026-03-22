@@ -79,5 +79,8 @@ def test_source_categorization_can_classify_unknown_domain_via_llm() -> None:
     assert source.official_signal is True
     assert source.dataset_signal is True
     assert source.title == "Portal Nacional de Monitoramento Ambiental"
+    assert result["sources"][0].research_tracks == ["monitoring_and_measurements"]
+    assert result["sources"][0].target_intent == "dataset_discovery"
     assert finding.source_class == "analytical_data_source"
+    assert finding.research_tracks == ["monitoring_and_measurements"]
     assert "temperatura da agua" in finding.variables_mentioned

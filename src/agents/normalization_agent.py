@@ -46,6 +46,9 @@ class NormalizationAgent(BaseAgent):
                     "temporal_coverage": candidate.temporal_coverage,
                     "spatial_coverage": candidate.geographic_scope,
                     "update_frequency": candidate.update_frequency,
+                    "research_tracks": set(candidate.research_tracks),
+                    "search_profiles": set(candidate.search_profiles),
+                    "target_intents": set(candidate.target_intents),
                     "source_class_votes": [],
                     "source_roles": set(),
                     "data_extractability_votes": [],
@@ -65,6 +68,9 @@ class NormalizationAgent(BaseAgent):
             bucket["formats"].update(candidate.formats)
             bucket["tags"].update(candidate.tags)
             bucket["confidence_values"].append(candidate.confidence_hint)
+            bucket["research_tracks"].update(candidate.research_tracks)
+            bucket["search_profiles"].update(candidate.search_profiles)
+            bucket["target_intents"].update(candidate.target_intents)
 
             for source_id in candidate.source_ids:
                 finding = findings_by_source.get(source_id)
@@ -147,6 +153,9 @@ class NormalizationAgent(BaseAgent):
                     confidence=confidence,
                     priority=bucket["priority_hint"],
                     priority_reason=f"Priority carried from discovery stage ({bucket['priority_hint']}).",
+                    research_tracks=sorted(bucket["research_tracks"]),
+                    search_profiles=sorted(bucket["search_profiles"]),
+                    target_intents=sorted(bucket["target_intents"]),
                     methodological_notes=self._deduplicate_preserve_order(bucket["evidence_notes"]),
                     evidence_origin=sorted(bucket["source_urls"]),
                     provenance=bucket["provenance"],

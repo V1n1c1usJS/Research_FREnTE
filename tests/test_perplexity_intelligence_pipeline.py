@@ -138,6 +138,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
     assert intelligence_payload["session_count"] == 4
     assert intelligence_payload["collection_meta"]["error_session_count"] == 1
     assert intelligence_payload["collection_meta"]["source_validation_meta"]["validated_source_count"] >= 5
+    assert len(intelligence_payload["intelligence"]["track_coverage"]) == 4
     official_titles = {item["title"] for item in intelligence_payload["intelligence"]["official_portals"]}
     assert "Portal Hidroweb (SNIRH)" in official_titles
     academic_titles = {item["title"] for item in intelligence_payload["intelligence"]["academic_sources"]}
@@ -157,6 +158,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
     assert validation_stage["source_validation_meta"]["validated_source_count"] >= 5
 
     report = Path(result["report_path"]).read_text(encoding="utf-8")
+    assert "Cobertura por trilha" in report
     assert "Validacao das fontes" in report
     assert "Portais e fontes com sinal de dataset" in report
     assert "Conhecimento academico e repositorios" in report

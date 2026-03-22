@@ -51,6 +51,13 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
             }
             for session in sessions
         ]
+        track_coverage = self._build_track_coverage(
+            query_plan=query_plan,
+            sessions=sessions,
+            categorized_sources=categorized_sources,
+            dataset_candidates=dataset_candidates,
+            datasets=datasets,
+        )
 
         intelligence_payload = {
             "base_query": base_query,
@@ -82,6 +89,7 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
             "dataset_catalog": [self._dataset_payload(item) for item in datasets[:20]],
             "dataset_candidates": [self._candidate_payload(item) for item in dataset_candidates[:20]],
             "session_diagnostics": top_sessions,
+            "track_coverage": track_coverage,
             "source_validation_summary": {
                 "validated_source_count": len(source_validation_log),
                 "status_summary": source_validation_meta.get("status_summary", {}),
@@ -155,6 +163,14 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
                 )
                 if item["blockers"]:
                     lines.append(f"  bloqueios: {', '.join(item['blockers'])}")
+
+        lines.extend(["", "## Cobertura por trilha"])
+        for item in track_coverage:
+            lines.append(
+                f"- `{item['research_track']}` | chat={item['chat_label']} | alvo={item['target_intent']} "
+                f"| sessao={item['session_status']} | fontes={item['categorized_source_count']} "
+                f"| candidatos={item['dataset_candidate_count']} | datasets={item['dataset_count']}"
+            )
 
         lines.extend(["", "## Validacao das fontes"])
         if source_validation_log:
@@ -234,6 +250,7 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
             "url": item.url,
             "domain": item.domain,
             "category": item.category,
+            "target_intent": item.target_intent,
             "priority": item.priority,
             "dataset_signal": item.dataset_signal,
             "academic_signal": item.academic_signal,
@@ -257,6 +274,9 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
             "relevance_score": item.relevance_score,
             "priority": item.priority,
             "access_level": item.access_level,
+            "research_tracks": item.research_tracks,
+            "search_profiles": item.search_profiles,
+            "target_intents": item.target_intents,
             "variables_normalized": item.variables_normalized,
         }
 
@@ -270,6 +290,9 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
             "accessibility": item.accessibility,
             "verifiability_status": item.verifiability_status,
             "confidence_hint": item.confidence_hint,
+            "research_tracks": item.research_tracks,
+            "search_profiles": item.search_profiles,
+            "target_intents": item.target_intents,
         }
 
     @staticmethod
@@ -283,6 +306,43 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
             "issues": item.issues,
             "adjustments": item.adjustments,
         }
+
+    @staticmethod
+    def _build_track_coverage(
+        *,
+        query_plan: list[Any],
+        sessions: list[Any],
+        categorized_sources: list[Any],
+        dataset_candidates: list[Any],
+        datasets: list[Any],
+    ) -> list[dict[str, Any]]:
+        coverage: list[dict[str, Any]] = []
+        session_by_track = {session.research_track: session for session in sessions}
+
+        for track in query_plan:
+            coverage.append(
+                {
+                    "research_track": track.research_track,
+                    "chat_label": track.chat_label,
+                    "target_intent": track.target_intent,
+                    "session_status": session_by_track.get(track.research_track).collection_status
+                    if session_by_track.get(track.research_track)
+                    else "not_collected",
+                    "categorized_source_count": sum(
+                        1 for source in categorized_sources if track.research_track in getattr(source, "research_tracks", [])
+                    ),
+                    "dataset_candidate_count": sum(
+                        1
+                        for candidate in dataset_candidates
+                        if track.research_track in getattr(candidate, "research_tracks", [])
+                    ),
+                    "dataset_count": sum(
+                        1 for dataset in datasets if track.research_track in getattr(dataset, "research_tracks", [])
+                    ),
+                }
+            )
+
+        return coverage
 
     @staticmethod
     def _recommended_next_steps(

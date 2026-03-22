@@ -47,6 +47,9 @@ class DatasetRecord(BaseModel):
     relevance_hint: float = Field(default=0.0, ge=0.0, le=1.0)
     priority: str = "medium"
     priority_reason: str = ""
+    research_tracks: list[str] = Field(default_factory=list)
+    search_profiles: list[str] = Field(default_factory=list)
+    target_intents: list[str] = Field(default_factory=list)
     access_level: str = "unknown"
     access_notes: str = ""
     access_links: list[str] = Field(default_factory=list)
@@ -78,6 +81,9 @@ class DatasetCandidate(BaseModel):
     mention_origins: list[str] = Field(default_factory=list)
     evidence_notes: list[str] = Field(default_factory=list)
     supporting_queries: list[str] = Field(default_factory=list)
+    research_tracks: list[str] = Field(default_factory=list)
+    search_profiles: list[str] = Field(default_factory=list)
+    target_intents: list[str] = Field(default_factory=list)
     geographic_scope: str = "not specified"
     temporal_coverage: str = "not specified"
     update_frequency: str = "not specified"
@@ -99,6 +105,9 @@ class ResearchSourceRecord(BaseModel):
     source_type: str
     citation: str
     query: str
+    search_profiles: list[str] = Field(default_factory=list)
+    research_tracks: list[str] = Field(default_factory=list)
+    target_intent: str = ""
     source_class: str = "scientific_knowledge_source"
     source_roles: list[str] = Field(default_factory=list)
     data_extractability: str = "unknown"
@@ -125,6 +134,9 @@ class WebResearchResultRecord(BaseModel):
     relevance_to_100k: str
     evidence_notes: str
     search_terms_extracted: list[str] = Field(default_factory=list)
+    search_profiles: list[str] = Field(default_factory=list)
+    research_tracks: list[str] = Field(default_factory=list)
+    target_intent: str = ""
     citations: list[str] = Field(default_factory=list)
     confidence: float = Field(default=0.5, ge=0.0, le=1.0)
     relevance_hint: float = Field(default=0.0, ge=0.0, le=1.0)

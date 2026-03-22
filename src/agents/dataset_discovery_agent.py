@@ -31,6 +31,9 @@ class DatasetDiscoveryAgent(BaseAgent):
                 "mention_origins": set(),
                 "evidence_notes": [],
                 "supporting_queries": set(),
+                "research_tracks": set(),
+                "search_profiles": set(),
+                "target_intents": set(),
                 "formats": set(),
                 "tags": set(),
                 "role_votes": [],
@@ -72,6 +75,10 @@ class DatasetDiscoveryAgent(BaseAgent):
                     }
                 )
                 bucket["supporting_queries"].update(self._clean_list(finding.search_terms_extracted))
+                bucket["research_tracks"].update(self._clean_list(getattr(finding, "research_tracks", [])))
+                bucket["search_profiles"].update(self._clean_list(getattr(finding, "search_profiles", [])))
+                if getattr(finding, "target_intent", ""):
+                    bucket["target_intents"].add(finding.target_intent)
                 bucket["formats"].update(self._infer_formats(cleaned_name, finding.source_url, finding.evidence_notes))
                 bucket["tags"].update(self._infer_tags(cleaned_name, finding.variables_mentioned, finding.search_terms_extracted))
 
@@ -119,6 +126,9 @@ class DatasetDiscoveryAgent(BaseAgent):
                 mention_origins=sorted(bucket["mention_origins"]),
                 evidence_notes=bucket["evidence_notes"],
                 supporting_queries=supporting_queries,
+                research_tracks=sorted(bucket["research_tracks"]),
+                search_profiles=sorted(bucket["search_profiles"]),
+                target_intents=sorted(bucket["target_intents"]),
                 temporal_coverage="not specified",
                 update_frequency="not specified",
                 formats=sorted(bucket["formats"]),
@@ -143,6 +153,9 @@ class DatasetDiscoveryAgent(BaseAgent):
                     "evidence_count": candidate.evidence_count,
                     "confidence_hint": candidate.confidence_hint,
                     "priority_hint": candidate.priority_hint,
+                    "research_tracks": candidate.research_tracks,
+                    "search_profiles": candidate.search_profiles,
+                    "target_intents": candidate.target_intents,
                 }
             )
 

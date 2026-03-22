@@ -52,6 +52,7 @@ Quando ha mais de uma fonte de configuracao, pense na ordem abaixo:
    Sempre vencem, porque sao passadas diretamente para a pipeline.
 2. **`context-file` e `tracks-file`**
    Sobrescrevem os defaults internos da pipeline para contexto e trilhas.
+   Se nao forem passados e os arquivos `context_100k.yaml` e `tracks_100k.yaml` existirem na raiz do repo, eles viram o preset padrao do projeto.
 3. **`.env`**
    Hoje entra basicamente para autenticar a OpenAI, via `OPENAI_API_KEY`.
 4. **Defaults internos**
@@ -76,12 +77,12 @@ As configuracoes principais estao em [src/main.py](src/main.py), dentro de `_add
 | ------------------------ | ------------------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--query`              | sem default, obrigatoria | [src/main.py](src/main.py) | Tema base da pesquisa. Alimenta o contexto mestre default, o plano de chats e os artefatos finais.                                              |
 | `--limit`              | `20`                   | [src/main.py](src/main.py) | Limite de datasets/fontes normalizadas usados no pipeline. Tambem e validado por[PipelineSettings](src/schemas/settings.py).                       |
-| `--max-searches`       | `5`                    | [src/main.py](src/main.py) | Numero maximo de chats tematicos executados. Se o `tracks-file` tiver mais itens, o pipeline usa apenas os primeiros `max-searches`.        |
+| `--max-searches`       | `5`                    | [src/main.py](src/main.py) | Numero maximo de chats tematicos usados apenas quando o pipeline recorre aos defaults internos. Quando um `tracks-file` e fornecido, o projeto respeita todas as trilhas do arquivo.        |
 | `--preferred-model`    | `Sonar`                | [src/main.py](src/main.py) | Modelo que o coletor tenta selecionar na interface do Perplexity. Pode ser bloqueado por login; o bloqueio e registrado, mas a coleta continua. |
 | `--playwright-timeout` | `120.0`                | [src/main.py](src/main.py) | Timeout, em segundos, de cada chamada ao Playwright CLI. Passado ao coletor.                                                                    |
 | `--per-query-wait-ms`  | `7000`                 | [src/main.py](src/main.py) | Tempo extra de espera apos cada busca para estabilizar a resposta do Perplexity antes da extracao.                                              |
-| `--context-file`       | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com o contexto mestre da pesquisa. Se presente, substitui o contexto default gerado pela pipeline.                 |
-| `--tracks-file`        | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com as trilhas/chats tematicos. Se presente, substitui as trilhas default da pipeline.                             |
+| `--context-file`       | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com o contexto mestre da pesquisa. Se presente, substitui o contexto default gerado pela pipeline. Se ausente, o projeto tenta carregar `context_100k.yaml` automaticamente.                 |
+| `--tracks-file`        | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com as trilhas/chats tematicos. Se presente, substitui as trilhas default da pipeline. Se ausente, o projeto tenta carregar `tracks_100k.yaml` automaticamente.                             |
 | `--llm-mode`           | `auto`                 | [src/main.py](src/main.py) | Controla se a categorizacao de fontes usa LLM. Valores aceitos:`auto`, `off`, `openai`.                                                   |
 | `--llm-model`          | `gpt-4.1-nano`         | [src/main.py](src/main.py) | Modelo OpenAI usado na inferencia estrutural das fontes.                                                                                        |
 | `--llm-timeout`        | `60.0`                 | [src/main.py](src/main.py) | Timeout das chamadas de inferencia por LLM.                                                                                                     |
@@ -180,7 +181,7 @@ python -m src.main run --query "monitoramento ambiental costeiro" --context-file
 
 ## Defaults internos da pipeline
 
-Quando voce nao passa `context-file` nem `tracks-file`, a pipeline gera defaults em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
+Quando voce nao passa `context-file` nem `tracks-file`, a CLI tenta primeiro carregar os presets [context_100k.yaml](context_100k.yaml) e [tracks_100k.yaml](tracks_100k.yaml). So na ausencia deles a pipeline recorre aos defaults internos em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
 
 ### Defaults do contexto mestre
 
@@ -424,6 +425,8 @@ Prompts principais do fluxo atual:
 python -m src.main run --query "monitoramento ambiental costeiro"
 ```
 
+Se os arquivos `context_100k.yaml` e `tracks_100k.yaml` estiverem presentes na raiz do projeto, essa execucao ja usa automaticamente o preset 100K.
+
 ### Execucao com contexto e trilhas customizadas
 
 ```bash
@@ -431,6 +434,15 @@ python -m src.main run \
   --query "monitoramento ambiental costeiro" \
   --context-file config/context.yaml \
   --tracks-file config/tracks.yaml
+```
+
+### Execucao usando explicitamente o preset 100K
+
+```bash
+python -m src.main run \
+  --query "projeto 100k rio tiete jupia" \
+  --context-file context_100k.yaml \
+  --tracks-file tracks_100k.yaml
 ```
 
 ### Execucao com OpenAI obrigatoria na categorizacao

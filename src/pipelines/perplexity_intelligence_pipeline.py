@@ -202,6 +202,7 @@ class PerplexityIntelligencePipeline:
                     "manual_validation_required": validation_by_source.get(item.source_id).manual_validation_required
                     if validation_by_source.get(item.source_id)
                     else "",
+                    "target_intent": item.target_intent,
                     "search_profiles": ",".join(item.search_profiles),
                     "research_tracks": ",".join(item.research_tracks),
                 }
@@ -221,6 +222,7 @@ class PerplexityIntelligencePipeline:
                 "validation_status",
                 "validation_score",
                 "manual_validation_required",
+                "target_intent",
                 "search_profiles",
                 "research_tracks",
             ],
@@ -238,6 +240,8 @@ class PerplexityIntelligencePipeline:
                     "relevance_score": item.relevance_score,
                     "priority": item.priority,
                     "access_level": item.access_level,
+                    "research_tracks": ",".join(item.research_tracks),
+                    "target_intents": ",".join(item.target_intents),
                 }
                 for item in context.get("datasets", [])
             ],
@@ -249,6 +253,8 @@ class PerplexityIntelligencePipeline:
                 "relevance_score",
                 "priority",
                 "access_level",
+                "research_tracks",
+                "target_intents",
             ],
         )
 
@@ -332,6 +338,8 @@ class PerplexityIntelligencePipeline:
     def _build_research_tracks(self) -> list[PerplexityResearchTrackRecord]:
         payload = self.research_tracks_payload or list(self.DEFAULT_RESEARCH_TRACKS)
         tracks = [PerplexityResearchTrackRecord.model_validate(item) for item in payload]
+        if self.research_tracks_payload:
+            return tracks
         return tracks[: self.max_searches]
 
     def _build_search_plan(
@@ -368,6 +376,8 @@ class PerplexityIntelligencePipeline:
         thematic_axes = ", ".join(master_context.thematic_axes) or "not specified"
         preferred_sources = ", ".join(master_context.preferred_sources) or "not specified"
         expected_outputs = ", ".join(master_context.expected_outputs) or "not specified"
+        exclusions = ", ".join(master_context.exclusions) or "not specified"
+        notes = ", ".join(master_context.notes) or "not specified"
 
         return (
             f"Research context: {master_context.article_goal}. "
@@ -377,6 +387,8 @@ class PerplexityIntelligencePipeline:
             f"Task: {track.task_prompt} "
             f"Preferred sources: {preferred_sources}. "
             f"Expected outputs: {expected_outputs}. "
+            f"Avoid: {exclusions}. "
+            f"Research notes: {notes}. "
             "Prioritize official, institutional and academic sources, and explain when a result looks like a "
             "data portal, technical report, repository or academic study."
         )

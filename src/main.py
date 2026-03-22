@@ -13,6 +13,10 @@ from src.pipelines.perplexity_intelligence_pipeline import PerplexityIntelligenc
 from src.utils.io import write_catalog_csv
 from src.utils.logging import configure_logging
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_CONTEXT_FILE = REPO_ROOT / "context_100k.yaml"
+DEFAULT_TRACKS_FILE = REPO_ROOT / "tracks_100k.yaml"
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="research-frente")
@@ -102,6 +106,9 @@ def run(argv: list[str] | None = None) -> int:
 
 
 def _run_perplexity_intel(args: argparse.Namespace) -> int:
+    master_context_payload = _resolve_structured_payload(args.context_file, DEFAULT_CONTEXT_FILE)
+    research_tracks_payload = _resolve_structured_payload(args.tracks_file, DEFAULT_TRACKS_FILE)
+
     result = PerplexityIntelligencePipeline(
         base_query=args.query,
         limit=args.limit,
@@ -109,8 +116,8 @@ def _run_perplexity_intel(args: argparse.Namespace) -> int:
         preferred_model=args.preferred_model,
         playwright_timeout_seconds=args.playwright_timeout,
         per_query_wait_ms=args.per_query_wait_ms,
-        master_context_payload=_load_structured_file(args.context_file) if args.context_file else None,
-        research_tracks_payload=_load_structured_file(args.tracks_file) if args.tracks_file else None,
+        master_context_payload=master_context_payload,
+        research_tracks_payload=research_tracks_payload,
         llm_mode=args.llm_mode,
         llm_model=args.llm_model,
         llm_timeout_seconds=args.llm_timeout,
@@ -157,6 +164,14 @@ def _load_structured_file(path_str: str) -> Any:
     if suffix == ".json":
         return json.loads(raw)
     return yaml.safe_load(raw)
+
+
+def _resolve_structured_payload(explicit_path: str | None, default_path: Path) -> Any:
+    if explicit_path:
+        return _load_structured_file(explicit_path)
+    if default_path.exists():
+        return _load_structured_file(str(default_path))
+    return None
 
 
 def _load_dotenv_if_available() -> None:

@@ -21,45 +21,6 @@ class RelevanceAgent(BaseAgent):
         "source_confidence": 0.10,
     }
 
-    ANTHROPIC_TERMS = {
-        "anthropic",
-        "human",
-        "land use",
-        "urban",
-        "sanitation",
-        "waste",
-        "agriculture",
-        "industry",
-        "fire",
-        "occupation",
-        "pressure",
-        "effluent",
-    }
-    PHYSICAL_TERMS = {
-        "hydrology",
-        "water",
-        "river",
-        "reservoir",
-        "basin",
-        "streamflow",
-        "precipitation",
-        "meteorology",
-        "climate",
-        "physical",
-    }
-    RESPONSE_TERMS = {
-        "quality",
-        "contamination",
-        "sediment",
-        "sediments",
-        "biodiversity",
-        "ecology",
-        "response",
-        "indicator",
-        "organic",
-        "turbidity",
-    }
-
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()
         master_context = context.get("perplexity_master_context")
@@ -71,6 +32,8 @@ class RelevanceAgent(BaseAgent):
             data_readiness = self._score_data_readiness(dataset)
             evidence_strength = self._score_evidence(dataset)
             source_confidence = float(dataset.confidence)
+            axis_scores = self._axis_scores(dataset, master_context)
+            expected_output_scores = self._expected_output_scores(dataset, master_context)
 
             weighted = (
                 geographic_adherence * self.CRITERIA_WEIGHTS["geographic_adherence"]
@@ -101,7 +64,8 @@ class RelevanceAgent(BaseAgent):
                                 "evidence_strength": evidence_strength,
                                 "source_confidence": source_confidence,
                             },
-                            "category_scores": self._category_scores(dataset),
+                            "axis_scores": axis_scores,
+                            "expected_output_scores": expected_output_scores,
                             "formula": "sum(weight_i * score_i)",
                         },
                     }
@@ -124,6 +88,8 @@ class RelevanceAgent(BaseAgent):
 
     def _score_thematic(self, dataset: Any, master_context: Any) -> float:
         thematic_axes = getattr(master_context, "thematic_axes", []) or []
+        expected_outputs = getattr(master_context, "expected_outputs", []) or []
+        exclusions = getattr(master_context, "exclusions", []) or []
         dataset_text = " ".join(
             [
                 dataset.title,
@@ -135,17 +101,22 @@ class RelevanceAgent(BaseAgent):
         )
         dataset_tokens = self._tokenize(dataset_text)
 
-        if not thematic_axes:
+        if not thematic_axes and not expected_outputs:
             return 0.5
 
-        overlaps = [self._phrase_overlap(dataset_tokens, phrase) for phrase in thematic_axes]
-        base_score = sum(overlaps) / len(overlaps) if overlaps else 0.0
+        axis_scores = [self._phrase_overlap(dataset_tokens, phrase) for phrase in thematic_axes]
+        output_scores = [self._phrase_overlap(dataset_tokens, phrase) for phrase in expected_outputs]
+        base_score = self._mean_score(axis_scores, default=0.0) * 0.75 + self._mean_score(output_scores, default=0.0) * 0.25
 
         if dataset.source_class == "scientific_knowledge_source":
             if "methodological_grounding" in dataset.recommended_pipeline_use:
                 base_score += 0.15
             if "dataset_discovery_from_citations" in dataset.recommended_pipeline_use:
                 base_score += 0.15
+
+        exclusion_hits = [self._phrase_overlap(dataset_tokens, phrase) for phrase in exclusions]
+        if max(exclusion_hits, default=0.0) >= 0.4:
+            base_score -= 0.2
 
         return round(min(max(base_score, 0.0), 1.0), 3)
 
@@ -190,7 +161,11 @@ class RelevanceAgent(BaseAgent):
             return 0.4
         return 0.2
 
-    def _category_scores(self, dataset: Any) -> dict[str, float]:
+    def _axis_scores(self, dataset: Any, master_context: Any) -> dict[str, float]:
+        thematic_axes = getattr(master_context, "thematic_axes", []) or []
+        if not thematic_axes:
+            return {}
+
         text = " ".join(
             [
                 dataset.title,
@@ -199,12 +174,31 @@ class RelevanceAgent(BaseAgent):
                 " ".join(dataset.themes_normalized),
                 " ".join(dataset.tags),
             ]
-        ).lower()
+        )
         tokens = self._tokenize(text)
         return {
-            "anthropic_pressure": self._term_family_score(tokens, self.ANTHROPIC_TERMS),
-            "physical_context": self._term_family_score(tokens, self.PHYSICAL_TERMS),
-            "environmental_response": self._term_family_score(tokens, self.RESPONSE_TERMS),
+            axis: round(self._phrase_overlap(tokens, axis), 3)
+            for axis in thematic_axes
+        }
+
+    def _expected_output_scores(self, dataset: Any, master_context: Any) -> dict[str, float]:
+        expected_outputs = getattr(master_context, "expected_outputs", []) or []
+        if not expected_outputs:
+            return {}
+
+        text = " ".join(
+            [
+                dataset.title,
+                dataset.description,
+                " ".join(dataset.variables_normalized),
+                " ".join(dataset.themes_normalized),
+                " ".join(dataset.tags),
+            ]
+        )
+        tokens = self._tokenize(text)
+        return {
+            output: round(self._phrase_overlap(tokens, output), 3)
+            for output in expected_outputs
         }
 
     @staticmethod
@@ -234,13 +228,7 @@ class RelevanceAgent(BaseAgent):
         return len(dataset_tokens & phrase_tokens) / len(phrase_tokens)
 
     @staticmethod
-    def _term_family_score(tokens: set[str], terms: set[str]) -> float:
-        family_tokens = set()
-        for term in terms:
-            family_tokens.update(term.split())
-        if not family_tokens:
-            return 0.0
-        overlap = len(tokens & family_tokens)
-        if overlap == 0:
-            return 0.0
-        return round(min(overlap / max(len(family_tokens) / 3, 1), 1.0), 3)
+    def _mean_score(values: list[float], default: float = 0.5) -> float:
+        if not values:
+            return default
+        return sum(values) / len(values)

@@ -90,12 +90,10 @@ def test_relevance_agent_weighted_score_and_priority() -> None:
         breakdown = item.relevance_breakdown
         assert "weights" in breakdown
         assert "criterion_scores" in breakdown
-        assert "category_scores" in breakdown
-        assert set(breakdown["category_scores"].keys()) == {
-            "anthropic_pressure",
-            "physical_context",
-            "environmental_response",
-        }
+        assert "axis_scores" in breakdown
+        assert "expected_output_scores" in breakdown
+        assert "hydrology" in breakdown["axis_scores"]
+        assert "water quality" in breakdown["axis_scores"]
 
 
 def test_relevance_agent_scientific_source_methodological_value() -> None:

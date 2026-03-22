@@ -91,6 +91,10 @@ def test_cli_run_executes_perplexity_flow(monkeypatch) -> None:
     )
 
     assert exit_code == 0
+    assert FakePerplexityPipeline.last_instance is not None
+    assert FakePerplexityPipeline.last_instance.master_context_payload is not None
+    assert FakePerplexityPipeline.last_instance.research_tracks_payload is not None
+    assert len(FakePerplexityPipeline.last_instance.research_tracks_payload) >= 5
 
 
 def test_cli_alias_perplexity_intel_executes(monkeypatch) -> None:
