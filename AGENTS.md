@@ -19,11 +19,12 @@ Etapas do pipeline:
 3. coletar respostas e links no **Perplexity** via **Playwright CLI**
 4. armazenar a coleta crua em JSON
 5. categorizar fontes com o **PerplexitySourceCategorizationAgent**
-6. consolidar candidatos com o **DatasetDiscoveryAgent**
-7. normalizar registros com o **NormalizationAgent**
-8. priorizar com o **RelevanceAgent**
-9. organizar acesso com o **AccessAgent**
-10. gerar consolidado final com o **PerplexityIntelligenceReportAgent**
+6. validar consistencia e sinalizar evidencias fracas com o **SourceValidationAgent**
+7. consolidar candidatos com o **DatasetDiscoveryAgent**
+8. normalizar registros com o **NormalizationAgent**
+9. priorizar com o **RelevanceAgent**
+10. organizar acesso com o **AccessAgent**
+11. gerar consolidado final com o **PerplexityIntelligenceReportAgent**
 
 ---
 
@@ -37,6 +38,7 @@ Etapas do pipeline:
 - Separar claramente:
   descoberta no Perplexity,
   categorizacao de fontes,
+  validacao das fontes,
   consolidacao de datasets,
   relatorio final.
 
