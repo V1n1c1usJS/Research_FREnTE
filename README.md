@@ -14,12 +14,31 @@ O projeto hoje funciona assim:
 
 1. [src/main.py](src/main.py) recebe a configuracao de execucao pela CLI
 2. [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py) monta o contexto mestre e o plano de chats
-3. [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) coleta respostas e links no Perplexity
-4. [src/agents/perplexity_source_categorization_agent.py](src/agents/perplexity_source_categorization_agent.py) categoriza as fontes a partir da evidencia coletada
-5. [src/agents/source_validation_agent.py](src/agents/source_validation_agent.py) valida a consistencia das fontes, registra ajustes e sinaliza validacao manual
-6. [src/agents/dataset_discovery_agent.py](src/agents/dataset_discovery_agent.py) consolida candidatos a dataset
-7. [src/agents/normalization_agent.py](src/agents/normalization_agent.py), [src/agents/relevance_agent.py](src/agents/relevance_agent.py) e [src/agents/access_agent.py](src/agents/access_agent.py) estruturam, priorizam e organizam o acesso
-8. [src/agents/perplexity_intelligence_report_agent.py](src/agents/perplexity_intelligence_report_agent.py) produz o consolidado final
+3. [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) coordena a coleta no Perplexity
+4. [src/connectors/perplexity_browser_session.py](src/connectors/perplexity_browser_session.py) abre e controla a sessao real do navegador via Playwright CLI
+5. [src/agents/perplexity_source_categorization_agent.py](src/agents/perplexity_source_categorization_agent.py) categoriza as fontes a partir da evidencia coletada
+6. [src/agents/source_validation_agent.py](src/agents/source_validation_agent.py) valida a consistencia das fontes, registra ajustes e sinaliza validacao manual
+7. [src/agents/dataset_discovery_agent.py](src/agents/dataset_discovery_agent.py) consolida candidatos a dataset
+8. [src/agents/normalization_agent.py](src/agents/normalization_agent.py), [src/agents/relevance_agent.py](src/agents/relevance_agent.py) e [src/agents/access_agent.py](src/agents/access_agent.py) estruturam, priorizam e organizam o acesso
+9. [src/agents/perplexity_intelligence_report_agent.py](src/agents/perplexity_intelligence_report_agent.py) produz o consolidado final
+
+### Objeto de sessao do Playwright
+
+Existe um objeto dedicado para uso do Playwright: [src/connectors/perplexity_browser_session.py](src/connectors/perplexity_browser_session.py).
+
+Ele e responsavel por:
+
+- abrir e fechar a sessao real do navegador
+- abrir a aba de trabalho do Perplexity
+- esperar o carregamento da pagina
+- tentar fechar modal de login quando aparecer
+- tentar selecionar o modelo preferido na UI
+- enviar o prompt ao campo do Perplexity
+- esperar a resposta
+- abrir a aba `Links`
+- extrair resposta e links visiveis
+
+O [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) nao implementa mais a automacao do browser sozinho; ele atua como orquestrador leve e delega a navegacao real para esse objeto.
 
 ## Onde a configuracao do projeto existe
 
@@ -81,8 +100,10 @@ As configuracoes principais estao em [src/main.py](src/main.py), dentro de `_add
 | `--preferred-model`    | `Sonar`                | [src/main.py](src/main.py) | Modelo que o coletor tenta selecionar na interface do Perplexity. Pode ser bloqueado por login; o bloqueio e registrado, mas a coleta continua. |
 | `--playwright-timeout` | `120.0`                | [src/main.py](src/main.py) | Timeout, em segundos, de cada chamada ao Playwright CLI. Passado ao coletor.                                                                    |
 | `--per-query-wait-ms`  | `7000`                 | [src/main.py](src/main.py) | Tempo extra de espera apos cada busca para estabilizar a resposta do Perplexity antes da extracao.                                              |
+| `--headed`            | `False`                | [src/main.py](src/main.py) | Abre o navegador de forma visivel durante a coleta Playwright.                                                                                   |
 | `--context-file`       | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com o contexto mestre da pesquisa. Se presente, substitui o contexto default gerado pela pipeline. Se ausente, o projeto tenta carregar `context_100k.yaml` automaticamente.                 |
 | `--tracks-file`        | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com as trilhas/chats tematicos. Se presente, substitui as trilhas default da pipeline. Se ausente, o projeto tenta carregar `tracks_100k.yaml` automaticamente.                             |
+| `--track-limit`       | `None`                 | [src/main.py](src/main.py) | Limita quantas trilhas do arquivo de tracks serao executadas na rodada atual. E util para depurar a coleta uma busca por vez.                   |
 | `--llm-mode`           | `auto`                 | [src/main.py](src/main.py) | Controla se a categorizacao de fontes usa LLM. Valores aceitos:`auto`, `off`, `openai`.                                                   |
 | `--llm-model`          | `gpt-4.1-nano`         | [src/main.py](src/main.py) | Modelo OpenAI usado na inferencia estrutural das fontes.                                                                                        |
 | `--llm-timeout`        | `60.0`                 | [src/main.py](src/main.py) | Timeout das chamadas de inferencia por LLM.                                                                                                     |
@@ -212,14 +233,15 @@ Cada uma ja traz `chat_label`, `search_profile`, `target_intent`, `research_ques
 
 ### Defaults do coletor Playwright
 
-Definidos em [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py):
+Definidos entre [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) e [src/connectors/perplexity_browser_session.py](src/connectors/perplexity_browser_session.py):
 
 - `preferred_model="Sonar"`
 - `timeout_seconds=120.0`
 - `per_query_wait_ms=7000`
+- `headed=False`
 - `session_prefix="rf-pplx"`
 
-Esses valores sao usados quando a CLI nao passa overrides.
+Esses valores sao usados quando a CLI nao passa overrides. O coletor coordena a rodada e o objeto de sessao do browser executa a navegacao real.
 
 ### Defaults da LLM
 

@@ -16,15 +16,16 @@ O fluxo principal agora e **Perplexity-first**.
 Etapas do pipeline:
 1. montar um **contexto mestre** da pesquisa
 2. gerar **chats tematicos** especializados
-3. coletar respostas e links no **Perplexity** via **Playwright CLI**
-4. armazenar a coleta crua em JSON
-5. categorizar fontes com o **PerplexitySourceCategorizationAgent**
-6. validar consistencia e sinalizar evidencias fracas com o **SourceValidationAgent**
-7. consolidar candidatos com o **DatasetDiscoveryAgent**
-8. normalizar registros com o **NormalizationAgent**
-9. priorizar com o **RelevanceAgent**
-10. organizar acesso com o **AccessAgent**
-11. gerar consolidado final com o **PerplexityIntelligenceReportAgent**
+3. iniciar a navegacao real do navegador com o **PerplexityBrowserSession**
+4. coletar respostas e links no **Perplexity** via **PerplexityPlaywrightCollector**
+5. armazenar a coleta crua em JSON
+6. categorizar fontes com o **PerplexitySourceCategorizationAgent**
+7. validar consistencia e sinalizar evidencias fracas com o **SourceValidationAgent**
+8. consolidar candidatos com o **DatasetDiscoveryAgent**
+9. normalizar registros com o **NormalizationAgent**
+10. priorizar com o **RelevanceAgent**
+11. organizar acesso com o **AccessAgent**
+12. gerar consolidado final com o **PerplexityIntelligenceReportAgent**
 
 ---
 
@@ -50,6 +51,7 @@ Etapas do pipeline:
 - Garantir execucao por CLI via `python -m src.main`.
 - Incluir testes para coleta, categorizacao, consolidacao e CLI.
 - O conector principal de descoberta externa e o `PerplexityPlaywrightCollector`.
+- A navegacao real do browser deve ficar encapsulada no objeto `PerplexityBrowserSession`.
 - A coleta deve ser armazenada antes de qualquer interpretacao posterior dos agentes.
 
 ---

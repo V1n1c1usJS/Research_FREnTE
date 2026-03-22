@@ -210,6 +210,7 @@ class PerplexitySearchSessionRecord(BaseModel):
     research_question: str = ""
     collection_status: str = "ok"
     validated_via_playwright: bool = True
+    browser_tab_index: int | None = None
     page_url: str = ""
     preferred_model: str | None = None
     selected_model: str | None = None

@@ -63,12 +63,22 @@ def _add_perplexity_args(parser: argparse.ArgumentParser) -> None:
         help="Espera adicional por busca para estabilizar a resposta do Perplexity.",
     )
     parser.add_argument(
+        "--headed",
+        action="store_true",
+        help="Abre o navegador de forma visivel durante a coleta no Perplexity.",
+    )
+    parser.add_argument(
         "--context-file",
         help="Arquivo JSON ou YAML com o contexto mestre da pesquisa.",
     )
     parser.add_argument(
         "--tracks-file",
         help="Arquivo JSON ou YAML com as trilhas/chats tematicos.",
+    )
+    parser.add_argument(
+        "--track-limit",
+        type=int,
+        help="Limita quantas trilhas do arquivo de tracks serao executadas nesta rodada.",
     )
     parser.add_argument(
         "--llm-mode",
@@ -108,6 +118,8 @@ def run(argv: list[str] | None = None) -> int:
 def _run_perplexity_intel(args: argparse.Namespace) -> int:
     master_context_payload = _resolve_structured_payload(args.context_file, DEFAULT_CONTEXT_FILE)
     research_tracks_payload = _resolve_structured_payload(args.tracks_file, DEFAULT_TRACKS_FILE)
+    if isinstance(research_tracks_payload, list) and args.track_limit:
+        research_tracks_payload = research_tracks_payload[: max(args.track_limit, 0)]
 
     result = PerplexityIntelligencePipeline(
         base_query=args.query,
@@ -116,6 +128,7 @@ def _run_perplexity_intel(args: argparse.Namespace) -> int:
         preferred_model=args.preferred_model,
         playwright_timeout_seconds=args.playwright_timeout,
         per_query_wait_ms=args.per_query_wait_ms,
+        headed=args.headed,
         master_context_payload=master_context_payload,
         research_tracks_payload=research_tracks_payload,
         llm_mode=args.llm_mode,

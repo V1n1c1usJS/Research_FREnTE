@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
@@ -101,6 +102,7 @@ class PerplexityIntelligencePipeline:
         preferred_model: str = "Sonar",
         playwright_timeout_seconds: float = 120.0,
         per_query_wait_ms: int = 7000,
+        headed: bool = False,
         master_context_payload: dict[str, Any] | None = None,
         research_tracks_payload: list[dict[str, Any]] | None = None,
         llm_mode: str = "auto",
@@ -116,6 +118,7 @@ class PerplexityIntelligencePipeline:
         self.preferred_model = preferred_model
         self.playwright_timeout_seconds = playwright_timeout_seconds
         self.per_query_wait_ms = per_query_wait_ms
+        self.headed = headed
         self.master_context_payload = master_context_payload
         self.research_tracks_payload = research_tracks_payload
         self.llm_mode = llm_mode
@@ -128,6 +131,7 @@ class PerplexityIntelligencePipeline:
                 preferred_model=self.preferred_model,
                 timeout_seconds=self.playwright_timeout_seconds,
                 per_query_wait_ms=self.per_query_wait_ms,
+                headed=self.headed,
             )
         )
 
@@ -372,26 +376,62 @@ class PerplexityIntelligencePipeline:
         master_context: PerplexityResearchContextRecord,
         track: PerplexityResearchTrackRecord,
     ) -> str:
-        geographic_scope = ", ".join(master_context.geographic_scope) or "not specified"
-        thematic_axes = ", ".join(master_context.thematic_axes) or "not specified"
-        preferred_sources = ", ".join(master_context.preferred_sources) or "not specified"
-        expected_outputs = ", ".join(master_context.expected_outputs) or "not specified"
-        exclusions = ", ".join(master_context.exclusions) or "not specified"
-        notes = ", ".join(master_context.notes) or "not specified"
+        geographic_scope = PerplexityIntelligencePipeline._compact_items(master_context.geographic_scope, max_items=4, item_limit=120)
+        thematic_axes = PerplexityIntelligencePipeline._compact_items(master_context.thematic_axes, max_items=6, item_limit=90)
+        preferred_sources = PerplexityIntelligencePipeline._compact_items(
+            master_context.preferred_sources,
+            max_items=6,
+            item_limit=80,
+            strip_urls=True,
+        )
+        expected_outputs = PerplexityIntelligencePipeline._compact_items(master_context.expected_outputs, max_items=4, item_limit=90)
+        exclusions = PerplexityIntelligencePipeline._compact_items(master_context.exclusions, max_items=3, item_limit=70)
+        notes = PerplexityIntelligencePipeline._compact_items(master_context.notes, max_items=3, item_limit=90)
 
         return (
-            f"Research context: {master_context.article_goal}. "
-            f"Base query: {track.research_question}. "
-            f"Geographic scope: {geographic_scope}. "
-            f"Thematic axes: {thematic_axes}. "
-            f"Task: {track.task_prompt} "
-            f"Preferred sources: {preferred_sources}. "
-            f"Expected outputs: {expected_outputs}. "
-            f"Avoid: {exclusions}. "
-            f"Research notes: {notes}. "
-            "Prioritize official, institutional and academic sources, and explain when a result looks like a "
-            "data portal, technical report, repository or academic study."
+            f"Projeto 100K. Objetivo: {PerplexityIntelligencePipeline._compact_text(master_context.article_goal, 260)}. "
+            f"Trilha: {track.research_track}. "
+            f"Pergunta: {PerplexityIntelligencePipeline._compact_text(track.research_question, 220)}. "
+            f"Tarefa: {PerplexityIntelligencePipeline._compact_text(track.task_prompt, 420)}. "
+            f"Area: {geographic_scope}. "
+            f"Eixos: {thematic_axes}. "
+            f"Priorizar: {preferred_sources}. "
+            f"Saidas esperadas: {expected_outputs}. "
+            f"Evitar: {exclusions}. "
+            f"Notas: {notes}. "
+            "Retorne fontes oficiais, institucionais ou academicas, com links claros para portal, download, API, documento tecnico ou estudo cientifico."
         )
+
+    @staticmethod
+    def _compact_text(value: str, limit: int) -> str:
+        cleaned = " ".join(str(value or "").split())
+        if len(cleaned) <= limit:
+            return cleaned
+        return cleaned[: max(limit - 3, 0)].rstrip() + "..."
+
+    @staticmethod
+    def _compact_items(
+        values: list[str],
+        *,
+        max_items: int,
+        item_limit: int,
+        strip_urls: bool = False,
+    ) -> str:
+        if not values:
+            return "not specified"
+
+        compacted: list[str] = []
+        for item in values[:max_items]:
+            text = " ".join(str(item or "").split())
+            if strip_urls:
+                text = re.sub(r"https?://\S+", "", text).strip(" -—,;")
+            compacted.append(PerplexityIntelligencePipeline._compact_text(text, item_limit))
+
+        remainder = len(values) - len(compacted)
+        if remainder > 0:
+            compacted.append(f"+{remainder} itens")
+
+        return "; ".join(compacted)
 
     def _build_llm_connector(self) -> LLMConnector | None:
         if self.llm_mode == "off":
