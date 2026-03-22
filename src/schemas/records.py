@@ -3,8 +3,57 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from typing import Literal
 
 from pydantic import BaseModel, Field
+
+# ---------------------------------------------------------------------------
+# Mapeamentos de herança de trilha — usados pelo EnrichAgent (sem LLM)
+# ---------------------------------------------------------------------------
+
+TRACK_TO_LEVEL: dict[str, str] = {
+    "n1_": "macro",
+    "n2_": "meso",
+    "n3_": "bridge",
+    "n4_": "micro",
+}
+
+TRACK_TO_AXIS: dict[str, str] = {
+    "n1_bacia_geomorfologia": "delimitação e geomorfologia",
+    "n1_uso_cobertura_solo": "uso e cobertura do solo",
+    "n1_clima_hidrologia": "clima e hidrologia",
+    "n2_saneamento_esgoto": "saneamento e esgoto",
+    "n2_desmatamento_queimadas": "desmatamento e queimadas",
+    "n2_agro_residuos_ocupacao": "agropecuária, resíduos e ocupação",
+    "n3_qualidade_agua_reservatorios": "qualidade da água nos reservatórios",
+    "n3_operacao_reservatorios": "operação dos reservatórios",
+    "n3_batimetria_morfometria": "batimetria e morfometria",
+    "n4_materia_organica_cdom": "matéria orgânica e CDOM",
+    "n4_sensoriamento_remoto_agua": "sensoriamento remoto da qualidade da água",
+    "n4_series_temporais_tendencias": "séries temporais e tendências",
+}
+
+INTENT_TO_CATEGORY: dict[str, str] = {
+    "dataset_discovery": "dataset",
+    "academic_knowledge": "academic",
+    "contextual_intelligence": "contextual",
+}
+
+DOMAIN_CATEGORY_OVERRIDES: dict[str, str] = {
+    "cetesb.sp.gov.br": "official_portal",
+    "qualar.cetesb.sp.gov.br": "official_portal",
+    "snirh.gov.br": "official_portal",
+    "hidroweb.ana.gov.br": "official_portal",
+    "ana.gov.br": "official_portal",
+    "ibge.gov.br": "official_portal",
+    "sidra.ibge.gov.br": "official_portal",
+    "ons.org.br": "official_portal",
+    "inpe.br": "official_portal",
+    "terrabrasilis.dpi.inpe.br": "official_portal",
+    "mapbiomas.org": "official_portal",
+    "scielo.br": "academic",
+    "doi.org": "academic",
+}
 
 
 def _utcnow() -> datetime:
@@ -265,3 +314,102 @@ class SourceValidationRecord(BaseModel):
     official_signal_after: bool = False
     confidence_before: float = Field(default=0.5, ge=0.0, le=1.0)
     confidence_after: float = Field(default=0.5, ge=0.0, le=1.0)
+
+
+# ---------------------------------------------------------------------------
+# Schemas do pipeline refatorado (4 etapas)
+# ---------------------------------------------------------------------------
+
+
+class CollectionGuide(BaseModel):
+    """Guia de coleta extraído automaticamente de um portal via Firecrawl."""
+
+    steps: list[str] = Field(
+        default_factory=list,
+        description="Passos numerados para coletar os dados no portal.",
+    )
+    filters_available: dict[str, str] = Field(
+        default_factory=dict,
+        description="Filtros identificados. Chave: nome. Valor: opções relevantes para o Tietê.",
+    )
+    download_format: str = Field(
+        default="unknown",
+        description="Formato do arquivo de download. Ex: 'CSV separador ;', 'Shapefile ZIP'.",
+    )
+    estimated_effort: Literal["minutes", "hours", "days", "requires_contact"] = Field(
+        default="hours",
+        description="Esforço estimado para coletar.",
+    )
+    caveats: list[str] = Field(
+        default_factory=list,
+        description="Alertas e limitações do portal.",
+    )
+    requires_login: bool = Field(
+        default=False,
+        description="Se o portal exige cadastro ou login.",
+    )
+    direct_download_urls: list[str] = Field(
+        default_factory=list,
+        description="URLs diretas de arquivos encontrados na página.",
+    )
+
+
+class FilteredSource(BaseModel):
+    """Fonte filtrada e validada heuristicamente a partir da coleta bruta."""
+
+    url: str
+    title: str
+    snippet: str
+    source_domain: str
+
+    # herdado do track que gerou este resultado
+    track_origin: str
+    track_priority: str
+    track_intent: str
+
+    needs_review: bool = False
+    filter_notes: list[str] = Field(default_factory=list)
+
+
+class EnrichedDataset(FilteredSource):
+    """Fonte enriquecida com metadados herdados do track e extraídos pela LLM."""
+
+    # Fase A — herdado do track (determinístico)
+    hierarchy_level: Literal["macro", "meso", "bridge", "micro"] = "macro"
+    thematic_axis: str = ""
+    source_category: str = "contextual"  # official_portal | academic | dataset | contextual
+
+    # Fase B — extraído pela LLM (ou heurística de fallback)
+    dataset_name: str = ""
+    dataset_description: str = ""
+    data_format: Literal[
+        "structured",
+        "semi_structured",
+        "pdf_report",
+        "academic_paper",
+        "geospatial_platform",
+        "unknown",
+    ] = "unknown"
+    temporal_coverage: str | None = None
+    spatial_coverage: str | None = None
+    key_parameters: list[str] = Field(default_factory=list)
+    collection_guide: CollectionGuide | None = None
+
+    enrichment_method: Literal["llm", "heuristic"] = "heuristic"
+    llm_model: str | None = None
+
+
+class RankedDataset(EnrichedDataset):
+    """Dataset enriquecido com rank de acesso e tipo de acesso classificado."""
+
+    rank: int = 0
+    access_type: Literal[
+        "direct_download",
+        "api_access",
+        "web_portal",
+        "geospatial_platform",
+        "pdf_extraction",
+        "restricted",
+        "unknown",
+    ] = "unknown"
+    access_notes: str = ""

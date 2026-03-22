@@ -1,0 +1,2 @@
+dataset_id,title,source_name,source_url,relevance_score,access_level,priority,dataset_kind,methodological_note
+norm-001,Hidroweb,ANA,https://www.snirh.gov.br/hidroweb,0.9,portal,high,dataset,fonte oficial

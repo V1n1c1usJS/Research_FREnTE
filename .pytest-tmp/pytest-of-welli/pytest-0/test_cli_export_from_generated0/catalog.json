@@ -1,0 +1,17 @@
+{
+  "datasets": [
+    {
+      "dataset_id": "norm-001",
+      "title": "Hidroweb",
+      "source_name": "ANA",
+      "source_url": "https://www.snirh.gov.br/hidroweb",
+      "relevance_score": 0.9,
+      "access_level": "portal",
+      "priority": "high",
+      "dataset_kind": "dataset",
+      "methodological_notes": [
+        "fonte oficial"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "research_id": "perplexity-intel-0668264a",
+  "generated_at": "2026-03-22T20:31:09.931226+00:00",
+  "base_query": "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua",
+  "master_context_path": "data\\runs\\perplexity-intel-0668264a\\master-context.json",
+  "perplexity_max_results": 20,
+  "llm_mode": "auto",
+  "llm_provider": null,
+  "llm_model": null,
+  "collection_guides_enabled": true,
+  "search_plan_count": 4,
+  "session_count": 4,
+  "filtered_source_count": 6,
+  "enriched_dataset_count": 6,
+  "ranked_dataset_count": 6,
+  "collection_guide_count": 6,
+  "report_path": "data\\runs\\perplexity-intel-0668264a\\reports\\perplexity-intel-0668264a.md",
+  "html_report_path": "data\\runs\\perplexity-intel-0668264a\\reports\\relatorio_100k.html",
+  "sources_csv_path": "data\\runs\\perplexity-intel-0668264a\\reports\\sources.csv",
+  "datasets_csv_path": "data\\runs\\perplexity-intel-0668264a\\reports\\datasets.csv",
+  "filter_meta": {
+    "total_sessions": 4,
+    "ok_sessions": 3,
+    "error_sessions": 1,
+    "total_links_seen": 6,
+    "filtered_source_count": 6,
+    "skipped_malformed": 0,
+    "skipped_short_snippet": 0,
+    "skipped_duplicate": 0,
+    "needs_review_count": 0
+  },
+  "enrich_meta": {
+    "enriched_count": 6,
+    "llm_count": 0,
+    "heuristic_count": 6,
+    "error_count": 0,
+    "execution_mode": "heuristic",
+    "provider": null,
+    "model": null,
+    "collection_guides_enabled": true,
+    "collection_guide_requested_count": 6,
+    "collection_guide_extracted_count": 6,
+    "collection_guide_fallback_count": 0,
+    "collection_guide_skipped_count": 0,
+    "collection_guide_error": null
+  },
+  "rank_meta": {
+    "ranked_count": 6,
+    "format_summary": {
+      "structured": 1,
+      "semi_structured": 1,
+      "academic_paper": 1,
+      "pdf_report": 2,
+      "unknown": 1
+    },
+    "access_summary": {
+      "direct_download": 6
+    },
+    "level_summary": {
+      "macro": 6
+    }
+  },
+  "intelligence": {
+    "base_query": "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua",
+    "search_plan_count": 4,
+    "session_count": 4,
+    "filtered_source_count": 6,
+    "enriched_dataset_count": 6,
+    "ranked_dataset_count": 6,
+    "filter_meta": {
+      "total_sessions": 4,
+      "ok_sessions": 3,
+      "error_sessions": 1,
+      "total_links_seen": 6,
+      "filtered_source_count": 6,
+      "skipped_malformed": 0,
+      "skipped_short_snippet": 0,
+      "skipped_duplicate": 0,
+      "needs_review_count": 0
+    },
+    "enrich_meta": {
+      "enriched_count": 6,
+      "llm_count": 0,
+      "heuristic_count": 6,
+      "error_count": 0,
+      "execution_mode": "heuristic",
+      "provider": null,
+      "model": null,
+      "collection_guides_enabled": true,
+      "collection_guide_requested_count": 6,
+      "collection_guide_extracted_count": 6,
+      "collection_guide_fallback_count": 0,
+      "collection_guide_skipped_count": 0,
+      "collection_guide_error": null
+    },
+    "rank_meta": {
+      "ranked_count": 6,
+      "format_summary": {
+        "structured": 1,
+        "semi_structured": 1,
+        "academic_paper": 1,
+        "pdf_report": 2,
+        "unknown": 1
+      },
+      "access_summary": {
+        "direct_download": 6
+      },
+      "level_summary": {
+        "macro": 6
+      }
+    },
+    "track_coverage": [
+      {
+        "research_track": "official_data_portals",
+        "chat_label": "chat-portais-oficiais",
+        "target_intent": "dataset_discovery",
+        "session_status": "ok",
+        "dataset_count": 3,
+        "direct_download_count": 3
+      },
+      {
+        "research_track": "monitoring_and_measurements",
+        "chat_label": "chat-monitoramento",
+        "target_intent": "dataset_discovery",
+        "session_status": "ok",
+        "dataset_count": 2,
+        "direct_download_count": 2
+      },
+      {
+        "research_track": "pressure_and_drivers",
+        "chat_label": "chat-pressoes-e-vetores",
+        "target_intent": "dataset_discovery",
+        "session_status": "ok",
+        "dataset_count": 1,
+        "direct_download_count": 1
+      },
+      {
+        "research_track": "institutional_reports",
+        "chat_label": "chat-relatorios-institucionais",
+        "target_intent": "contextual_intelligence",
+        "session_status": "error",
+        "dataset_count": 0,
+        "direct_download_count": 0
+      }
+    ],
+    "top_datasets": [
+      {
+        "rank": 1,
+        "title": "Portal Hidroweb (SNIRH)",
+        "url": "https://www.snirh.gov.br/hidroweb",
+        "track_origin": "official_data_portals",
+        "track_priority": "high",
+        "hierarchy_level": "macro",
+        "thematic_axis": "official data portals",
+        "source_category": "official_portal",
+        "dataset_name": "Portal Hidroweb (SNIRH)",
+        "data_format": "structured",
+        "access_type": "direct_download",
+        "access_notes": "esforco estimado: minutes; guia de coleta encontrou download direto",
+        "temporal_coverage": null,
+        "spatial_coverage": null,
+        "key_parameters": []
+      },
+      {
+        "rank": 2,
+        "title": "Panorama da Qualidade das Aguas",
+        "url": "https://www.ana.gov.br/portalpnqa/Publicacao/PANORAMA_DA_QUALIDADE_DAS_AGUAS.pdf",
+        "track_origin": "official_data_portals",
+        "track_priority": "high",
+        "hierarchy_level": "macro",
+        "thematic_axis": "official data portals",
+        "source_category": "official_portal",
+        "dataset_name": "Panorama da Qualidade das Aguas",
+        "data_format": "semi_structured",
+        "access_type": "direct_download",
+        "access_notes": "esforco estimado: minutes; guia de coleta encontrou download direto",
+        "temporal_coverage": null,
+        "spatial_coverage": null,
+        "key_parameters": []
+      },
+      {
+        "rank": 3,
+        "title": "SciELO Brasil",
+        "url": "https://www.scielo.br/",
+        "track_origin": "monitoring_and_measurements",
+        "track_priority": "high",
+        "hierarchy_level": "macro",
+        "thematic_axis": "monitoring and measurements",
+        "source_category": "academic",
+        "dataset_name": "SciELO Brasil",
+        "data_format": "academic_paper",
+        "access_type": "direct_download",
+        "access_notes": "esforco estimado: minutes; guia de coleta encontrou download direto",
+        "temporal_coverage": null,
+        "spatial_coverage": null,
+        "key_parameters": []
+      },
+      {
+        "rank": 4,
+        "title": "Toxicidade das aguas do Rio Tiete",
+        "url": "https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.pdf",
+        "track_origin": "monitoring_and_measurements",
+        "track_priority": "high",
+        "hierarchy_level": "macro",
+        "thematic_axis": "monitoring and measurements",
+        "source_category": "dataset",
+        "dataset_name": "Toxicidade das aguas do Rio Tiete",
+        "data_format": "pdf_report",
+        "access_type": "direct_download",
+        "access_notes": "esforco estimado: minutes; guia de coleta encontrou download direto",
+        "temporal_coverage": null,
+        "spatial_coverage": null,
+        "key_parameters": []
+      },
+      {
+        "rank": 5,
+        "title": "MapBiomas",
+        "url": "https://mapbiomas.org/",
+        "track_origin": "official_data_portals",
+        "track_priority": "high",
+        "hierarchy_level": "macro",
+        "thematic_axis": "official data portals",
+        "source_category": "official_portal",
+        "dataset_name": "MapBiomas",
+        "data_format": "unknown",
+        "access_type": "direct_download",
+        "access_notes": "esforco estimado: minutes; guia de coleta encontrou download direto",
+        "temporal_coverage": null,
+        "spatial_coverage": null,
+        "key_parameters": []
+      },
+      {
+        "rank": 6,
+        "title": "Projeto Tiete IV",
+        "url": "https://www.sabesp.com.br/site/uploads/file/projeto_tiete/projetotiete_empd.pdf",
+        "track_origin": "pressure_and_drivers",
+        "track_priority": "medium",
+        "hierarchy_level": "macro",
+        "thematic_axis": "pressure and drivers",
+        "source_category": "dataset",
+        "dataset_name": "Projeto Tiete IV",
+        "data_format": "pdf_report",
+        "access_type": "direct_download",
+        "access_notes": "esforco estimado: minutes; guia de coleta encontrou download direto",
+        "temporal_coverage": null,
+        "spatial_coverage": null,
+        "key_parameters": []
+      }
+    ]
+  }
+}

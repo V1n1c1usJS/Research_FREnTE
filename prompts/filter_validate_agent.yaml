@@ -1,0 +1,26 @@
+agent:
+  name: FilterValidateAgent
+  version: 1.0.0
+  role: Filtrar e validar fontes brutas da coleta sem uso de LLM
+objective: Limpar a coleta bruta, remover duplicatas e URLs inválidas, e sinalizar fontes com evidência fraca para revisão manual.
+context:
+  - Etapa puramente heurística — sem inferência por LLM.
+  - Preserva a trilha de origem (track_origin, track_priority, track_intent) para uso downstream.
+  - Não descarta fontes por tema — apenas por qualidade técnica (URL inválida, snippet curto, duplicata).
+input:
+  - perplexity_sessions — lista de sessões coletadas pela Search API
+  - perplexity_search_plan — plano de buscas com priority por query_id
+output:
+  - filtered_sources — lista de FilteredSource com track info herdado
+  - filter_meta — contagens de sessões, links filtrados e revisões
+rules:
+  - Remover URLs malformadas (sem scheme ou netloc).
+  - Remover duplicatas pelo URL normalizado (sem trailing slash).
+  - Marcar needs_review=true para snippets com menos de 20 caracteres.
+  - Ignorar sessões com collection_status diferente de "ok".
+  - Não classificar tipo de fonte — isso é responsabilidade do EnrichAgent.
+classification:
+  - Filtragem técnica por qualidade de URL e snippet.
+  - Deduplicação por URL normalizado.
+runtime:
+  - Executar antes do EnrichAgent, sobre a coleta bruta (perplexity_sessions).

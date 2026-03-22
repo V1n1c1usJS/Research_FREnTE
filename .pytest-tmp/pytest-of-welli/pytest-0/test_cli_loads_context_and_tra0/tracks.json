@@ -1,0 +1,11 @@
+[
+  {
+    "research_track": "custom_track",
+    "chat_label": "chat-custom",
+    "search_profile": "custom_profile",
+    "target_intent": "dataset_discovery",
+    "research_question": "Quais fontes monitoram a costa norte?",
+    "task_prompt": "Busque datasets e literatura aplicada.",
+    "priority": "high"
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "context_id": "ctx-article-001",
+  "article_goal": "Discover sources, datasets and academic knowledge for the research topic: impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua",
+  "geographic_scope": [],
+  "thematic_axes": [
+    "environmental context",
+    "anthropic pressures and drivers",
+    "monitoring and time series",
+    "environmental response indicators",
+    "scientific and institutional data sources"
+  ],
+  "preferred_sources": [
+    "official and institutional portals",
+    "academic repositories",
+    "technical reports with citations to data",
+    "catalogs, APIs and time-series datasets"
+  ],
+  "expected_outputs": [
+    "direct links to portals, documents or repositories",
+    "datasets and recurring monitoring programs",
+    "academic studies that cite data sources",
+    "methodological clues for the article"
+  ],
+  "exclusions": [
+    "generic summaries without sources",
+    "promotional content",
+    "low-value contextual noise"
+  ],
+  "notes": [
+    "User-provided research context: impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua",
+    "Prefer a few deep thematic chats over one broad generic search."
+  ]
+}

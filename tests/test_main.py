@@ -23,6 +23,9 @@ class FakePerplexityPipeline:
         llm_model: str = "gpt-4.1-nano",
         llm_timeout_seconds: float = 60.0,
         llm_fail_on_error: bool = False,
+        firecrawl_api_key: str = "",
+        firecrawl_timeout_seconds: float = 60.0,
+        skip_collection_guides: bool = False,
     ) -> None:
         FakePerplexityPipeline.last_instance = self
         self.base_query = base_query
@@ -37,34 +40,37 @@ class FakePerplexityPipeline:
         self.llm_model = llm_model
         self.llm_timeout_seconds = llm_timeout_seconds
         self.llm_fail_on_error = llm_fail_on_error
+        self.firecrawl_api_key = firecrawl_api_key
+        self.firecrawl_timeout_seconds = firecrawl_timeout_seconds
+        self.skip_collection_guides = skip_collection_guides
 
     def execute(self) -> dict[str, str | int]:
-        init_dir = Path("data/initializations/perplexity-intel-test")
-        init_dir.mkdir(parents=True, exist_ok=True)
-        report_path = Path("reports/perplexity-intel-test.md")
-        report_path.parent.mkdir(parents=True, exist_ok=True)
+        run_dir = Path("data/runs/perplexity-intel-test")
+        for subdir in ("config", "collection", "processing", "reports"):
+            (run_dir / subdir).mkdir(parents=True, exist_ok=True)
+        report_path = run_dir / "reports" / "perplexity-intel-test.md"
         report_path.write_text("# report", encoding="utf-8")
-        intelligence_path = init_dir / "10_intelligence_payload.json"
-        intelligence_path.write_text(
+        manifest_path = run_dir / "manifest.json"
+        manifest_path.write_text(
             json.dumps(
                 {
                     "research_id": "perplexity-intel-test",
-                    "datasets": [],
+                    "ranked_datasets": [],
                 },
                 ensure_ascii=False,
                 indent=2,
             ),
             encoding="utf-8",
         )
-        master_context_path = init_dir / "00_master-context.json"
+        master_context_path = run_dir / "master-context.json"
         master_context_path.write_text(
             json.dumps({"article_goal": self.base_query}, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
-        sources_csv_path = Path("reports/perplexity-intel-test-sources.csv")
-        sources_csv_path.write_text("source_id,title\n", encoding="utf-8")
-        datasets_csv_path = Path("reports/perplexity-intel-test-datasets.csv")
-        datasets_csv_path.write_text("dataset_id,title\n", encoding="utf-8")
+        sources_csv_path = run_dir / "reports" / "sources.csv"
+        sources_csv_path.write_text("rank,url,title\n", encoding="utf-8")
+        datasets_csv_path = run_dir / "reports" / "datasets.csv"
+        datasets_csv_path.write_text("rank,dataset_name,title\n", encoding="utf-8")
 
         return {
             "research_id": "perplexity-intel-test",
@@ -72,10 +78,11 @@ class FakePerplexityPipeline:
             "report_path": str(report_path),
             "sources_csv_path": str(sources_csv_path),
             "datasets_csv_path": str(datasets_csv_path),
-            "intelligence_path": str(intelligence_path),
-            "categorized_source_count": 3,
-            "dataset_candidate_count": 2,
-            "dataset_count": 1,
+            "intelligence_path": str(manifest_path),
+            "filtered_source_count": 3,
+            "enriched_dataset_count": 3,
+            "ranked_dataset_count": 3,
+            "collection_guide_count": 0,
         }
 
 
@@ -115,6 +122,26 @@ def test_cli_alias_perplexity_intel_executes(monkeypatch) -> None:
     )
 
     assert exit_code == 0
+
+
+def test_cli_passes_firecrawl_configuration(monkeypatch) -> None:
+    monkeypatch.setattr(main_module, "PerplexityIntelligencePipeline", FakePerplexityPipeline)
+    monkeypatch.setenv("PERPLEXITY_API_KEY", "test-key")
+    monkeypatch.setenv("FIRECRAWL_API_KEY", "fc-test-key")
+
+    exit_code = run(
+        [
+            "run",
+            "--query",
+            "fontes de dados oficiais e estudos academicos sobre rio tiete e jupia",
+            "--skip-collection-guides",
+        ]
+    )
+
+    assert exit_code == 0
+    assert FakePerplexityPipeline.last_instance is not None
+    assert FakePerplexityPipeline.last_instance.firecrawl_api_key == "fc-test-key"
+    assert FakePerplexityPipeline.last_instance.skip_collection_guides is True
 
 
 def test_cli_export_from_generated_catalog(tmp_path: Path) -> None:

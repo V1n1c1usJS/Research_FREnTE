@@ -1,0 +1,126 @@
+[
+  {
+    "query_id": "pplx-q-01",
+    "query_text": "Quais portais oficiais e fontes primarias concentram dados relevantes para esta pesquisa?. Procure ministerios, agencias, institutos, catalogos, APIs, paineis e portais de dados diretamente relacionados ao te...",
+    "search_profile": "official_portals",
+    "target_intent": "dataset_discovery",
+    "research_track": "official_data_portals",
+    "chat_label": "",
+    "research_question": "",
+    "collection_status": "ok",
+    "collection_method": "search_api",
+    "request_endpoint": "https://api.perplexity.ai/search",
+    "answer_text": "Hidroweb e MapBiomas aparecem como caminhos fortes para hidrologia e uso da terra.",
+    "visible_source_count": 4,
+    "links": [
+      {
+        "title": "Portal Hidroweb (SNIRH)",
+        "url": "https://www.snirh.gov.br/hidroweb",
+        "domain": "www.snirh.gov.br",
+        "snippet": "Portal oficial com series historicas hidrologicas, vazao, nivel e chuva."
+      },
+      {
+        "title": "MapBiomas",
+        "url": "https://mapbiomas.org/",
+        "domain": "mapbiomas.org",
+        "snippet": "Colecoes de uso e cobertura da terra para o Brasil desde 1985."
+      },
+      {
+        "title": "Panorama da Qualidade das Aguas",
+        "url": "https://www.ana.gov.br/portalpnqa/Publicacao/PANORAMA_DA_QUALIDADE_DAS_AGUAS.pdf",
+        "domain": "www.ana.gov.br",
+        "snippet": "Relatorio tecnico institucional sobre qualidade das aguas superficiais."
+      }
+    ],
+    "blockers": [],
+    "notes": [
+      "source:perplexity_search_api",
+      "max_results:20"
+    ],
+    "collected_at": "2026-03-22T20:31:09.942482Z"
+  },
+  {
+    "query_id": "pplx-q-02",
+    "query_text": "Quais fontes trazem monitoramento, series historicas e medidas recorrentes sobre o tema?. Busque programas de monitoramento, series historicas, sensores, estacoes, indicadores e bases recorrentes ligadas ao...",
+    "search_profile": "monitoring_sources",
+    "target_intent": "dataset_discovery",
+    "research_track": "monitoring_and_measurements",
+    "chat_label": "",
+    "research_question": "",
+    "collection_status": "ok",
+    "collection_method": "search_api",
+    "request_endpoint": "https://api.perplexity.ai/search",
+    "answer_text": "SciELO e Repositorio USP trazem conhecimento academico e estudos aplicados ao Tiete.",
+    "visible_source_count": 3,
+    "links": [
+      {
+        "title": "SciELO Brasil",
+        "url": "https://www.scielo.br/",
+        "domain": "www.scielo.br",
+        "snippet": "Base academica para artigos e estudos sobre qualidade da agua."
+      },
+      {
+        "title": "Toxicidade das aguas do Rio Tiete",
+        "url": "https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.pdf",
+        "domain": "repositorio.usp.br",
+        "snippet": "Estudo academico aplicado ao eixo Pereira Barreto e Tres Lagoas."
+      }
+    ],
+    "blockers": [],
+    "notes": [
+      "source:perplexity_search_api",
+      "max_results:20"
+    ],
+    "collected_at": "2026-03-22T20:31:09.942482Z"
+  },
+  {
+    "query_id": "pplx-q-03",
+    "query_text": "Quais datasets ajudam a explicar vetores, pressoes e mudancas associadas ao tema?. Procure bases sobre uso do territorio, ocupacao, pressao antropica, infraestruturas, saneamento, queimadas, cobertura...",
+    "search_profile": "pressure_drivers",
+    "target_intent": "dataset_discovery",
+    "research_track": "pressure_and_drivers",
+    "chat_label": "",
+    "research_question": "",
+    "collection_status": "ok",
+    "collection_method": "search_api",
+    "request_endpoint": "https://api.perplexity.ai/search",
+    "answer_text": "Projeto Tiete e monitoramentos complementam a interpretacao institucional.",
+    "visible_source_count": 2,
+    "links": [
+      {
+        "title": "Projeto Tiete IV",
+        "url": "https://www.sabesp.com.br/site/uploads/file/projeto_tiete/projetotiete_empd.pdf",
+        "domain": "www.sabesp.com.br",
+        "snippet": "Documento institucional do Projeto Tiete com dados de saneamento basico."
+      }
+    ],
+    "blockers": [],
+    "notes": [
+      "source:perplexity_search_api",
+      "max_results:20"
+    ],
+    "collected_at": "2026-03-22T20:31:09.942482Z"
+  },
+  {
+    "query_id": "pplx-q-04",
+    "query_text": "Quais relatorios tecnicos e documentos institucionais ajudam a contextualizar a pesquisa?. Procure relatorios tecnicos, planos, diagnosticos, boletins e documentos institucionais que ajudem a entender o conte...",
+    "search_profile": "institutional_reports",
+    "target_intent": "contextual_intelligence",
+    "research_track": "institutional_reports",
+    "chat_label": "",
+    "research_question": "",
+    "collection_status": "error",
+    "collection_method": "search_api",
+    "request_endpoint": "https://api.perplexity.ai/search",
+    "answer_text": "",
+    "visible_source_count": 0,
+    "links": [],
+    "blockers": [
+      "api_error:TimeoutError"
+    ],
+    "notes": [
+      "tempo esgotado"
+    ],
+    "collected_at": "2026-03-22T20:31:09.942482Z"
+  }
+]

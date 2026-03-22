@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from src.pipelines.perplexity_intelligence_pipeline import PerplexityIntelligencePipeline
-from src.schemas.records import PerplexityLinkRecord, PerplexitySearchSessionRecord
+from src.schemas.records import CollectionGuide, PerplexityLinkRecord, PerplexitySearchSessionRecord
 
 
 def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sources(
@@ -20,6 +20,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                     query_text=query_plan[0].query_text,
                     search_profile=query_plan[0].search_profile,
                     target_intent=query_plan[0].target_intent,
+                    research_track=query_plan[0].research_track,
                     collection_method="search_api",
                     request_endpoint="https://api.perplexity.ai/search",
                     answer_text="Hidroweb e MapBiomas aparecem como caminhos fortes para hidrologia e uso da terra.",
@@ -35,7 +36,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                             title="MapBiomas",
                             url="https://mapbiomas.org/",
                             domain="mapbiomas.org",
-                            snippet="Colecoes de uso e cobertura da terra para o Brasil.",
+                            snippet="Colecoes de uso e cobertura da terra para o Brasil desde 1985.",
                         ),
                         PerplexityLinkRecord(
                             title="Panorama da Qualidade das Aguas",
@@ -52,6 +53,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                     query_text=query_plan[1].query_text,
                     search_profile=query_plan[1].search_profile,
                     target_intent=query_plan[1].target_intent,
+                    research_track=query_plan[1].research_track,
                     collection_method="search_api",
                     request_endpoint="https://api.perplexity.ai/search",
                     answer_text="SciELO e Repositorio USP trazem conhecimento academico e estudos aplicados ao Tiete.",
@@ -65,7 +67,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                         ),
                         PerplexityLinkRecord(
                             title="Toxicidade das aguas do Rio Tiete",
-                            url="https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.BERNARDI_toxidade_das_aguas_rio_tiete.pdf",
+                            url="https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.pdf",
                             domain="repositorio.usp.br",
                             snippet="Estudo academico aplicado ao eixo Pereira Barreto e Tres Lagoas.",
                         ),
@@ -78,6 +80,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                     query_text=query_plan[2].query_text,
                     search_profile=query_plan[2].search_profile,
                     target_intent=query_plan[2].target_intent,
+                    research_track=query_plan[2].research_track,
                     collection_method="search_api",
                     request_endpoint="https://api.perplexity.ai/search",
                     answer_text="Projeto Tiete e monitoramentos complementam a interpretacao institucional.",
@@ -87,7 +90,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                             title="Projeto Tiete IV",
                             url="https://www.sabesp.com.br/site/uploads/file/projeto_tiete/projetotiete_empd.pdf",
                             domain="www.sabesp.com.br",
-                            snippet="Documento institucional do Projeto Tiete.",
+                            snippet="Documento institucional do Projeto Tiete com dados de saneamento basico.",
                         ),
                     ],
                     blockers=[],
@@ -98,6 +101,7 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                     query_text=query_plan[3].query_text,
                     search_profile=query_plan[3].search_profile,
                     target_intent=query_plan[3].target_intent,
+                    research_track=query_plan[3].research_track,
                     collection_status="error",
                     collection_method="search_api",
                     request_endpoint="https://api.perplexity.ai/search",
@@ -109,52 +113,76 @@ def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sour
                 ),
             ]
 
+    class FakeFirecrawlCollector:
+        def extract_collection_guide(self, *, url, dataset):
+            return CollectionGuide(
+                steps=[f"Abrir {url}", f"Buscar {dataset.dataset_name or dataset.title}", "Exportar CSV"],
+                filters_available={"regiao": "Bacia do Tiete", "periodo": "2000-2024"},
+                download_format="CSV",
+                estimated_effort="minutes",
+                caveats=[],
+                requires_login=False,
+                direct_download_urls=[f"{url.rstrip('/')}/download.csv"],
+            )
+
     pipeline = PerplexityIntelligencePipeline(
         base_query="impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua",
         limit=10,
         max_searches=4,
         collector_factory=lambda: FakeCollector(),
+        firecrawl_api_key="fc-test",
+        firecrawl_collector_factory=lambda: FakeFirecrawlCollector(),
     )
 
     result = pipeline.execute()
 
-    assert result["categorized_source_count"] >= 5
-    assert result["validated_source_count"] >= 5
-    assert result["dataset_candidate_count"] >= 2
+    # --- contagens esperadas ---
+    # 3 sessões ok × links = 3 + 2 + 1 = 6 fontes filtradas
+    assert result["filtered_source_count"] == 6
+    assert result["enriched_dataset_count"] == 6
+    assert result["ranked_dataset_count"] == 6
+    assert result["collection_guide_count"] == 6
+
+    # --- artefatos em disco ---
     assert Path(result["intelligence_path"]).exists()
     assert Path(result["report_path"]).exists()
     assert Path(result["sources_csv_path"]).exists()
     assert Path(result["datasets_csv_path"]).exists()
 
-    intelligence_payload = json.loads(Path(result["intelligence_path"]).read_text(encoding="utf-8"))
-    assert intelligence_payload["session_count"] == 4
-    assert intelligence_payload["collection_meta"]["error_session_count"] == 1
-    assert intelligence_payload["collection_meta"]["source_validation_meta"]["validated_source_count"] >= 5
-    assert len(intelligence_payload["intelligence"]["track_coverage"]) == 4
-    official_titles = {item["title"] for item in intelligence_payload["intelligence"]["official_portals"]}
-    assert "Portal Hidroweb (SNIRH)" in official_titles
-    academic_titles = {item["title"] for item in intelligence_payload["intelligence"]["academic_sources"]}
-    assert "SciELO Brasil" in academic_titles
-
+    # --- raw sessions ---
     raw_sessions = json.loads(
-        (tmp_path / "data" / "initializations" / result["research_id"] / "02_raw-sessions.json").read_text(
+        (tmp_path / "data" / "runs" / result["research_id"] / "collection" / "raw-sessions.json").read_text(
             encoding="utf-8"
         )
     )
     assert raw_sessions[0]["answer_text"].startswith("Hidroweb e MapBiomas")
-    validation_stage = json.loads(
-        (tmp_path / "data" / "initializations" / result["research_id"] / "04_source-validation.json").read_text(
+
+    # --- processing/02-enriched-datasets.json ---
+    enriched = json.loads(
+        (tmp_path / "data" / "runs" / result["research_id"] / "processing" / "02-enriched-datasets.json").read_text(
             encoding="utf-8"
         )
     )
-    assert validation_stage["source_validation_meta"]["validated_source_count"] >= 5
+    assert "enriched_datasets" in enriched
+    assert len(enriched["enriched_datasets"]) == 6
+    assert enriched["enriched_datasets"][0]["collection_guide"]["download_format"] == "CSV"
 
+    # --- manifest ---
+    manifest = json.loads(Path(result["intelligence_path"]).read_text(encoding="utf-8"))
+    assert manifest["session_count"] == 4
+    assert manifest["filter_meta"]["error_sessions"] == 1
+    assert manifest["filtered_source_count"] == 6
+    assert manifest["collection_guide_count"] == 6
+    assert len(manifest["intelligence"]["track_coverage"]) == 4
+
+    # --- report ---
     report = Path(result["report_path"]).read_text(encoding="utf-8")
-    assert "Cobertura por trilha" in report
-    assert "Validacao das fontes" in report
-    assert "Portais e fontes com sinal de dataset" in report
-    assert "Conhecimento academico e repositorios" in report
+    assert "Relatório" in report or "Cobertura" in report
 
+    # --- sources CSV ---
     sources_csv = Path(result["sources_csv_path"]).read_text(encoding="utf-8")
-    assert sources_csv.startswith("source_id,title,url,domain")
-    assert "validation_status" in sources_csv
+    assert sources_csv.startswith("rank,url,title")
+    assert "hierarchy_level" in sources_csv
+    assert "data_format" in sources_csv
+    assert "access_type" in sources_csv
+    assert "collection_guide_available" in sources_csv

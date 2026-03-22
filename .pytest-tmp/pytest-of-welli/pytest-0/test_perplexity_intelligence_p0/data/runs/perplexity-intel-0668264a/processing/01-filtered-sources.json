@@ -1,0 +1,81 @@
+{
+  "filtered_sources": [
+    {
+      "url": "https://www.snirh.gov.br/hidroweb",
+      "title": "Portal Hidroweb (SNIRH)",
+      "snippet": "Portal oficial com series historicas hidrologicas, vazao, nivel e chuva.",
+      "source_domain": "snirh.gov.br",
+      "track_origin": "official_data_portals",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": []
+    },
+    {
+      "url": "https://mapbiomas.org/",
+      "title": "MapBiomas",
+      "snippet": "Colecoes de uso e cobertura da terra para o Brasil desde 1985.",
+      "source_domain": "mapbiomas.org",
+      "track_origin": "official_data_portals",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": []
+    },
+    {
+      "url": "https://www.ana.gov.br/portalpnqa/Publicacao/PANORAMA_DA_QUALIDADE_DAS_AGUAS.pdf",
+      "title": "Panorama da Qualidade das Aguas",
+      "snippet": "Relatorio tecnico institucional sobre qualidade das aguas superficiais.",
+      "source_domain": "ana.gov.br",
+      "track_origin": "official_data_portals",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": []
+    },
+    {
+      "url": "https://www.scielo.br/",
+      "title": "SciELO Brasil",
+      "snippet": "Base academica para artigos e estudos sobre qualidade da agua.",
+      "source_domain": "scielo.br",
+      "track_origin": "monitoring_and_measurements",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": []
+    },
+    {
+      "url": "https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.pdf",
+      "title": "Toxicidade das aguas do Rio Tiete",
+      "snippet": "Estudo academico aplicado ao eixo Pereira Barreto e Tres Lagoas.",
+      "source_domain": "repositorio.usp.br",
+      "track_origin": "monitoring_and_measurements",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": []
+    },
+    {
+      "url": "https://www.sabesp.com.br/site/uploads/file/projeto_tiete/projetotiete_empd.pdf",
+      "title": "Projeto Tiete IV",
+      "snippet": "Documento institucional do Projeto Tiete com dados de saneamento basico.",
+      "source_domain": "sabesp.com.br",
+      "track_origin": "pressure_and_drivers",
+      "track_priority": "medium",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": []
+    }
+  ],
+  "filter_meta": {
+    "total_sessions": 4,
+    "ok_sessions": 3,
+    "error_sessions": 1,
+    "total_links_seen": 6,
+    "filtered_source_count": 6,
+    "skipped_malformed": 0,
+    "skipped_short_snippet": 0,
+    "skipped_duplicate": 0,
+    "needs_review_count": 0
+  }
+}

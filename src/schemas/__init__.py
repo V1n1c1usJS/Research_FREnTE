@@ -1,8 +1,11 @@
 """Modelos de dados e contratos do pipeline."""
 
 from src.schemas.records import (
+    CollectionGuide,
     DatasetCandidate,
     DatasetRecord,
+    EnrichedDataset,
+    FilteredSource,
     IntelligenceSourceRecord,
     PerplexityLinkRecord,
     PerplexityResearchContextRecord,
@@ -16,8 +19,11 @@ from src.schemas.records import (
 from src.schemas.settings import PipelineSettings
 
 __all__ = [
+    "CollectionGuide",
     "DatasetCandidate",
     "DatasetRecord",
+    "EnrichedDataset",
+    "FilteredSource",
     "IntelligenceSourceRecord",
     "PerplexityLinkRecord",
     "PerplexityResearchContextRecord",

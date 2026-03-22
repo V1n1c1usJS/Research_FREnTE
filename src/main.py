@@ -92,6 +92,12 @@ def _add_perplexity_args(parser: argparse.ArgumentParser) -> None:
         action="store_true",
         help="Interrompe a execucao se a inferencia por LLM falhar.",
     )
+    parser.add_argument(
+        "--skip-collection-guides",
+        action="store_true",
+        default=False,
+        help="Pular extracao de guias de coleta via Firecrawl (economiza creditos).",
+    )
 
 
 def run(argv: list[str] | None = None) -> int:
@@ -109,6 +115,7 @@ def _run_perplexity_intel(args: argparse.Namespace) -> int:
     import os
 
     perplexity_api_key = os.getenv("PERPLEXITY_API_KEY", "").strip()
+    firecrawl_api_key = os.getenv("FIRECRAWL_API_KEY", "").strip()
     if not perplexity_api_key:
         print("Erro: PERPLEXITY_API_KEY nao configurada no ambiente.")
         return 1
@@ -131,14 +138,17 @@ def _run_perplexity_intel(args: argparse.Namespace) -> int:
         llm_model=args.llm_model,
         llm_timeout_seconds=args.llm_timeout,
         llm_fail_on_error=args.llm_fail_on_error,
+        firecrawl_api_key=firecrawl_api_key,
+        skip_collection_guides=args.skip_collection_guides,
     ).execute()
 
     print(f"Research ID: {result['research_id']}")
     print(f"Master context: {result['master_context_path']}")
-    print(f"Categorized sources: {result['categorized_source_count']}")
-    print(f"Dataset candidates: {result['dataset_candidate_count']}")
-    print(f"Datasets: {result['dataset_count']}")
-    print(f"Intelligence JSON: {result['intelligence_path']}")
+    print(f"Filtered sources: {result['filtered_source_count']}")
+    print(f"Enriched datasets: {result['enriched_dataset_count']}")
+    print(f"Ranked datasets: {result['ranked_dataset_count']}")
+    print(f"Collection guides: {result['collection_guide_count']}")
+    print(f"Manifest: {result['intelligence_path']}")
     print(f"Report: {result['report_path']}")
     print(f"Sources CSV: {result['sources_csv_path']}")
     print(f"Datasets CSV: {result['datasets_csv_path']}")

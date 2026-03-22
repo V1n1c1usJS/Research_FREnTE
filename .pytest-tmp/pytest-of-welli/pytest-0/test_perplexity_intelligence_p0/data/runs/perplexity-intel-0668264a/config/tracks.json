@@ -1,0 +1,38 @@
+[
+  {
+    "research_track": "official_data_portals",
+    "chat_label": "chat-portais-oficiais",
+    "search_profile": "official_portals",
+    "target_intent": "dataset_discovery",
+    "research_question": "Quais portais oficiais e fontes primarias concentram dados relevantes para esta pesquisa?",
+    "task_prompt": "Procure ministerios, agencias, institutos, catalogos, APIs, paineis e portais de dados diretamente relacionados ao tema da pesquisa.",
+    "priority": "high"
+  },
+  {
+    "research_track": "monitoring_and_measurements",
+    "chat_label": "chat-monitoramento",
+    "search_profile": "monitoring_sources",
+    "target_intent": "dataset_discovery",
+    "research_question": "Quais fontes trazem monitoramento, series historicas e medidas recorrentes sobre o tema?",
+    "task_prompt": "Busque programas de monitoramento, series historicas, sensores, estacoes, indicadores e bases recorrentes ligadas ao objeto de estudo.",
+    "priority": "high"
+  },
+  {
+    "research_track": "pressure_and_drivers",
+    "chat_label": "chat-pressoes-e-vetores",
+    "search_profile": "pressure_drivers",
+    "target_intent": "dataset_discovery",
+    "research_question": "Quais datasets ajudam a explicar vetores, pressoes e mudancas associadas ao tema?",
+    "task_prompt": "Procure bases sobre uso do territorio, ocupacao, pressao antropica, infraestruturas, saneamento, queimadas, cobertura do solo ou outros vetores relevantes ao tema.",
+    "priority": "medium"
+  },
+  {
+    "research_track": "institutional_reports",
+    "chat_label": "chat-relatorios-institucionais",
+    "search_profile": "institutional_reports",
+    "target_intent": "contextual_intelligence",
+    "research_question": "Quais relatorios tecnicos e documentos institucionais ajudam a contextualizar a pesquisa?",
+    "task_prompt": "Procure relatorios tecnicos, planos, diagnosticos, boletins e documentos institucionais que ajudem a entender o contexto e apontem para fontes de dados.",
+    "priority": "medium"
+  }
+]

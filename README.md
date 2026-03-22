@@ -14,12 +14,11 @@ O projeto hoje funciona assim:
 
 1. [src/main.py](src/main.py) recebe a configuracao de execucao pela CLI
 2. [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py) monta o contexto mestre e o plano de chats
-3. [src/connectors/perplexity_api.py](src/connectors/perplexity_api.py) executa as buscas via Perplexity Search API
-4. [src/agents/perplexity_source_categorization_agent.py](src/agents/perplexity_source_categorization_agent.py) categoriza as fontes a partir da evidencia coletada
-5. [src/agents/source_validation_agent.py](src/agents/source_validation_agent.py) valida a consistencia das fontes, registra ajustes e sinaliza validacao manual
-6. [src/agents/dataset_discovery_agent.py](src/agents/dataset_discovery_agent.py) consolida candidatos a dataset
-7. [src/agents/normalization_agent.py](src/agents/normalization_agent.py), [src/agents/relevance_agent.py](src/agents/relevance_agent.py) e [src/agents/access_agent.py](src/agents/access_agent.py) estruturam, priorizam e organizam o acesso
-8. [src/agents/perplexity_intelligence_report_agent.py](src/agents/perplexity_intelligence_report_agent.py) produz o consolidado final
+3. [src/connectors/perplexity_api.py](src/connectors/perplexity_api.py) executa as buscas via Perplexity Search API e armazena a coleta crua
+4. [src/agents/filter_validate_agent.py](src/agents/filter_validate_agent.py) remove duplicatas e URLs invalidas; herda track_origin, track_priority e track_intent de cada sessao
+5. [src/agents/enrich_agent.py](src/agents/enrich_agent.py) deriva hierarchy_level/thematic_axis/source_category do track (Fase A); usa LLM para extrair dataset_name, data_format, cobertura temporal/espacial e parametros-chave (Fase B); opcionalmente usa Firecrawl para gerar collection_guide contextual (Fase C)
+6. [src/agents/rank_access_agent.py](src/agents/rank_access_agent.py) ordena por track_priority → data_format e classifica access_type por dominio/extensao
+7. [src/agents/report_agent.py](src/agents/report_agent.py) gera relatorio analitico com cobertura por nivel, formatos, lacunas e proximos passos
 
 ### Conector de coleta
 
@@ -47,7 +46,7 @@ Hoje a configuracao do projeto esta distribuida em 6 camadas:
    Estrutura definida por [PerplexityResearchTrackRecord](src/schemas/records.py) em [src/schemas/records.py](src/schemas/records.py).
 4. **Variaveis de ambiente**
    Carregadas em [src/main.py](src/main.py) via `python-dotenv`, quando disponivel.
-   No fluxo atual, `PERPLEXITY_API_KEY` e obrigatoria para a coleta e `OPENAI_API_KEY` e opcional para inferencia estrutural.
+   No fluxo atual, `PERPLEXITY_API_KEY` e obrigatoria para a coleta, `OPENAI_API_KEY` e opcional para inferencia estrutural e `FIRECRAWL_API_KEY` e opcional para o guia de coleta.
 5. **Defaults internos da pipeline**
    Definidos em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
    Entram em acao quando voce nao passa arquivos ou flags especificas.
@@ -65,7 +64,7 @@ Quando ha mais de uma fonte de configuracao, pense na ordem abaixo:
    Sobrescrevem os defaults internos da pipeline para contexto e trilhas.
    Se nao forem passados e os arquivos `config/context_100k.yaml` e `config/tracks_100k.yaml` existirem, eles viram o preset padrao do projeto.
 3. **`.env`**
-   Hoje entra para autenticar a Perplexity Search API via `PERPLEXITY_API_KEY` e, opcionalmente, a OpenAI via `OPENAI_API_KEY`.
+   Hoje entra para autenticar a Perplexity Search API via `PERPLEXITY_API_KEY`, a OpenAI via `OPENAI_API_KEY` e, opcionalmente, o Firecrawl via `FIRECRAWL_API_KEY`.
 4. **Defaults internos**
    Sao usados quando voce nao informa alguma configuracao.
 
@@ -98,6 +97,7 @@ As configuracoes principais estao em [src/main.py](src/main.py), dentro de `_add
 | `--llm-model`          | `gpt-4.1-nano`         | [src/main.py](src/main.py) | Modelo OpenAI usado na inferencia estrutural das fontes.                                                                                        |
 | `--llm-timeout`        | `60.0`                 | [src/main.py](src/main.py) | Timeout das chamadas de inferencia por LLM.                                                                                                     |
 | `--llm-fail-on-error`  | `False`                | [src/main.py](src/main.py) | Se ativado, falhas da LLM interrompem a execucao. Se nao, o fluxo cai para heuristica.                                                          |
+| `--skip-collection-guides` | `False`            | [src/main.py](src/main.py) | Pula a Fase C do EnrichAgent e nao chama o Firecrawl, mesmo se `FIRECRAWL_API_KEY` estiver configurada.                                        |
 
 ### Flags de `export`
 
@@ -263,12 +263,19 @@ As variaveis de ambiente sao carregadas em [src/main.py](src/main.py), na funcao
   - se `--llm-mode off`, a chave e ignorada
   - se `--llm-mode auto`, a LLM so e habilitada se a chave existir
   - se `--llm-mode openai`, a ausencia da chave gera erro
+- `FIRECRAWL_API_KEY`
+  Onde usada: [src/agents/enrich_agent.py](src/agents/enrich_agent.py) e [src/connectors/firecrawl_collector.py](src/connectors/firecrawl_collector.py).
+  Como funciona:
+  - e opcional
+  - se existir e `--skip-collection-guides` nao for usado, a Fase C tenta gerar `collection_guide`
+  - se nao existir, o pipeline continua normalmente com `collection_guide = null`
 
 Exemplo minimo de `.env` util hoje:
 
 ```env
 PERPLEXITY_API_KEY=...
 OPENAI_API_KEY=...
+FIRECRAWL_API_KEY=...
 ```
 
 ### Variaveis que existem no `.env.example`, mas hoje sao legadas
@@ -306,108 +313,99 @@ O default `10` do schema so entra se `PipelineSettings` for instanciado em outro
 
 ## Como cada configuracao afeta os agentes
 
-### `PerplexitySourceCategorizationAgent`
+### `FilterValidateAgent`
 
 Usa:
 
-- `perplexity_master_context`
+- `perplexity_sessions`
+- `perplexity_search_plan` (para herdar `priority` por query_id)
+
+Impacto da configuracao:
+
+- nao usa LLM — puramente heuristico
+- herda `track_origin`, `track_priority`, `track_intent` de cada sessao para uso downstream
+
+### `EnrichAgent`
+
+Usa:
+
+- `filtered_sources`
+- `llm_connector` opcional
+
+Impacto da configuracao:
+
+- **Fase A** (deterministica): `hierarchy_level` e `thematic_axis` vem do prefixo do track (n1\_, n2\_, n3\_, n4\_); `source_category` vem do dominio ou do `track_intent`
+- **Fase B** (LLM): `llm-mode`, `llm-model` e `OPENAI_API_KEY` definem se a extracao de metadados usa LLM ou heuristica de fallback
+- **Fase C** (Firecrawl opcional): `FIRECRAWL_API_KEY` ativa a extracao de `collection_guide`; `--skip-collection-guides` desliga essa fase mesmo com chave presente
+- Com `--llm-mode off`, o agente usa heuristicas baseadas em palavras-chave no titulo/snippet
+
+### `RankAccessAgent`
+
+Usa:
+
+- `enriched_datasets`
+- `limit` (via pipeline)
+
+Impacto da configuracao:
+
+- `--limit` controla quantos datasets seguem para o relatorio
+- ordena por: track_priority (high primeiro) → data_format (structured primeiro)
+- classifica `access_type` por extensao de arquivo e dominio conhecido
+
+### `ReportAgent`
+
+Usa:
+
+- `ranked_datasets`
+- `perplexity_search_plan`
 - `perplexity_sessions`
 - `llm_connector` opcional
 
 Impacto da configuracao:
 
-- `llm-mode`, `llm-model` e `OPENAI_API_KEY` definem se a categorizacao usa LLM ou heuristica
-- `context-file` muda o enquadramento da classificacao
+- `llm-mode` define se o relatorio e gerado por LLM (com analise de lacunas) ou por template heuristico
+- `query`, `context-file`, `tracks-file` e `max-searches` mudam o escopo do relatorio final
 
-### `DatasetDiscoveryAgent`
+## Estrutura de saida por execucao
 
-Usa:
+Cada execucao gera um diretorio isolado em `data/runs/{run-id}/`:
 
-- `web_research_results` ja validados
-- `settings.limit`
-
-Impacto da configuracao:
-
-- `limit` controla quantos candidatos finais seguem adiante
-
-### `SourceValidationAgent`
-
-Usa:
-
-- `categorized_sources`
-- `sources`
-- `web_research_results`
-
-Impacto da configuracao:
-
-- nao recebe flags proprias
-- endurece o pipeline antes do discovery, ajustando inconsistencias e marcando fontes com `manual_validation_required`
-- sua saida aparece em `source_validation_log` e `source_validation_meta`
-
-### `NormalizationAgent`
-
-Usa:
-
-- `dataset_candidates`
-- `sources`
-- `web_research_results`
-- `perplexity_master_context`
-
-Impacto da configuracao:
-
-- `context-file` influencia `region` e `thematic_axis`
-
-### `RelevanceAgent`
-
-Usa:
-
-- `datasets`
-- `perplexity_master_context`
-
-Impacto da configuracao:
-
-- `geographic_scope` e `thematic_axes` do contexto entram diretamente no score
-
-### `AccessAgent`
-
-Usa:
-
-- `datasets`
-
-Impacto da configuracao:
-
-- nao recebe uma config propria
-- depende do que veio estruturado das etapas anteriores
-
-### `PerplexityIntelligenceReportAgent`
-
-Usa:
-
-- `base_query`
-- `perplexity_master_context`
-- `perplexity_search_plan`
-- `perplexity_sessions`
-- `categorized_sources`
-- `dataset_candidates`
-- `datasets`
-
-Impacto da configuracao:
-
-- `query`, `context-file`, `tracks-file` e `max-searches` mudam diretamente o consolidado final
+```
+data/runs/{run-id}/
+├── config/
+│   ├── context.json          snapshot do contexto mestre usado
+│   └── tracks.json           snapshot das trilhas usadas
+├── master-context.json       contexto mestre da pesquisa
+├── search-plan.json          plano de buscas gerado
+├── collection/
+│   └── raw-sessions.json     coleta bruta da Perplexity Search API
+├── processing/
+│   ├── 01-categorized-sources.json
+│   ├── 02-source-validation.json
+│   ├── 03-dataset-candidates.json
+│   ├── 04-normalized-datasets.json
+│   ├── 05-relevance-scored.json
+│   └── 06-access-organized.json
+├── reports/
+│   ├── {run-id}.md           relatorio final em Markdown
+│   ├── sources.csv           catalogo de fontes
+│   └── datasets.csv          catalogo de datasets
+└── manifest.json             metadados e resumo da execucao
+```
 
 ## Como inspecionar a configuracao realmente usada em uma execucao
 
 Os artefatos mais importantes para auditoria sao:
 
-- `data/initializations/perplexity-intel-*/00_master-context.json`
+- `data/runs/perplexity-intel-*/master-context.json`
   Mostra o contexto mestre efetivamente usado.
-- `data/initializations/perplexity-intel-*/01_search-plan.json`
+- `data/runs/perplexity-intel-*/search-plan.json`
   Mostra os chats/trilhas realmente gerados.
-- `data/initializations/perplexity-intel-*/02_raw-sessions.json`
+- `data/runs/perplexity-intel-*/collection/raw-sessions.json`
   Mostra o que voltou da Perplexity Search API para cada busca.
-- `data/initializations/perplexity-intel-*/04_source-validation.json`
+- `data/runs/perplexity-intel-*/processing/02-source-validation.json`
   Mostra os ajustes e alertas aplicados antes do discovery.
-- `data/initializations/perplexity-intel-*/10_intelligence_payload.json`
+- `data/runs/perplexity-intel-*/manifest.json`
   Resume `perplexity_max_results`, `llm_mode`, `llm_provider`, `llm_model`, contagens da execucao e metadados de validacao.
 
 ## Arquivos de configuracao legados
@@ -475,8 +473,8 @@ O comando `export` continua disponivel em [src/main.py](src/main.py), mas ele es
 
 No fluxo principal atual, voce normalmente **nao precisa** usar esse comando, porque a pipeline ja gera:
 
-- `reports/perplexity-intel-*-sources.csv`
-- `reports/perplexity-intel-*-datasets.csv`
+- `data/runs/perplexity-intel-*/reports/sources.csv`
+- `data/runs/perplexity-intel-*/reports/datasets.csv`
 
 ## Dependencias principais
 

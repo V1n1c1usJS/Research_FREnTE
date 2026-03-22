@@ -3,19 +3,16 @@
 from __future__ import annotations
 
 import os
-import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 from uuid import uuid4
 
-from src.agents.access_agent import AccessAgent
-from src.agents.dataset_discovery_agent import DatasetDiscoveryAgent
-from src.agents.normalization_agent import NormalizationAgent
-from src.agents.perplexity_intelligence_report_agent import PerplexityIntelligenceReportAgent
-from src.agents.perplexity_source_categorization_agent import PerplexitySourceCategorizationAgent
-from src.agents.relevance_agent import RelevanceAgent
-from src.agents.source_validation_agent import SourceValidationAgent
+from src.agents.enrich_agent import EnrichAgent
+from src.agents.filter_validate_agent import FilterValidateAgent
+from src.agents.rank_access_agent import RankAccessAgent
+from src.agents.report_agent import ReportAgent
+from src.connectors.firecrawl_collector import FirecrawlCollector
 from src.connectors.llm import LLMConnector, LLMConnectorError, OpenAIResponsesConnector
 from src.connectors.perplexity_api import PerplexityAPICollector
 from src.schemas.records import (
@@ -24,6 +21,7 @@ from src.schemas.records import (
     PerplexitySearchQueryRecord,
 )
 from src.schemas.settings import PipelineSettings
+from src.generators.html_report_generator import generate_html_report
 from src.utils.io import ensure_dir, write_catalog_csv, write_json, write_markdown
 
 
@@ -108,8 +106,12 @@ class PerplexityIntelligencePipeline:
         llm_model: str = "gpt-4.1-nano",
         llm_timeout_seconds: float = 60.0,
         llm_fail_on_error: bool = False,
+        firecrawl_api_key: str = "",
+        firecrawl_timeout_seconds: float = 60.0,
+        skip_collection_guides: bool = False,
         llm_connector: LLMConnector | None = None,
         collector_factory: Callable[[], Any] | None = None,
+        firecrawl_collector_factory: Callable[[], Any] | None = None,
     ) -> None:
         self.base_query = base_query
         self.limit = limit
@@ -123,6 +125,9 @@ class PerplexityIntelligencePipeline:
         self.llm_model = llm_model
         self.llm_timeout_seconds = llm_timeout_seconds
         self.llm_fail_on_error = llm_fail_on_error
+        self.firecrawl_api_key = firecrawl_api_key
+        self.firecrawl_timeout_seconds = firecrawl_timeout_seconds
+        self.skip_collection_guides = skip_collection_guides
         self.llm_connector = llm_connector or self._build_llm_connector()
         self.collector_factory = collector_factory or (
             lambda: PerplexityAPICollector(
@@ -131,22 +136,32 @@ class PerplexityIntelligencePipeline:
                 timeout_seconds=self.perplexity_timeout_seconds,
             )
         )
+        self.firecrawl_collector_factory = firecrawl_collector_factory
+
+    _PROCESSING_FILENAMES = [
+        "01-filtered-sources.json",
+        "02-enriched-datasets.json",
+        "03-ranked-datasets.json",
+    ]
 
     def execute(self) -> dict[str, Any]:
         research_id = f"perplexity-intel-{uuid4().hex[:8]}"
         generated_at = datetime.now(timezone.utc).isoformat()
-        init_dir = Path("data") / "initializations" / research_id
-        ensure_dir(init_dir)
+        run_dir = Path("data") / "runs" / research_id
+        for subdir in ("config", "collection", "processing", "reports"):
+            ensure_dir(run_dir / subdir)
 
         master_context = self._build_master_context()
         research_tracks = self._build_research_tracks()
         search_plan = self._build_search_plan(master_context, research_tracks)
-        write_json(init_dir / "00_master-context.json", master_context.model_dump(mode="json"))
-        write_json(init_dir / "01_search-plan.json", [item.model_dump(mode="json") for item in search_plan])
+        write_json(run_dir / "config" / "context.json", master_context.model_dump(mode="json"))
+        write_json(run_dir / "config" / "tracks.json", [item.model_dump(mode="json") for item in research_tracks])
+        write_json(run_dir / "master-context.json", master_context.model_dump(mode="json"))
+        write_json(run_dir / "search-plan.json", [item.model_dump(mode="json") for item in search_plan])
 
         collector = self.collector_factory()
         sessions = collector.collect(search_plan)
-        write_json(init_dir / "02_raw-sessions.json", [item.model_dump(mode="json") for item in sessions])
+        write_json(run_dir / "collection" / "raw-sessions.json", [item.model_dump(mode="json") for item in sessions])
 
         settings = PipelineSettings(query=self.base_query, limit=self.limit)
         context: dict[str, Any] = {
@@ -158,144 +173,173 @@ class PerplexityIntelligencePipeline:
         }
 
         agents = [
-            PerplexitySourceCategorizationAgent(
+            FilterValidateAgent(),
+            EnrichAgent(
+                llm_connector=self.llm_connector,
+                fail_on_error=self.llm_fail_on_error,
+                firecrawl_api_key=self.firecrawl_api_key,
+                firecrawl_timeout_seconds=self.firecrawl_timeout_seconds,
+                firecrawl_collector=self._build_firecrawl_collector(),
+                skip_collection_guides=self.skip_collection_guides,
+            ),
+            RankAccessAgent(limit=self.limit),
+            ReportAgent(
                 llm_connector=self.llm_connector,
                 fail_on_error=self.llm_fail_on_error,
             ),
-            SourceValidationAgent(),
-            DatasetDiscoveryAgent(),
-            NormalizationAgent(),
-            RelevanceAgent(),
-            AccessAgent(),
-            PerplexityIntelligenceReportAgent(),
         ]
 
-        for index, agent in enumerate(agents, start=3):
+        for idx, agent in enumerate(agents):
             updates = agent.run(context)
             context.update(updates)
-            write_json(init_dir / f"{index:02d}_{agent.name}.json", self._serialize_updates(updates))
+            if idx < len(self._PROCESSING_FILENAMES):
+                write_json(run_dir / "processing" / self._PROCESSING_FILENAMES[idx], self._serialize_updates(updates))
 
-        report_path = Path("reports") / f"{research_id}.md"
+        report_path = run_dir / "reports" / f"{research_id}.md"
         write_markdown(report_path, context["intelligence_markdown"])
 
-        validation_by_source = {item.source_id: item for item in context.get("source_validation_log", [])}
-        sources_csv_path = Path("reports") / f"{research_id}-sources.csv"
+        html_report_path = run_dir / "reports" / "relatorio_100k.html"
+        html_content = generate_html_report(
+            datasets=context.get("ranked_datasets", []),
+            master_context=master_context,
+            search_plan=search_plan,
+            metadata={
+                "timestamp": generated_at,
+                "total_tracks": len(search_plan),
+                "pipeline_version": "2.0",
+            },
+        )
+        html_report_path.write_text(html_content, encoding="utf-8")
+
+        sources_csv_path = run_dir / "reports" / "sources.csv"
         write_catalog_csv(
             sources_csv_path,
             [
                 {
-                    "source_id": item.source_id,
-                    "title": item.title,
+                    "rank": item.rank,
                     "url": item.url,
-                    "domain": item.domain,
-                    "category": item.category,
-                    "priority": item.priority,
-                    "dataset_signal": item.dataset_signal,
-                    "academic_signal": item.academic_signal,
-                    "official_signal": item.official_signal,
-                    "evidence_count": item.evidence_count,
-                    "validation_status": validation_by_source.get(item.source_id).validation_status
-                    if validation_by_source.get(item.source_id)
-                    else "not_validated",
-                    "validation_score": validation_by_source.get(item.source_id).validation_score
-                    if validation_by_source.get(item.source_id)
+                    "title": item.title,
+                    "source_domain": item.source_domain,
+                    "track_origin": item.track_origin,
+                    "track_priority": item.track_priority,
+                    "track_intent": item.track_intent,
+                    "hierarchy_level": item.hierarchy_level,
+                    "thematic_axis": item.thematic_axis,
+                    "source_category": item.source_category,
+                    "dataset_name": item.dataset_name,
+                    "data_format": item.data_format,
+                    "access_type": item.access_type,
+                    "access_notes": item.access_notes,
+                    "temporal_coverage": item.temporal_coverage or "",
+                    "spatial_coverage": item.spatial_coverage or "",
+                    "key_parameters": "|".join(item.key_parameters),
+                    "needs_review": item.needs_review,
+                    "enrichment_method": item.enrichment_method,
+                    "collection_guide_available": item.collection_guide is not None,
+                    "collection_effort": item.collection_guide.estimated_effort if item.collection_guide else "",
+                    "collection_requires_login": item.collection_guide.requires_login if item.collection_guide else "",
+                    "collection_direct_downloads": "|".join(item.collection_guide.direct_download_urls)
+                    if item.collection_guide
                     else "",
-                    "manual_validation_required": validation_by_source.get(item.source_id).manual_validation_required
-                    if validation_by_source.get(item.source_id)
-                    else "",
-                    "target_intent": item.target_intent,
-                    "search_profiles": ",".join(item.search_profiles),
-                    "research_tracks": ",".join(item.research_tracks),
                 }
-                for item in context.get("categorized_sources", [])
+                for item in context.get("ranked_datasets", [])
             ],
             fieldnames=[
-                "source_id",
-                "title",
-                "url",
-                "domain",
-                "category",
-                "priority",
-                "dataset_signal",
-                "academic_signal",
-                "official_signal",
-                "evidence_count",
-                "validation_status",
-                "validation_score",
-                "manual_validation_required",
-                "target_intent",
-                "search_profiles",
-                "research_tracks",
+                "rank", "url", "title", "source_domain",
+                "track_origin", "track_priority", "track_intent",
+                "hierarchy_level", "thematic_axis", "source_category",
+                "dataset_name", "data_format", "access_type", "access_notes",
+                "temporal_coverage", "spatial_coverage", "key_parameters",
+                "needs_review", "enrichment_method",
+                "collection_guide_available", "collection_effort",
+                "collection_requires_login", "collection_direct_downloads",
             ],
         )
 
-        datasets_csv_path = Path("reports") / f"{research_id}-datasets.csv"
+        datasets_csv_path = run_dir / "reports" / "datasets.csv"
         write_catalog_csv(
             datasets_csv_path,
             [
                 {
-                    "dataset_id": item.dataset_id,
+                    "rank": item.rank,
+                    "dataset_name": item.dataset_name,
                     "title": item.title,
-                    "source_name": item.source_name,
-                    "source_url": item.source_url,
-                    "relevance_score": item.relevance_score,
-                    "priority": item.priority,
-                    "access_level": item.access_level,
-                    "research_tracks": ",".join(item.research_tracks),
-                    "target_intents": ",".join(item.target_intents),
+                    "url": item.url,
+                    "source_domain": item.source_domain,
+                    "track_origin": item.track_origin,
+                    "track_priority": item.track_priority,
+                    "hierarchy_level": item.hierarchy_level,
+                    "thematic_axis": item.thematic_axis,
+                    "source_category": item.source_category,
+                    "data_format": item.data_format,
+                    "access_type": item.access_type,
+                    "access_notes": item.access_notes,
+                    "temporal_coverage": item.temporal_coverage or "",
+                    "spatial_coverage": item.spatial_coverage or "",
+                    "key_parameters": "|".join(item.key_parameters),
+                    "collection_guide_available": item.collection_guide is not None,
+                    "collection_effort": item.collection_guide.estimated_effort if item.collection_guide else "",
+                    "collection_requires_login": item.collection_guide.requires_login if item.collection_guide else "",
+                    "collection_direct_downloads": "|".join(item.collection_guide.direct_download_urls)
+                    if item.collection_guide
+                    else "",
                 }
-                for item in context.get("datasets", [])
+                for item in context.get("ranked_datasets", [])
+                if item.source_category in {"official_portal", "dataset"}
             ],
             fieldnames=[
-                "dataset_id",
-                "title",
-                "source_name",
-                "source_url",
-                "relevance_score",
-                "priority",
-                "access_level",
-                "research_tracks",
-                "target_intents",
+                "rank", "dataset_name", "title", "url", "source_domain",
+                "track_origin", "track_priority", "hierarchy_level", "thematic_axis",
+                "source_category", "data_format", "access_type", "access_notes",
+                "temporal_coverage", "spatial_coverage", "key_parameters",
+                "collection_guide_available", "collection_effort",
+                "collection_requires_login", "collection_direct_downloads",
             ],
         )
 
-        intelligence_path = init_dir / "10_intelligence_payload.json"
-        collection_meta = dict(context.get("perplexity_categorization_meta", {}))
-        collection_meta["source_validation_meta"] = context.get("source_validation_meta", {})
-        intelligence_payload = {
+        intelligence_path = run_dir / "manifest.json"
+        filtered_sources = context.get("filtered_sources", [])
+        enriched_datasets = context.get("enriched_datasets", [])
+        ranked_datasets = context.get("ranked_datasets", [])
+        manifest = {
             "research_id": research_id,
             "generated_at": generated_at,
             "base_query": self.base_query,
-            "master_context_path": str(init_dir / "00_master-context.json"),
+            "master_context_path": str(run_dir / "master-context.json"),
             "perplexity_max_results": self.perplexity_max_results,
             "llm_mode": self.llm_mode,
             "llm_provider": self.llm_connector.provider if self.llm_connector else None,
             "llm_model": self.llm_connector.model if self.llm_connector else None,
+            "collection_guides_enabled": bool(self.firecrawl_api_key) and not self.skip_collection_guides,
             "search_plan_count": len(search_plan),
             "session_count": len(sessions),
-            "categorized_source_count": len(context.get("categorized_sources", [])),
-            "validated_source_count": len(context.get("source_validation_log", [])),
-            "dataset_candidate_count": len(context.get("dataset_candidates", [])),
-            "dataset_count": len(context.get("datasets", [])),
+            "filtered_source_count": len(filtered_sources),
+            "enriched_dataset_count": len(enriched_datasets),
+            "ranked_dataset_count": len(ranked_datasets),
+            "collection_guide_count": sum(1 for item in ranked_datasets if item.collection_guide is not None),
             "report_path": str(report_path),
+            "html_report_path": str(html_report_path),
             "sources_csv_path": str(sources_csv_path),
             "datasets_csv_path": str(datasets_csv_path),
-            "collection_meta": collection_meta,
-            "intelligence": context["intelligence_payload"],
+            "filter_meta": context.get("filter_meta", {}),
+            "enrich_meta": context.get("enrich_meta", {}),
+            "rank_meta": context.get("rank_meta", {}),
+            "intelligence": context.get("intelligence_payload", {}),
         }
-        write_json(intelligence_path, intelligence_payload)
+        write_json(intelligence_path, manifest)
 
         return {
             "research_id": research_id,
-            "master_context_path": str(init_dir / "00_master-context.json"),
+            "master_context_path": str(run_dir / "master-context.json"),
             "report_path": str(report_path),
+            "html_report_path": str(html_report_path),
             "sources_csv_path": str(sources_csv_path),
             "datasets_csv_path": str(datasets_csv_path),
             "intelligence_path": str(intelligence_path),
-            "categorized_source_count": len(context.get("categorized_sources", [])),
-            "validated_source_count": len(context.get("source_validation_log", [])),
-            "dataset_candidate_count": len(context.get("dataset_candidates", [])),
-            "dataset_count": len(context.get("datasets", [])),
+            "filtered_source_count": len(filtered_sources),
+            "enriched_dataset_count": len(enriched_datasets),
+            "ranked_dataset_count": len(ranked_datasets),
+            "collection_guide_count": sum(1 for item in ranked_datasets if item.collection_guide is not None),
         }
 
     def _build_master_context(self) -> PerplexityResearchContextRecord:
@@ -373,31 +417,29 @@ class PerplexityIntelligencePipeline:
         master_context: PerplexityResearchContextRecord,
         track: PerplexityResearchTrackRecord,
     ) -> str:
-        geographic_scope = PerplexityIntelligencePipeline._compact_items(master_context.geographic_scope, max_items=4, item_limit=120)
-        thematic_axes = PerplexityIntelligencePipeline._compact_items(master_context.thematic_axes, max_items=6, item_limit=90)
-        preferred_sources = PerplexityIntelligencePipeline._compact_items(
-            master_context.preferred_sources,
-            max_items=6,
-            item_limit=80,
-            strip_urls=True,
-        )
-        expected_outputs = PerplexityIntelligencePipeline._compact_items(master_context.expected_outputs, max_items=4, item_limit=90)
-        exclusions = PerplexityIntelligencePipeline._compact_items(master_context.exclusions, max_items=3, item_limit=70)
-        notes = PerplexityIntelligencePipeline._compact_items(master_context.notes, max_items=3, item_limit=90)
+        """Compõe query focada para a Perplexity Search API.
 
-        return (
-            f"Projeto 100K. Objetivo: {PerplexityIntelligencePipeline._compact_text(master_context.article_goal, 260)}. "
-            f"Trilha: {track.research_track}. "
-            f"Pergunta: {PerplexityIntelligencePipeline._compact_text(track.research_question, 220)}. "
-            f"Tarefa: {PerplexityIntelligencePipeline._compact_text(track.task_prompt, 420)}. "
-            f"Area: {geographic_scope}. "
-            f"Eixos: {thematic_axes}. "
-            f"Priorizar: {preferred_sources}. "
-            f"Saidas esperadas: {expected_outputs}. "
-            f"Evitar: {exclusions}. "
-            f"Notas: {notes}. "
-            "Retorne fontes oficiais, institucionais ou academicas, com links claros para portal, download, API, documento tecnico ou estudo cientifico."
-        )
+        Usa pergunta específica da trilha + hint de portais/fontes do task_prompt
+        + âncora geográfica. Evita contexto acadêmico genérico que iguala queries
+        entre trilhas e faz a Search API retornar apenas artigos sobre o tema.
+        """
+        parts: list[str] = []
+
+        # 1. Pergunta da trilha — âncora temática específica por trilha
+        question = PerplexityIntelligencePipeline._compact_text(track.research_question, 220)
+        parts.append(question)
+
+        # 2. Primeiros ~120 chars do task_prompt — contém nomes de portais e fontes concretas
+        task_hint = PerplexityIntelligencePipeline._compact_text(track.task_prompt, 120)
+        if task_hint:
+            parts.append(task_hint)
+
+        # 3. Primeiro item do escopo geográfico como âncora de localização
+        if master_context.geographic_scope:
+            geo = PerplexityIntelligencePipeline._compact_text(master_context.geographic_scope[0], 80)
+            parts.append(geo)
+
+        return ". ".join(parts)
 
     @staticmethod
     def _compact_text(value: str, limit: int) -> str:
@@ -405,30 +447,6 @@ class PerplexityIntelligencePipeline:
         if len(cleaned) <= limit:
             return cleaned
         return cleaned[: max(limit - 3, 0)].rstrip() + "..."
-
-    @staticmethod
-    def _compact_items(
-        values: list[str],
-        *,
-        max_items: int,
-        item_limit: int,
-        strip_urls: bool = False,
-    ) -> str:
-        if not values:
-            return "not specified"
-
-        compacted: list[str] = []
-        for item in values[:max_items]:
-            text = " ".join(str(item or "").split())
-            if strip_urls:
-                text = re.sub(r"https?://\S+", "", text).strip(" -—,;")
-            compacted.append(PerplexityIntelligencePipeline._compact_text(text, item_limit))
-
-        remainder = len(values) - len(compacted)
-        if remainder > 0:
-            compacted.append(f"+{remainder} itens")
-
-        return "; ".join(compacted)
 
     def _build_llm_connector(self) -> LLMConnector | None:
         if self.llm_mode == "off":
@@ -449,6 +467,19 @@ class PerplexityIntelligencePipeline:
         except Exception:
             if self.llm_fail_on_error or self.llm_mode == "openai":
                 raise
+            return None
+
+    def _build_firecrawl_collector(self) -> FirecrawlCollector | None:
+        if self.skip_collection_guides or not self.firecrawl_api_key:
+            return None
+        if self.firecrawl_collector_factory is not None:
+            return self.firecrawl_collector_factory()
+        try:
+            return FirecrawlCollector(
+                api_key=self.firecrawl_api_key,
+                timeout_seconds=self.firecrawl_timeout_seconds,
+            )
+        except Exception:
             return None
 
     @staticmethod

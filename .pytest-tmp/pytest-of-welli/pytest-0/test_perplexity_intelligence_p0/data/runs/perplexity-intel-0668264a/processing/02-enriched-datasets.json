@@ -1,0 +1,259 @@
+{
+  "enriched_datasets": [
+    {
+      "url": "https://www.snirh.gov.br/hidroweb",
+      "title": "Portal Hidroweb (SNIRH)",
+      "snippet": "Portal oficial com series historicas hidrologicas, vazao, nivel e chuva.",
+      "source_domain": "snirh.gov.br",
+      "track_origin": "official_data_portals",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": [],
+      "hierarchy_level": "macro",
+      "thematic_axis": "official data portals",
+      "source_category": "official_portal",
+      "dataset_name": "Portal Hidroweb (SNIRH)",
+      "dataset_description": "Portal oficial com series historicas hidrologicas, vazao, nivel e chuva.",
+      "data_format": "structured",
+      "temporal_coverage": null,
+      "spatial_coverage": null,
+      "key_parameters": [],
+      "collection_guide": {
+        "steps": [
+          "Abrir https://www.snirh.gov.br/hidroweb",
+          "Buscar Portal Hidroweb (SNIRH)",
+          "Exportar CSV"
+        ],
+        "filters_available": {
+          "regiao": "Bacia do Tiete",
+          "periodo": "2000-2024"
+        },
+        "download_format": "CSV",
+        "estimated_effort": "minutes",
+        "caveats": [],
+        "requires_login": false,
+        "direct_download_urls": [
+          "https://www.snirh.gov.br/hidroweb/download.csv"
+        ]
+      },
+      "enrichment_method": "heuristic",
+      "llm_model": null
+    },
+    {
+      "url": "https://mapbiomas.org/",
+      "title": "MapBiomas",
+      "snippet": "Colecoes de uso e cobertura da terra para o Brasil desde 1985.",
+      "source_domain": "mapbiomas.org",
+      "track_origin": "official_data_portals",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": [],
+      "hierarchy_level": "macro",
+      "thematic_axis": "official data portals",
+      "source_category": "official_portal",
+      "dataset_name": "MapBiomas",
+      "dataset_description": "Colecoes de uso e cobertura da terra para o Brasil desde 1985.",
+      "data_format": "unknown",
+      "temporal_coverage": null,
+      "spatial_coverage": null,
+      "key_parameters": [],
+      "collection_guide": {
+        "steps": [
+          "Abrir https://mapbiomas.org/",
+          "Buscar MapBiomas",
+          "Exportar CSV"
+        ],
+        "filters_available": {
+          "regiao": "Bacia do Tiete",
+          "periodo": "2000-2024"
+        },
+        "download_format": "CSV",
+        "estimated_effort": "minutes",
+        "caveats": [],
+        "requires_login": false,
+        "direct_download_urls": [
+          "https://mapbiomas.org/download.csv"
+        ]
+      },
+      "enrichment_method": "heuristic",
+      "llm_model": null
+    },
+    {
+      "url": "https://www.ana.gov.br/portalpnqa/Publicacao/PANORAMA_DA_QUALIDADE_DAS_AGUAS.pdf",
+      "title": "Panorama da Qualidade das Aguas",
+      "snippet": "Relatorio tecnico institucional sobre qualidade das aguas superficiais.",
+      "source_domain": "ana.gov.br",
+      "track_origin": "official_data_portals",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": [],
+      "hierarchy_level": "macro",
+      "thematic_axis": "official data portals",
+      "source_category": "official_portal",
+      "dataset_name": "Panorama da Qualidade das Aguas",
+      "dataset_description": "Relatorio tecnico institucional sobre qualidade das aguas superficiais.",
+      "data_format": "semi_structured",
+      "temporal_coverage": null,
+      "spatial_coverage": null,
+      "key_parameters": [],
+      "collection_guide": {
+        "steps": [
+          "Abrir https://www.ana.gov.br/portalpnqa/Publicacao/PANORAMA_DA_QUALIDADE_DAS_AGUAS.pdf",
+          "Buscar Panorama da Qualidade das Aguas",
+          "Exportar CSV"
+        ],
+        "filters_available": {
+          "regiao": "Bacia do Tiete",
+          "periodo": "2000-2024"
+        },
+        "download_format": "CSV",
+        "estimated_effort": "minutes",
+        "caveats": [],
+        "requires_login": false,
+        "direct_download_urls": [
+          "https://www.ana.gov.br/portalpnqa/Publicacao/PANORAMA_DA_QUALIDADE_DAS_AGUAS.pdf/download.csv"
+        ]
+      },
+      "enrichment_method": "heuristic",
+      "llm_model": null
+    },
+    {
+      "url": "https://www.scielo.br/",
+      "title": "SciELO Brasil",
+      "snippet": "Base academica para artigos e estudos sobre qualidade da agua.",
+      "source_domain": "scielo.br",
+      "track_origin": "monitoring_and_measurements",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": [],
+      "hierarchy_level": "macro",
+      "thematic_axis": "monitoring and measurements",
+      "source_category": "academic",
+      "dataset_name": "SciELO Brasil",
+      "dataset_description": "Base academica para artigos e estudos sobre qualidade da agua.",
+      "data_format": "academic_paper",
+      "temporal_coverage": null,
+      "spatial_coverage": null,
+      "key_parameters": [],
+      "collection_guide": {
+        "steps": [
+          "Abrir https://www.scielo.br/",
+          "Buscar SciELO Brasil",
+          "Exportar CSV"
+        ],
+        "filters_available": {
+          "regiao": "Bacia do Tiete",
+          "periodo": "2000-2024"
+        },
+        "download_format": "CSV",
+        "estimated_effort": "minutes",
+        "caveats": [],
+        "requires_login": false,
+        "direct_download_urls": [
+          "https://www.scielo.br/download.csv"
+        ]
+      },
+      "enrichment_method": "heuristic",
+      "llm_model": null
+    },
+    {
+      "url": "https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.pdf",
+      "title": "Toxicidade das aguas do Rio Tiete",
+      "snippet": "Estudo academico aplicado ao eixo Pereira Barreto e Tres Lagoas.",
+      "source_domain": "repositorio.usp.br",
+      "track_origin": "monitoring_and_measurements",
+      "track_priority": "high",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": [],
+      "hierarchy_level": "macro",
+      "thematic_axis": "monitoring and measurements",
+      "source_category": "dataset",
+      "dataset_name": "Toxicidade das aguas do Rio Tiete",
+      "dataset_description": "Estudo academico aplicado ao eixo Pereira Barreto e Tres Lagoas.",
+      "data_format": "pdf_report",
+      "temporal_coverage": null,
+      "spatial_coverage": null,
+      "key_parameters": [],
+      "collection_guide": {
+        "steps": [
+          "Abrir https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.pdf",
+          "Buscar Toxicidade das aguas do Rio Tiete",
+          "Exportar CSV"
+        ],
+        "filters_available": {
+          "regiao": "Bacia do Tiete",
+          "periodo": "2000-2024"
+        },
+        "download_format": "CSV",
+        "estimated_effort": "minutes",
+        "caveats": [],
+        "requires_login": false,
+        "direct_download_urls": [
+          "https://repositorio.usp.br/bitstream/handle/BDPI/2262/art.pdf/download.csv"
+        ]
+      },
+      "enrichment_method": "heuristic",
+      "llm_model": null
+    },
+    {
+      "url": "https://www.sabesp.com.br/site/uploads/file/projeto_tiete/projetotiete_empd.pdf",
+      "title": "Projeto Tiete IV",
+      "snippet": "Documento institucional do Projeto Tiete com dados de saneamento basico.",
+      "source_domain": "sabesp.com.br",
+      "track_origin": "pressure_and_drivers",
+      "track_priority": "medium",
+      "track_intent": "dataset_discovery",
+      "needs_review": false,
+      "filter_notes": [],
+      "hierarchy_level": "macro",
+      "thematic_axis": "pressure and drivers",
+      "source_category": "dataset",
+      "dataset_name": "Projeto Tiete IV",
+      "dataset_description": "Documento institucional do Projeto Tiete com dados de saneamento basico.",
+      "data_format": "pdf_report",
+      "temporal_coverage": null,
+      "spatial_coverage": null,
+      "key_parameters": [],
+      "collection_guide": {
+        "steps": [
+          "Abrir https://www.sabesp.com.br/site/uploads/file/projeto_tiete/projetotiete_empd.pdf",
+          "Buscar Projeto Tiete IV",
+          "Exportar CSV"
+        ],
+        "filters_available": {
+          "regiao": "Bacia do Tiete",
+          "periodo": "2000-2024"
+        },
+        "download_format": "CSV",
+        "estimated_effort": "minutes",
+        "caveats": [],
+        "requires_login": false,
+        "direct_download_urls": [
+          "https://www.sabesp.com.br/site/uploads/file/projeto_tiete/projetotiete_empd.pdf/download.csv"
+        ]
+      },
+      "enrichment_method": "heuristic",
+      "llm_model": null
+    }
+  ],
+  "enrich_meta": {
+    "enriched_count": 6,
+    "llm_count": 0,
+    "heuristic_count": 6,
+    "error_count": 0,
+    "execution_mode": "heuristic",
+    "provider": null,
+    "model": null,
+    "collection_guides_enabled": true,
+    "collection_guide_requested_count": 6,
+    "collection_guide_extracted_count": 6,
+    "collection_guide_fallback_count": 0,
+    "collection_guide_skipped_count": 0,
+    "collection_guide_error": null
+  }
+}

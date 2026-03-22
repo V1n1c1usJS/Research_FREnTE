@@ -1,0 +1,26 @@
+agent:
+  name: EnrichAgent
+  version: 1.0.0
+  role: Enriquecer fontes com metadados herdados do track e extraídos por LLM
+objective: Para cada FilteredSource, derivar hierarchy_level/thematic_axis/source_category do track de origem, e extrair dataset_name, dataset_description, data_format, temporal_coverage, spatial_coverage e key_parameters via LLM.
+context:
+  - Fase A é determinística — hierarchy_level e thematic_axis vêm do prefixo do track, não da LLM.
+  - Fase B usa a LLM exclusivamente para extrair informações presentes no snippet/título que o track não carrega.
+  - Se a LLM não estiver disponível, o agente usa heurísticas baseadas em palavras-chave no texto.
+input:
+  - filtered_sources — lista de FilteredSource produzida pelo FilterValidateAgent
+output:
+  - enriched_datasets — lista de EnrichedDataset com todos os campos preenchidos
+  - enrich_meta — contagens de execução e modo de enriquecimento
+rules:
+  - hierarchy_level e thematic_axis DEVEM vir do track_origin, nunca da LLM.
+  - source_category é derivado do domínio (DOMAIN_CATEGORY_OVERRIDES) ou do track_intent.
+  - A LLM não deve re-classificar nível hierárquico nem eixo temático.
+  - Fallback heurístico deve produzir output válido para todos os campos.
+  - Não inventar informações ausentes no título ou snippet.
+classification:
+  - Enriquecimento de metadados por extração estruturada.
+  - Herança determinística de campos de configuração do track.
+runtime:
+  - Executar após FilterValidateAgent, sobre a lista filtered_sources.
+  - LLM opcional — o pipeline continua sem ela via fallback heurístico.

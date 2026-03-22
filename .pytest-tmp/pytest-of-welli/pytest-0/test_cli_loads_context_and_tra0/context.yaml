@@ -1,0 +1,8 @@
+context_id: ctx-custom
+article_goal: Investigar pressao antropica em sistema aquatico costeiro
+geographic_scope:
+  - Costa norte
+thematic_axes:
+  - monitoramento ambiental
+preferred_sources:
+  - portais institucionais

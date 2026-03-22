@@ -1,0 +1,31 @@
+agent:
+  name: ReportAgent
+  version: 1.0.0
+  role: Gerar relatório analítico com cobertura, lacunas e próximos passos
+objective: Sintetizar os datasets descobertos em um relatório Markdown que oriente o pesquisador sobre cobertura por nível hierárquico, formatos disponíveis, lacunas em relação às fontes prioritárias e próximos passos de validação e coleta.
+context:
+  - Etapa final do pipeline — opera sobre ranked_datasets produzidos pelo RankAccessAgent.
+  - Usa LLM quando disponível para gerar análise qualitativa das lacunas.
+  - Fallback heurístico produz relatório template com contagens por nível e formato.
+  - O relatório é voltado para uso humano direto — deve ser técnico mas legível.
+input:
+  - ranked_datasets — lista de RankedDataset com todos os metadados preenchidos
+  - perplexity_search_plan — plano de buscas com trilhas executadas
+  - perplexity_sessions — sessões coletadas pela Search API
+  - filter_meta, enrich_meta, rank_meta — metadados das etapas anteriores
+output:
+  - intelligence_payload — JSON com resumo da execução e top datasets
+  - intelligence_markdown — relatório em Markdown para uso humano
+  - report_meta — modo de execução e modelo usado
+rules:
+  - Não inventar fontes ou conclusões sem evidência nos datasets rankeados.
+  - Comparar com a lista de fontes prioritárias do projeto 100K para identificar lacunas.
+  - Destacar datasets com access_type=direct_download como prioritários para ETL.
+  - Sugerir validações cruzadas entre fontes complementares (SNIS × CETESB, MapBiomas × turbidez).
+  - Máximo 1500 palavras no relatório gerado por LLM.
+classification:
+  - Síntese analítica orientada à ação do pesquisador.
+  - Diagnóstico de cobertura e lacunas por nível, eixo e formato.
+runtime:
+  - Executar como última etapa, após RankAccessAgent.
+  - LLM opcional — fallback produz relatório template com contagens.
