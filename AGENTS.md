@@ -11,13 +11,13 @@ O trabalho segue alinhado ao **projeto 100K**, com prioridade para:
 ---
 
 ## 2) Arquitetura atual
-O fluxo principal agora e **Perplexity-first**.
+O fluxo principal agora e **Perplexity Search API-first**.
 
 Etapas do pipeline:
 1. montar um **contexto mestre** da pesquisa
 2. gerar **chats tematicos** especializados
-3. iniciar a navegacao real do navegador com o **PerplexityBrowserSession**
-4. coletar respostas e links no **Perplexity** via **PerplexityPlaywrightCollector**
+3. executar buscas via **Perplexity Search API** com o **PerplexityAPICollector**
+4. receber resultados rankeados (title, url, snippet) e armazenar em JSON
 5. armazenar a coleta crua em JSON
 6. categorizar fontes com o **PerplexitySourceCategorizationAgent**
 7. validar consistencia e sinalizar evidencias fracas com o **SourceValidationAgent**
@@ -50,8 +50,7 @@ Etapas do pipeline:
 - Organizar prompts em YAML no diretorio `prompts/`.
 - Garantir execucao por CLI via `python -m src.main`.
 - Incluir testes para coleta, categorizacao, consolidacao e CLI.
-- O conector principal de descoberta externa e o `PerplexityPlaywrightCollector`.
-- A navegacao real do browser deve ficar encapsulada no objeto `PerplexityBrowserSession`.
+- O conector principal de descoberta externa e o `PerplexityAPICollector` (Search API).
 - A coleta deve ser armazenada antes de qualquer interpretacao posterior dos agentes.
 
 ---

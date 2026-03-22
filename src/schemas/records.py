@@ -199,7 +199,7 @@ class PerplexityLinkRecord(BaseModel):
 
 
 class PerplexitySearchSessionRecord(BaseModel):
-    """Resposta bruta coletada via Playwright no Perplexity."""
+    """Resposta bruta coletada via Perplexity Search API."""
 
     query_id: str
     query_text: str
@@ -209,8 +209,7 @@ class PerplexitySearchSessionRecord(BaseModel):
     chat_label: str = ""
     research_question: str = ""
     collection_status: str = "ok"
-    validated_via_playwright: bool = True
-    browser_tab_index: int | None = None
+    validated_via_playwright: bool = False
     page_url: str = ""
     preferred_model: str | None = None
     selected_model: str | None = None

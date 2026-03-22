@@ -1,0 +1,19 @@
+{
+  "categorized_sources": [],
+  "sources": [],
+  "web_research_results": [],
+  "perplexity_categorization_meta": {
+    "session_count": 12,
+    "ok_session_count": 1,
+    "error_session_count": 11,
+    "unique_source_count": 0,
+    "category_summary": {},
+    "research_track_summary": {},
+    "execution_mode": "llm",
+    "provider": "openai",
+    "model": "gpt-4.1-nano",
+    "llm_inference_count": 0,
+    "inference_error_count": 0,
+    "inference_errors": []
+  }
+}

@@ -1,4 +1,4 @@
-"""Pipeline principal de pesquisa para artigo via Perplexity + Playwright."""
+"""Pipeline principal de pesquisa para artigo via Perplexity API."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from src.agents.perplexity_source_categorization_agent import PerplexitySourceCa
 from src.agents.relevance_agent import RelevanceAgent
 from src.agents.source_validation_agent import SourceValidationAgent
 from src.connectors.llm import LLMConnector, LLMConnectorError, OpenAIResponsesConnector
-from src.connectors.perplexity_playwright import PerplexityPlaywrightCollector
+from src.connectors.perplexity_api import PerplexityAPICollector
 from src.schemas.records import (
     PerplexityResearchContextRecord,
     PerplexityResearchTrackRecord,
@@ -99,10 +99,9 @@ class PerplexityIntelligencePipeline:
         base_query: str,
         limit: int = 20,
         max_searches: int = 5,
-        preferred_model: str = "Sonar",
-        playwright_timeout_seconds: float = 120.0,
-        per_query_wait_ms: int = 7000,
-        headed: bool = False,
+        perplexity_api_key: str = "",
+        perplexity_max_results: int = 20,
+        perplexity_timeout_seconds: float = 60.0,
         master_context_payload: dict[str, Any] | None = None,
         research_tracks_payload: list[dict[str, Any]] | None = None,
         llm_mode: str = "auto",
@@ -115,10 +114,9 @@ class PerplexityIntelligencePipeline:
         self.base_query = base_query
         self.limit = limit
         self.max_searches = max_searches
-        self.preferred_model = preferred_model
-        self.playwright_timeout_seconds = playwright_timeout_seconds
-        self.per_query_wait_ms = per_query_wait_ms
-        self.headed = headed
+        self.perplexity_api_key = perplexity_api_key
+        self.perplexity_max_results = perplexity_max_results
+        self.perplexity_timeout_seconds = perplexity_timeout_seconds
         self.master_context_payload = master_context_payload
         self.research_tracks_payload = research_tracks_payload
         self.llm_mode = llm_mode
@@ -127,11 +125,10 @@ class PerplexityIntelligencePipeline:
         self.llm_fail_on_error = llm_fail_on_error
         self.llm_connector = llm_connector or self._build_llm_connector()
         self.collector_factory = collector_factory or (
-            lambda: PerplexityPlaywrightCollector(
-                preferred_model=self.preferred_model,
-                timeout_seconds=self.playwright_timeout_seconds,
-                per_query_wait_ms=self.per_query_wait_ms,
-                headed=self.headed,
+            lambda: PerplexityAPICollector(
+                api_key=self.perplexity_api_key,
+                max_results=self.perplexity_max_results,
+                timeout_seconds=self.perplexity_timeout_seconds,
             )
         )
 
@@ -270,7 +267,7 @@ class PerplexityIntelligencePipeline:
             "generated_at": generated_at,
             "base_query": self.base_query,
             "master_context_path": str(init_dir / "00_master-context.json"),
-            "preferred_model": self.preferred_model,
+            "perplexity_max_results": self.perplexity_max_results,
             "llm_mode": self.llm_mode,
             "llm_provider": self.llm_connector.provider if self.llm_connector else None,
             "llm_model": self.llm_connector.model if self.llm_connector else None,

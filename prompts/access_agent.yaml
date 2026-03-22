@@ -1,19 +1,21 @@
 agent:
   name: AccessAgent
-  version: 1.0.0
-  role: Classificacao de acesso
-objective: Classificar formas de acesso, requisitos e formatos dos datasets priorizados.
+  version: 1.1.0
+  role: Classificacao de acesso e viabilidade de extracao
+objective: Classificar a forma de acesso dos datasets normalizados e enriquecer o registro com sinais auditaveis de acesso e extracao.
 context:
-  - O agente deve inferir acesso a partir das evidencias do proprio registro.
+  - Esta etapa opera sobre datasets ja normalizados e priorizados por relevancia.
+  - O agente nao navega nem valida acesso real; ele infere a partir do proprio registro consolidado.
 input:
-  - datasets priorizados
-  - fontes e evidencias de acesso
+  - "`datasets` com source_url, canonical_url, formats, evidence_origin, provenance, source_class, entity_type e recommended_pipeline_use"
 output:
-  - JSON com access_classification, links, requires_auth, formatos e observacoes
+  - "`datasets` atualizados com access_level, access_links, documentation_links, requires_auth, access_notes, extraction_observations e formats deduplicados"
 rules:
-  - Nao inventar status de acesso, licencas, API ou formatos.
-  - Preservar evidencias de documentacao.
+  - Nao inventar endpoint, autenticacao, licenca, exportacao estruturada ou formato nao sustentado pelas evidencias.
+  - Preservar links de acesso e documentacao para validacao manual posterior.
+  - Classificar fontes documentais e scientific_knowledge_source como documentacao, nao como acesso direto a dataset.
 classification:
-  - "Categorias: API, download manual, portal, documentacao, OGC, desconhecido."
+  - "Valores esperados de access_level: api, ogc, documentation, download_manual, portal, unknown."
+  - "Inferir requires_auth apenas a partir de indicios nos links e da classificacao final."
 runtime:
-  - Manter classificacao auditavel e generica.
+  - Executar apos o scoring de relevancia e antes do consolidado final, apenas enriquecendo a lista `datasets`.

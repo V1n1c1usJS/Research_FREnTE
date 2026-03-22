@@ -14,8 +14,8 @@ from src.utils.io import write_catalog_csv
 from src.utils.logging import configure_logging
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_CONTEXT_FILE = REPO_ROOT / "context_100k.yaml"
-DEFAULT_TRACKS_FILE = REPO_ROOT / "tracks_100k.yaml"
+DEFAULT_CONTEXT_FILE = REPO_ROOT / "config" / "context_100k.yaml"
+DEFAULT_TRACKS_FILE = REPO_ROOT / "config" / "tracks_100k.yaml"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -46,26 +46,16 @@ def _add_perplexity_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--limit", type=int, default=20, help="Limite de datasets/fontes normalizadas")
     parser.add_argument("--max-searches", type=int, default=5, help="Quantidade maxima de chats tematicos")
     parser.add_argument(
-        "--preferred-model",
-        default="Sonar",
-        help="Modelo preferido na UI do Perplexity. Pode exigir login; o coletor registra bloqueio e segue.",
-    )
-    parser.add_argument(
-        "--playwright-timeout",
-        type=float,
-        default=120.0,
-        help="Timeout em segundos das chamadas do Playwright CLI.",
-    )
-    parser.add_argument(
-        "--per-query-wait-ms",
+        "--perplexity-max-results",
         type=int,
-        default=7000,
-        help="Espera adicional por busca para estabilizar a resposta do Perplexity.",
+        default=20,
+        help="Numero maximo de resultados por busca na Search API (1-20).",
     )
     parser.add_argument(
-        "--headed",
-        action="store_true",
-        help="Abre o navegador de forma visivel durante a coleta no Perplexity.",
+        "--perplexity-timeout",
+        type=float,
+        default=60.0,
+        help="Timeout em segundos das chamadas a API do Perplexity.",
     )
     parser.add_argument(
         "--context-file",
@@ -116,6 +106,13 @@ def run(argv: list[str] | None = None) -> int:
 
 
 def _run_perplexity_intel(args: argparse.Namespace) -> int:
+    import os
+
+    perplexity_api_key = os.getenv("PERPLEXITY_API_KEY", "").strip()
+    if not perplexity_api_key:
+        print("Erro: PERPLEXITY_API_KEY nao configurada no ambiente.")
+        return 1
+
     master_context_payload = _resolve_structured_payload(args.context_file, DEFAULT_CONTEXT_FILE)
     research_tracks_payload = _resolve_structured_payload(args.tracks_file, DEFAULT_TRACKS_FILE)
     if isinstance(research_tracks_payload, list) and args.track_limit:
@@ -125,10 +122,9 @@ def _run_perplexity_intel(args: argparse.Namespace) -> int:
         base_query=args.query,
         limit=args.limit,
         max_searches=args.max_searches,
-        preferred_model=args.preferred_model,
-        playwright_timeout_seconds=args.playwright_timeout,
-        per_query_wait_ms=args.per_query_wait_ms,
-        headed=args.headed,
+        perplexity_api_key=perplexity_api_key,
+        perplexity_max_results=args.perplexity_max_results,
+        perplexity_timeout_seconds=args.perplexity_timeout,
         master_context_payload=master_context_payload,
         research_tracks_payload=research_tracks_payload,
         llm_mode=args.llm_mode,

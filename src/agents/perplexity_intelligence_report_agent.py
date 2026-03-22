@@ -109,7 +109,7 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
         }
 
         lines = [
-            "# Consolidado de Inteligencia - Perplexity + Playwright",
+            "# Consolidado de Inteligencia - Perplexity Search API",
             "",
             "## Contexto Mestre",
             f"- Query base: `{base_query}`",

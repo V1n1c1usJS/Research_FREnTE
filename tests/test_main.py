@@ -14,9 +14,9 @@ class FakePerplexityPipeline:
         base_query: str,
         limit: int,
         max_searches: int,
-        preferred_model: str,
-        playwright_timeout_seconds: float,
-        per_query_wait_ms: int,
+        perplexity_api_key: str = "",
+        perplexity_max_results: int = 20,
+        perplexity_timeout_seconds: float = 60.0,
         master_context_payload=None,
         research_tracks_payload=None,
         llm_mode: str = "auto",
@@ -28,9 +28,9 @@ class FakePerplexityPipeline:
         self.base_query = base_query
         self.limit = limit
         self.max_searches = max_searches
-        self.preferred_model = preferred_model
-        self.playwright_timeout_seconds = playwright_timeout_seconds
-        self.per_query_wait_ms = per_query_wait_ms
+        self.perplexity_api_key = perplexity_api_key
+        self.perplexity_max_results = perplexity_max_results
+        self.perplexity_timeout_seconds = perplexity_timeout_seconds
         self.master_context_payload = master_context_payload
         self.research_tracks_payload = research_tracks_payload
         self.llm_mode = llm_mode
@@ -81,6 +81,7 @@ class FakePerplexityPipeline:
 
 def test_cli_run_executes_perplexity_flow(monkeypatch) -> None:
     monkeypatch.setattr(main_module, "PerplexityIntelligencePipeline", FakePerplexityPipeline)
+    monkeypatch.setenv("PERPLEXITY_API_KEY", "test-key")
 
     exit_code = run(
         [
@@ -99,6 +100,7 @@ def test_cli_run_executes_perplexity_flow(monkeypatch) -> None:
 
 def test_cli_alias_perplexity_intel_executes(monkeypatch) -> None:
     monkeypatch.setattr(main_module, "PerplexityIntelligencePipeline", FakePerplexityPipeline)
+    monkeypatch.setenv("PERPLEXITY_API_KEY", "test-key")
 
     exit_code = run(
         [
@@ -107,8 +109,8 @@ def test_cli_alias_perplexity_intel_executes(monkeypatch) -> None:
             "fontes de dados oficiais e estudos academicos sobre rio tiete e jupia",
             "--max-searches",
             "3",
-            "--preferred-model",
-            "Sonar",
+            "--perplexity-max-results",
+            "15",
         ]
     )
 
@@ -149,6 +151,7 @@ def test_cli_export_from_generated_catalog(tmp_path: Path) -> None:
 
 def test_cli_loads_context_and_tracks_files(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(main_module, "PerplexityIntelligencePipeline", FakePerplexityPipeline)
+    monkeypatch.setenv("PERPLEXITY_API_KEY", "test-key")
 
     context_path = tmp_path / "context.yaml"
     context_path.write_text(

@@ -1,18 +1,23 @@
 agent:
   name: NormalizationAgent
-  version: 1.0.0
-  role: Padronizacao de registros
-objective: Normalizar e padronizar registros preservando rastreabilidade.
+  version: 1.1.0
+  role: Normalizacao e consolidacao de registros de dataset
+objective: Transformar `dataset_candidates` em `datasets` normalizados, deduplicados e rastreaveis, preservando proveniencia e sinais estruturados.
 context:
-  - O contexto da pesquisa e configuravel e nao deve ser reduzido a taxonomias fixas.
+  - Esta etapa combina candidatos consolidados com sinais vindos de `sources`, `web_research_results` e `perplexity_master_context`.
+  - O contexto da pesquisa e configuravel e nao deve ser reduzido a taxonomias fechadas.
 input:
-  - dataset candidates e fontes com evidencias
+  - "`dataset_candidates`"
+  - "`sources` e `web_research_results` para votos, formatos, proveniencia e sinais de extratabilidade"
+  - "`perplexity_master_context` para preencher region e thematic_axis"
 output:
-  - JSON normalizado e validado por schema
+  - "`datasets` com dataset_id, aliases, source metadata, variables_normalized, themes_normalized, confidence, priority, provenance, evidence_origin, research_tracks, search_profiles e target_intents"
 rules:
-  - Nao inventar metadados ausentes.
-  - Preservar URLs, titulos originais e citacoes.
+  - Nao inventar metadados ausentes; usar defaults explicitos quando necessario.
+  - Preservar canonical_url, source_url, aliases, evidence_notes e provenance.
+  - Deduplicar por nome, alias e URL sem perder rastreabilidade entre fontes e evidencias.
 classification:
-  - Padronizar campos estruturais preservando rastro das evidencias e labels abertos.
+  - "Padronizar labels abertas em variables_normalized, themes_normalized e tags."
+  - "Propagar source_class, data_extractability, scientific_value e flags estruturadas por voto majoritario e auditavel."
 runtime:
-  - Nao executar descoberta, scoring ou relatorio.
+  - Executar apos dataset discovery e antes de relevance, sem fazer scoring, acesso ou relatorio.

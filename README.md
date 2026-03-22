@@ -1,6 +1,6 @@
 # Research_FREnTE
 
-Pipeline para pesquisa de artigo com descoberta de fontes via **Perplexity + Playwright**, seguido de categorizacao, consolidacao de inteligencia e estruturacao de candidatos a dataset.
+Pipeline para pesquisa de artigo com descoberta de fontes via **Perplexity Search API**, seguido de categorizacao, consolidacao de inteligencia e estruturacao de candidatos a dataset.
 
 ## Objetivo
 
@@ -14,31 +14,23 @@ O projeto hoje funciona assim:
 
 1. [src/main.py](src/main.py) recebe a configuracao de execucao pela CLI
 2. [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py) monta o contexto mestre e o plano de chats
-3. [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) coordena a coleta no Perplexity
-4. [src/connectors/perplexity_browser_session.py](src/connectors/perplexity_browser_session.py) abre e controla a sessao real do navegador via Playwright CLI
-5. [src/agents/perplexity_source_categorization_agent.py](src/agents/perplexity_source_categorization_agent.py) categoriza as fontes a partir da evidencia coletada
+3. [src/connectors/perplexity_api.py](src/connectors/perplexity_api.py) executa as buscas via Perplexity Search API
+4. [src/agents/perplexity_source_categorization_agent.py](src/agents/perplexity_source_categorization_agent.py) categoriza as fontes a partir da evidencia coletada
 6. [src/agents/source_validation_agent.py](src/agents/source_validation_agent.py) valida a consistencia das fontes, registra ajustes e sinaliza validacao manual
 7. [src/agents/dataset_discovery_agent.py](src/agents/dataset_discovery_agent.py) consolida candidatos a dataset
 8. [src/agents/normalization_agent.py](src/agents/normalization_agent.py), [src/agents/relevance_agent.py](src/agents/relevance_agent.py) e [src/agents/access_agent.py](src/agents/access_agent.py) estruturam, priorizam e organizam o acesso
 9. [src/agents/perplexity_intelligence_report_agent.py](src/agents/perplexity_intelligence_report_agent.py) produz o consolidado final
 
-### Objeto de sessao do Playwright
+### Conector de coleta
 
-Existe um objeto dedicado para uso do Playwright: [src/connectors/perplexity_browser_session.py](src/connectors/perplexity_browser_session.py).
+O conector principal e o [src/connectors/perplexity_api.py](src/connectors/perplexity_api.py) (`PerplexityAPICollector`).
 
 Ele e responsavel por:
 
-- abrir e fechar a sessao real do navegador
-- abrir a aba de trabalho do Perplexity
-- esperar o carregamento da pagina
-- tentar fechar modal de login quando aparecer
-- tentar selecionar o modelo preferido na UI
-- enviar o prompt ao campo do Perplexity
-- esperar a resposta
-- abrir a aba `Links`
-- extrair resposta e links visiveis
-
-O [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) nao implementa mais a automacao do browser sozinho; ele atua como orquestrador leve e delega a navegacao real para esse objeto.
+- iterar sobre o plano de buscas
+- chamar `POST https://api.perplexity.ai/search` para cada trilha tematica
+- receber resultados rankeados com `title`, `url` e `snippet` por item
+- montar os `PerplexitySearchSessionRecord` para consumo pelos agentes
 
 ## Onde a configuracao do projeto existe
 
@@ -71,7 +63,7 @@ Quando ha mais de uma fonte de configuracao, pense na ordem abaixo:
    Sempre vencem, porque sao passadas diretamente para a pipeline.
 2. **`context-file` e `tracks-file`**
    Sobrescrevem os defaults internos da pipeline para contexto e trilhas.
-   Se nao forem passados e os arquivos `context_100k.yaml` e `tracks_100k.yaml` existirem na raiz do repo, eles viram o preset padrao do projeto.
+   Se nao forem passados e os arquivos `config/context_100k.yaml` e `config/tracks_100k.yaml` existirem, eles viram o preset padrao do projeto.
 3. **`.env`**
    Hoje entra basicamente para autenticar a OpenAI, via `OPENAI_API_KEY`.
 4. **Defaults internos**
@@ -97,12 +89,10 @@ As configuracoes principais estao em [src/main.py](src/main.py), dentro de `_add
 | `--query`              | sem default, obrigatoria | [src/main.py](src/main.py) | Tema base da pesquisa. Alimenta o contexto mestre default, o plano de chats e os artefatos finais.                                              |
 | `--limit`              | `20`                   | [src/main.py](src/main.py) | Limite de datasets/fontes normalizadas usados no pipeline. Tambem e validado por[PipelineSettings](src/schemas/settings.py).                       |
 | `--max-searches`       | `5`                    | [src/main.py](src/main.py) | Numero maximo de chats tematicos usados apenas quando o pipeline recorre aos defaults internos. Quando um `tracks-file` e fornecido, o projeto respeita todas as trilhas do arquivo.        |
-| `--preferred-model`    | `Sonar`                | [src/main.py](src/main.py) | Modelo que o coletor tenta selecionar na interface do Perplexity. Pode ser bloqueado por login; o bloqueio e registrado, mas a coleta continua. |
-| `--playwright-timeout` | `120.0`                | [src/main.py](src/main.py) | Timeout, em segundos, de cada chamada ao Playwright CLI. Passado ao coletor.                                                                    |
-| `--per-query-wait-ms`  | `7000`                 | [src/main.py](src/main.py) | Tempo extra de espera apos cada busca para estabilizar a resposta do Perplexity antes da extracao.                                              |
-| `--headed`            | `False`                | [src/main.py](src/main.py) | Abre o navegador de forma visivel durante a coleta Playwright.                                                                                   |
-| `--context-file`       | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com o contexto mestre da pesquisa. Se presente, substitui o contexto default gerado pela pipeline. Se ausente, o projeto tenta carregar `context_100k.yaml` automaticamente.                 |
-| `--tracks-file`        | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com as trilhas/chats tematicos. Se presente, substitui as trilhas default da pipeline. Se ausente, o projeto tenta carregar `tracks_100k.yaml` automaticamente.                             |
+| `--perplexity-max-results` | `20`               | [src/main.py](src/main.py) | Numero maximo de resultados por busca na Search API (1-20).                                                                                     |
+| `--perplexity-timeout` | `60.0`                 | [src/main.py](src/main.py) | Timeout em segundos das chamadas a Search API do Perplexity.                                                                                    |
+| `--context-file`       | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com o contexto mestre da pesquisa. Se presente, substitui o contexto default gerado pela pipeline. Se ausente, o projeto tenta carregar `config/context_100k.yaml` automaticamente.          |
+| `--tracks-file`        | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com as trilhas/chats tematicos. Se presente, substitui as trilhas default da pipeline. Se ausente, o projeto tenta carregar `config/tracks_100k.yaml` automaticamente.                      |
 | `--track-limit`       | `None`                 | [src/main.py](src/main.py) | Limita quantas trilhas do arquivo de tracks serao executadas na rodada atual. E util para depurar a coleta uma busca por vez.                   |
 | `--llm-mode`           | `auto`                 | [src/main.py](src/main.py) | Controla se a categorizacao de fontes usa LLM. Valores aceitos:`auto`, `off`, `openai`.                                                   |
 | `--llm-model`          | `gpt-4.1-nano`         | [src/main.py](src/main.py) | Modelo OpenAI usado na inferencia estrutural das fontes.                                                                                        |
@@ -202,7 +192,7 @@ python -m src.main run --query "monitoramento ambiental costeiro" --context-file
 
 ## Defaults internos da pipeline
 
-Quando voce nao passa `context-file` nem `tracks-file`, a CLI tenta primeiro carregar os presets [context_100k.yaml](context_100k.yaml) e [tracks_100k.yaml](tracks_100k.yaml). So na ausencia deles a pipeline recorre aos defaults internos em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
+Quando voce nao passa `context-file` nem `tracks-file`, a CLI tenta primeiro carregar os presets [config/context_100k.yaml](config/context_100k.yaml) e [config/tracks_100k.yaml](config/tracks_100k.yaml). So na ausencia deles a pipeline recorre aos defaults internos em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
 
 ### Defaults do contexto mestre
 
@@ -231,17 +221,14 @@ As 5 trilhas default sao:
 
 Cada uma ja traz `chat_label`, `search_profile`, `target_intent`, `research_question`, `task_prompt` e `priority`.
 
-### Defaults do coletor Playwright
+### Defaults do coletor Search API
 
-Definidos entre [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) e [src/connectors/perplexity_browser_session.py](src/connectors/perplexity_browser_session.py):
+Definidos em [src/connectors/perplexity_api.py](src/connectors/perplexity_api.py):
 
-- `preferred_model="Sonar"`
-- `timeout_seconds=120.0`
-- `per_query_wait_ms=7000`
-- `headed=False`
-- `session_prefix="rf-pplx"`
+- `max_results=20`
+- `timeout_seconds=60.0`
 
-Esses valores sao usados quando a CLI nao passa overrides. O coletor coordena a rodada e o objeto de sessao do browser executa a navegacao real.
+Esses valores sao usados quando a CLI nao passa overrides.
 
 ### Defaults da LLM
 
@@ -447,7 +434,7 @@ Prompts principais do fluxo atual:
 python -m src.main run --query "monitoramento ambiental costeiro"
 ```
 
-Se os arquivos `context_100k.yaml` e `tracks_100k.yaml` estiverem presentes na raiz do projeto, essa execucao ja usa automaticamente o preset 100K.
+Se os arquivos `config/context_100k.yaml` e `config/tracks_100k.yaml` estiverem presentes, essa execucao ja usa automaticamente o preset 100K.
 
 ### Execucao com contexto e trilhas customizadas
 
@@ -463,8 +450,8 @@ python -m src.main run \
 ```bash
 python -m src.main run \
   --query "projeto 100k rio tiete jupia" \
-  --context-file context_100k.yaml \
-  --tracks-file tracks_100k.yaml
+  --context-file config/context_100k.yaml \
+  --tracks-file config/tracks_100k.yaml
 ```
 
 ### Execucao com OpenAI obrigatoria na categorizacao
@@ -491,7 +478,7 @@ No fluxo principal atual, voce normalmente **nao precisa** usar esse comando, po
 - `httpx`
 - `PyYAML`
 - `python-dotenv`
-- `Playwright CLI` via `npx`
+- `openai`
 
 ## Resumo pratico
 
@@ -501,5 +488,6 @@ Se voce quiser lembrar rapidamente onde mexer:
 - **mudar defaults do fluxo**: [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py)
 - **mudar estrutura valida de contexto/trilhas**: [src/schemas/records.py](src/schemas/records.py)
 - **mudar validacao simples de query/limit**: [src/schemas/settings.py](src/schemas/settings.py)
+- **mudar chave Perplexity**: `.env` com `PERPLEXITY_API_KEY`
 - **mudar autenticacao LLM**: `.env` com `OPENAI_API_KEY`
 - **mudar orientacao semantica dos agentes**: `prompts/*.yaml`
