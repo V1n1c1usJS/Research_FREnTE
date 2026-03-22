@@ -142,7 +142,7 @@ class PerplexitySourceCategorizationAgent(BaseLLMAgent):
                         f"e article_value={item['article_value']}."
                     ),
                     evidence_notes=(
-                        "Coleta Perplexity via Playwright; "
+                        "Coleta Perplexity Search API; "
                         f"classificacao={item['classification_method']}; "
                         f"amostra={snippets[0] if snippets else 'sem snippet'}"
                     ),
@@ -229,7 +229,6 @@ class PerplexitySourceCategorizationAgent(BaseLLMAgent):
                         "supporting_query_ids": set(),
                         "research_questions": set(),
                         "target_intents": set(),
-                        "page_urls": set(),
                         "evidence_count": 0,
                     },
                 )
@@ -252,8 +251,6 @@ class PerplexitySourceCategorizationAgent(BaseLLMAgent):
                     bucket["research_questions"].add(session.research_question)
                 if session.target_intent:
                     bucket["target_intents"].add(session.target_intent)
-                if session.page_url:
-                    bucket["page_urls"].add(session.page_url)
                 bucket["evidence_count"] += 1
 
         return buckets, ok_sessions, error_sessions

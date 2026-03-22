@@ -209,12 +209,8 @@ class PerplexitySearchSessionRecord(BaseModel):
     chat_label: str = ""
     research_question: str = ""
     collection_status: str = "ok"
-    validated_via_playwright: bool = False
-    page_url: str = ""
-    preferred_model: str | None = None
-    selected_model: str | None = None
-    model_selection_blocked: bool = False
-    model_selection_blocker: str | None = None
+    collection_method: str = "search_api"
+    request_endpoint: str = ""
     answer_text: str = ""
     visible_source_count: int = 0
     links: list[PerplexityLinkRecord] = Field(default_factory=list)

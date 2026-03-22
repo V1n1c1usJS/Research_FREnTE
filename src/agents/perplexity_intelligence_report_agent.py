@@ -45,9 +45,10 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
                 "search_profile": session.search_profile,
                 "target_intent": session.target_intent,
                 "status": session.collection_status,
+                "collection_method": session.collection_method,
                 "visible_source_count": session.visible_source_count,
-                "model_selection_blocked": session.model_selection_blocked,
                 "blockers": session.blockers,
+                "notes": session.notes,
             }
             for session in sessions
         ]
@@ -158,11 +159,13 @@ class PerplexityIntelligenceReportAgent(BaseAgent):
                 lines.append(
                     f"- `{item['query_id']}` | chat={item['chat_label']} | trilha={item['research_track']} "
                     f"| perfil={item['search_profile']} | alvo={item['target_intent']} "
-                    f"| status={item['status']} | fontes_visiveis={item['visible_source_count']} "
-                    f"| bloqueio_modelo={item['model_selection_blocked']}"
+                    f"| metodo={item['collection_method']} | status={item['status']} "
+                    f"| fontes_visiveis={item['visible_source_count']}"
                 )
                 if item["blockers"]:
                     lines.append(f"  bloqueios: {', '.join(item['blockers'])}")
+                if item["notes"]:
+                    lines.append(f"  notas: {', '.join(item['notes'][:2])}")
 
         lines.extend(["", "## Cobertura por trilha"])
         for item in track_coverage:

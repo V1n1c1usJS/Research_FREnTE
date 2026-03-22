@@ -16,10 +16,10 @@ O projeto hoje funciona assim:
 2. [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py) monta o contexto mestre e o plano de chats
 3. [src/connectors/perplexity_api.py](src/connectors/perplexity_api.py) executa as buscas via Perplexity Search API
 4. [src/agents/perplexity_source_categorization_agent.py](src/agents/perplexity_source_categorization_agent.py) categoriza as fontes a partir da evidencia coletada
-6. [src/agents/source_validation_agent.py](src/agents/source_validation_agent.py) valida a consistencia das fontes, registra ajustes e sinaliza validacao manual
-7. [src/agents/dataset_discovery_agent.py](src/agents/dataset_discovery_agent.py) consolida candidatos a dataset
-8. [src/agents/normalization_agent.py](src/agents/normalization_agent.py), [src/agents/relevance_agent.py](src/agents/relevance_agent.py) e [src/agents/access_agent.py](src/agents/access_agent.py) estruturam, priorizam e organizam o acesso
-9. [src/agents/perplexity_intelligence_report_agent.py](src/agents/perplexity_intelligence_report_agent.py) produz o consolidado final
+5. [src/agents/source_validation_agent.py](src/agents/source_validation_agent.py) valida a consistencia das fontes, registra ajustes e sinaliza validacao manual
+6. [src/agents/dataset_discovery_agent.py](src/agents/dataset_discovery_agent.py) consolida candidatos a dataset
+7. [src/agents/normalization_agent.py](src/agents/normalization_agent.py), [src/agents/relevance_agent.py](src/agents/relevance_agent.py) e [src/agents/access_agent.py](src/agents/access_agent.py) estruturam, priorizam e organizam o acesso
+8. [src/agents/perplexity_intelligence_report_agent.py](src/agents/perplexity_intelligence_report_agent.py) produz o consolidado final
 
 ### Conector de coleta
 
@@ -47,7 +47,7 @@ Hoje a configuracao do projeto esta distribuida em 6 camadas:
    Estrutura definida por [PerplexityResearchTrackRecord](src/schemas/records.py) em [src/schemas/records.py](src/schemas/records.py).
 4. **Variaveis de ambiente**
    Carregadas em [src/main.py](src/main.py) via `python-dotenv`, quando disponivel.
-   No fluxo atual, a unica variavel realmente ativa para execucao e `OPENAI_API_KEY`.
+   No fluxo atual, `PERPLEXITY_API_KEY` e obrigatoria para a coleta e `OPENAI_API_KEY` e opcional para inferencia estrutural.
 5. **Defaults internos da pipeline**
    Definidos em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
    Entram em acao quando voce nao passa arquivos ou flags especificas.
@@ -65,7 +65,7 @@ Quando ha mais de uma fonte de configuracao, pense na ordem abaixo:
    Sobrescrevem os defaults internos da pipeline para contexto e trilhas.
    Se nao forem passados e os arquivos `config/context_100k.yaml` e `config/tracks_100k.yaml` existirem, eles viram o preset padrao do projeto.
 3. **`.env`**
-   Hoje entra basicamente para autenticar a OpenAI, via `OPENAI_API_KEY`.
+   Hoje entra para autenticar a Perplexity Search API via `PERPLEXITY_API_KEY` e, opcionalmente, a OpenAI via `OPENAI_API_KEY`.
 4. **Defaults internos**
    Sao usados quando voce nao informa alguma configuracao.
 
@@ -250,8 +250,13 @@ Esses dois valores hoje **nao sao configurados pela CLI**.
 
 As variaveis de ambiente sao carregadas em [src/main.py](src/main.py), na funcao `_load_dotenv_if_available()`.
 
-### Variavel ativa no fluxo atual
+### Variaveis ativas no fluxo atual
 
+- `PERPLEXITY_API_KEY`
+  Onde usada: [src/main.py](src/main.py), antes de instanciar a pipeline, e em [src/connectors/perplexity_api.py](src/connectors/perplexity_api.py).
+  Como funciona:
+  - e obrigatoria para qualquer execucao de `run` ou `perplexity-intel`
+  - sem ela a CLI encerra com erro antes de iniciar a coleta
 - `OPENAI_API_KEY`
   Onde usada: [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py), em `_build_llm_connector()`.
   Como funciona:
@@ -262,6 +267,7 @@ As variaveis de ambiente sao carregadas em [src/main.py](src/main.py), na funcao
 Exemplo minimo de `.env` util hoje:
 
 ```env
+PERPLEXITY_API_KEY=...
 OPENAI_API_KEY=...
 ```
 
@@ -398,11 +404,11 @@ Os artefatos mais importantes para auditoria sao:
 - `data/initializations/perplexity-intel-*/01_search-plan.json`
   Mostra os chats/trilhas realmente gerados.
 - `data/initializations/perplexity-intel-*/02_raw-sessions.json`
-  Mostra o que voltou do Perplexity e do Playwright.
+  Mostra o que voltou da Perplexity Search API para cada busca.
 - `data/initializations/perplexity-intel-*/04_source-validation.json`
   Mostra os ajustes e alertas aplicados antes do discovery.
 - `data/initializations/perplexity-intel-*/10_intelligence_payload.json`
-  Resume `preferred_model`, `llm_mode`, `llm_provider`, `llm_model`, contagens da execucao e metadados de validacao.
+  Resume `perplexity_max_results`, `llm_mode`, `llm_provider`, `llm_model`, contagens da execucao e metadados de validacao.
 
 ## Arquivos de configuracao legados
 
