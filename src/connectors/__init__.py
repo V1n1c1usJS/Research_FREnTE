@@ -1,27 +1,12 @@
-"""Conectores para fontes externas."""
+"""Conectores usados pelo fluxo Perplexity-first."""
 
-from src.connectors.llm import (
-    GroqResponsesConnector,
-    LLMConnector,
-    LLMConnectorError,
-    OpenAIResponsesConnector,
-)
-from src.connectors.web_research import (
-    BingWebResearchConnector,
-    DuckDuckGoWebResearchConnector,
-    MockWebResearchConnector,
-    PreparedWebResearchConnector,
-    WebResearchConnector,
-)
+from src.connectors.llm import LLMConnector, LLMConnectorError, OpenAIResponsesConnector
+from src.connectors.perplexity_playwright import PerplexityPlaywrightCollector, PlaywrightCLIError
 
 __all__ = [
     "LLMConnector",
     "LLMConnectorError",
-    "GroqResponsesConnector",
     "OpenAIResponsesConnector",
-    "WebResearchConnector",
-    "MockWebResearchConnector",
-    "BingWebResearchConnector",
-    "DuckDuckGoWebResearchConnector",
-    "PreparedWebResearchConnector",
+    "PerplexityPlaywrightCollector",
+    "PlaywrightCLIError",
 ]

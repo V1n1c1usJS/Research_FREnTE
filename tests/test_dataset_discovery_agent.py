@@ -6,7 +6,7 @@ from src.schemas.settings import PipelineSettings
 def test_dataset_discovery_consolidates_duplicates_with_evidence() -> None:
     agent = DatasetDiscoveryAgent()
     context = {
-        "settings": PipelineSettings(query="rio tietê", limit=10, dry_run=True),
+        "settings": PipelineSettings(query="rio tietê", limit=10),
         "expanded_queries": [{"query": "hidrologia rio tietê"}],
         "web_research_results": [
             WebResearchResultRecord(
@@ -59,7 +59,7 @@ def test_dataset_discovery_consolidates_duplicates_with_evidence() -> None:
 def test_dataset_discovery_marks_literature_only_as_cited() -> None:
     agent = DatasetDiscoveryAgent()
     context = {
-        "settings": PipelineSettings(query="rio tietê", limit=10, dry_run=True),
+        "settings": PipelineSettings(query="rio tietê", limit=10),
         "expanded_queries": [],
         "web_research_results": [
             WebResearchResultRecord(

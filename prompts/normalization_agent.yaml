@@ -1,18 +1,18 @@
 agent:
   name: NormalizationAgent
   version: 1.0.0
-  role: Padronização de registros
+  role: Padronizacao de registros
 objective: Normalizar e padronizar registros preservando rastreabilidade.
 context:
-  - Escopo geográfico São Paulo -> Três Lagoas com foco no Rio Tietê/Jupiá.
+  - O contexto da pesquisa e configuravel e nao deve ser reduzido a taxonomias fixas.
 input:
-  - dataset candidates e fontes com evidências
+  - dataset candidates e fontes com evidencias
 output:
   - JSON normalizado e validado por schema
 rules:
-  - Não inventar metadados ausentes.
-  - Preservar URLs, títulos originais e citações.
+  - Nao inventar metadados ausentes.
+  - Preservar URLs, titulos originais e citacoes.
 classification:
-  - Padronizar source_class, source_roles e campos de extraibilidade científica/analítica.
+  - Padronizar campos estruturais preservando rastro das evidencias e labels abertos.
 runtime:
-  - Não executar descoberta, scoring ou relatório.
+  - Nao executar descoberta, scoring ou relatorio.

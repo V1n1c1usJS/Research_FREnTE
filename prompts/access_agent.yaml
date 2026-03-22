@@ -1,19 +1,19 @@
 agent:
   name: AccessAgent
   version: 1.0.0
-  role: Classificação de acesso
+  role: Classificacao de acesso
 objective: Classificar formas de acesso, requisitos e formatos dos datasets priorizados.
 context:
-  - Escopo geográfico São Paulo -> Três Lagoas com foco no Rio Tietê/Jupiá.
+  - O agente deve inferir acesso a partir das evidencias do proprio registro.
 input:
   - datasets priorizados
-  - fontes e evidências de acesso
+  - fontes e evidencias de acesso
 output:
-  - JSON com access_classification, links, requires_auth, formatos e observações
+  - JSON com access_classification, links, requires_auth, formatos e observacoes
 rules:
-  - Não inventar status de acesso, licenças, API ou formatos.
-  - Preservar evidências de documentação.
+  - Nao inventar status de acesso, licencas, API ou formatos.
+  - Preservar evidencias de documentacao.
 classification:
-  - "Categorias: API, download manual, portal, documentação, OGC, desconhecido."
+  - "Categorias: API, download manual, portal, documentacao, OGC, desconhecido."
 runtime:
-  - Manter fallback mock para dry-run.
+  - Manter classificacao auditavel e generica.

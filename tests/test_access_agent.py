@@ -27,7 +27,7 @@ def _dataset(title: str, source_url: str, entity_type: str = "dataset", formats:
 
 def test_access_agent_classifies_api_and_collects_links() -> None:
     agent = AccessAgent()
-    ds = _dataset("API Hidrológica", "https://example.org/api/v1/stations", formats=["json"])
+    ds = _dataset("API Hidrologica", "https://example.org/api/v1/stations", formats=["json"])
 
     result = agent.run({"datasets": [ds]})["datasets"][0]
 
@@ -40,10 +40,28 @@ def test_access_agent_classifies_api_and_collects_links() -> None:
 
 def test_access_agent_marks_documentation_when_not_direct_dataset() -> None:
     agent = AccessAgent()
-    ds = _dataset("Relatório técnico Tietê", "https://example.org/report.pdf", entity_type="documentation", formats=["pdf"])
+    ds = _dataset("Relatorio tecnico", "https://example.org/report.pdf", entity_type="documentation", formats=["pdf"])
 
     result = agent.run({"datasets": [ds]})["datasets"][0]
 
     assert result.access_level == "documentation"
     assert result.requires_auth is None
-    assert any("mineração" in note.lower() or "referências" in note.lower() for note in result.extraction_observations)
+    assert any("documentation" in note.lower() or "citations" in note.lower() for note in result.extraction_observations)
+
+
+def test_access_agent_classifies_generic_analytical_source_without_name_whitelist() -> None:
+    agent = AccessAgent()
+    ds = _dataset("Painel de monitoramento costeiro", "https://example.org/data/portal")
+    ds = ds.model_copy(
+        update={
+            "source_class": "analytical_data_source",
+            "structured_export_available": True,
+            "recommended_pipeline_use": ["dataset_discovery_from_source"],
+            "formats": ["csv", "json"],
+        }
+    )
+
+    result = agent.run({"datasets": [ds]})["datasets"][0]
+
+    assert result.access_level == "download_manual"
+    assert result.requires_auth is False

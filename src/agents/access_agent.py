@@ -1,4 +1,4 @@
-"""Agente para classificar formas de acesso e viabilidade de extração dos datasets."""
+"""Agente para classificar formas de acesso e viabilidade de extracao dos datasets."""
 
 from __future__ import annotations
 
@@ -28,8 +28,8 @@ class AccessAgent(BaseAgent):
             )
 
             access_notes = (
-                f"Classificação={classification}; links_acesso={len(links)}; "
-                f"links_docs={len(documentation_links)}; requires_auth={requires_auth}."
+                f"classification={classification}; access_links={len(links)}; "
+                f"documentation_links={len(documentation_links)}; requires_auth={requires_auth}."
             )
 
             updated.append(
@@ -50,20 +50,24 @@ class AccessAgent(BaseAgent):
 
     @staticmethod
     def _classify_access(dataset: Any) -> str:
-        lowered_name = dataset.source_name.lower()
-        lowered_url = dataset.source_url.lower()
-        lowered_title = dataset.title.lower()
+        lowered_url = str(dataset.source_url).lower()
+        lowered_title = str(dataset.title).lower()
+        formats = {str(fmt).lower() for fmt in dataset.formats}
+        structured_formats = {"csv", "xlsx", "json", "geojson", "shp", "parquet", "netcdf", "geotiff", "zip", "xml"}
+        recommended_use = {str(item).lower() for item in getattr(dataset, "recommended_pipeline_use", [])}
 
-        if any(token in lowered_url for token in ["api", "arcgis", "ckan"]):
+        if any(token in lowered_url for token in ["graphql", "/api", "api.", "rest/"]) or "api" in recommended_use:
             return "api"
         if any(token in lowered_url for token in ["wms", "wfs", "wmts", "ows"]) or "ogc" in lowered_title:
             return "ogc"
         if dataset.entity_type in {"documentation", "academic_source"}:
             return "documentation"
-        if any(token in lowered_name for token in ["hidroweb", "mapbiomas", "ibge", "inpe", "snis", "ana"]):
-            return "portal"
-        if any(fmt in {"csv", "xlsx", "json", "geojson", "shp"} for fmt in dataset.formats):
+        if dataset.source_class == "scientific_knowledge_source":
+            return "documentation"
+        if dataset.structured_export_available is True or formats & structured_formats:
             return "download_manual"
+        if dataset.data_extractability in {"high", "medium"} or dataset.source_class == "analytical_data_source":
+            return "portal"
         return "unknown"
 
     @staticmethod
@@ -91,13 +95,11 @@ class AccessAgent(BaseAgent):
 
     @staticmethod
     def _infer_requires_auth(dataset: Any, classification: str) -> bool | None:
-        url = dataset.source_url.lower()
+        url = str(dataset.source_url).lower()
         if any(token in url for token in ["login", "auth", "token", "signin"]):
             return True
         if classification in {"portal", "api", "ogc", "download_manual"}:
             return False
-        if classification in {"documentation", "unknown"}:
-            return None
         return None
 
     @staticmethod
@@ -110,27 +112,27 @@ class AccessAgent(BaseAgent):
         notes: list[str] = []
 
         if classification == "api":
-            notes.append("Priorizar cliente HTTP com paginação e retries.")
+            notes.append("Prioritize an HTTP client with pagination, limits and retries.")
         elif classification == "ogc":
-            notes.append("Preparar cliente OGC (WMS/WFS/WMTS) e controle de CRS.")
+            notes.append("Prepare an OGC client (WMS/WFS/WMTS) and validate CRS handling.")
         elif classification == "portal":
-            notes.append("Extração inicial via navegação de portal e download assistido.")
+            notes.append("Use guided portal navigation and confirm the exact download path manually.")
         elif classification == "download_manual":
-            notes.append("Download manual previsto para arquivos tabulares/geoespaciais.")
+            notes.append("Expect manual download of tabular or geospatial files.")
         elif classification == "documentation":
-            notes.append("Dataset não diretamente acessível; exige mineração de referências.")
+            notes.append("Treat as documentation or scientific evidence and mine citations or linked sources.")
         else:
-            notes.append("Fallback mock: acesso desconhecido, requer inspeção manual.")
+            notes.append("Access path remains inconclusive and needs manual inspection.")
 
         if requires_auth is True:
-            notes.append("Detectado potencial requisito de autenticação.")
+            notes.append("Potential authentication requirement detected from collected links.")
         elif requires_auth is False:
-            notes.append("Sem evidência de autenticação obrigatória no modo mock.")
+            notes.append("No authentication requirement detected from collected links.")
 
         if documentation_links:
-            notes.append("Links de documentação coletados para apoiar plano de extração.")
+            notes.append("Supporting documentation links were preserved for manual validation.")
 
         if not dataset.formats:
-            notes.append("Formato não identificado; confirmar no conector real.")
+            notes.append("No format was inferred; confirm available exports at the source.")
 
         return notes

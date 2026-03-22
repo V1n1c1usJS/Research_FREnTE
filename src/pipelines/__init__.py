@@ -1,6 +1,5 @@
 """Pipelines reutilizaveis para pesquisa ambiental."""
 
-from src.pipelines.multi_agent_pipeline import MultiAgentPipeline
-from src.pipelines.real_initialization_pipeline import RealInitializationPipeline
+from src.pipelines.perplexity_intelligence_pipeline import PerplexityIntelligencePipeline
 
-__all__ = ["MultiAgentPipeline", "RealInitializationPipeline"]
+__all__ = ["PerplexityIntelligencePipeline"]

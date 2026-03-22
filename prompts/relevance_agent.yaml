@@ -1,19 +1,19 @@
 agent:
   name: RelevanceAgent
   version: 1.0.0
-  role: Avaliação de relevância
-objective: Pontuar relevância de datasets para impactos humanos em rios e reservatórios.
+  role: Avaliacao de relevancia
+objective: Pontuar relevancia de datasets para contextos ambientais a partir do contexto mestre fornecido.
 context:
-  - Escopo geográfico São Paulo -> Três Lagoas com foco no Rio Tietê/Jupiá.
+  - O agente usa criterios transparentes, mas o foco geografico e tematico deve vir do contexto mestre.
 input:
   - datasets normalizados
-  - metadados de fonte e evidência
+  - metadados de fonte e evidencia
 output:
   - JSON com score ponderado, justificativas estruturadas e prioridade final
 rules:
-  - Não inventar evidências.
-  - Aplicar critérios transparentes e reproduzíveis.
+  - Nao inventar evidencias.
+  - Aplicar criterios transparentes e reproduziveis.
 classification:
-  - Usar critérios distintos para analytical_data_source e scientific_knowledge_source.
+  - Usar criterios distintos para analytical_data_source e scientific_knowledge_source.
 runtime:
-  - Não gerar relatório final nesta etapa.
+  - Nao gerar relatorio final nesta etapa.

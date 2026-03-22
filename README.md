@@ -1,166 +1,471 @@
 # Research_FREnTE
 
-Pipeline multiagente para descoberta, avaliacao e documentacao de bases de dados ambientais no contexto do projeto 100K.
+Pipeline para pesquisa de artigo com descoberta de fontes via **Perplexity + Playwright**, seguido de categorizacao, consolidacao de inteligencia e estruturacao de candidatos a dataset.
 
-## Objetivo cientifico
+## Objetivo
 
-Identificar bases uteis para estudar impactos humanos em rios e reservatorios no corredor **Sao Paulo -> Tres Lagoas**, com foco no **Rio Tiete** e conexao com o **Reservatorio de Jupia**.
+Identificar fontes, datasets e conhecimento academico para um problema de pesquisa ambiental, a partir de um **contexto mestre configuravel** e de **chats tematicos especificos**.
 
-## Capacidades atuais
+O repositorio continua alinhado ao projeto 100K e ao caso Sao Paulo -> Tres Lagoas / Rio Tiete / Jupia.
 
-- `ResearchScoutAgent` usa conector abstrato de pesquisa web, com modo `mock` e modo `real`, e pode usar LLM para triagem e enriquecimento de links/fontes.
-- `QueryExpansionAgent` pode usar LLM real para ampliar queries a partir dos achados do scout, mantendo fallback heuristico.
-- `ReportAgent` permanece deterministico para reduzir deriva narrativa.
-- Os demais agentes seguem deterministicos e auditaveis.
+## Fluxo atual
 
-## Classificacao de fontes
+O projeto hoje funciona assim:
 
-O pipeline distingue duas classes principais:
+1. [src/main.py](src/main.py) recebe a configuracao de execucao pela CLI
+2. [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py) monta o contexto mestre e o plano de chats
+3. [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py) coleta respostas e links no Perplexity
+4. [src/agents/perplexity_source_categorization_agent.py](src/agents/perplexity_source_categorization_agent.py) categoriza as fontes a partir da evidencia coletada
+5. [src/agents/source_validation_agent.py](src/agents/source_validation_agent.py) valida a consistencia das fontes, registra ajustes e sinaliza validacao manual
+6. [src/agents/dataset_discovery_agent.py](src/agents/dataset_discovery_agent.py) consolida candidatos a dataset
+7. [src/agents/normalization_agent.py](src/agents/normalization_agent.py), [src/agents/relevance_agent.py](src/agents/relevance_agent.py) e [src/agents/access_agent.py](src/agents/access_agent.py) estruturam, priorizam e organizam o acesso
+8. [src/agents/perplexity_intelligence_report_agent.py](src/agents/perplexity_intelligence_report_agent.py) produz o consolidado final
 
-- `analytical_data_source`: fonte com dados utilizaveis diretamente em analise.
-- `scientific_knowledge_source`: fonte de conhecimento cientifico/metodologico.
+## Onde a configuracao do projeto existe
 
-Campos relevantes preservados no scout, normalizacao e catalogo:
+Hoje a configuracao do projeto esta distribuida em 6 camadas:
 
-- `source_class`
-- `source_roles`
-- `data_extractability`
-- `historical_records_available`
-- `structured_export_available`
-- `scientific_value`
-- `recommended_pipeline_use`
+1. **CLI**
+   Definida em [src/main.py](src/main.py).
+   E a configuracao principal de runtime.
+2. **Arquivo de contexto mestre**
+   Opcional.
+   Estrutura definida por [PerplexityResearchContextRecord](src/schemas/records.py) em [src/schemas/records.py](src/schemas/records.py).
+3. **Arquivo de trilhas/chats tematicos**
+   Opcional.
+   Estrutura definida por [PerplexityResearchTrackRecord](src/schemas/records.py) em [src/schemas/records.py](src/schemas/records.py).
+4. **Variaveis de ambiente**
+   Carregadas em [src/main.py](src/main.py) via `python-dotenv`, quando disponivel.
+   No fluxo atual, a unica variavel realmente ativa para execucao e `OPENAI_API_KEY`.
+5. **Defaults internos da pipeline**
+   Definidos em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
+   Entram em acao quando voce nao passa arquivos ou flags especificas.
+6. **Schemas de validacao**
+   Definidos em [src/schemas/settings.py](src/schemas/settings.py) e [src/schemas/records.py](src/schemas/records.py).
+   Eles nao sao “config” do usuario, mas controlam quais valores sao aceitos e como os dados sao validados.
 
-## Configuracao de LLM
+## Ordem de precedencia
 
-O projeto esta preparado para usar a API da OpenAI com o modelo `gpt-4.1-nano`.
-Tambem existe um modo de teste com Groq usando `groq/compound-mini`.
+Quando ha mais de uma fonte de configuracao, pense na ordem abaixo:
 
-1. Instale as dependencias do projeto.
-2. Copie `.env.example` para `.env`.
-3. Preencha `OPENAI_API_KEY` no `.env`.
+1. **Flags da CLI**
+   Sempre vencem, porque sao passadas diretamente para a pipeline.
+2. **`context-file` e `tracks-file`**
+   Sobrescrevem os defaults internos da pipeline para contexto e trilhas.
+3. **`.env`**
+   Hoje entra basicamente para autenticar a OpenAI, via `OPENAI_API_KEY`.
+4. **Defaults internos**
+   Sao usados quando voce nao informa alguma configuracao.
 
-Exemplo de `.env`:
+## Configuracoes da CLI
+
+As configuracoes principais estao em [src/main.py](src/main.py), dentro de `_add_perplexity_args()`.
+
+### Comandos disponiveis
+
+- `run`
+  Executa o fluxo principal.
+- `perplexity-intel`
+  Alias explicito do mesmo fluxo principal.
+- `export`
+  Exporta um catalogo JSON para CSV.
+
+### Flags de `run` e `perplexity-intel`
+
+| Flag                     | Default                  | Onde definida           | Como funciona                                                                                                                                   |
+| ------------------------ | ------------------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--query`              | sem default, obrigatoria | [src/main.py](src/main.py) | Tema base da pesquisa. Alimenta o contexto mestre default, o plano de chats e os artefatos finais.                                              |
+| `--limit`              | `20`                   | [src/main.py](src/main.py) | Limite de datasets/fontes normalizadas usados no pipeline. Tambem e validado por[PipelineSettings](src/schemas/settings.py).                       |
+| `--max-searches`       | `5`                    | [src/main.py](src/main.py) | Numero maximo de chats tematicos executados. Se o `tracks-file` tiver mais itens, o pipeline usa apenas os primeiros `max-searches`.        |
+| `--preferred-model`    | `Sonar`                | [src/main.py](src/main.py) | Modelo que o coletor tenta selecionar na interface do Perplexity. Pode ser bloqueado por login; o bloqueio e registrado, mas a coleta continua. |
+| `--playwright-timeout` | `120.0`                | [src/main.py](src/main.py) | Timeout, em segundos, de cada chamada ao Playwright CLI. Passado ao coletor.                                                                    |
+| `--per-query-wait-ms`  | `7000`                 | [src/main.py](src/main.py) | Tempo extra de espera apos cada busca para estabilizar a resposta do Perplexity antes da extracao.                                              |
+| `--context-file`       | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com o contexto mestre da pesquisa. Se presente, substitui o contexto default gerado pela pipeline.                 |
+| `--tracks-file`        | `None`                 | [src/main.py](src/main.py) | Caminho para um JSON ou YAML com as trilhas/chats tematicos. Se presente, substitui as trilhas default da pipeline.                             |
+| `--llm-mode`           | `auto`                 | [src/main.py](src/main.py) | Controla se a categorizacao de fontes usa LLM. Valores aceitos:`auto`, `off`, `openai`.                                                   |
+| `--llm-model`          | `gpt-4.1-nano`         | [src/main.py](src/main.py) | Modelo OpenAI usado na inferencia estrutural das fontes.                                                                                        |
+| `--llm-timeout`        | `60.0`                 | [src/main.py](src/main.py) | Timeout das chamadas de inferencia por LLM.                                                                                                     |
+| `--llm-fail-on-error`  | `False`                | [src/main.py](src/main.py) | Se ativado, falhas da LLM interrompem a execucao. Se nao, o fluxo cai para heuristica.                                                          |
+
+### Flags de `export`
+
+| Flag          | Default                  | Onde definida           | Como funciona                                    |
+| ------------- | ------------------------ | ----------------------- | ------------------------------------------------ |
+| `--catalog` | sem default, obrigatoria | [src/main.py](src/main.py) | Caminho para o JSON de catalogo a ser exportado. |
+| `--output`  | sem default, obrigatoria | [src/main.py](src/main.py) | Caminho do CSV de saida.                         |
+
+## Configuracao por arquivo
+
+### 1. Contexto mestre
+
+O contexto mestre define o enquadramento conceitual da pesquisa.
+
+Ele e validado por [PerplexityResearchContextRecord](src/schemas/records.py), com os campos:
+
+| Campo                 | Onde definido                                 | Como funciona                                                                                          |
+| --------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `context_id`        | [src/schemas/records.py](src/schemas/records.py) | Identificador do contexto. Vai para os artefatos, mas nao muda a logica sozinho.                       |
+| `article_goal`      | [src/schemas/records.py](src/schemas/records.py) | Objetivo principal da pesquisa. Entra na montagem dos prompts de busca.                                |
+| `geographic_scope`  | [src/schemas/records.py](src/schemas/records.py) | Lista de recortes geograficos. E usada nos prompts e no `RelevanceAgent`.                            |
+| `thematic_axes`     | [src/schemas/records.py](src/schemas/records.py) | Lista de eixos tematicos. E usada nos prompts, no `RelevanceAgent` e refletida no consolidado final. |
+| `preferred_sources` | [src/schemas/records.py](src/schemas/records.py) | Tipos de fonte que devem ser priorizados na busca.                                                     |
+| `expected_outputs`  | [src/schemas/records.py](src/schemas/records.py) | Ajuda a orientar o que os chats devem procurar.                                                        |
+| `exclusions`        | [src/schemas/records.py](src/schemas/records.py) | Ruido ou tipos de conteudo a evitar conceitualmente.                                                   |
+| `notes`             | [src/schemas/records.py](src/schemas/records.py) | Observacoes livres para orientar o contexto.                                                           |
+
+Exemplo:
+
+```yaml
+context_id: ctx-artigo-001
+article_goal: Investigar impactos antropicos em sistema aquatico costeiro
+geographic_scope:
+  - Costa norte
+  - Estuario principal
+thematic_axes:
+  - monitoramento ambiental
+  - qualidade da agua
+  - vetores de pressao antropica
+preferred_sources:
+  - portais institucionais
+  - repositorios academicos
+expected_outputs:
+  - links diretos para fontes
+  - datasets e programas de monitoramento
+exclusions:
+  - conteudo promocional
+notes:
+  - priorizar fontes com dados recorrentes
+```
+
+### 2. Trilhas ou chats tematicos
+
+As trilhas dizem como a pesquisa sera quebrada em conversas menores no Perplexity.
+
+Elas sao validadas por [PerplexityResearchTrackRecord](src/schemas/records.py), com os campos:
+
+| Campo                 | Onde definido                                 | Como funciona                                                                                                                  |
+| --------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `research_track`    | [src/schemas/records.py](src/schemas/records.py) | Nome interno da trilha. Vai para o plano de busca, artefatos e consolidado.                                                    |
+| `chat_label`        | [src/schemas/records.py](src/schemas/records.py) | Rotulo humano do chat.                                                                                                         |
+| `search_profile`    | [src/schemas/records.py](src/schemas/records.py) | Perfil de busca associado a essa trilha. Hoje ele e mais semantico do que comportamental, mas e preservado em todo o pipeline. |
+| `target_intent`     | [src/schemas/records.py](src/schemas/records.py) | Intencao da trilha, por exemplo `dataset_discovery`, `academic_knowledge` ou `contextual_intelligence`.                  |
+| `research_question` | [src/schemas/records.py](src/schemas/records.py) | Pergunta central daquela trilha. Vai para a montagem do prompt do Perplexity.                                                  |
+| `task_prompt`       | [src/schemas/records.py](src/schemas/records.py) | Instrucao operacional do que procurar naquela trilha.                                                                          |
+| `priority`          | [src/schemas/records.py](src/schemas/records.py) | Prioridade descritiva da trilha. E carregada para o plano de busca e artefatos.                                                |
+
+Exemplo:
+
+```yaml
+- research_track: monitoring_sources
+  chat_label: chat-monitoramento
+  search_profile: monitoring_sources
+  target_intent: dataset_discovery
+  research_question: Quais fontes trazem series historicas e monitoramento recorrente?
+  task_prompt: Busque programas de monitoramento, paineis, catalogos e datasets recorrentes ligados ao tema.
+  priority: high
+- research_track: academic_knowledge
+  chat_label: chat-academico
+  search_profile: academic_knowledge
+  target_intent: academic_knowledge
+  research_question: Quais estudos citam bases de dados ou metodologias reutilizaveis?
+  task_prompt: Busque artigos, teses e repositorios que referenciem dados ou protocolos metodologicos.
+  priority: medium
+```
+
+Uso com arquivos:
+
+```bash
+python -m src.main run --query "monitoramento ambiental costeiro" --context-file config/context.yaml --tracks-file config/tracks.yaml
+```
+
+## Defaults internos da pipeline
+
+Quando voce nao passa `context-file` nem `tracks-file`, a pipeline gera defaults em [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py).
+
+### Defaults do contexto mestre
+
+Definidos em `_build_master_context()`.
+
+Comportamento atual:
+
+- `context_id` default: `ctx-article-001`
+- `article_goal`: construido dinamicamente a partir de `base_query`
+- `geographic_scope`: vazio por default
+- `thematic_axes`: lista generica ambiental
+- `preferred_sources`: lista generica de fontes institucionais, academicas e de dados
+- `expected_outputs`, `exclusions` e `notes`: preenchidos com defaults genericos
+
+### Defaults das trilhas
+
+Definidos em `DEFAULT_RESEARCH_TRACKS`.
+
+As 5 trilhas default sao:
+
+- `official_data_portals`
+- `monitoring_and_measurements`
+- `pressure_and_drivers`
+- `institutional_reports`
+- `academic_knowledge`
+
+Cada uma ja traz `chat_label`, `search_profile`, `target_intent`, `research_question`, `task_prompt` e `priority`.
+
+### Defaults do coletor Playwright
+
+Definidos em [src/connectors/perplexity_playwright.py](src/connectors/perplexity_playwright.py):
+
+- `preferred_model="Sonar"`
+- `timeout_seconds=120.0`
+- `per_query_wait_ms=7000`
+- `session_prefix="rf-pplx"`
+
+Esses valores sao usados quando a CLI nao passa overrides.
+
+### Defaults da LLM
+
+Definidos na pipeline e no conector OpenAI:
+
+- `llm_mode="auto"`
+- `llm_model="gpt-4.1-nano"`
+- `llm_timeout_seconds=60.0`
+- `llm_fail_on_error=False`
+
+No conector [src/connectors/llm.py](src/connectors/llm.py), o `OpenAIResponsesConnector` ainda tem defaults internos:
+
+- `max_output_tokens=1800`
+- `temperature=0.1`
+
+Esses dois valores hoje **nao sao configurados pela CLI**.
+
+## Variaveis de ambiente
+
+As variaveis de ambiente sao carregadas em [src/main.py](src/main.py), na funcao `_load_dotenv_if_available()`.
+
+### Variavel ativa no fluxo atual
+
+- `OPENAI_API_KEY`
+  Onde usada: [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py), em `_build_llm_connector()`.
+  Como funciona:
+  - se `--llm-mode off`, a chave e ignorada
+  - se `--llm-mode auto`, a LLM so e habilitada se a chave existir
+  - se `--llm-mode openai`, a ausencia da chave gera erro
+
+Exemplo minimo de `.env` util hoje:
 
 ```env
 OPENAI_API_KEY=...
-GROQ_API_KEY=
-RESEARCH_FRENTE_LLM_MODE=auto
-RESEARCH_FRENTE_LLM_MODEL=gpt-4.1-nano
-RESEARCH_FRENTE_GROQ_TEST_MODEL=groq/compound-mini
 ```
 
-Com `RESEARCH_FRENTE_LLM_MODE=auto`, o pipeline:
+### Variaveis que existem no `.env.example`, mas hoje sao legadas
 
-- usa OpenAI quando `OPENAI_API_KEY` estiver presente;
-- usa Groq quando nao houver `OPENAI_API_KEY` mas existir `GROQ_API_KEY`;
-- cai para fallback heuristico quando nenhuma chave estiver definida;
-- desabilita LLM automaticamente em `dry-run`.
+O arquivo [.env.example](.env.example) ainda contem:
 
-## Configuracao YAML de referencia
+- `GROQ_API_KEY`
+- `RESEARCH_FRENTE_LLM_MODE`
+- `RESEARCH_FRENTE_LLM_MODEL`
+- `RESEARCH_FRENTE_GROQ_TEST_MODEL`
+- `RESEARCH_FRENTE_LLM_TIMEOUT_SECONDS`
+- `RESEARCH_FRENTE_LLM_TEMPERATURE`
+- `RESEARCH_FRENTE_LLM_MAX_OUTPUT_TOKENS`
+- `RESEARCH_FRENTE_LLM_FAIL_ON_ERROR`
 
-O arquivo [config/settings.example.yaml](d:/Projetos/Github_ViniciusJ/Research_FREnTE/config/settings.example.yaml) documenta a configuracao recomendada:
+Essas variaveis **nao sao lidas pelo fluxo principal atual**.
+Hoje a configuracao de runtime e dirigida pela CLI, e nao por essas variaveis.
 
-```yaml
-pipeline:
-  query: "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua"
-  limit: 10
-  dry_run: false
-  web_research_mode: "real"
-  web_timeout_seconds: 5
+## Schema de configuracao leve do pipeline
 
-llm:
-  mode: "auto"
-  model: "gpt-4.1-nano"
-  timeout_seconds: 60
-  temperature: 0.2
-  max_output_tokens: 1800
-  fail_on_error: false
-```
+O arquivo [src/schemas/settings.py](src/schemas/settings.py) define [PipelineSettings](src/schemas/settings.py), com:
 
-## Arquitetura resumida
+| Campo     | Default no schema | Como funciona                                                                                                                                   |
+| --------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `query` | sem default       | Tema principal da pesquisa. E obrigatorio.                                                                                                      |
+| `limit` | `10`            | Limite maximo por etapa. No fluxo normal, a CLI passa `20` como default, entao o schema fica mais como validacao do que como origem do valor. |
 
-1. `ResearchScoutAgent`
-2. `QueryExpansionAgent`
-3. `DatasetDiscoveryAgent`
-4. `NormalizationAgent`
-5. `RelevanceAgent`
-6. `AccessAgent`
-7. `ExtractionPlanAgent`
-8. `ReportAgent`
-9. `OrchestratorAgent`
+Observacao importante:
 
-## Execucao
+- a CLI usa `--limit` com default `20`
+- o schema `PipelineSettings` usa default `10`
 
-### Dry-run
+Na execucao normal pela CLI, **vale o valor da CLI**.
+O default `10` do schema so entra se `PipelineSettings` for instanciado em outro lugar sem `limit`.
+
+## Como cada configuracao afeta os agentes
+
+### `PerplexitySourceCategorizationAgent`
+
+Usa:
+
+- `perplexity_master_context`
+- `perplexity_sessions`
+- `llm_connector` opcional
+
+Impacto da configuracao:
+
+- `llm-mode`, `llm-model` e `OPENAI_API_KEY` definem se a categorizacao usa LLM ou heuristica
+- `context-file` muda o enquadramento da classificacao
+
+### `DatasetDiscoveryAgent`
+
+Usa:
+
+- `web_research_results` ja validados
+- `settings.limit`
+
+Impacto da configuracao:
+
+- `limit` controla quantos candidatos finais seguem adiante
+
+### `SourceValidationAgent`
+
+Usa:
+
+- `categorized_sources`
+- `sources`
+- `web_research_results`
+
+Impacto da configuracao:
+
+- nao recebe flags proprias
+- endurece o pipeline antes do discovery, ajustando inconsistencias e marcando fontes com `manual_validation_required`
+- sua saida aparece em `source_validation_log` e `source_validation_meta`
+
+### `NormalizationAgent`
+
+Usa:
+
+- `dataset_candidates`
+- `sources`
+- `web_research_results`
+- `perplexity_master_context`
+
+Impacto da configuracao:
+
+- `context-file` influencia `region` e `thematic_axis`
+
+### `RelevanceAgent`
+
+Usa:
+
+- `datasets`
+- `perplexity_master_context`
+
+Impacto da configuracao:
+
+- `geographic_scope` e `thematic_axes` do contexto entram diretamente no score
+
+### `AccessAgent`
+
+Usa:
+
+- `datasets`
+
+Impacto da configuracao:
+
+- nao recebe uma config propria
+- depende do que veio estruturado das etapas anteriores
+
+### `PerplexityIntelligenceReportAgent`
+
+Usa:
+
+- `base_query`
+- `perplexity_master_context`
+- `perplexity_search_plan`
+- `perplexity_sessions`
+- `categorized_sources`
+- `dataset_candidates`
+- `datasets`
+
+Impacto da configuracao:
+
+- `query`, `context-file`, `tracks-file` e `max-searches` mudam diretamente o consolidado final
+
+## Como inspecionar a configuracao realmente usada em uma execucao
+
+Os artefatos mais importantes para auditoria sao:
+
+- `data/initializations/perplexity-intel-*/00_master-context.json`
+  Mostra o contexto mestre efetivamente usado.
+- `data/initializations/perplexity-intel-*/01_search-plan.json`
+  Mostra os chats/trilhas realmente gerados.
+- `data/initializations/perplexity-intel-*/02_raw-sessions.json`
+  Mostra o que voltou do Perplexity e do Playwright.
+- `data/initializations/perplexity-intel-*/04_source-validation.json`
+  Mostra os ajustes e alertas aplicados antes do discovery.
+- `data/initializations/perplexity-intel-*/10_intelligence_payload.json`
+  Resume `preferred_model`, `llm_mode`, `llm_provider`, `llm_model`, contagens da execucao e metadados de validacao.
+
+## Arquivos de configuracao legados
+
+O repositorio ainda possui [config/settings.example.yaml](config/settings.example.yaml), mas ele pertence ao desenho anterior do projeto e **nao e lido pela CLI atual**.
+
+Ele pode servir como referencia historica, mas nao controla o fluxo `Perplexity-first`.
+
+## Prompts
+
+Os arquivos em `prompts/` funcionam como configuracao semantica dos agentes.
+
+Hoje eles sao carregados por [src/agents/base.py](src/agents/base.py), via `load_prompt()`, e ajudam a documentar o papel de cada agente. Eles nao substituem a configuracao de runtime da CLI, mas fazem parte da configuracao comportamental do projeto.
+
+Prompts principais do fluxo atual:
+
+- `prompts/perplexity_source_categorization_agent.yaml`
+- `prompts/source_validation_agent.yaml`
+- `prompts/dataset_discovery_agent.yaml`
+- `prompts/normalization_agent.yaml`
+- `prompts/relevance_agent.yaml`
+- `prompts/access_agent.yaml`
+- `prompts/perplexity_intelligence_report_agent.yaml`
+
+## Exemplos de uso
+
+### Execucao minima
 
 ```bash
-python -m src.main dry-run --query "impactos humanos no Rio Tiete" --limit 7
+python -m src.main run --query "monitoramento ambiental costeiro"
 ```
 
-### Run com fallback automatico para OpenAI
+### Execucao com contexto e trilhas customizadas
 
 ```bash
-python -m src.main run --query "impactos humanos no Rio Tiete reservatorios Sao Paulo Tres Lagoas qualidade agua" --limit 10 --web-mode real
+python -m src.main run \
+  --query "monitoramento ambiental costeiro" \
+  --context-file config/context.yaml \
+  --tracks-file config/tracks.yaml
 ```
 
-### Run forcando OpenAI
+### Execucao com OpenAI obrigatoria na categorizacao
 
 ```bash
-python -m src.main run --query "impactos humanos no Rio Tiete" --limit 10 --web-mode real --llm-mode openai --llm-model gpt-4.1-nano
+python -m src.main run \
+  --query "monitoramento ambiental costeiro" \
+  --llm-mode openai \
+  --llm-model gpt-4.1-nano
 ```
 
-### Run de teste com Groq
+### Exportacao de catalogo
 
-```bash
-python -m src.main run --query "impactos humanos no Rio Tiete" --limit 10 --web-mode real --llm-mode groq --llm-model groq/compound-mini
-```
+O comando `export` continua disponivel em [src/main.py](src/main.py), mas ele espera um JSON compativel com a estrutura antiga de catalogo, com `datasets` na raiz.
 
-### Inicializacao real em larga escala
+No fluxo principal atual, voce normalmente **nao precisa** usar esse comando, porque a pipeline ja gera:
 
-```bash
-python -m src.main real-init --limit-per-run 10 --max-queries 8 --web-timeout 5 --llm-mode auto
-```
-
-### Exportacao CSV
-
-```bash
-python -m src.main export --catalog data/runs/<run_id>/catalog.json --output reports/<run_id>.csv
-```
-
-## Artefatos
-
-- `data/runs/<run_id>/01_research-scout.json`: achados de pesquisa aberta (`web_research_results`, `web_research_results_raw`, `web_research_results_discarded`, `web_research_results_kept`, `sources`) e `web_research_meta`.
-- `data/runs/<run_id>/02_query-expansion.json`: expansoes de consulta e queries geradas.
-- `data/runs/<run_id>/03_dataset-discovery.json`: candidatos consolidados e catalogo preliminar.
-- `data/runs/<run_id>/04_normalization.json`: datasets normalizados e evidencias consolidadas.
-- `data/runs/<run_id>/05_relevance.json`: scoring e justificativas de relevancia.
-- `data/runs/<run_id>/06_access.json`: classificacao de acesso, links e observacoes de extracao.
-- `data/runs/<run_id>/07_extraction-plan.json`: plano de extracao priorizado.
-- `data/runs/<run_id>/08_report.json`: metadados do relatorio final.
-- `data/runs/<run_id>/catalog.json`: catalogo consolidado.
-- `data/runs/<run_id>/run_metadata.json`: metadados da execucao.
-- `reports/<run_id>.md`: relatorio de execucao.
-- `reports/<run_id>.csv`: exportacao tabular do catalogo.
-
-`run_metadata.json` registra:
-
-- `llm_mode_requested`
-- `llm_provider_used`
-- `llm_model_used`
-- `llm_enabled_agents`
-- `llm_setup_error`
-
-## Status de recuperacao no `ResearchScoutAgent`
-
-- `no_results`: o conector real nao retornou resultados uteis ou houve erro de rede/timeout.
-- `all_filtered`: houve resultados reais, mas todos foram descartados por irrelevancia.
-- `low_recall`: houve resultados reais validos, mas em quantidade baixa apos filtragem.
-- `mock_fallback`: uso de dados mock em `dry-run` ou com `--web-mode mock`.
+- `reports/perplexity-intel-*-sources.csv`
+- `reports/perplexity-intel-*-datasets.csv`
 
 ## Dependencias principais
 
 - `pydantic`
 - `httpx`
 - `PyYAML`
-- `openai`
 - `python-dotenv`
+- `Playwright CLI` via `npx`
+
+## Resumo pratico
+
+Se voce quiser lembrar rapidamente onde mexer:
+
+- **mudar parametros de execucao**: [src/main.py](src/main.py)
+- **mudar defaults do fluxo**: [src/pipelines/perplexity_intelligence_pipeline.py](src/pipelines/perplexity_intelligence_pipeline.py)
+- **mudar estrutura valida de contexto/trilhas**: [src/schemas/records.py](src/schemas/records.py)
+- **mudar validacao simples de query/limit**: [src/schemas/settings.py](src/schemas/settings.py)
+- **mudar autenticacao LLM**: `.env` com `OPENAI_API_KEY`
+- **mudar orientacao semantica dos agentes**: `prompts/*.yaml`

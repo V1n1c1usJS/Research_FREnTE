@@ -1,4 +1,4 @@
-"""Agente para consolidar candidatos de datasets a partir do scout e query expansion."""
+"""Agente para consolidar candidatos de dataset a partir das fontes categorizadas."""
 
 from __future__ import annotations
 
@@ -18,11 +18,7 @@ class DatasetDiscoveryAgent(BaseAgent):
     def run(self, context: dict[str, Any]) -> dict[str, Any]:
         _prompt = self.get_system_prompt()
         findings = context.get("web_research_results", [])
-        expanded_queries = context.get("expanded_queries", [])
         limit = context["settings"].limit
-
-        query_list = [item["query"] for item in expanded_queries if isinstance(item, dict) and "query" in item]
-        query_list = query_list or [context["settings"].query]
 
         grouped: dict[str, dict[str, Any]] = defaultdict(
             lambda: {
@@ -44,51 +40,52 @@ class DatasetDiscoveryAgent(BaseAgent):
         )
 
         for finding in findings:
-            for dataset_name in finding.dataset_names_mentioned:
-                key = self._canonical_key(dataset_name)
+            dataset_names = list(finding.dataset_names_mentioned)
+            if not dataset_names and finding.source_class == "analytical_data_source":
+                dataset_names = [finding.source_title]
+
+            for dataset_name in dataset_names:
+                cleaned_name = dataset_name.strip()
+                if not cleaned_name:
+                    continue
+
+                key = self._canonical_key(cleaned_name)
                 bucket = grouped[key]
-                canonical_name = dataset_name.strip()
-                bucket["dataset_name"] = bucket["dataset_name"] or canonical_name
-                bucket["aliases"].update({canonical_name.lower(), key})
-                bucket["variables_mentioned"].update(finding.variables_mentioned)
+                bucket["dataset_name"] = bucket["dataset_name"] or cleaned_name
+                bucket["aliases"].update({cleaned_name.lower(), key})
+                bucket["variables_mentioned"].update(self._clean_list(finding.variables_mentioned))
                 bucket["source_ids"].add(finding.source_id)
                 bucket["source_urls"].add(finding.source_url)
-                bucket["confidence_values"].append(finding.confidence)
-
-                role_vote = self._role_from_finding(dataset_name, finding.source_type)
-                bucket["role_votes"].append(role_vote)
-                accessibility_vote = self._accessibility_from_source_type(finding.source_type)
-                bucket["accessibility_votes"].append(accessibility_vote)
+                bucket["confidence_values"].append(float(finding.confidence))
+                bucket["role_votes"].append(self._role_from_finding(dataset_name=cleaned_name, finding=finding))
+                bucket["accessibility_votes"].append(self._accessibility_from_source_type(finding.source_type))
                 bucket["mention_origins"].add(self._origin_from_source_type(finding.source_type))
-
-                evidence_line = f"{finding.source_title}: {finding.evidence_notes}"
-                bucket["evidence_notes"].append(evidence_line)
+                bucket["evidence_notes"].append(f"{finding.source_title}: {finding.evidence_notes}")
                 bucket["source_mentions"].append(
                     {
                         "source_id": finding.source_id,
                         "source_type": finding.source_type,
                         "source_url": finding.source_url,
                         "source_title": finding.source_title,
-                        "mention_type": accessibility_vote,
+                        "mention_type": self._accessibility_from_source_type(finding.source_type),
                         "evidence": finding.evidence_notes,
                     }
                 )
-
-                bucket["supporting_queries"].add(query_list[len(bucket["source_ids"]) % len(query_list)])
-                bucket["formats"].update(self._infer_formats(dataset_name, finding.source_type))
-                bucket["tags"].update(self._infer_tags(dataset_name, finding.variables_mentioned))
+                bucket["supporting_queries"].update(self._clean_list(finding.search_terms_extracted))
+                bucket["formats"].update(self._infer_formats(cleaned_name, finding.source_url, finding.evidence_notes))
+                bucket["tags"].update(self._infer_tags(cleaned_name, finding.variables_mentioned, finding.search_terms_extracted))
 
         candidates: list[DatasetCandidate] = []
         preliminary_catalog: list[dict[str, Any]] = []
 
         for idx, bucket in enumerate(grouped.values(), start=1):
-            role = self._resolve_role(bucket["dataset_name"], bucket["role_votes"])
+            evidence_count = len(bucket["source_mentions"])
+            role = self._resolve_role(bucket["role_votes"])
             confidence_hint = (
                 round(sum(bucket["confidence_values"]) / len(bucket["confidence_values"]), 2)
                 if bucket["confidence_values"]
                 else 0.5
             )
-            canonical_url = sorted(bucket["source_urls"])[0] if bucket["source_urls"] else ""
             accessibility = self._resolve_accessibility(bucket["accessibility_votes"])
             verifiability = self._resolve_verifiability_status(
                 role=role,
@@ -96,36 +93,41 @@ class DatasetDiscoveryAgent(BaseAgent):
                 source_mentions=bucket["source_mentions"],
                 accessibility=accessibility,
             )
-            mention_origins = sorted(bucket["mention_origins"])
-            evidence_count = len(bucket["source_mentions"])
+            priority_hint = self._infer_priority(
+                evidence_count=evidence_count,
+                accessibility=accessibility,
+                confidence_hint=confidence_hint,
+            )
+            canonical_url = sorted(bucket["source_urls"])[0] if bucket["source_urls"] else ""
+            supporting_queries = sorted(bucket["supporting_queries"]) or [context["settings"].query]
 
             candidate = DatasetCandidate(
                 candidate_id=f"cand-{idx:03d}",
                 dataset_name=bucket["dataset_name"],
                 aliases=sorted(bucket["aliases"]),
                 canonical_url=canonical_url,
-                dataset_type="dataset" if role == "dataset" else "reference",
+                dataset_type="dataset" if role in {"dataset", "portal"} else "reference",
                 candidate_role=role,
                 description=(
-                    "Candidato consolidado a partir de menções em portais institucionais, "
-                    "bases acadêmicas e documentação técnica."
+                    "Candidate consolidated from source mentions collected via Perplexity and validated through the "
+                    "categorization stage."
                 ),
                 variables_mentioned=sorted(bucket["variables_mentioned"]),
                 source_ids=sorted(bucket["source_ids"]),
                 source_urls=sorted(bucket["source_urls"]),
                 source_mentions=bucket["source_mentions"],
-                mention_origins=mention_origins,
+                mention_origins=sorted(bucket["mention_origins"]),
                 evidence_notes=bucket["evidence_notes"],
-                supporting_queries=sorted(bucket["supporting_queries"]),
-                temporal_coverage="não informado",
-                update_frequency="não informado",
+                supporting_queries=supporting_queries,
+                temporal_coverage="not specified",
+                update_frequency="not specified",
                 formats=sorted(bucket["formats"]),
                 tags=sorted(bucket["tags"]),
                 evidence_count=evidence_count,
                 accessibility=accessibility,
                 verifiability_status=verifiability,
                 confidence_hint=confidence_hint,
-                priority_hint=self._infer_priority(bucket["source_ids"]),
+                priority_hint=priority_hint,
             )
             candidates.append(candidate)
             preliminary_catalog.append(
@@ -140,23 +142,19 @@ class DatasetDiscoveryAgent(BaseAgent):
                     "source_urls": candidate.source_urls,
                     "evidence_count": candidate.evidence_count,
                     "confidence_hint": candidate.confidence_hint,
+                    "priority_hint": candidate.priority_hint,
                 }
             )
 
         selected = candidates[:limit]
         selected_catalog = preliminary_catalog[:limit]
 
-        report_lines = ["# Dataset Discovery - Catálogo Preliminar", ""]
+        report_lines = ["# Dataset Discovery - Preliminary Catalog", ""]
         for item in selected:
             report_lines.append(
-                "- "
-                f"{item.dataset_name} | role={item.candidate_role} | acesso={item.accessibility} "
-                f"| verificabilidade={item.verifiability_status} | fontes={', '.join(item.source_ids)}"
+                f"- {item.dataset_name} | role={item.candidate_role} | access={item.accessibility} "
+                f"| verifiability={item.verifiability_status} | evidence={item.evidence_count}"
             )
-            report_lines.append(
-                f"  - origens={', '.join(item.mention_origins)} | confiança={item.confidence_hint}"
-            )
-            report_lines.append(f"  - evidência: {item.evidence_notes[0] if item.evidence_notes else 'n/a'}")
 
         return {
             "dataset_candidates": selected,
@@ -168,44 +166,41 @@ class DatasetDiscoveryAgent(BaseAgent):
     def _canonical_key(dataset_name: str) -> str:
         lowered = dataset_name.lower().strip()
         lowered = "".join(ch for ch in unicodedata.normalize("NFKD", lowered) if not unicodedata.combining(ch))
-        lowered = re.sub(r"[^a-z0-9à-ÿ\s]+", " ", lowered)
+        lowered = re.sub(r"[^a-z0-9\s]+", " ", lowered)
         lowered = re.sub(r"\s+", " ", lowered).strip()
-        tokens = [t for t in lowered.split() if t not in {"de", "da", "do", "dos", "das", "e"}]
+        tokens = [token for token in lowered.split() if token not in {"de", "da", "do", "dos", "das", "e"}]
         return " ".join(tokens)
 
-    @classmethod
-    def _resolve_role(cls, dataset_name: str, role_votes: list[str]) -> str:
-        lexical = cls._infer_role(dataset_name)
-        if role_votes:
-            if "portal" in role_votes:
-                return "portal"
-            if "documentation" in role_votes:
-                return "documentation"
-            if "academic_source" in role_votes:
-                return "academic_source"
-        return lexical
+    @staticmethod
+    def _clean_list(values: list[str]) -> list[str]:
+        cleaned: list[str] = []
+        for item in values:
+            normalized = " ".join(str(item or "").split()).strip()
+            if normalized and normalized not in cleaned:
+                cleaned.append(normalized)
+        return cleaned
 
     @staticmethod
-    def _role_from_finding(dataset_name: str, source_type: str) -> str:
-        lexical = DatasetDiscoveryAgent._infer_role(dataset_name)
-        if lexical != "dataset":
-            return lexical
-        if source_type == "academic_literature":
-            return "academic_source"
-        if source_type == "institutional_documentation":
-            return "documentation"
-        return "dataset"
-
-    @staticmethod
-    def _infer_role(dataset_name: str) -> str:
+    def _role_from_finding(*, dataset_name: str, finding: Any) -> str:
         lowered = dataset_name.lower()
-        if any(token in lowered for token in ["portal", "painel"]):
-            return "portal"
-        if any(token in lowered for token in ["relatório", "tese", "artigo", "documento"]):
-            return "documentation"
-        if any(token in lowered for token in ["scielo", "capes", "acadêmic"]):
+        if finding.source_type == "academic_literature":
             return "academic_source"
+        if finding.source_type == "institutional_documentation":
+            return "documentation"
+        if finding.source_type == "primary_data_portal":
+            if any(token in lowered for token in ("portal", "painel", "dashboard", "catalogo", "catalog")):
+                return "portal"
+            return "dataset"
         return "dataset"
+
+    @staticmethod
+    def _resolve_role(role_votes: list[str]) -> str:
+        if not role_votes:
+            return "dataset"
+        counts: dict[str, int] = {}
+        for role in role_votes:
+            counts[role] = counts.get(role, 0) + 1
+        return sorted(counts.items(), key=lambda item: item[1], reverse=True)[0][0]
 
     @staticmethod
     def _accessibility_from_source_type(source_type: str) -> str:
@@ -238,6 +233,7 @@ class DatasetDiscoveryAgent(BaseAgent):
 
     @staticmethod
     def _resolve_verifiability_status(
+        *,
         role: str,
         source_urls: set[str],
         source_mentions: list[dict[str, str]],
@@ -258,28 +254,26 @@ class DatasetDiscoveryAgent(BaseAgent):
         return "needs_manual_validation"
 
     @staticmethod
-    def _infer_formats(dataset_name: str, source_type: str) -> set[str]:
-        lowered = dataset_name.lower()
-        formats: set[str] = set()
-        if "séries" in lowered or "indicadores" in lowered:
-            formats.update({"csv", "xlsx"})
-        if "relatório" in lowered or source_type in {"academic_literature", "institutional_documentation"}:
-            formats.add("pdf")
-        if not formats:
-            formats.add("csv")
-        return formats
+    def _infer_formats(dataset_name: str, source_url: str, evidence_notes: str) -> set[str]:
+        text = f"{dataset_name} {source_url} {evidence_notes}".lower()
+        formats = {
+            token
+            for token in ("csv", "xlsx", "json", "geojson", "shp", "pdf", "zip", "xml", "api")
+            if token in text
+        }
+        return formats or {"unknown"}
 
     @staticmethod
-    def _infer_tags(dataset_name: str, variables: list[str]) -> set[str]:
-        tags = {"rio tietê", "reservatório de jupiá", "100k"}
-        tags.update(v.lower() for v in variables)
-        tags.add(dataset_name.lower())
+    def _infer_tags(dataset_name: str, variables: list[str], search_terms: list[str]) -> set[str]:
+        tags = {dataset_name.lower()}
+        tags.update(item.lower() for item in DatasetDiscoveryAgent._clean_list(variables))
+        tags.update(item.lower() for item in DatasetDiscoveryAgent._clean_list(search_terms))
         return tags
 
     @staticmethod
-    def _infer_priority(source_ids: set[str]) -> str:
-        if any(source in source_ids for source in {"src-hidroweb", "src-mapbiomas", "src-snis"}):
+    def _infer_priority(*, evidence_count: int, accessibility: str, confidence_hint: float) -> str:
+        if accessibility == "direct_access" and (evidence_count >= 2 or confidence_hint >= 0.75):
             return "high"
-        if any(source in source_ids for source in {"src-ana", "src-ibge", "src-inpe"}):
+        if accessibility in {"direct_access", "mixed"} or confidence_hint >= 0.6:
             return "medium"
         return "low"

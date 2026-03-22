@@ -3,24 +3,20 @@
 from src.agents.access_agent import AccessAgent
 from src.agents.base import BaseAgent, BaseLLMAgent
 from src.agents.dataset_discovery_agent import DatasetDiscoveryAgent
-from src.agents.extraction_plan_agent import ExtractionPlanAgent
 from src.agents.normalization_agent import NormalizationAgent
-from src.agents.orchestrator_agent import OrchestratorAgent
-from src.agents.query_expansion_agent import QueryExpansionAgent
+from src.agents.perplexity_intelligence_report_agent import PerplexityIntelligenceReportAgent
+from src.agents.perplexity_source_categorization_agent import PerplexitySourceCategorizationAgent
 from src.agents.relevance_agent import RelevanceAgent
-from src.agents.report_agent import ReportAgent
-from src.agents.research_scout_agent import ResearchScoutAgent
+from src.agents.source_validation_agent import SourceValidationAgent
 
 __all__ = [
     "AccessAgent",
     "BaseAgent",
     "BaseLLMAgent",
     "DatasetDiscoveryAgent",
-    "ExtractionPlanAgent",
     "NormalizationAgent",
-    "OrchestratorAgent",
-    "QueryExpansionAgent",
+    "PerplexityIntelligenceReportAgent",
+    "PerplexitySourceCategorizationAgent",
     "RelevanceAgent",
-    "ReportAgent",
-    "ResearchScoutAgent",
+    "SourceValidationAgent",
 ]

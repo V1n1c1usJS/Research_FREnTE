@@ -6,10 +6,10 @@ from src.utils.prompts import load_prompt
 
 
 def test_load_prompt_from_yaml_and_render_sections() -> None:
-    rendered = load_prompt("research_scout_agent.yaml")
+    rendered = load_prompt("perplexity_source_categorization_agent.yaml")
 
     assert "# Agent" in rendered
-    assert "name: ResearchScoutAgent" in rendered
+    assert "name: PerplexitySourceCategorizationAgent" in rendered
     assert "# Objective" in rendered
     assert "# Rules" in rendered
 

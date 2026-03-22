@@ -1,75 +1,66 @@
 # AGENTS.md
 
 ## 1) Objetivo do projeto
-Este repositório implementa um pipeline multiagente para **descoberta, avaliação e documentação de bases de dados ambientais**.
+Este repositorio implementa um pipeline para **descoberta, categorizacao e consolidacao de fontes e datasets ambientais** com foco em um artigo cientifico.
 
-O trabalho está alinhado ao **projeto 100K**, com foco em identificar fontes úteis para estudar impactos humanos em sistemas aquáticos.
-
-Área de interesse prioritária:
-- corredor entre **São Paulo e Três Lagoas**;
-- foco no **Rio Tietê**;
-- conexão com o **Reservatório de Jupiá**.
+O trabalho segue alinhado ao **projeto 100K**, com prioridade para:
+- corredor entre **Sao Paulo e Tres Lagoas**
+- **Rio Tiete**
+- **Reservatorio de Jupia**
 
 ---
 
-## 2) Arquitetura planejada
-Agentes planejados (modulares e evolutivos):
+## 2) Arquitetura atual
+O fluxo principal agora e **Perplexity-first**.
 
-1. **ResearchScoutAgent** (pesquisa aberta na web via conector abstrato)
-2. **QueryExpansionAgent**
-3. **DatasetDiscoveryAgent**
-4. **NormalizationAgent**
-5. **RelevanceAgent**
-6. **AccessAgent**
-7. **ExtractionPlanAgent**
-8. **ReportAgent**
-9. **OrchestratorAgent**
+Etapas do pipeline:
+1. montar um **contexto mestre** da pesquisa
+2. gerar **chats tematicos** especializados
+3. coletar respostas e links no **Perplexity** via **Playwright CLI**
+4. armazenar a coleta crua em JSON
+5. categorizar fontes com o **PerplexitySourceCategorizationAgent**
+6. consolidar candidatos com o **DatasetDiscoveryAgent**
+7. normalizar registros com o **NormalizationAgent**
+8. priorizar com o **RelevanceAgent**
+9. organizar acesso com o **AccessAgent**
+10. gerar consolidado final com o **PerplexityIntelligenceReportAgent**
 
 ---
 
 ## 3) Regras de desenvolvimento
-- Sempre preferir mudanças pequenas, incrementais e rastreáveis.
-- Manter JSONs intermediários entre etapas do pipeline.
-- Validar schemas em cada etapa antes de avançar.
-- Não inventar metadados não verificados.
-- Preservar URLs, citações e origem das informações coletadas.
-- Priorizar fontes oficiais, institucionais e acadêmicas.
-- Manter separação clara entre descoberta, normalização, avaliação e relatório.
+- Sempre preferir mudancas pequenas, incrementais e rastreaveis.
+- Manter JSONs intermediarios entre etapas do pipeline.
+- Validar schemas em cada etapa antes de avancar.
+- Nao inventar metadados nao verificados.
+- Preservar URLs, snippets, trilhas de pesquisa e origem das informacoes coletadas.
+- Priorizar fontes oficiais, institucionais e academicas.
+- Separar claramente:
+  descoberta no Perplexity,
+  categorizacao de fontes,
+  consolidacao de datasets,
+  relatorio final.
 
 ---
 
-## 4) Regras de implementação
-- Usar **Pydantic** para definição e validação de schemas.
-- Organizar prompts em arquivos YAML no diretório `prompts/` (`*.yaml`).
-- Garantir execução por CLI (ex.: `python -m src.main`).
-- Incluir testes básicos para cada etapa principal.
-- Preparar e manter modo **dry-run** com mocks/stubs para integrações externas.
-- Conectores externos devem implementar interface abstrata (evitar acoplamento por portal único).
+## 4) Regras de implementacao
+- Usar **Pydantic** para definicao e validacao de schemas.
+- Organizar prompts em YAML no diretorio `prompts/`.
+- Garantir execucao por CLI via `python -m src.main`.
+- Incluir testes para coleta, categorizacao, consolidacao e CLI.
+- O conector principal de descoberta externa e o `PerplexityPlaywrightCollector`.
+- A coleta deve ser armazenada antes de qualquer interpretacao posterior dos agentes.
 
 ---
 
-## 5) Convenções de saída
-- Catálogos de datasets em **JSON**.
-- Relatórios analíticos em **Markdown**.
-- Exportações tabulares em **CSV**.
-- Logs de execução por etapa.
-- Uso obrigatório de timestamps e rastreabilidade entre entradas/saídas de cada estágio.
+## 5) Convencoes de saida
+- Coleta crua, fontes categorizadas e catalogos em **JSON**
+- Relatorios analiticos em **Markdown**
+- Exportacoes tabulares em **CSV**
+- Timestamps e rastreabilidade obrigatorios entre entradas e saidas
 
 ---
 
-## 6) Próximas fases
-1. Implementar conectores reais de busca web e scraping controlado.
-2. Integrar descoberta web com expansão avançada de consultas.
-3. Evoluir scoring de relevância e qualidade dos relatórios.
-
-## 7) Estado atual de conectores de pesquisa web
-- Interface base disponível em `src/connectors/web_research.py` (`WebResearchConnector`).
-- Modo mock obrigatório para dry-run (`MockWebResearchConnector`).
-- Conector real inicial desacoplado (`DuckDuckGoWebResearchConnector`), com timeout e fallback para mock no `ResearchScoutAgent`.
-- Persistir evidências de execução (`web_research_meta`) nos artefatos do run para auditoria.
-
-
-## 8) Formatos de comunicação
-- Comunicação entre agentes e artefatos intermediários: **JSON**.
-- Relatório final para humanos: **Markdown**.
-- System prompts dos agentes: **YAML** em `prompts/`.
+## 6) Formatos de comunicacao
+- Artefatos intermediarios: **JSON**
+- Relatorio final humano: **Markdown**
+- Prompts dos agentes: **YAML** em `prompts/`

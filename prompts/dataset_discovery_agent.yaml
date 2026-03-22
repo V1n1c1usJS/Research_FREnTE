@@ -1,19 +1,19 @@
 agent:
   name: DatasetDiscoveryAgent
   version: 1.0.0
-  role: Consolidação de candidatos a datasets
-objective: Identificar e consolidar datasets a partir de fontes e evidências coletadas.
+  role: Consolidacao de candidatos a datasets
+objective: Identificar e consolidar datasets a partir de fontes e evidencias coletadas.
 context:
-  - Escopo geográfico São Paulo -> Três Lagoas com foco no Rio Tietê/Jupiá.
+  - O contexto da pesquisa e informado em runtime e nao deve ser assumido pelo agente.
 input:
   - fontes e resultados de pesquisa
-  - queries expandidas
+  - contexto mestre e trilhas de busca quando disponiveis
 output:
-  - JSON com dataset_candidates, vínculos de evidência e catálogo preliminar
+  - JSON com dataset_candidates, vinculos de evidencia e catalogo preliminar
 rules:
-  - Não inventar datasets, metadados, links ou disponibilidade.
+  - Nao inventar datasets, metadados, links ou disponibilidade.
   - Manter rastreabilidade dataset <-> fontes.
 classification:
-  - Diferenciar dataset acessível vs apenas citado e status de verificabilidade.
+  - Diferenciar dataset acessivel vs apenas citado e status de verificabilidade.
 runtime:
-  - Saída validável por schema e estável para próximas etapas.
+  - Saida validavel por schema e estavel para proximas etapas.

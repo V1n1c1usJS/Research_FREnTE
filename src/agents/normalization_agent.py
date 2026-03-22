@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+import unicodedata
 from typing import Any
 
 from src.agents.base import BaseAgent
@@ -17,14 +19,15 @@ class NormalizationAgent(BaseAgent):
 
         source_lookup = {source.source_id: source for source in context.get("sources", [])}
         findings_by_source = {finding.source_id: finding for finding in context.get("web_research_results", [])}
+        master_context = context.get("perplexity_master_context")
 
         buckets: dict[str, dict[str, Any]] = {}
 
         for candidate in context.get("dataset_candidates", []):
             key = self._build_dedupe_key(candidate.dataset_name, candidate.aliases, candidate.canonical_url)
-            if key not in buckets:
-                buckets[key] = {
-                    "candidate_ids": set(),
+            bucket = buckets.setdefault(
+                key,
+                {
                     "title": candidate.dataset_name,
                     "aliases": set(candidate.aliases),
                     "canonical_url": candidate.canonical_url,
@@ -38,7 +41,7 @@ class NormalizationAgent(BaseAgent):
                     "formats": set(),
                     "tags": set(),
                     "priority_hint": candidate.priority_hint,
-                    "confidence_values": [candidate.confidence_hint],
+                    "confidence_values": [],
                     "provenance": [],
                     "temporal_coverage": candidate.temporal_coverage,
                     "spatial_coverage": candidate.geographic_scope,
@@ -50,15 +53,14 @@ class NormalizationAgent(BaseAgent):
                     "structured_export_flags": [],
                     "scientific_value_votes": [],
                     "recommended_pipeline_use": set(),
-                }
+                },
+            )
 
-            bucket = buckets[key]
-            bucket["candidate_ids"].add(candidate.candidate_id)
             bucket["aliases"].update(candidate.aliases)
             bucket["source_ids"].update(candidate.source_ids)
             bucket["source_urls"].update(candidate.source_urls)
-            bucket["variables"].update(self._normalize_variables(candidate.variables_mentioned))
-            bucket["themes"].update(self._normalize_themes(candidate.tags))
+            bucket["variables"].update(self._normalize_open_labels(candidate.variables_mentioned))
+            bucket["themes"].update(self._normalize_open_labels(candidate.tags))
             bucket["evidence_notes"].extend(candidate.evidence_notes)
             bucket["formats"].update(candidate.formats)
             bucket["tags"].update(candidate.tags)
@@ -67,6 +69,7 @@ class NormalizationAgent(BaseAgent):
             for source_id in candidate.source_ids:
                 finding = findings_by_source.get(source_id)
                 source = source_lookup.get(source_id)
+
                 if finding:
                     bucket["source_class_votes"].append(finding.source_class)
                     bucket["source_roles"].update(finding.source_roles)
@@ -77,6 +80,7 @@ class NormalizationAgent(BaseAgent):
                         bucket["structured_export_flags"].append(finding.structured_export_available)
                     bucket["scientific_value_votes"].append(finding.scientific_value)
                     bucket["recommended_pipeline_use"].update(finding.recommended_pipeline_use)
+
                 if source:
                     bucket["source_class_votes"].append(source.source_class)
                     bucket["source_roles"].update(source.source_roles)
@@ -91,53 +95,50 @@ class NormalizationAgent(BaseAgent):
                 bucket["provenance"].append(
                     {
                         "source_id": source_id,
-                        "source_type": source_lookup[source_id].source_type if source_id in source_lookup else "unknown",
-                        "source_url": (
-                            source_lookup[source_id].base_url if source_id in source_lookup else ""
-                        ),
-                        "evidence": finding.evidence_notes if finding else "Evidência não disponível no achado atual.",
+                        "source_type": source.source_type if source else "unknown",
+                        "source_url": source.base_url if source else "",
+                        "evidence": finding.evidence_notes if finding else "No evidence note available.",
                     }
                 )
 
         normalized: list[DatasetRecord] = []
-        for idx, (_, bucket) in enumerate(buckets.items(), start=1):
+        for idx, bucket in enumerate(buckets.values(), start=1):
             sorted_source_ids = sorted(bucket["source_ids"])
             primary_source_id = sorted_source_ids[0] if sorted_source_ids else "src-unknown"
             source = source_lookup.get(primary_source_id)
-
             source_url = (
                 bucket["canonical_url"]
                 or (sorted(bucket["source_urls"])[0] if bucket["source_urls"] else "")
                 or (source.base_url if source else "")
             )
-            confidence = round(sum(bucket["confidence_values"]) / len(bucket["confidence_values"]), 2)
-
-            source_class = self._majority_choice(bucket["source_class_votes"], default="analytical_data_source")
-            data_extractability = self._majority_choice(bucket["data_extractability_votes"], default="unknown")
-            scientific_value = self._majority_choice(bucket["scientific_value_votes"], default="medium")
-            hist = self._bool_vote(bucket["historical_records_flags"])
-            structured = self._bool_vote(bucket["structured_export_flags"])
+            confidence = (
+                round(sum(bucket["confidence_values"]) / len(bucket["confidence_values"]), 2)
+                if bucket["confidence_values"]
+                else 0.5
+            )
 
             normalized.append(
                 DatasetRecord(
                     dataset_id=f"norm-{idx:03d}",
                     title=bucket["title"],
-                    aliases=sorted(alias for alias in bucket["aliases"] if alias and alias != bucket["title"].lower()),
+                    aliases=sorted(alias for alias in bucket["aliases"] if alias and alias.lower() != bucket["title"].lower()),
                     canonical_url=source_url,
                     entity_type=bucket["entity_type"],
                     description=bucket["description"],
                     source_id=primary_source_id,
-                    source_name=source.name if source else "Fonte não identificada",
+                    source_name=source.name if source else "Unknown source",
                     source_url=source_url,
-                    source_class=source_class,
+                    source_class=self._majority_choice(bucket["source_class_votes"], default="analytical_data_source"),
                     source_roles=sorted(bucket["source_roles"]),
-                    data_extractability=data_extractability,
-                    historical_records_available=hist,
-                    structured_export_available=structured,
-                    scientific_value=scientific_value,
+                    data_extractability=self._majority_choice(bucket["data_extractability_votes"], default="unknown"),
+                    historical_records_available=self._bool_vote(bucket["historical_records_flags"]),
+                    structured_export_available=self._bool_vote(bucket["structured_export_flags"]),
+                    scientific_value=self._majority_choice(bucket["scientific_value_votes"], default="medium"),
                     recommended_pipeline_use=sorted(bucket["recommended_pipeline_use"]),
                     organization_normalized=self._normalize_organization(source.name if source else ""),
                     dataset_kind=bucket["entity_type"],
+                    region=self._resolve_region(master_context),
+                    thematic_axis=self._resolve_thematic_axis(master_context),
                     temporal_coverage=bucket["temporal_coverage"],
                     spatial_coverage=bucket["spatial_coverage"],
                     update_frequency=bucket["update_frequency"],
@@ -145,14 +146,12 @@ class NormalizationAgent(BaseAgent):
                     themes_normalized=sorted(bucket["themes"]),
                     confidence=confidence,
                     priority=bucket["priority_hint"],
-                    priority_reason=(
-                        f"Prioridade inicial preservada da descoberta ({bucket['priority_hint']})."
-                    ),
-                    methodological_notes=bucket["evidence_notes"],
+                    priority_reason=f"Priority carried from discovery stage ({bucket['priority_hint']}).",
+                    methodological_notes=self._deduplicate_preserve_order(bucket["evidence_notes"]),
                     evidence_origin=sorted(bucket["source_urls"]),
                     provenance=bucket["provenance"],
-                    formats=sorted(bucket["formats"]),
-                    tags=sorted(bucket["tags"]),
+                    formats=sorted(fmt for fmt in bucket["formats"] if fmt),
+                    tags=sorted(self._normalize_open_labels(bucket["tags"])),
                 )
             )
 
@@ -165,10 +164,29 @@ class NormalizationAgent(BaseAgent):
         if canonical_url:
             return f"url::{canonical_url.strip().lower()}"
         if normalized_aliases:
-            alias_part = "|".join(normalized_aliases)
-            return f"name::{normalized_name}::aliases::{alias_part}"
+            return f"name::{normalized_name}::aliases::{'|'.join(normalized_aliases)}"
         return f"name::{normalized_name}"
 
+    @staticmethod
+    def _normalize_open_labels(values: list[str] | set[str]) -> set[str]:
+        normalized: set[str] = set()
+        for value in values:
+            cleaned = " ".join(str(value or "").split()).strip().lower()
+            if cleaned:
+                normalized.add(cleaned)
+        return normalized
+
+    @staticmethod
+    def _deduplicate_preserve_order(values: list[str]) -> list[str]:
+        ordered: list[str] = []
+        seen: set[str] = set()
+        for value in values:
+            cleaned = " ".join(str(value or "").split()).strip()
+            if not cleaned or cleaned in seen:
+                continue
+            seen.add(cleaned)
+            ordered.append(cleaned)
+        return ordered
 
     @staticmethod
     def _majority_choice(values: list[str], default: str) -> str:
@@ -188,50 +206,25 @@ class NormalizationAgent(BaseAgent):
 
     @staticmethod
     def _normalize_organization(org_name: str) -> str:
-        normalized = org_name.strip().upper()
-        aliases = {
-            "AGÊNCIA NACIONAL DE ÁGUAS E SANEAMENTO BÁSICO": "ANA",
-            "BASES ACADÊMICAS E RELATÓRIOS TÉCNICOS": "BASES ACADÊMICAS",
-        }
-        return aliases.get(normalized, normalized or "NÃO INFORMADO")
+        normalized = " ".join(org_name.strip().upper().split())
+        return normalized or "NOT SPECIFIED"
 
     @staticmethod
-    def _normalize_variables(variables: list[str]) -> set[str]:
-        mapping = {
-            "vazão": "streamflow",
-            "nível": "water level",
-            "chuva": "precipitation",
-            "uso da terra": "land use",
-            "qualidade da água": "water quality",
-            "esgoto": "wastewater",
-            "resíduos": "solid waste",
-            "queimadas": "fire occurrence",
-            "material orgânico": "organic matter",
-            "ocupação urbana": "urban occupation",
-            "sedimentos": "sediments",
-            "meteorologia": "meteorology",
-        }
-        normalized = set()
-        for item in variables:
-            key = item.strip().lower()
-            normalized.add(mapping.get(key, key))
-        return normalized
+    def _resolve_region(master_context: Any) -> str:
+        if master_context and getattr(master_context, "geographic_scope", None):
+            return " | ".join(master_context.geographic_scope)
+        return ""
 
     @staticmethod
-    def _normalize_themes(tags: list[str]) -> set[str]:
-        themes = set()
-        for tag in tags:
-            lowered = tag.lower()
-            if any(token in lowered for token in ["land", "uso"]):
-                themes.add("land-use-change")
-            elif any(token in lowered for token in ["água", "water", "hidrologia", "vazão"]):
-                themes.add("hydrology-water-quality")
-            elif any(token in lowered for token in ["esgoto", "wastewater", "resíduo"]):
-                themes.add("sanitation-waste")
-            elif any(token in lowered for token in ["queimada", "fire"]):
-                themes.add("fire-disturbance")
-            elif any(token in lowered for token in ["urbana", "demografia"]):
-                themes.add("urban-pressure")
-        if not themes:
-            themes.add("unclassified")
-        return themes
+    def _resolve_thematic_axis(master_context: Any) -> str:
+        if master_context and getattr(master_context, "thematic_axes", None):
+            return " | ".join(master_context.thematic_axes)
+        return ""
+
+    @staticmethod
+    def _slugify(value: str) -> str:
+        normalized = "".join(
+            ch for ch in unicodedata.normalize("NFKD", value) if not unicodedata.combining(ch)
+        )
+        normalized = re.sub(r"[^a-zA-Z0-9]+", "-", normalized)
+        return normalized.strip("-").lower()

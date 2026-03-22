@@ -1,23 +1,31 @@
 """Modelos de dados e contratos do pipeline."""
 
 from src.schemas.records import (
-    CatalogExportRecord,
     DatasetCandidate,
     DatasetRecord,
-    PipelineRunMetadata,
-    QueryExpansionRecord,
+    IntelligenceSourceRecord,
+    PerplexityLinkRecord,
+    PerplexityResearchContextRecord,
+    PerplexityResearchTrackRecord,
+    PerplexitySearchQueryRecord,
+    PerplexitySearchSessionRecord,
     ResearchSourceRecord,
+    SourceValidationRecord,
     WebResearchResultRecord,
 )
 from src.schemas.settings import PipelineSettings
 
 __all__ = [
-    "CatalogExportRecord",
     "DatasetCandidate",
     "DatasetRecord",
-    "PipelineRunMetadata",
+    "IntelligenceSourceRecord",
+    "PerplexityLinkRecord",
+    "PerplexityResearchContextRecord",
+    "PerplexityResearchTrackRecord",
+    "PerplexitySearchQueryRecord",
+    "PerplexitySearchSessionRecord",
     "PipelineSettings",
-    "QueryExpansionRecord",
     "ResearchSourceRecord",
+    "SourceValidationRecord",
     "WebResearchResultRecord",
 ]

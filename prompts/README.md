@@ -1,19 +1,17 @@
 # Prompts de sistema (YAML)
 
-Todos os prompts de sistema dos agentes ficam neste diretório em **YAML**.
+Todos os prompts de sistema dos agentes ficam neste diretorio em YAML.
 
 Arquivos atuais:
-- `research_scout_agent.yaml`
-- `query_expansion_agent.yaml`
 - `dataset_discovery_agent.yaml`
 - `normalization_agent.yaml`
 - `relevance_agent.yaml`
 - `access_agent.yaml`
-- `extraction_plan_agent.yaml`
-- `report_agent.yaml`
-- `orchestrator_agent.yaml`
+- `perplexity_source_categorization_agent.yaml`
+- `source_validation_agent.yaml`
+- `perplexity_intelligence_report_agent.yaml`
 
-Estrutura YAML padrão esperada pelo loader:
+Estrutura YAML padrao esperada pelo loader:
 - `agent.name`
 - `agent.version`
 - `agent.role`
@@ -25,4 +23,4 @@ Estrutura YAML padrão esperada pelo loader:
 - `classification`
 - `runtime`
 
-O loader valida campos obrigatórios e monta o prompt textual consumível pela LLM.
+O loader valida campos obrigatorios e monta o prompt textual consumivel pelos agentes.
