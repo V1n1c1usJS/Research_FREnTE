@@ -426,18 +426,44 @@ class PerplexityIntelligencePipeline:
         parts: list[str] = []
 
         # 1. Pergunta da trilha — âncora temática específica por trilha
-        question = PerplexityIntelligencePipeline._compact_text(track.research_question, 220)
-        parts.append(question)
+        question = PerplexityIntelligencePipeline._compact_text(track.research_question, 420)
+        if question:
+            parts.append(f"Pergunta principal: {question}")
 
         # 2. Primeiros ~120 chars do task_prompt — contém nomes de portais e fontes concretas
-        task_hint = PerplexityIntelligencePipeline._compact_text(track.task_prompt, 120)
+        task_hint = PerplexityIntelligencePipeline._compact_text(track.task_prompt, 720)
         if task_hint:
-            parts.append(task_hint)
+            parts.append(f"Tarefa especifica: {task_hint}")
 
         # 3. Primeiro item do escopo geográfico como âncora de localização
         if master_context.geographic_scope:
-            geo = PerplexityIntelligencePipeline._compact_text(master_context.geographic_scope[0], 80)
-            parts.append(geo)
+            geo = PerplexityIntelligencePipeline._compact_list(master_context.geographic_scope, 2, 260)
+            if geo:
+                parts.append(f"Recorte geografico: {geo}")
+
+        preferred_sources = PerplexityIntelligencePipeline._compact_list(master_context.preferred_sources, 6, 320)
+        if preferred_sources:
+            parts.append(
+                "Priorize paginas primarias de dataset, catalogo, API ou download direto em fontes como: "
+                f"{preferred_sources}."
+            )
+
+        expected_outputs = PerplexityIntelligencePipeline._compact_list(master_context.expected_outputs, 3, 220)
+        if expected_outputs:
+            parts.append(f"Busque preferencialmente: {expected_outputs}.")
+
+        exclusions = PerplexityIntelligencePipeline._compact_list(master_context.exclusions, 3, 220)
+        if exclusions:
+            parts.append(f"Evite: {exclusions}.")
+
+        parts.append(
+            "Nao priorize blogs, tutoriais, rankings de sites, curadorias ou paginas agregadoras quando houver "
+            "fonte oficial, institucional ou academica equivalente."
+        )
+        parts.append(
+            "Retorne preferencialmente paginas que exponham metadados, filtros reais, codigos internos, API, "
+            "ou links diretos de download."
+        )
 
         return ". ".join(parts)
 
@@ -447,6 +473,14 @@ class PerplexityIntelligencePipeline:
         if len(cleaned) <= limit:
             return cleaned
         return cleaned[: max(limit - 3, 0)].rstrip() + "..."
+
+    @staticmethod
+    def _compact_list(values: list[str], max_items: int, limit: int) -> str:
+        items = [" ".join(str(value or "").split()) for value in values if str(value or "").strip()]
+        if not items:
+            return ""
+        joined = "; ".join(items[:max_items])
+        return PerplexityIntelligencePipeline._compact_text(joined, limit)
 
     def _build_llm_connector(self) -> LLMConnector | None:
         if self.llm_mode == "off":

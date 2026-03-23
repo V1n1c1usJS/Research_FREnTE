@@ -2,7 +2,59 @@ import json
 from pathlib import Path
 
 from src.pipelines.perplexity_intelligence_pipeline import PerplexityIntelligencePipeline
-from src.schemas.records import CollectionGuide, PerplexityLinkRecord, PerplexitySearchSessionRecord
+from src.schemas.records import (
+    CollectionGuide,
+    PerplexityLinkRecord,
+    PerplexityResearchContextRecord,
+    PerplexityResearchTrackRecord,
+    PerplexitySearchSessionRecord,
+)
+
+
+def test_compose_chat_prompt_is_specific_and_penalizes_aggregators() -> None:
+    prompt = PerplexityIntelligencePipeline._compose_chat_prompt(
+        master_context=PerplexityResearchContextRecord(
+            context_id="ctx-100k",
+            article_goal="Investigar o impacto antropico na materia organica dos reservatorios do Tiete.",
+            geographic_scope=[
+                "Bacia do Rio Tiete entre Sao Paulo e Tres Lagoas.",
+                "Reservatorios de Barra Bonita a Jupia.",
+            ],
+            thematic_axes=["geomorfologia", "geologia", "solos"],
+            preferred_sources=[
+                "ANA metadados.snirh.gov.br",
+                "USGS EarthExplorer",
+                "ASF Alaska",
+                "CPRM GeoSGB",
+                "EMBRAPA solos",
+            ],
+            expected_outputs=[
+                "links diretos para shapefile e GeoTIFF",
+                "paginas primarias de catalogo e download",
+            ],
+            exclusions=[
+                "blogs",
+                "tutoriais",
+                "paginas agregadoras",
+            ],
+            notes=[],
+        ),
+        track=PerplexityResearchTrackRecord(
+            research_track="n1_bacia_geomorfologia",
+            chat_label="bacia_geomorfologia",
+            research_question="Quais datasets geoespaciais existem para delimitar a bacia do Tiete e caracterizar relevo, geologia e solos?",
+            task_prompt="Busque ANA ottobacias, USGS SRTM 30m, ALOS PALSAR 12.5m, CPRM GeoSGB e EMBRAPA solos com links primarios de dataset.",
+            priority="high",
+        ),
+    )
+
+    assert "Pergunta principal:" in prompt
+    assert "Tarefa especifica:" in prompt
+    assert "USGS SRTM 30m" in prompt
+    assert "CPRM GeoSGB" in prompt
+    assert "Priorize paginas primarias de dataset, catalogo, API ou download direto" in prompt
+    assert "Evite: blogs; tutoriais; paginas agregadoras." in prompt
+    assert "Nao priorize blogs, tutoriais, rankings de sites, curadorias ou paginas agregadoras" in prompt
 
 
 def test_perplexity_intelligence_pipeline_writes_artifacts_and_consolidates_sources(

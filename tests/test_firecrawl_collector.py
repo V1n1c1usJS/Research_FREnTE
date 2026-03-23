@@ -56,9 +56,35 @@ def test_build_collection_prompt_uses_contextual_dataset_fields() -> None:
 
     assert "Tema: qualidade da agua nos reservatorios" in prompt
     assert "Dataset: Rede CETESB reservatorios" in prompt
+    assert "Titulo da pagina/fonte: QUALAR CETESB" in prompt
+    assert "Dominio: qualar.cetesb.sp.gov.br" in prompt
+    assert "Categoria estimada da fonte: official_portal" in prompt
     assert "Parametros de interesse: IQA, IET, OD, DBO" in prompt
     assert "Periodo desejado: 1978-2024" in prompt
     assert "Regiao: reservatorios da bacia do Tiete" in prompt
+    assert "Formato esperado ou mencionado: semi_structured" in prompt
+    assert "Nao invente dropdowns, filtros, codigos de estacao" in prompt
+    assert "trate-a como pagina de referencia" in prompt
+
+
+def test_build_collection_prompt_hardens_guidance_for_aggregator_pages() -> None:
+    prompt = build_collection_prompt(
+        _dataset(
+            url="https://www.geoaplicada.com/sites-para-baixar-dados-espaciais",
+            title="22 sites para baixar dados espaciais",
+            source_domain="www.geoaplicada.com",
+            thematic_axis="delimitacao e geomorfologia da bacia do Tiete",
+            source_category="contextual",
+            dataset_name="22 sites para baixar dados espaciais",
+            data_format="unknown",
+            key_parameters=[],
+        )
+    )
+
+    assert "Dominio: www.geoaplicada.com" in prompt
+    assert "Categoria estimada da fonte: contextual" in prompt
+    assert "Para pagina de referencia, os passos devem explicar apenas como aproveitar os links citados na pagina atual" in prompt
+    assert "Para pagina de referencia sem filtros reais visiveis, retorne filters_available como objeto vazio." in prompt
 
 
 def test_firecrawl_collector_returns_structured_collection_guide() -> None:

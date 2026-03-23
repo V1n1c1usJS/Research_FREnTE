@@ -22,9 +22,22 @@ Area de estudo: bacia do Tiete, lat [-24, -20.5] lon [-52.2, -45.8].
 NESTE PORTAL, estou buscando:
 - Tema: {thematic_axis}
 - Dataset: {dataset_name}
+- Titulo da pagina/fonte: {page_title}
+- Dominio: {source_domain}
+- Categoria estimada da fonte: {source_category}
 - Parametros de interesse: {parameters_str}
 - Periodo desejado: {temporal_coverage}
 - Regiao: {spatial_coverage}
+- Formato esperado ou mencionado: {data_format}
+
+REGRAS DE PRECISAO:
+- Descreva apenas elementos, filtros, menus, botoes, links e codigos realmente visiveis nesta pagina analisada.
+- Nao invente dropdowns, filtros, codigos de estacao, IDs internos, opcoes de exportacao ou URLs que nao estejam explicitamente presentes.
+- Se a pagina for um blog, tutorial, curadoria, noticia, ranking de sites ou agregador de links, trate-a como pagina de referencia.
+- Para pagina de referencia, os passos devem explicar apenas como aproveitar os links citados na pagina atual; nao descreva passos internos de outros portais que nao foram abertos.
+- Para pagina de referencia sem filtros reais visiveis, retorne filters_available como objeto vazio.
+- So marque requires_login=true quando a pagina mostrar login, cadastro, autenticacao ou restricao explicita.
+- So liste direct_download_urls para arquivos ou endpoints realmente presentes na pagina atual.
 
 Analise esta pagina e extraia:
 
@@ -37,7 +50,8 @@ Analise esta pagina e extraia:
    selecionar para os dados que preciso. Se houver codigos internos
    (codigos de estacao de monitoramento, IDs de parametro, numeros
    de tabela, codigos IBGE), liste-os EXPLICITAMENTE com o nome
-   correspondente (ex: TIBB02900 = Barra Bonita).
+   correspondente (ex: TIBB02900 = Barra Bonita). Se nao houver filtros
+   visiveis na pagina, deixe filters_available vazio.
 
 3. FORMATO DO DOWNLOAD: em que formato os dados serao baixados.
    Se houver opcao de escolher formato, indique qual selecionar.
@@ -49,6 +63,7 @@ Analise esta pagina e extraia:
    "requires_contact" se precisa contatar a instituicao.
 
 5. ALERTAS: limitacoes, requisitos de login, timeout, dados faltantes.
+   Se a pagina for apenas agregadora ou contextual, deixe isso explicito.
 
 6. DOWNLOADS DIRETOS: URLs completas de arquivos encontrados na pagina.
 """
@@ -64,9 +79,13 @@ def build_collection_prompt(dataset: EnrichedDataset) -> str:
     return COLLECTION_PROMPT_TEMPLATE.format(
         thematic_axis=dataset.thematic_axis or "tema nao especificado",
         dataset_name=dataset.dataset_name or dataset.title,
+        page_title=dataset.title,
+        source_domain=dataset.source_domain or "dominio nao identificado",
+        source_category=dataset.source_category or "categoria nao especificada",
         parameters_str=params,
         temporal_coverage=dataset.temporal_coverage or "maximo disponivel (idealmente 2000-2024)",
         spatial_coverage=dataset.spatial_coverage or "bacia do Rio Tiete, Sao Paulo",
+        data_format=dataset.data_format or "formato nao especificado",
     )
 
 
