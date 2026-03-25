@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 FIG_DIR = Path(__file__).resolve().parent / "figures"
-IMG_DIR = ROOT / "src" / "img"
+IMG_DIR = ROOT / "src" / "assets"
 OUT = Path(__file__).resolve().parent / "apresentacao_reservatorios.html"
 
 

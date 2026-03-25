@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-_IMG_DIR = Path(__file__).resolve().parent.parent / "img"
+_IMG_DIR = Path(__file__).resolve().parent.parent / "assets"
 
 _MIME = {
     ".webp": "image/webp",
@@ -32,7 +32,7 @@ def _img_src(filename: str) -> str:
         mime = _MIME.get(path.suffix.lower(), "image/png")
         data = base64.b64encode(path.read_bytes()).decode()
         return f"data:{mime};base64,{data}"
-    return f"img/{filename}"
+    return f"assets/{filename}"
 
 
 def generate_html_report(
