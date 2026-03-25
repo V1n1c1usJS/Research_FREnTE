@@ -383,16 +383,25 @@ h1,h2,h3 {{ font-family: 'Bitter', serif; }}
 <!-- ── TOP BAR ── -->
 <header style="background:var(--gsu-blue)" class="sticky top-0 z-50 shadow-lg">
   <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-4">
-      <img src="{logo_100k}"  alt="Projeto 100K" class="h-9 object-contain">
+    <div class="flex items-center gap-3">
+      <img src="{logo_100k}" alt="Projeto 100K" class="h-9 object-contain">
       <div class="w-px h-7 bg-white/20"></div>
-      <img src="{logo_gsu}"   alt="Georgia State University" class="h-8 object-contain brightness-0 invert">
-      <img src="{logo_senai}" alt="SENAI" class="h-7 object-contain brightness-0 invert">
+      <div class="bg-white rounded-lg px-2 py-1 flex items-center">
+        <img src="{logo_gsu}" alt="Georgia State University" class="h-7 object-contain">
+      </div>
+      <div class="bg-white rounded-lg px-2 py-1 flex items-center">
+        <img src="{logo_senai}" alt="SENAI" class="h-6 object-contain">
+      </div>
     </div>
-    <div class="text-right hidden sm:block">
-      <p class="text-white/50 text-xs">Projeto FREnTE</p>
-      <p class="text-white text-sm font-semibold">EDA · Operação de Reservatórios</p>
+    <div class="flex items-center gap-3">
+      <span class="hidden sm:inline-block text-white/40 text-xs">Projeto FREnTE · EDA</span>
+      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
+            style="background:rgba(251,191,36,.15);color:#FCD34D;border:1px solid rgba(251,191,36,.25)">
+        <span class="w-1.5 h-1.5 rounded-full inline-block" style="background:#FCD34D;animation:pulse 2s infinite"></span>
+        Em desenvolvimento
+      </span>
     </div>
+    <style>@keyframes pulse{{0%,100%{{opacity:1}}50%{{opacity:.4}}}}</style>
   </div>
 </header>
 
@@ -403,38 +412,49 @@ h1,h2,h3 {{ font-family: 'Bitter', serif; }}
       ANÁLISE EXPLORATÓRIA DE DADOS · BACIA HIDROGRÁFICA DO RIO TIETÊ
     </p>
     <h1 class="text-3xl font-bold text-white leading-tight mb-3">
-      Dinâmica Operacional da Cascata de Reservatórios<br>
-      <span style="color:#C4A86C">Rio Tietê · 2000–2025</span>
+      Pressões Ambientais e Dinâmica Hídrica<br>
+      <span style="color:#C4A86C">Bacia do Rio Tietê · 2000–2025</span>
     </h1>
     <p class="text-white/70 text-sm max-w-3xl leading-relaxed mb-6">
-      Análise comparativa de variáveis hidrológicas e operacionais nos seis reservatórios
-      da cascata do Tietê (Barra Bonita, Bariri, Ibitinga, Promissão, Nova Avanhandava e
-      Três Irmãos) com base nos dados abertos do Operador Nacional do Sistema Elétrico (ONS).
-      O período de 25 anos (2000–2025) permite contextualizar a crise hídrica de 2014–2015
-      e avaliar tendências de longo prazo relevantes para qualidade de água e gestão de
-      recursos hídricos.
+      Análise exploratória integrando quatro dimensões de pressão sobre os recursos hídricos
+      da bacia do Tietê: operação dos reservatórios em cascata (ONS, 2000–2025), focos de
+      queimadas no corredor (INPE BDQueimadas, 2000–2024), cobertura de coleta e tratamento
+      de esgoto nos municípios lindeiros (SNIS, 2010–2020) e qualidade dos aterros de resíduos
+      sólidos (CETESB IQR, 2017–2021). A combinação dessas séries permite identificar períodos
+      de convergência de riscos — quando déficit hídrico, pressão de fogo e carga poluidora
+      de origem antrópica atuam simultaneamente sobre os reservatórios da cascata.
     </p>
     <!-- meta cards -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="rounded-xl px-4 py-3" style="background:rgba(255,255,255,.07)">
-        <span class="material-symbols-outlined text-2xl" style="color:#C4A86C">calendar_month</span>
-        <p class="text-white font-bold text-lg mt-1">25 anos</p>
-        <p class="text-white/50 text-xs">2000–2025</p>
-      </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
       <div class="rounded-xl px-4 py-3" style="background:rgba(255,255,255,.07)">
         <span class="material-symbols-outlined text-2xl" style="color:#C4A86C">water_dam</span>
-        <p class="text-white font-bold text-lg mt-1">6 reservatórios</p>
-        <p class="text-white/50 text-xs">Cascata completa</p>
+        <p class="text-white font-bold text-lg mt-1">6 reserv.</p>
+        <p class="text-white/50 text-xs">Cascata ONS · 25 anos</p>
       </div>
       <div class="rounded-xl px-4 py-3" style="background:rgba(255,255,255,.07)">
         <span class="material-symbols-outlined text-2xl" style="color:#C4A86C">table_rows</span>
-        <p class="text-white font-bold text-lg mt-1">56.982 registros</p>
-        <p class="text-white/50 text-xs">Série diária ONS</p>
+        <p class="text-white font-bold text-lg mt-1">56.982</p>
+        <p class="text-white/50 text-xs">Registros diários ONS</p>
+      </div>
+      <div class="rounded-xl px-4 py-3" style="background:rgba(255,255,255,.07)">
+        <span class="material-symbols-outlined text-2xl" style="color:#C4A86C">local_fire_department</span>
+        <p class="text-white font-bold text-lg mt-1">1,1M focos</p>
+        <p class="text-white/50 text-xs">Queimadas · 2000–2024</p>
+      </div>
+      <div class="rounded-xl px-4 py-3" style="background:rgba(255,255,255,.07)">
+        <span class="material-symbols-outlined text-2xl" style="color:#C4A86C">plumbing</span>
+        <p class="text-white font-bold text-lg mt-1">~84%</p>
+        <p class="text-white/50 text-xs">Coleta esgoto SP · 2020</p>
+      </div>
+      <div class="rounded-xl px-4 py-3" style="background:rgba(255,255,255,.07)">
+        <span class="material-symbols-outlined text-2xl" style="color:#C4A86C">delete_sweep</span>
+        <p class="text-white font-bold text-lg mt-1">IQR 9,0</p>
+        <p class="text-white/50 text-xs">Aterros Tietê · 2021</p>
       </div>
       <div class="rounded-xl px-4 py-3" style="background:rgba(255,255,255,.07)">
         <span class="material-symbols-outlined text-2xl" style="color:#C4A86C">analytics</span>
         <p class="text-white font-bold text-lg mt-1">8 figuras</p>
-        <p class="text-white/50 text-xs">Análises integradas</p>
+        <p class="text-white/50 text-xs">4 fontes integradas</p>
       </div>
     </div>
   </div>
