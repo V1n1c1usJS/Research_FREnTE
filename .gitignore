@@ -12,11 +12,14 @@ dist/
 
 # Virtual environments
 .venv/
+.venv310/
+.deps310/
 venv/
 env/
 
 # Tool caches
 .pytest_cache/
+.pytest-tmp/
 .ruff_cache/
 .mypy_cache/
 .coverage
@@ -35,9 +38,13 @@ Thumbs.db
 # Local env/config
 .env
 .env.*
+!.env.example
+
+# Playwright / legacy
+.playwright-cli/
+output/
 
 # Data outputs
-data/raw/
 data/interim/
 data/processed/
 reports/output/

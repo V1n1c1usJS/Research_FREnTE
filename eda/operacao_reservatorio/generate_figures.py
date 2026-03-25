@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 # ── Configuração ──────────────────────────────────────────────────────────────
 RAW_DIR    = Path(__file__).resolve().parents[2] / "data" / "raw" / "operacao_reservatorio"
 STAGING    = Path(__file__).resolve().parents[2] / "data" / "staging" / "operacao_reservatorio"
-FIG_DIR    = Path(__file__).resolve().parents[1] / "09_operacao_reservatorio" / "figures"
+FIG_DIR    = Path(__file__).resolve().parent / "figures"
 
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 STAGING.mkdir(parents=True, exist_ok=True)

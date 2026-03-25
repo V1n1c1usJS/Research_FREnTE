@@ -3,11 +3,8 @@
 from src.schemas.records import (
     CollectionGuide,
     CollectionArtifactRecord,
-    DatasetCandidate,
-    DatasetRecord,
     EnrichedDataset,
     FilteredSource,
-    IntelligenceSourceRecord,
     OperationalCollectionRunRecord,
     OperationalCollectionTargetRecord,
     PerplexityLinkRecord,
@@ -15,20 +12,15 @@ from src.schemas.records import (
     PerplexityResearchTrackRecord,
     PerplexitySearchQueryRecord,
     PerplexitySearchSessionRecord,
-    ResearchSourceRecord,
-    SourceValidationRecord,
-    WebResearchResultRecord,
+    RankedDataset,
 )
 from src.schemas.settings import PipelineSettings
 
 __all__ = [
     "CollectionGuide",
     "CollectionArtifactRecord",
-    "DatasetCandidate",
-    "DatasetRecord",
     "EnrichedDataset",
     "FilteredSource",
-    "IntelligenceSourceRecord",
     "OperationalCollectionRunRecord",
     "OperationalCollectionTargetRecord",
     "PerplexityLinkRecord",
@@ -37,7 +29,5 @@ __all__ = [
     "PerplexitySearchQueryRecord",
     "PerplexitySearchSessionRecord",
     "PipelineSettings",
-    "ResearchSourceRecord",
-    "SourceValidationRecord",
-    "WebResearchResultRecord",
+    "RankedDataset",
 ]
