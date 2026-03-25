@@ -1,0 +1,567 @@
+{
+  "project": "FREnTE — Rio Tietê",
+  "date": "2026-03-24",
+  "architecture": {
+    "layers": [
+      {
+        "name": "data/raw/",
+        "description": "Dados brutos imutáveis exatamente como vieram da fonte original",
+        "rule": "Nenhum arquivo aqui deve ser modificado"
+      },
+      {
+        "name": "data/staging/",
+        "description": "Dados limpos e padronizados por fonte/domínio",
+        "formats": [".parquet", ".csv.gz"],
+        "pipeline": "raw/ → [normalize_schema.py] → staging/"
+      },
+      {
+        "name": "data/spatial_ref/",
+        "description": "Camadas espaciais de referência — cola geográfica entre fontes",
+        "crs": "EPSG:4674 (SIRGAS 2000)",
+        "rule": "Nenhuma camada gerada sem passar por staging/limites_bacia/ primeiro"
+      },
+      {
+        "name": "data/analytic/",
+        "description": "Tabelas analíticas integradas — produto final do pipeline",
+        "pipeline": "staging/ + spatial_ref/ → [scripts de integração] → analytic/"
+      },
+      {
+        "name": "EDA/",
+        "description": "Análises exploratórias — consome staging + spatial_ref + analytic",
+        "rule": "NUNCA consumir data/raw/ diretamente"
+      }
+    ],
+    "integration_keys": {
+      "spatial": ["id_bacia", "id_subbacia", "id_reservatorio", "cod_ibge", "id_ponto_monitoramento"],
+      "temporal": ["ano", "mes", "data", "ano_mes"]
+    },
+    "analytic_panels": ["municipio_ano", "subbacia_ano", "reservatorio_mes", "reservatorio_ano"]
+  },
+  "ready_for_eda": [
+    {
+      "id": "01",
+      "name": "SNIS/esgoto",
+      "description": "Cobertura e qualidade do saneamento nos municípios da bacia",
+      "source": "SNIS — Sistema Nacional de Informações sobre Saneamento (app4.mdr.gov.br)",
+      "raw_path": "data/raw/snis/",
+      "staging_path": "data/staging/snis/",
+      "staging_file": "snis_municipios_serie.parquet",
+      "staging_schema": ["cod_ibge", "municipio", "ano", "pop_total", "pop_atendida_agua", "pop_atendida_esgoto", "indice_coleta_esgoto", "indice_tratamento_esgoto", "volume_esgoto_coletado_m3", "volume_esgoto_tratado_m3"],
+      "analytic_panel": "municipio_ano",
+      "eda_path": "EDA/01_snis_esgoto/",
+      "integration_keys": ["cod_ibge", "ano"],
+      "temporal_coverage": "2000–2022",
+      "risks": ["Auto-declaração municipal — inconsistências em municípios pequenos"]
+    },
+    {
+      "id": "02",
+      "name": "Uso do solo",
+      "description": "Classes de uso e cobertura do solo na bacia (MapBiomas)",
+      "source": "MapBiomas Coleção 9 (brasil.mapbiomas.org)",
+      "raw_path": "data/raw/mapbiomas/",
+      "staging_path": "data/staging/uso_solo/",
+      "staging_files": ["uso_solo_municipio_ano.parquet", "uso_solo_subbacia_ano.parquet"],
+      "staging_schema": ["cod_ibge", "id_subbacia", "ano", "classe_mapbiomas", "area_ha", "proporcao_pct"],
+      "target_classes": ["formação florestal", "formação savânica", "pastagem", "agricultura anual", "cana-de-açúcar", "área urbanizada", "corpos d'água", "silvicultura"],
+      "analytic_panels": ["municipio_ano", "subbacia_ano"],
+      "eda_path": "EDA/02_uso_do_solo/",
+      "integration_keys": ["cod_ibge", "id_subbacia", "ano"],
+      "temporal_coverage": "1985–2023",
+      "risks": ["Erros de classificação em áreas de transição — validar com Sentinel quando possível"]
+    },
+    {
+      "id": "03",
+      "name": "Limites da bacia",
+      "description": "Base geográfica do projeto — polígonos, sub-bacias, reservatórios",
+      "source": "ANA SNIRH (metadados.snirh.gov.br), CBH-AT (comiteat.sp.gov.br), IBGE",
+      "raw_path": "data/raw/limites_bacia/",
+      "staging_path": "data/staging/limites_bacia/",
+      "outputs_to_spatial_ref": [
+        "spatial_ref/bacia/bacia_tiete.gpkg",
+        "spatial_ref/subbacias/subbacias_tiete.gpkg",
+        "spatial_ref/hidrografia/hidrografia_tiete.gpkg"
+      ],
+      "eda_path": "EDA/03_limites_bacia/",
+      "integration_keys": ["id_bacia", "id_subbacia"],
+      "priority": "EXECUTAR PRIMEIRO — pré-requisito para todas as outras frentes",
+      "crs_target": "EPSG:4674"
+    },
+    {
+      "id": "04",
+      "name": "Agropecuária",
+      "description": "Intensidade e evolução da atividade agropecuária na bacia",
+      "source": "IBGE PAM — Produção Agrícola Municipal (sidra.ibge.gov.br)",
+      "raw_path": "data/raw/ibge_pam/",
+      "staging_path": "data/staging/agropecuaria/",
+      "staging_file": "pam_municipio_ano.parquet",
+      "staging_schema": ["cod_ibge", "ano", "cultura", "area_colhida_ha", "producao_t", "rendimento_kgha"],
+      "priority_crops": ["cana-de-açúcar", "soja", "milho", "laranja", "eucalipto"],
+      "analytic_panel": "municipio_ano",
+      "eda_path": "EDA/04_agropecuaria/",
+      "integration_keys": ["cod_ibge", "ano"],
+      "sidra_tables": ["1612", "5457"]
+    },
+    {
+      "id": "05",
+      "name": "Desmatamento",
+      "description": "Perda de cobertura vegetal na bacia ao longo do tempo",
+      "source": "MapBiomas Alerta, INPE PRODES (terrabrasilis.dpi.inpe.br)",
+      "raw_path": "data/raw/desmatamento/",
+      "staging_path": "data/staging/desmatamento/",
+      "staging_file": "desmatamento_subbacia_ano.parquet",
+      "staging_schema": ["id_subbacia", "ano", "area_desmatada_ha", "fonte"],
+      "fonte_values": ["prodes", "alerta"],
+      "analytic_panel": "subbacia_ano",
+      "eda_path": "EDA/05_desmatamento/",
+      "integration_keys": ["id_subbacia", "ano"],
+      "risks": ["PRODES foca em Amazônia — para Cerrado/Mata Atlântica usar MapBiomas Alerta"]
+    },
+    {
+      "id": "06",
+      "name": "Precipitação",
+      "description": "Regime pluviométrico da bacia — tendências e anomalias",
+      "source": "ANA HidroWeb (snirh.gov.br), CHIRPS (chc.ucsb.edu), INMET",
+      "raw_path": "data/raw/precipitacao/",
+      "staging_path": "data/staging/precipitacao/",
+      "staging_files": ["precip_estacao_dia.parquet", "precip_subbacia_mes.parquet"],
+      "schema_estacao": ["id_ponto_monitoramento", "data", "precip_mm", "flag_qualidade"],
+      "schema_subbacia": ["id_subbacia", "ano_mes", "precip_media_mm", "n_estacoes"],
+      "analytic_panels": ["subbacia_ano", "reservatorio_mes"],
+      "eda_path": "EDA/06_precipitacao/",
+      "integration_keys": ["id_ponto_monitoramento", "id_subbacia", "data", "ano_mes"],
+      "cleaning_rules": ["remover outliers > 500mm/dia", "interpolar falhas curtas < 7 dias"]
+    },
+    {
+      "id": "07",
+      "name": "Vazão",
+      "description": "Regime hidrológico da bacia — vazões afluentes, efluentes e tendências",
+      "source": "ANA HidroWeb (snirh.gov.br), ONS dados abertos (dados.ons.org.br)",
+      "raw_path": "data/raw/vazao/",
+      "staging_path": "data/staging/vazao/",
+      "staging_files": ["vazao_estacao_dia.parquet", "vazao_reservatorio_mes.parquet"],
+      "staging_schema": ["id_ponto_monitoramento", "data", "vazao_m3s", "flag_qualidade"],
+      "analytic_panels": ["subbacia_ano", "reservatorio_mes"],
+      "eda_path": "EDA/07_vazao/",
+      "integration_keys": ["id_ponto_monitoramento", "id_reservatorio", "data", "ano_mes"],
+      "note": "Pré-requisito para EDA/10_tempo_residencia/",
+      "api_method": "HidroWeb GetSerie"
+    },
+    {
+      "id": "08",
+      "name": "Temperatura",
+      "description": "Regime térmico da região — tendências de aquecimento",
+      "source": "INMET (bdmep.inmet.gov.br), ANA HidroWeb, ERA5-Land (ECMWF)",
+      "raw_path": "data/raw/temperatura/",
+      "staging_path": "data/staging/temperatura/",
+      "staging_file": "temp_estacao_dia.parquet",
+      "staging_schema": ["id_ponto_monitoramento", "data", "temp_max_c", "temp_min_c", "temp_media_c"],
+      "analytic_panel": "reservatorio_mes",
+      "eda_path": "EDA/08_temperatura/",
+      "integration_keys": ["id_ponto_monitoramento", "data", "ano_mes"],
+      "cleaning_rules": ["remover outliers fisicamente impossíveis: < -5°C ou > 45°C para SP", "interpolar falhas curtas"]
+    },
+    {
+      "id": "09",
+      "name": "Operação do reservatório",
+      "description": "Comportamento operacional dos 7 reservatórios em cascata do Tietê",
+      "source": "ONS dados abertos (dados.ons.org.br), ANA HidroWeb",
+      "raw_path": "data/raw/operacao_reservatorio/",
+      "staging_path": "data/staging/operacao_reservatorio/",
+      "staging_file": "operacao_reservatorio_dia.parquet",
+      "staging_schema": ["id_reservatorio", "nome_reservatorio", "data", "volume_util_pct", "cota_m", "vazao_afluente_m3s", "vazao_defluente_m3s", "volume_armazenado_hm3"],
+      "reservatorios": ["BARRA_BONITA", "BARIRI", "IBITINGA", "PROMISSAO", "NOVA_AVANHANDAVA", "TRES_IRMAOS", "JUPIA"],
+      "analytic_panels": ["reservatorio_mes", "reservatorio_ano"],
+      "eda_path": "EDA/09_operacao_reservatorio/",
+      "integration_keys": ["id_reservatorio", "data", "ano_mes"],
+      "note": "Pré-requisito para EDA/10_tempo_residencia/"
+    }
+  ],
+  "derive_after_bases": [
+    {
+      "id": "10",
+      "name": "Tempo de residência",
+      "description": "Estimativa do tempo de residência da água em cada reservatório",
+      "formula": "TR (dias) = Volume_armazenado (m³) / Vazao_defluente (m³/s) / 86400",
+      "input_table": "data/analytic/reservatorio_mes/",
+      "input_columns": ["volume_armazenado_hm3", "vazao_defluente_media_m3s"],
+      "output_column": "tempo_residencia_dias",
+      "output_table": "data/analytic/reservatorio_mes/ (nova coluna)",
+      "eda_path": "EDA/10_tempo_residencia/",
+      "integration_keys": ["id_reservatorio", "ano_mes"],
+      "prerequisites": ["EDA/07_vazao COMPLETO", "EDA/09_operacao_reservatorio COMPLETO"],
+      "risk_threshold": "TR > 200 dias = risco elevado de eutrofização"
+    }
+  ],
+  "needs_collection_before_eda": [
+    {
+      "name": "DBO/DQO",
+      "description": "Demanda bioquímica e química de oxigênio — indicadores diretos de poluição orgânica",
+      "sources_potential": ["CETESB Infoáguas", "ANA SNIRH qualidade da água"],
+      "priority": "alta",
+      "reason": "Sem dados coletados — bloqueia validação da hipótese de eutrofização"
+    },
+    {
+      "name": "Clorofila-a",
+      "description": "Indicador direto de biomassa algal e eutrofização",
+      "sources_potential": ["CETESB Infoáguas", "Sentinel-2 MSI via GEE"],
+      "priority": "alta",
+      "reason": "Sem dados coletados"
+    },
+    {
+      "name": "Índices ópticos (CDOM, turbidez)",
+      "description": "Matéria orgânica dissolvida colorida e turbidez da água",
+      "sources_potential": ["CETESB", "Sensoriamento remoto Sentinel-2/Landsat", "Artigos acadêmicos"],
+      "priority": "alta",
+      "reason": "Sem dados coletados — hipótese central do projeto"
+    },
+    {
+      "name": "Queimadas",
+      "description": "Focos de incêndio e área queimada na bacia",
+      "sources_potential": ["INPE BDQueimadas", "MapBiomas Fogo"],
+      "priority": "media",
+      "reason": "Sem dados coletados"
+    },
+    {
+      "name": "MDE (Modelo Digital de Elevação)",
+      "description": "Topografia da bacia para análises morfológicas e de drenagem",
+      "sources_potential": ["SRTM 30m", "ALOS PALSAR", "Copernicus DEM 30m"],
+      "priority": "media",
+      "reason": "Sem dados coletados — necessário para análises de relevo e escoamento"
+    },
+    {
+      "name": "SR qualidade da água",
+      "description": "Parâmetros de qualidade da água via sensoriamento remoto",
+      "sources_potential": ["Sentinel-2 MSI (GEE)", "Landsat Collection 2", "MODIS"],
+      "priority": "media",
+      "reason": "Sem dados coletados — requer desenvolvimento de scripts GEE"
+    },
+    {
+      "name": "Resíduos sólidos",
+      "description": "Geração e disposição de resíduos sólidos nos municípios da bacia",
+      "sources_potential": ["SNIS módulo RSU", "CETESB inventário de áreas contaminadas"],
+      "priority": "media",
+      "reason": "Sem dados coletados"
+    },
+    {
+      "name": "Batimetria",
+      "description": "Perfil batimétrico dos reservatórios — necessário para cálculo de volume real",
+      "sources_potential": ["ANA (dados restritos)", "SABESP", "Estudos acadêmicos"],
+      "priority": "baixa",
+      "reason": "Dado restrito — requer negociação institucional"
+    }
+  ],
+  "raw_structure": {
+    "base_path": "data/raw/",
+    "subdirectories": [
+      {"path": "snis/", "description": "CSV/XLSX anuais SNIS 2000–2022"},
+      {"path": "mapbiomas/", "description": "GeoTIFF + CSV MapBiomas Coleção 9 1985–2023"},
+      {"path": "ibge_pam/", "description": "Tabelas SIDRA PAM por município/ano"},
+      {"path": "precipitacao/", "description": "Séries diárias ANA HidroWeb / CHIRPS"},
+      {"path": "vazao/", "description": "Séries diárias ANA HidroWeb / ONS"},
+      {"path": "temperatura/", "description": "Séries diárias INMET / ERA5-Land"},
+      {"path": "operacao_reservatorio/", "description": "Séries ONS: volume, cota, vazões"},
+      {"path": "limites_bacia/", "description": "Shapefiles ANA SNIRH ottobacias, BHO, IBGE"},
+      {"path": "desmatamento/", "description": "Shapefiles PRODES / MapBiomas Alerta"},
+      {"path": "artigos_pdf/", "description": "Referência bibliográfica — NÃO entra no EDA"}
+    ]
+  },
+  "staging_structure": {
+    "base_path": "data/staging/",
+    "subdirectories": [
+      {
+        "path": "snis/",
+        "files": ["snis_municipios_serie.parquet"],
+        "schema": ["cod_ibge", "municipio", "ano", "pop_total", "pop_atendida_agua", "pop_atendida_esgoto", "indice_coleta_esgoto", "indice_tratamento_esgoto", "volume_esgoto_coletado_m3", "volume_esgoto_tratado_m3"]
+      },
+      {
+        "path": "uso_solo/",
+        "files": ["uso_solo_municipio_ano.parquet", "uso_solo_subbacia_ano.parquet"],
+        "schema": ["cod_ibge", "id_subbacia", "ano", "classe_mapbiomas", "area_ha", "proporcao_pct"]
+      },
+      {
+        "path": "agropecuaria/",
+        "files": ["pam_municipio_ano.parquet"],
+        "schema": ["cod_ibge", "ano", "cultura", "area_colhida_ha", "producao_t", "rendimento_kgha"]
+      },
+      {
+        "path": "desmatamento/",
+        "files": ["desmatamento_subbacia_ano.parquet"],
+        "schema": ["id_subbacia", "ano", "area_desmatada_ha", "fonte"]
+      },
+      {
+        "path": "precipitacao/",
+        "files": ["precip_estacao_dia.parquet", "precip_subbacia_mes.parquet"],
+        "schema_estacao": ["id_ponto_monitoramento", "data", "precip_mm", "flag_qualidade"],
+        "schema_subbacia": ["id_subbacia", "ano_mes", "precip_media_mm", "n_estacoes"]
+      },
+      {
+        "path": "vazao/",
+        "files": ["vazao_estacao_dia.parquet", "vazao_reservatorio_mes.parquet"],
+        "schema": ["id_ponto_monitoramento", "data", "vazao_m3s", "flag_qualidade"]
+      },
+      {
+        "path": "temperatura/",
+        "files": ["temp_estacao_dia.parquet"],
+        "schema": ["id_ponto_monitoramento", "data", "temp_max_c", "temp_min_c", "temp_media_c"]
+      },
+      {
+        "path": "operacao_reservatorio/",
+        "files": ["operacao_reservatorio_dia.parquet"],
+        "schema": ["id_reservatorio", "nome_reservatorio", "data", "volume_util_pct", "cota_m", "vazao_afluente_m3s", "vazao_defluente_m3s", "volume_armazenado_hm3"]
+      },
+      {
+        "path": "limites_bacia/",
+        "description": "GeoPackages intermediários antes de mover para spatial_ref/"
+      }
+    ]
+  },
+  "spatial_ref_structure": {
+    "base_path": "data/spatial_ref/",
+    "crs": "EPSG:4674 (SIRGAS 2000)",
+    "subdirectories": [
+      {
+        "path": "bacia/",
+        "file": "bacia_tiete.gpkg",
+        "description": "Polígono único da bacia do Rio Tietê",
+        "key": "id_bacia = 'TIETE'",
+        "use": "Recorte (clip) de todas as demais camadas"
+      },
+      {
+        "path": "subbacias/",
+        "file": "subbacias_tiete.gpkg",
+        "description": "Sub-bacias contribuintes nível Otto 6/7",
+        "key": "id_subbacia",
+        "use": "Unidade espacial principal de integração"
+      },
+      {
+        "path": "reservatorios/",
+        "file": "reservatorios_tiete.gpkg",
+        "description": "Polígonos e pontos dos 7 reservatórios em cascata",
+        "key": "id_reservatorio",
+        "reservatorios": ["BARRA_BONITA", "BARIRI", "IBITINGA", "PROMISSAO", "NOVA_AVANHANDAVA", "TRES_IRMAOS", "JUPIA"]
+      },
+      {
+        "path": "municipios_area_estudo/",
+        "file": "municipios_tiete.gpkg",
+        "description": "Municípios com >= 10% de área dentro da bacia",
+        "key": "cod_ibge (7 dígitos)",
+        "use": "Filtro espacial para SNIS, IBGE PAM, MapBiomas por município"
+      },
+      {
+        "path": "hidrografia/",
+        "file": "hidrografia_tiete.gpkg",
+        "description": "Rede de drenagem BHO dentro da bacia",
+        "key": "id_trecho (ottocódigo)"
+      },
+      {
+        "path": "pontos_monitoramento/",
+        "file": "estacoes_monitoramento.gpkg",
+        "description": "Estações pluviométricas, fluviométricas e de qualidade d'água",
+        "key": "id_ponto_monitoramento (código ANA)"
+      }
+    ]
+  },
+  "analytic_structure": {
+    "base_path": "data/analytic/",
+    "panels": [
+      {
+        "path": "municipio_ano/",
+        "file": "municipio_ano.parquet",
+        "granularity": "município × ano",
+        "keys": ["cod_ibge", "municipio", "ano"],
+        "source_domains": ["snis", "uso_solo", "agropecuaria", "desmatamento", "precipitacao", "temperatura"],
+        "spatial_dependency": "spatial_ref/municipios_area_estudo/",
+        "variables": {
+          "snis": ["indice_coleta_esgoto", "indice_tratamento_esgoto"],
+          "uso_solo": ["area_pastagem_ha", "area_cana_ha", "area_floresta_ha"],
+          "desmatamento": ["area_desmatada_ha"],
+          "agropecuaria": ["producao_cana_t", "area_cana_colhida_ha"],
+          "precipitacao": ["precip_media_mm"],
+          "temperatura": ["temp_media_c"]
+        }
+      },
+      {
+        "path": "subbacia_ano/",
+        "file": "subbacia_ano.parquet",
+        "granularity": "sub-bacia × ano",
+        "keys": ["id_subbacia", "ano"],
+        "source_domains": ["desmatamento", "uso_solo", "precipitacao", "vazao"],
+        "spatial_dependency": ["spatial_ref/subbacias/", "spatial_ref/pontos_monitoramento/"],
+        "variables": {
+          "desmatamento": ["area_desmatada_ha", "proporcao_desmatamento_pct"],
+          "uso_solo": ["area_pastagem_pct", "area_cana_pct"],
+          "precipitacao": ["precip_media_mm", "precip_total_mm"],
+          "vazao": ["vazao_media_m3s", "vazao_especifica_ls_km2"]
+        }
+      },
+      {
+        "path": "reservatorio_mes/",
+        "file": "reservatorio_mes.parquet",
+        "granularity": "reservatório × mês",
+        "keys": ["id_reservatorio", "nome_reservatorio", "ano_mes"],
+        "source_domains": ["operacao_reservatorio", "vazao", "precipitacao", "temperatura"],
+        "spatial_dependency": "spatial_ref/reservatorios/",
+        "variables": {
+          "operacao_reservatorio": ["volume_util_pct", "cota_m"],
+          "operacao+vazao": ["vazao_afluente_media_m3s", "vazao_defluente_media_m3s"],
+          "precipitacao": ["precip_media_mm"],
+          "temperatura": ["temp_media_c"],
+          "derivada": ["tempo_residencia_dias"]
+        },
+        "note": "tempo_residencia_dias é variável derivada — não existe em nenhuma fonte primária"
+      },
+      {
+        "path": "reservatorio_ano/",
+        "file": "reservatorio_ano.parquet",
+        "granularity": "reservatório × ano",
+        "keys": ["id_reservatorio", "nome_reservatorio", "ano"],
+        "source_domains": ["agregação de reservatorio_mes"],
+        "variables": ["volume_util_medio_pct", "volume_util_min_pct", "volume_util_max_pct", "vazao_afluente_media_m3s", "n_meses_criticos", "precip_total_mm", "temp_media_anual_c", "tempo_residencia_medio_dias", "tempo_residencia_min_dias"],
+        "note": "Painel de síntese anual — gerado após reservatorio_mes estar completo"
+      }
+    ]
+  },
+  "eda_folder_structure": {
+    "base_path": "EDA/",
+    "rule": "NUNCA consumir data/raw/ diretamente",
+    "frentes": [
+      {"id": "01", "path": "EDA/01_snis_esgoto/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "quality_checks.py", "plots_saneamento.py"]},
+      {"id": "02", "path": "EDA/02_uso_do_solo/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "plots_uso_solo.py"]},
+      {"id": "03", "path": "EDA/03_limites_bacia/", "status": "READY_FOR_EDA", "priority": "EXECUTAR PRIMEIRO", "files_expected": ["setup_spatial_ref.ipynb", "validate_geometry.py", "map_overview.py"]},
+      {"id": "04", "path": "EDA/04_agropecuaria/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "plots_agropecuaria.py"]},
+      {"id": "05", "path": "EDA/05_desmatamento/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "plots_desmatamento.py"]},
+      {"id": "06", "path": "EDA/06_precipitacao/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "plots_precipitacao.py"]},
+      {"id": "07", "path": "EDA/07_vazao/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "plots_vazao.py"], "note": "Pré-requisito para 10"},
+      {"id": "08", "path": "EDA/08_temperatura/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "plots_temperatura.py"]},
+      {"id": "09", "path": "EDA/09_operacao_reservatorio/", "status": "READY_FOR_EDA", "files_expected": ["eda_overview.ipynb", "load_and_validate.py", "plots_operacao.py"], "note": "Pré-requisito para 10"},
+      {"id": "10", "path": "EDA/10_tempo_residencia/", "status": "DERIVE_AFTER_BASES", "files_expected": ["derive_tempo_residencia.ipynb", "plots_tempo_residencia.py"], "prerequisites": ["EDA/07", "EDA/09"]},
+      {"id": "99", "path": "EDA/99_integracao/", "status": "BLOCKED_UNTIL_ALL_READY", "files_expected": ["integracao_pressao_hidro.ipynb", "integracao_risco_eutrofizacao.ipynb", "summary_dashboard.py"], "prerequisites": ["EDA/01 a EDA/09 todos prontos"]}
+    ]
+  },
+  "integration_plan": {
+    "integrations": [
+      {
+        "name": "Pressão Antrópica por Sub-bacia",
+        "inputs": ["staging/snis", "staging/uso_solo", "staging/agropecuaria", "staging/desmatamento"],
+        "spatial_ref": ["spatial_ref/subbacias", "spatial_ref/municipios_area_estudo"],
+        "output": "painel_pressao_antrópica_subbacia.parquet",
+        "output_path": "EDA/99_integracao/"
+      },
+      {
+        "name": "Balanço Hídrico dos Reservatórios",
+        "inputs": ["staging/precipitacao", "staging/vazao", "staging/temperatura", "staging/operacao_reservatorio"],
+        "spatial_ref": ["spatial_ref/reservatorios", "spatial_ref/pontos_monitoramento"],
+        "output": "painel_hidrologico_reservatorio.parquet",
+        "output_path": "EDA/99_integracao/"
+      },
+      {
+        "name": "Risco de Eutrofização (Hipótese Central)",
+        "inputs": ["analytic/reservatorio_mes (TR)", "painel_pressao_antrópica_subbacia"],
+        "output": "painel_risco_eutrofizacao.parquet",
+        "output_path": "EDA/99_integracao/",
+        "hypothesis": "Reservatórios com maior TR e maior déficit de saneamento têm maior risco de eutrofização"
+      }
+    ]
+  },
+  "collection_backlog": {
+    "high_priority": [
+      {
+        "frente": "DBO/DQO",
+        "action": "Acessar CETESB Infoáguas para séries históricas",
+        "estimated_weeks": "2–4"
+      },
+      {
+        "frente": "Clorofila-a",
+        "action": "Acessar CETESB + explorar Sentinel-2 via GEE",
+        "estimated_weeks": "3–6"
+      },
+      {
+        "frente": "Queimadas",
+        "action": "Download INPE BDQueimadas por bbox da bacia",
+        "estimated_weeks": "1–2"
+      }
+    ],
+    "medium_priority": [
+      {
+        "frente": "Índices ópticos",
+        "action": "Buscar literatura + dados CETESB disponíveis"
+      },
+      {
+        "frente": "SR qualidade da água",
+        "action": "Script GEE para Sentinel-2 + Landsat Collection 2"
+      },
+      {
+        "frente": "Resíduos sólidos",
+        "action": "SNIS RSU módulo municipal"
+      }
+    ],
+    "low_priority": [
+      {
+        "frente": "MDE",
+        "action": "SRTM disponível — priorizar se análise morfológica for necessária"
+      },
+      {
+        "frente": "Batimetria",
+        "action": "Dado restrito — negociar com ANA / SABESP"
+      }
+    ]
+  },
+  "execution_order": {
+    "phases": [
+      {
+        "phase": 1,
+        "name": "Base Geográfica",
+        "description": "Pré-requisito de tudo — deve ser executado primeiro",
+        "frentes": ["EDA/03_limites_bacia"],
+        "outputs": ["spatial_ref/ completo"]
+      },
+      {
+        "phase": 2,
+        "name": "Pressões Antrópicas",
+        "description": "Pode ser executado em paralelo após Fase 1",
+        "frentes": ["EDA/01_snis_esgoto", "EDA/02_uso_do_solo", "EDA/04_agropecuaria", "EDA/05_desmatamento"]
+      },
+      {
+        "phase": 3,
+        "name": "Climatologia e Hidrologia",
+        "description": "Pode ser executado em paralelo após Fase 1",
+        "frentes": ["EDA/06_precipitacao", "EDA/07_vazao", "EDA/08_temperatura"]
+      },
+      {
+        "phase": 4,
+        "name": "Operação do Sistema",
+        "description": "Pode ser executado após Fase 1",
+        "frentes": ["EDA/09_operacao_reservatorio"]
+      },
+      {
+        "phase": 5,
+        "name": "Variável Derivada",
+        "description": "Depende de Fases 3 e 4 completas",
+        "frentes": ["EDA/10_tempo_residencia"],
+        "prerequisites": ["EDA/07 completo", "EDA/09 completo"]
+      },
+      {
+        "phase": 6,
+        "name": "Integração Final",
+        "description": "Depende de todas as fases anteriores completas",
+        "frentes": ["EDA/99_integracao"],
+        "prerequisites": ["Fases 1–5 completas"]
+      }
+    ]
+  },
+  "architecture_validation": {
+    "checklist": [
+      {"item": "Nenhum notebook em EDA/ lê data/raw/ diretamente", "enforced_by": "Regra documentada em EDA/README.md"},
+      {"item": "Todos os arquivos em staging/ têm schema documentado no README da subpasta", "enforced_by": "READMEs de staging/"},
+      {"item": "Todas as camadas em spatial_ref/ em EPSG:4674", "enforced_by": "READMEs de spatial_ref/ + staging/limites_bacia/"},
+      {"item": "cod_ibge sempre com 7 dígitos", "enforced_by": "normalize_schema.py"},
+      {"item": "Datas no formato YYYY-MM-DD", "enforced_by": "normalize_schema.py"},
+      {"item": "ano_mes no formato YYYY-MM", "enforced_by": "normalize_schema.py"},
+      {"item": "id_reservatorio usa lista fechada de 7 valores", "enforced_by": "staging/operacao_reservatorio/ README + scripts"},
+      {"item": "EDA/10 só iniciada após EDA/07 e EDA/09 completos", "enforced_by": "Documentado em EDA/10_tempo_residencia/README.md"},
+      {"item": "EDA/99 só iniciada após frentes 01–09 completas", "enforced_by": "Documentado em EDA/99_integracao/README.md"},
+      {"item": "Frentes NEEDS_COLLECTION_BEFORE_EDA sem notebooks criados ainda", "enforced_by": "Ausência de subpastas para essas frentes"}
+    ],
+    "reservatorio_ids_closed_list": ["BARRA_BONITA", "BARIRI", "IBITINGA", "PROMISSAO", "NOVA_AVANHANDAVA", "TRES_IRMAOS", "JUPIA"]
+  }
+}

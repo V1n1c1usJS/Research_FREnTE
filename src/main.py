@@ -4,14 +4,30 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-import yaml
-
-from src.pipelines.perplexity_intelligence_pipeline import PerplexityIntelligencePipeline
 from src.utils.io import write_catalog_csv
 from src.utils.logging import configure_logging
+
+try:
+    from src.connectors.operational_dataset_collector import AVAILABLE_OPERATIONAL_TARGETS, DEFAULT_TIETE_BBOX
+    from src.pipelines.operational_dataset_collection_pipeline import OperationalDatasetCollectionPipeline
+except ImportError:  # pragma: no cover - depende do ambiente local
+    AVAILABLE_OPERATIONAL_TARGETS = (
+        "infoaguas_qualidade_agua",
+        "bdqueimadas_focos_calor",
+        "snis_agua_esgoto",
+        "cetesb_inventario_residuos",
+    )
+    DEFAULT_TIETE_BBOX = (-52.2, -24.0, -45.8, -20.5)
+    OperationalDatasetCollectionPipeline = None
+
+try:
+    from src.pipelines.perplexity_intelligence_pipeline import PerplexityIntelligencePipeline
+except ImportError:  # pragma: no cover - depende do ambiente local
+    PerplexityIntelligencePipeline = None
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONTEXT_FILE = REPO_ROOT / "config" / "context_100k.yaml"
@@ -37,6 +53,12 @@ def build_parser() -> argparse.ArgumentParser:
     export_parser = subparsers.add_parser("export", help="Exporta catalogo JSON para CSV")
     export_parser.add_argument("--catalog", required=True, help="Caminho para o catalog.json")
     export_parser.add_argument("--output", required=True, help="Caminho de saida CSV")
+
+    collect_parser = subparsers.add_parser(
+        "collect-operational",
+        help="Coleta dados operacionais brutos para acoplamento na EDA de reservatorios",
+    )
+    _add_collect_operational_args(collect_parser)
 
     return parser
 
@@ -100,6 +122,38 @@ def _add_perplexity_args(parser: argparse.ArgumentParser) -> None:
     )
 
 
+def _add_collect_operational_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--target",
+        action="append",
+        choices=list(AVAILABLE_OPERATIONAL_TARGETS),
+        help="Target operacional a coletar. Se omitido, coleta todos os targets configurados.",
+    )
+    parser.add_argument(
+        "--year-start",
+        type=int,
+        default=2000,
+        help="Ano inicial da janela de coleta.",
+    )
+    parser.add_argument(
+        "--year-end",
+        type=int,
+        default=datetime.now().year,
+        help="Ano final da janela de coleta.",
+    )
+    parser.add_argument(
+        "--bbox",
+        default=",".join(str(value) for value in DEFAULT_TIETE_BBOX),
+        help="Bounding box no formato min_lon,min_lat,max_lon,max_lat para filtros geograficos.",
+    )
+    parser.add_argument(
+        "--bdqueimadas-series",
+        choices=["satref", "todosats"],
+        default="todosats",
+        help="Serie do BDQueimadas usada na exportacao WFS.",
+    )
+
+
 def run(argv: list[str] | None = None) -> int:
     configure_logging()
     _load_dotenv_if_available()
@@ -108,11 +162,21 @@ def run(argv: list[str] | None = None) -> int:
 
     if args.command == "export":
         return _run_export(catalog_path=Path(args.catalog), output_path=Path(args.output))
+    if args.command == "collect-operational":
+        return _run_collect_operational(args)
     return _run_perplexity_intel(args)
 
 
 def _run_perplexity_intel(args: argparse.Namespace) -> int:
     import os
+
+    pipeline_cls = PerplexityIntelligencePipeline
+    if pipeline_cls is None:
+        try:
+            from src.pipelines.perplexity_intelligence_pipeline import PerplexityIntelligencePipeline as pipeline_cls
+        except ImportError as exc:
+            print(f"Erro: dependencias do fluxo Perplexity indisponiveis: {exc}")
+            return 1
 
     perplexity_api_key = os.getenv("PERPLEXITY_API_KEY", "").strip()
     firecrawl_api_key = os.getenv("FIRECRAWL_API_KEY", "").strip()
@@ -125,7 +189,7 @@ def _run_perplexity_intel(args: argparse.Namespace) -> int:
     if isinstance(research_tracks_payload, list) and args.track_limit:
         research_tracks_payload = research_tracks_payload[: max(args.track_limit, 0)]
 
-    result = PerplexityIntelligencePipeline(
+    result = pipeline_cls(
         base_query=args.query,
         limit=args.limit,
         max_searches=args.max_searches,
@@ -176,12 +240,54 @@ def _run_export(catalog_path: Path, output_path: Path) -> int:
     return 0
 
 
+def _run_collect_operational(args: argparse.Namespace) -> int:
+    pipeline_cls = OperationalDatasetCollectionPipeline
+    if pipeline_cls is None:
+        try:
+            from src.pipelines.operational_dataset_collection_pipeline import (
+                OperationalDatasetCollectionPipeline as pipeline_cls,
+            )
+        except ImportError as exc:
+            print(f"Erro: dependencias da coleta operacional indisponiveis: {exc}")
+            return 1
+
+    if args.year_end < args.year_start:
+        print("Erro: --year-end deve ser maior ou igual a --year-start.")
+        return 1
+
+    pipeline = pipeline_cls(
+        target_ids=args.target or list(AVAILABLE_OPERATIONAL_TARGETS),
+        year_start=args.year_start,
+        year_end=args.year_end,
+        bbox=_parse_bbox(args.bbox),
+        bdqueimadas_series=args.bdqueimadas_series,
+    )
+    result = pipeline.execute()
+
+    print(f"Run ID: {result['run_id']}")
+    print(f"Run dir: {result['run_dir']}")
+    print(f"Targets: {result['target_count']}")
+    print(f"Collected: {result['collected_count']}")
+    print(f"Partial: {result['partial_count']}")
+    print(f"Blocked: {result['blocked_count']}")
+    print(f"Errors: {result['error_count']}")
+    print(f"Manifest: {result['manifest_path']}")
+    print(f"Processing: {result['processing_path']}")
+    print(f"Report: {result['report_path']}")
+    print(f"Report CSV: {result['report_csv_path']}")
+    return 0
+
+
 def _load_structured_file(path_str: str) -> Any:
     path = Path(path_str)
     raw = path.read_text(encoding="utf-8")
     suffix = path.suffix.lower()
     if suffix == ".json":
         return json.loads(raw)
+    try:
+        import yaml
+    except ImportError as exc:  # pragma: no cover - depende do ambiente local
+        raise RuntimeError("PyYAML nao esta disponivel para ler arquivos YAML.") from exc
     return yaml.safe_load(raw)
 
 
@@ -191,6 +297,13 @@ def _resolve_structured_payload(explicit_path: str | None, default_path: Path) -
     if default_path.exists():
         return _load_structured_file(str(default_path))
     return None
+
+
+def _parse_bbox(raw_value: str) -> tuple[float, float, float, float]:
+    parts = [item.strip() for item in raw_value.split(",") if item.strip()]
+    if len(parts) != 4:
+        raise ValueError("BBox deve ter quatro valores separados por virgula.")
+    return tuple(float(item) for item in parts)  # type: ignore[return-value]
 
 
 def _load_dotenv_if_available() -> None:

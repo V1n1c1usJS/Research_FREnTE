@@ -2,11 +2,14 @@
 
 from src.schemas.records import (
     CollectionGuide,
+    CollectionArtifactRecord,
     DatasetCandidate,
     DatasetRecord,
     EnrichedDataset,
     FilteredSource,
     IntelligenceSourceRecord,
+    OperationalCollectionRunRecord,
+    OperationalCollectionTargetRecord,
     PerplexityLinkRecord,
     PerplexityResearchContextRecord,
     PerplexityResearchTrackRecord,
@@ -20,11 +23,14 @@ from src.schemas.settings import PipelineSettings
 
 __all__ = [
     "CollectionGuide",
+    "CollectionArtifactRecord",
     "DatasetCandidate",
     "DatasetRecord",
     "EnrichedDataset",
     "FilteredSource",
     "IntelligenceSourceRecord",
+    "OperationalCollectionRunRecord",
+    "OperationalCollectionTargetRecord",
     "PerplexityLinkRecord",
     "PerplexityResearchContextRecord",
     "PerplexityResearchTrackRecord",

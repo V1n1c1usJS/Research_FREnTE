@@ -86,6 +86,56 @@ class FakePerplexityPipeline:
         }
 
 
+class FakeOperationalCollectionPipeline:
+    last_instance = None
+
+    def __init__(
+        self,
+        *,
+        target_ids,
+        year_start: int,
+        year_end: int,
+        bbox,
+        bdqueimadas_series: str,
+        collector=None,
+    ) -> None:
+        FakeOperationalCollectionPipeline.last_instance = self
+        self.target_ids = list(target_ids)
+        self.year_start = year_start
+        self.year_end = year_end
+        self.bbox = bbox
+        self.bdqueimadas_series = bdqueimadas_series
+        self.collector = collector
+
+    def execute(self) -> dict[str, str | int]:
+        run_dir = Path("data/runs/operational-collect-test")
+        for subdir in ("config", "collection", "processing", "reports"):
+            (run_dir / subdir).mkdir(parents=True, exist_ok=True)
+
+        manifest_path = run_dir / "manifest.json"
+        manifest_path.write_text("{}", encoding="utf-8")
+        processing_path = run_dir / "processing" / "01-collection-targets.json"
+        processing_path.write_text("[]", encoding="utf-8")
+        report_path = run_dir / "reports" / "operational-collect-test.md"
+        report_path.write_text("# report", encoding="utf-8")
+        report_csv_path = run_dir / "reports" / "collection_targets.csv"
+        report_csv_path.write_text("target_id,collection_status\n", encoding="utf-8")
+
+        return {
+            "run_id": "operational-collect-test",
+            "run_dir": str(run_dir),
+            "manifest_path": str(manifest_path),
+            "processing_path": str(processing_path),
+            "report_path": str(report_path),
+            "report_csv_path": str(report_csv_path),
+            "target_count": 1,
+            "collected_count": 1,
+            "partial_count": 0,
+            "blocked_count": 0,
+            "error_count": 0,
+        }
+
+
 def test_cli_run_executes_perplexity_flow(monkeypatch) -> None:
     monkeypatch.setattr(main_module, "PerplexityIntelligencePipeline", FakePerplexityPipeline)
     monkeypatch.setenv("PERPLEXITY_API_KEY", "test-key")
@@ -232,3 +282,31 @@ def test_cli_loads_context_and_tracks_files(tmp_path: Path, monkeypatch) -> None
     assert FakePerplexityPipeline.last_instance is not None
     assert FakePerplexityPipeline.last_instance.master_context_payload["context_id"] == "ctx-custom"
     assert FakePerplexityPipeline.last_instance.research_tracks_payload[0]["research_track"] == "custom_track"
+
+
+def test_cli_collect_operational_executes(monkeypatch) -> None:
+    monkeypatch.setattr(main_module, "OperationalDatasetCollectionPipeline", FakeOperationalCollectionPipeline)
+
+    exit_code = run(
+        [
+            "collect-operational",
+            "--target",
+            "bdqueimadas_focos_calor",
+            "--year-start",
+            "2023",
+            "--year-end",
+            "2024",
+            "--bbox",
+            "-52.2,-24.0,-45.8,-20.5",
+            "--bdqueimadas-series",
+            "satref",
+        ]
+    )
+
+    assert exit_code == 0
+    assert FakeOperationalCollectionPipeline.last_instance is not None
+    assert FakeOperationalCollectionPipeline.last_instance.target_ids == ["bdqueimadas_focos_calor"]
+    assert FakeOperationalCollectionPipeline.last_instance.year_start == 2023
+    assert FakeOperationalCollectionPipeline.last_instance.year_end == 2024
+    assert FakeOperationalCollectionPipeline.last_instance.bbox == (-52.2, -24.0, -45.8, -20.5)
+    assert FakeOperationalCollectionPipeline.last_instance.bdqueimadas_series == "satref"

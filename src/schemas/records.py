@@ -413,3 +413,57 @@ class RankedDataset(EnrichedDataset):
         "unknown",
     ] = "unknown"
     access_notes: str = ""
+
+
+class CollectionArtifactRecord(BaseModel):
+    """Arquivo ou resposta persistida durante uma coleta operacional."""
+
+    artifact_id: str
+    target_id: str
+    source_name: str
+    status: str = "collected"
+    relative_path: str
+    download_url: str = ""
+    media_type: str = ""
+    file_format: str = ""
+    content_length: int | None = None
+    checksum_sha256: str = ""
+    notes: list[str] = Field(default_factory=list)
+    collected_at: datetime = Field(default_factory=_utcnow)
+
+
+class OperationalCollectionTargetRecord(BaseModel):
+    """Resumo auditavel da coleta de uma fonte operacional."""
+
+    target_id: str
+    source_name: str
+    dataset_name: str
+    collection_status: Literal["collected", "partial", "blocked", "error", "not_attempted"] = "not_attempted"
+    access_type: str = "unknown"
+    collection_method: str = "http_download"
+    requires_auth: bool = False
+    year_start: int | None = None
+    year_end: int | None = None
+    bbox: str | None = None
+    provenance_urls: list[str] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+    join_keys: list[str] = Field(default_factory=list)
+    staging_outputs: list[str] = Field(default_factory=list)
+    analytic_outputs: list[str] = Field(default_factory=list)
+    raw_artifacts: list[CollectionArtifactRecord] = Field(default_factory=list)
+
+
+class OperationalCollectionRunRecord(BaseModel):
+    """Manifesto consolidado de uma rodada de coleta operacional."""
+
+    run_id: str
+    pipeline_name: str = "operational_dataset_collection"
+    generated_at: datetime = Field(default_factory=_utcnow)
+    target_ids: list[str] = Field(default_factory=list)
+    target_count: int = 0
+    collected_count: int = 0
+    partial_count: int = 0
+    blocked_count: int = 0
+    error_count: int = 0
+    targets: list[OperationalCollectionTargetRecord] = Field(default_factory=list)

@@ -23,6 +23,11 @@ def write_markdown(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+def write_bytes(path: Path, payload: bytes) -> None:
+    ensure_dir(path.parent)
+    path.write_bytes(payload)
+
+
 def write_catalog_csv(
     path: Path,
     rows: list[dict[str, Any]],
