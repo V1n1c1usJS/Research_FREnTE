@@ -61,6 +61,42 @@ python -m src.main run --query "monitoramento ambiental costeiro"
 python -m src.main export --catalog data/runs/.../reports/datasets.csv --output saida.csv
 ```
 
+## Saidas HTML
+
+O projeto gera tres tipos de HTML:
+
+### 1. Dashboard do pipeline (`src/generators/html_report_generator.py`)
+
+Gerado automaticamente ao final de cada execucao do pipeline. Fica em `data/runs/{run-id}/reports/`.
+Contem o catalogo de fontes e datasets rankeados, com logos embedados em base64 (sem dependencia de servidor).
+
+### 2. Apresentacao EDA (`eda/operacao_reservatorio/generate_presentation.py`)
+
+Dashboard visual das 8 figuras da analise exploratoria dos reservatorios do Tiete.
+Usa as figuras de `eda/operacao_reservatorio/figures/` e os logos de `src/assets/`.
+
+```bash
+# Gerar figuras primeiro (se necessario)
+python eda/operacao_reservatorio/generate_figures.py
+python eda/operacao_reservatorio/process_pressoes_ambientais.py
+
+# Gerar a apresentacao
+python eda/operacao_reservatorio/generate_presentation.py
+# Saida: eda/operacao_reservatorio/apresentacao_reservatorios.html
+```
+
+### 3. GitHub Pages (`docs/index.html`)
+
+Apresentacao publica do projeto. Self-contained (sem dependencias externas em runtime).
+Acessivel em: https://v1n1c1usjs.github.io/Research_FREnTE
+
+Para visualizar localmente:
+
+```bash
+python -m http.server 8000
+# Acesse: http://localhost:8000/docs/index.html
+```
+
 ## Variaveis de ambiente
 
 ```env
