@@ -48,6 +48,7 @@ output/
 data/interim/
 data/processed/
 reports/output/
+*.parquet
 
 # Pipeline runtime artifacts
 data/runs/
