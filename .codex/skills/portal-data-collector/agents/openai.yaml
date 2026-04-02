@@ -1,0 +1,7 @@
+interface:
+  display_name: "Portal Data Collector"
+  short_description: "Inspeciona portais com Playwright, descobre links reais de download e organiza a coleta em data/runs."
+  default_prompt: "Inspecione este portal, descubra o endpoint real de coleta e organize os artefatos em data/runs com manifesto e proveniência."
+
+policy:
+  allow_implicit_invocation: true

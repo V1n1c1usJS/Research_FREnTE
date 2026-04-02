@@ -1,0 +1,7 @@
+interface:
+  display_name: "Rodada API Handoff"
+  short_description: "Roda a busca geral por API sem Firecrawl, valida o run e prepara o pacote de handoff para o Harvester."
+  default_prompt: "Execute ou valide a rodada geral por API sem Firecrawl e gere o handoff pronto para o Harvester a partir dos datasets ranqueados do run."
+
+policy:
+  allow_implicit_invocation: true

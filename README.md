@@ -1,6 +1,11 @@
 # Research_FREnTE
 
-Pipeline multi-agente para descoberta de fontes ambientais via **Perplexity Search API**, enriquecimento por LLM e ranking de acesso. Alinhado ao Projeto 100K — corredor Rio Tiete / Jupia.
+Pipeline multi-agente para descoberta de fontes ambientais via **Perplexity Search API**, enriquecimento por LLM e ranking de acesso. Desenvolvido no âmbito do **Projeto 100K** — pesquisa comparativa internacional sobre dinâmica de matéria orgânica e sedimentos em reservatórios.
+
+O Projeto 100K possui dois eixos geográficos:
+
+- **Brasil — Bacia do Rio Tietê:** impactos antrópicos na dinâmica do material orgânico nos reservatórios em cascata (São Paulo → Três Lagoas / Jupiá).
+- **EUA — Clarks Hill Lake:** caracterização hidrológica e sedimentológica do Reservatório J. Strom Thurmond (Rio Savannah, GA–SC), com foco no acoplamento ferro–carbono orgânico em sedimentos de fundo — apresentado na GSA 2026 Triple Joint Section Meeting.
 
 ## Estrutura
 
@@ -48,14 +53,19 @@ Research_FREnTE/
 ## Uso rapido
 
 ```bash
-# Execucao com preset 100K
+# Projeto 100K — Rio Tietê (Brasil)
 python -m src.main run \
-  --query "projeto 100k rio tiete jupia" \
+  --query "impacto antropico materia organica reservatorios cascata tiete sao paulo tres lagoas" \
   --context-file config/context_100k.yaml \
-  --tracks-file config/tracks_100k.yaml
+  --tracks-file config/tracks_100k.yaml \
+  --max-searches 12 --limit 40 --llm-mode auto
 
-# Execucao minima (usa presets se existirem)
-python -m src.main run --query "monitoramento ambiental costeiro"
+# Clarks Hill Lake (EUA)
+python -m src.main run \
+  --query "Clarks Hill Lake reservoir characterization hydrology water quality" \
+  --context-file config/context_clarkshill.yaml \
+  --tracks-file config/tracks_clarkshill.yaml \
+  --max-searches 9 --limit 30 --llm-mode auto --skip-collection-guides
 
 # Exportar catalogo
 python -m src.main export --catalog data/runs/.../reports/datasets.csv --output saida.csv
@@ -70,31 +80,37 @@ O projeto gera tres tipos de HTML:
 Gerado automaticamente ao final de cada execucao do pipeline. Fica em `data/runs/{run-id}/reports/`.
 Contem o catalogo de fontes e datasets rankeados, com logos embedados em base64 (sem dependencia de servidor).
 
-### 2. Apresentacao EDA (`eda/operacao_reservatorio/generate_presentation.py`)
+### 2. Apresentacoes EDA
+
+#### Rio Tietê — Operacao de Reservatorios (`eda/operacao_reservatorio/`)
 
 Dashboard visual das 8 figuras da analise exploratoria dos reservatorios do Tiete.
-Usa as figuras de `eda/operacao_reservatorio/figures/` e os logos de `src/assets/`.
 
 ```bash
-# Gerar figuras primeiro (se necessario)
 python eda/operacao_reservatorio/generate_figures.py
 python eda/operacao_reservatorio/process_pressoes_ambientais.py
-
-# Gerar a apresentacao
 python eda/operacao_reservatorio/generate_presentation.py
 # Saida: eda/operacao_reservatorio/apresentacao_reservatorios.html
 ```
 
-### 3. GitHub Pages (`docs/index.html`)
+#### Clarks Hill Lake (`eda/clarks_hill/`) — em desenvolvimento
 
-Apresentacao publica do projeto. Self-contained (sem dependencias externas em runtime).
-Acessivel em: https://v1n1c1usjs.github.io/Research_FREnTE
+Analise exploratoria do reservatorio J. Strom Thurmond (Rio Savannah, GA-SC, EUA).
+Foco: caracterizacao hidrologica para contextualizacao da analise de sedimentos de fundo.
 
-Para visualizar localmente:
+### 3. GitHub Pages
+
+Apresentacoes publicas. Self-contained (sem dependencias externas em runtime).
+
+| Estudo | URL | Status |
+|--------|-----|--------|
+| Rio Tietê (100K) | https://v1n1c1usjs.github.io/Research_FREnTE/ | Publicado |
+| Clarks Hill Lake | https://v1n1c1usjs.github.io/Research_FREnTE/clarks-hill/ | Em desenvolvimento |
 
 ```bash
 python -m http.server 8000
-# Acesse: http://localhost:8000/docs/index.html
+# Tietê:       http://localhost:8000/docs/index.html
+# Clarks Hill: http://localhost:8000/docs/clarks-hill/index.html
 ```
 
 ## Variaveis de ambiente
@@ -102,7 +118,7 @@ python -m http.server 8000
 ```env
 PERPLEXITY_API_KEY=       # obrigatoria
 OPENAI_API_KEY=           # opcional (enriquecimento LLM)
-FIRECRAWL_API_KEY=        # opcional (collection guides)
+FIRECRAWL_API_KEY=        # opcional (collection guides — usado apenas no contexto Tietê/100K)
 ```
 
 ## Dependencias

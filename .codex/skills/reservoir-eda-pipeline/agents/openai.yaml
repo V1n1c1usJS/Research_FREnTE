@@ -1,0 +1,7 @@
+interface:
+  display_name: "EDA Reservatorio"
+  short_description: "Cria workspaces EDA no padrao do Tiete com scripts Python, figuras e contexto estruturado para relatorio."
+  default_prompt: "Use o padrao de EDA do Tiete para montar ou atualizar um workspace EDA com scripts Python reproduziveis, figuras prontas para relatorio e contexto estruturado a partir dos dados recebidos."
+
+policy:
+  allow_implicit_invocation: true

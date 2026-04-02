@@ -1,0 +1,87 @@
+﻿{
+  "report_title": "Clarks Hill Lake Contextual EDA",
+  "report_subtitle": "Preparatory structure only; populate after Harvester handoff",
+  "context_summary": "This template will be filled with real narrative context after the contextual datasets are collected and validated.",
+  "metrics": [],
+  "sections": [],
+  "figures": [
+    {
+      "id": "fig1",
+      "title": "Reservoir operations: pool elevation and storage",
+      "tag": "Operations",
+      "tag_color": "blue",
+      "icon": "water",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": ""
+    },
+    {
+      "id": "fig2",
+      "title": "Inflow and outflow hydrograph",
+      "tag": "Hydrology",
+      "tag_color": "green",
+      "icon": "waves",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": ""
+    },
+    {
+      "id": "fig3",
+      "title": "Estimated residence time",
+      "tag": "Residence Time",
+      "tag_color": "orange",
+      "icon": "hourglass_empty",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": ""
+    },
+    {
+      "id": "fig4",
+      "title": "Water quality seasonality and stratification proxies",
+      "tag": "Water Quality",
+      "tag_color": "purple",
+      "icon": "science",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": ""
+    },
+    {
+      "id": "fig5",
+      "title": "Watershed hydroclimate context",
+      "tag": "Climate",
+      "tag_color": "red",
+      "icon": "cloud",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": ""
+    },
+    {
+      "id": "fig6",
+      "title": "Watershed land cover summary",
+      "tag": "Land Cover",
+      "tag_color": "blue",
+      "icon": "terrain",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": ""
+    },
+    {
+      "id": "fig7",
+      "title": "Interpretation bridge to depositional zones",
+      "tag": "Interpretation",
+      "tag_color": "orange",
+      "icon": "hub",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": ""
+    }
+  ],
+  "output_path": "EDA/clarks_hill/apresentacao_clarks_hill.html"
+}

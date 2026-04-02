@@ -1,0 +1,26 @@
+[features]
+multi_agent = true
+
+[agents]
+max_threads = 6
+max_depth = 1
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
+
+[[skills.config]]
+path = "./skills/portal-data-collector"
+enabled = true
+
+[[skills.config]]
+path = "./skills/report-html-standard"
+enabled = true
+
+[[skills.config]]
+path = "./skills/reservoir-eda-pipeline"
+enabled = true
+
+[[skills.config]]
+path = "./skills/api-search-handoff"
+enabled = true

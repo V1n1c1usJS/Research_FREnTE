@@ -1,0 +1,121 @@
+# ============================================================
+# Clarks Hill Lake — Research context for Research_FREnTE
+# Study: Comprehensive Characterization of Lake Floor Sediments
+# GSA 2026 Triple Joint Section Meeting
+# ============================================================
+
+context_id: ctx-clarkshill-reservoir-v1
+
+article_goal: >
+  Characterize the hydrodynamic and operational conditions of Clarks Hill Lake
+  (J. Strom Thurmond Reservoir) on the Savannah River (Georgia-South Carolina, USA)
+  to provide the physical context for interpreting spatial patterns of lake floor
+  sediment composition — specifically how reservoir hydrodynamics control
+  fine-sediment deposition zones, iron enrichment, and organic carbon stabilization.
+
+geographic_scope:
+  # --- Reservoir location ---
+  - "Clarks Hill Lake (J. Strom Thurmond Reservoir), Savannah River, GA-SC border"
+  - "Dam location: Clarks Hill, South Carolina (33.66°N, 82.19°W)"
+  - "Surface area at full pool: ~287 km² (71,000 acres)"
+  - "Full pool elevation: 330 ft MSL (100.6 m)"
+  - "Maximum depth: ~43 m; Mean depth: ~6 m"
+
+  # --- Watershed ---
+  - "Savannah River basin upstream of Clarks Hill Dam"
+  - "Drainage area: ~14,000 km² (5,400 sq mi) above the dam"
+  - "States: Georgia (majority), South Carolina, western North Carolina (headwaters)"
+  - "Major tributaries: Little River (GA), Stevens Creek (SC), Rocky River (GA)"
+
+  # --- Key upstream gauge locations ---
+  - "USGS 02193900 — monitoring location on Savannah River basin (preferred source)"
+  - "NWS SERFC station CHDS1 — Clarks Hill Dam inflow forecasts (preferred source)"
+  - "Nearest major city: Augusta, GA (downstream of dam)"
+
+  # --- Sampling area (sediment study) ---
+  - "23 surface sediment sampling sites distributed across the lake"
+  - "Sites cover transition from fluvial to lacustrine depositional environments"
+
+thematic_axes:
+  # Level 1 — Regional physical context
+  - reservoir physical characteristics (area, volume, depth, morphometry)
+  - Savannah River basin watershed delineation and land cover (NLCD)
+  - regional climate and precipitation patterns (Georgia-South Carolina Piedmont)
+  - watershed geology and soils (contributing to sediment and iron supply)
+
+  # Level 2 — Reservoir operations and hydrology
+  - USACE operational data (pool elevation, storage, inflow, outflow, releases)
+  - streamflow and inflow from Savannah River and tributaries
+  - seasonal hydrograph patterns and flood events
+  - water residence time estimates across the reservoir
+
+  # Level 3 — Water quality and physicochemical conditions
+  - historical water quality at Clarks Hill (DO, pH, temperature, turbidity, nutrients)
+  - trophic status and algal bloom history
+  - thermocline and stratification patterns
+  - suspended sediment transport and turbidity gradients
+
+  # Level 4 — Hydrodynamic and sediment context (literature)
+  - spatial variation in flow velocity across reservoir zones
+  - depositional energy gradients from riverine to lacustrine zones
+  - academic studies on Clarks Hill / Thurmond Lake sediment dynamics
+  - comparable southeastern US reservoir studies on iron-organic matter coupling
+
+preferred_sources:
+  # Priority 1 — Provided data endpoints (start searches here)
+  - "NWS SERFC Clarks Hill inflows (https://www.weather.gov/serfc/inflows_chds1) — real-time and historical inflow forecasts for CHDS1"
+  - "USGS monitoring location 02193900 (https://waterdata.usgs.gov/monitoring-location/USGS-02193900/) — continuous streamflow and water quality"
+
+  # Priority 2 — USACE operational data
+  - "USACE Savannah District Water Management (https://www.sas.usace.army.mil/) — official dam operations"
+  - "USACE AquaLink / Water Control Data System (https://water.usace.army.mil/) — pool elevation, storage, inflow, outflow"
+  - "USACE National Inventory of Dams — Clarks Hill / J. Strom Thurmond Dam specs"
+
+  # Priority 3 — USGS hydrology and water quality
+  - "USGS NWIS (https://waterdata.usgs.gov/nwis) — streamflow, water quality, sediment data"
+  - "USGS Water Quality Portal (https://www.waterqualitydata.us/) — historical water chemistry"
+  - "USGS StreamStats — watershed delineation and basin characteristics"
+
+  # Priority 4 — EPA and environmental monitoring
+  - "EPA ECHO (https://echo.epa.gov/) — discharge permits and water quality violations"
+  - "EPA ATTAINS (https://www.epa.gov/waterdata/attains) — waterbody assessment and impairments"
+  - "EPA STORET / WQP — historical water quality sampling data"
+
+  # Priority 5 — Climate and land cover
+  - "NOAA Climate Data Online (https://www.ncdc.noaa.gov/cdo-web/) — precipitation, temperature"
+  - "NLCD (https://www.mrlc.gov/) — National Land Cover Database for watershed characterization"
+  - "USGS EarthExplorer (https://earthexplorer.usgs.gov) — DEM, Landsat imagery"
+
+  # Priority 6 — Academic literature
+  - "Google Scholar — Clarks Hill Lake, J. Strom Thurmond Reservoir, Savannah River hydrology"
+  - "USACE technical reports on Clarks Hill / Thurmond reservoir management"
+  - "Southeastern US reservoir limnology and sediment studies"
+
+expected_outputs:
+  - time series of pool elevation and storage volume (daily, multi-year)
+  - inflow and outflow discharge records (daily, from USACE and USGS)
+  - "water quality parameters: DO, pH, temperature, turbidity, nutrients (historical)"
+  - watershed land cover summary from NLCD (forested vs agricultural vs developed)
+  - reservoir morphometric parameters (area-volume-depth relationships)
+  - residence time estimates or data supporting its calculation
+  - references to algal bloom events and trophic status assessments
+  - academic studies on Clarks Hill sediment dynamics or comparable southeastern reservoirs
+
+exclusions:
+  - recreational use reports without hydrological or water quality data
+  - real estate or tourism content about the lake
+  - sources without downloadable or queryable datasets
+  - data from reservoirs outside the Savannah River system unless explicitly comparative
+  - sources without institutional authorship (USACE, USGS, EPA, NOAA, universities)
+
+notes:
+  - "USACE Savannah District operates Clarks Hill Dam for flood control, hydropower, navigation, recreation"
+  - "The reservoir is one of the largest east of the Mississippi — ~287 km² at full pool"
+  - "Pool elevation variability directly controls depositional energy and fine-sediment accumulation zones"
+  - "Residence time is critical: longer RT → lower energy → more fine sediment → more Fe and OC"
+  - "Algal bloom concern mentioned in the study (slide 2) — look for eutrophication records"
+  - "The NWS SERFC CHDS1 station provides inflow forecasts that reflect upstream watershed conditions"
+  - "USGS 02193900 is a preferred monitoring location — prioritize data from this gauge"
+  - "Land cover in the watershed is dominated by forest (Piedmont), with some agriculture and developed areas"
+  - "Sediment data from 23 field sites (lab results) are NOT part of this pipeline — handled separately"
+  - "This pipeline focuses exclusively on reservoir characterization to provide hydrodynamic context"

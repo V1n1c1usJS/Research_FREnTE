@@ -1,0 +1,2 @@
+﻿"monitoring_location_identifier","monitoring_location_name","monitoring_location_type","huc8","drainage_area_value","drainage_area_unit","latitude","longitude","state_code","county_code","provider_name","source_artifact"
+"USGS-02196560","SAVANNAH RIVER AUGUSTA INTAKE NR AUGUSTA, GA","Stream","03060106","7230.00","sq mi","33.50957986000000","-81.9998383000000","13","245","NWIS","station_USGS-02196560.csv"

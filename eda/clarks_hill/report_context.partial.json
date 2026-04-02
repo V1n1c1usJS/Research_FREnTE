@@ -1,0 +1,92 @@
+﻿{
+    "sections":  [
+                     {
+                         "status":  "ready",
+                         "title":  "Already Usable Now",
+                         "body":  "The report layer can already narrate basin-context readiness using the two collected PDFs, the confirmed USGS 02193900 endpoint metadata, the downloaded USGS iv/dv JSON artifacts, and WQP station metadata for USGS-02196560.",
+                         "id":  "available-now"
+                     },
+                     {
+                         "status":  "partial",
+                         "title":  "First Hydrology or Context Figure Dependency",
+                         "body":  "The first low-risk hydrology/context figure should use USGS site 02193900 daily and instantaneous reservoir-elevation and weather variables as the structured core, with the two basin PDFs as static watershed context. It must not claim inflow, outflow, or residence time yet.",
+                         "id":  "first-hydrology-pass"
+                     },
+                     {
+                         "status":  "placeholder",
+                         "title":  "Placeholder Sections Kept Open",
+                         "body":  "Operational inflow forecasts, broader surface-water systems context, and additional USACE basin documentation remain placeholders because the weather.gov and USACE/DES sources are still blocked in this collection cycle.",
+                         "id":  "blocked-placeholders"
+                     }
+                 ],
+    "report_subtitle":  "Partial context based on current collected artifacts",
+    "source_note":  {
+                        "text":  "Current partial report context is grounded in local collected artifacts only: two contextual PDFs, USGS 02193900 endpoint metadata plus iv/dv JSON downloads, and WQP station metadata for USGS-02196560. Blocked sources are explicitly left as placeholders.",
+                        "artifacts":  [
+                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/03-savannah-river-basin-landscape-analysis/savannah_river_basin_landscape_analysis.pdf",
+                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/04-savannah-river-basin-restoration-data-2008/savannah_rbrp_2018.pdf",
+                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/usgs-02193900-monitoring-location/endpoint_confirmed.json",
+                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/usgs-02193900-monitoring-location/iv_02193900.json",
+                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/usgs-02193900-monitoring-location/dv_02193900.json",
+                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/01-savannah-river-augusta-intake-data/station_USGS-02196560.csv"
+                                      ]
+                    },
+    "report_title":  "Clarks Hill Lake Contextual EDA",
+    "context_summary":  "This partial handoff covers source readiness, currently usable contextual assets, and the first hydrology/context figure dependencies. It does not claim complete operations, inflow, or full water-quality coverage.",
+    "output_path":  "EDA/clarks_hill/apresentacao_clarks_hill.html",
+    "metrics":  [
+                    {
+                        "label":  "Collected sources ready now",
+                        "note":  "2 PDFs, 2 structured/source metadata assets",
+                        "value":  "4"
+                    },
+                    {
+                        "label":  "Blocked sources",
+                        "note":  "weather.gov, des.sc.gov, sas.usace.army.mil",
+                        "value":  "3"
+                    },
+                    {
+                        "label":  "Partial sources",
+                        "note":  "WQP station metadata collected; result export still pending",
+                        "value":  "1"
+                    }
+                ],
+    "figures":  [
+                    {
+                        "summary":  "Current usable assets include two watershed-context PDFs, USGS 02193900 structured iv/dv JSON downloads, and WQP station metadata for USGS-02196560.",
+                        "id":  "fig0",
+                        "tag_color":  "blue",
+                        "status":  "partial",
+                        "icon":  "inventory_2",
+                        "image_path":  "",
+                        "tag":  "Data Availability",
+                        "interpretation":  "The report can already describe source readiness and site coverage honestly, but it should not present a full reservoir-operations narrative yet because inflow and broader USACE operational sources remain incomplete.",
+                        "title":  "Current Clarks Hill data readiness",
+                        "highlight":  "Structured USGS reservoir-level and weather observations are now available for the first analytical pass."
+                    },
+                    {
+                        "summary":  "A first hydrology/context figure can be built from USGS 02193900 daily and instantaneous records, supplemented by watershed context from the collected PDFs.",
+                        "id":  "fig1",
+                        "tag_color":  "green",
+                        "status":  "partial",
+                        "icon":  "water",
+                        "image_path":  "",
+                        "tag":  "Hydrology",
+                        "interpretation":  "This figure must stay scoped to reservoir elevation and local meteorological covariates at site 02193900 until inflow, outflow, and richer water-quality exports are collected.",
+                        "title":  "First hydrology-context figure prerequisites",
+                        "highlight":  "Safe first figure scope: reservoir elevation plus local weather context, not full hydrodynamics."
+                    },
+                    {
+                        "summary":  "Three high-value sources remain blocked in the current cycle: NWS inflows/forecasts, DES surface-water context, and the USACE Thurmond basin document.",
+                        "id":  "fig2",
+                        "tag_color":  "orange",
+                        "status":  "placeholder",
+                        "icon":  "pending",
+                        "image_path":  "",
+                        "tag":  "Pending Sources",
+                        "interpretation":  "These sections should remain placeholders in the HTML layer so the report can signal what is still missing without fabricating continuity in the operations story.",
+                        "title":  "Blocked source placeholders",
+                        "highlight":  "Inflow and broader operational context remain blocked on collection."
+                    }
+                ]
+}

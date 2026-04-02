@@ -1,0 +1,7 @@
+interface:
+  display_name: "Relatorio HTML"
+  short_description: "Gera relatorios HTML no padrao visual do projeto, trocando apenas conteudo e imagens."
+  default_prompt: "Use o padrao visual do projeto para montar um relatorio HTML e substitua somente imagens, metricas e narrativa a partir do contexto recebido."
+
+policy:
+  allow_implicit_invocation: true

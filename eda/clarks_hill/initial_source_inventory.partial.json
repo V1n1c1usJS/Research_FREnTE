@@ -1,0 +1,572 @@
+{
+  "study": "Clarks Hill Lake contextual EDA",
+  "search_run_id": "perplexity-intel-8ba66531",
+  "collection_run_id": "operational-collect-clarkshill-20260401-225924",
+  "search_summary": {
+    "ranked_dataset_count": 30,
+    "search_plan_count": 9,
+    "session_count": 9
+  },
+  "collection_summary": {
+    "target_count": 7,
+    "collected_count": 3,
+    "blocked_count": 3,
+    "partial_count": 1
+  },
+  "usable_now": [
+    {
+      "target_id": "03-savannah-river-basin-landscape-analysis",
+      "dataset_name": "Savannah River Basin Landscape Analysis",
+      "source_name": "19january2021snapshot.epa.gov",
+      "collection_status": "collected",
+      "collection_method": "direct_download",
+      "access_type": "pdf_extraction",
+      "local_artifacts": [
+        "collection/03-savannah-river-basin-landscape-analysis/savannah_river_basin_landscape_analysis.pdf"
+      ],
+      "provenance_urls": [
+        "https://19january2021snapshot.epa.gov/sites/static/files/2015-06/documents/app-f_text.pdf"
+      ],
+      "blockers": [],
+      "notes": [
+        "Direct PDF download succeeded."
+      ],
+      "join_keys": [],
+      "artifact_format": "pdf"
+    },
+    {
+      "target_id": "04-savannah-river-basin-restoration-data-2008",
+      "dataset_name": "Savannah River Basin Restoration Data 2008",
+      "source_name": "deq.nc.gov",
+      "collection_status": "collected",
+      "collection_method": "direct_download",
+      "access_type": "web_portal",
+      "local_artifacts": [
+        "collection/04-savannah-river-basin-restoration-data-2008/savannah_rbrp_2018.pdf"
+      ],
+      "provenance_urls": [
+        "https://www.deq.nc.gov/mitigation-services/publicfolder/learn-about/core-processes/watershed-planning/savannah-river-basin/savannah-rbrp-2018/download"
+      ],
+      "blockers": [],
+      "notes": [
+        "Direct download endpoint returned a PDF successfully."
+      ],
+      "join_keys": [],
+      "artifact_format": "pdf"
+    },
+    {
+      "target_id": "usgs-02193900-monitoring-location",
+      "dataset_name": "USGS 02193900 THURMOND LAKE NEAR PLUM BRANCH, SC",
+      "source_name": "waterdata.usgs.gov",
+      "collection_status": "collected",
+      "collection_method": "official_docs_discovery",
+      "access_type": "api_access",
+      "local_artifacts": [
+        "collection/usgs-02193900-monitoring-location/endpoint_confirmed.json",
+        "collection/usgs-02193900-monitoring-location/iv_02193900.json",
+        "collection/usgs-02193900-monitoring-location/dv_02193900.json"
+      ],
+      "provenance_urls": [
+        "https://waterdata.usgs.gov/monitoring-location/USGS-02193900/",
+        "https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&site_no=02193900",
+        "https://nwis.waterservices.usgs.gov/docs/instantaneous-values/instantaneous-values-details/",
+        "https://nwis.waterservices.usgs.gov/docs/dv-service/daily-values-service-details/"
+      ],
+      "blockers": [],
+      "notes": [
+        "Official USGS Water Services endpoints confirmed for site 02193900 and iv/dv JSON artifacts were downloaded.",
+        "Site inventory shows 00062 elevation and water-quality/climate variables, not 00060/00065 for this location."
+      ],
+      "join_keys": [
+        "ano_mes",
+        "ano"
+      ],
+      "artifact_format": "json"
+    }
+  ],
+  "blocked": [
+    {
+      "target_id": "08-clark-hill-dam-inflows-and-forecasts",
+      "dataset_name": "Clark Hill Dam Inflows and Forecasts",
+      "source_name": "weather.gov",
+      "collection_status": "blocked_for_now",
+      "collection_method": "playwright_discovery",
+      "access_type": "web_portal",
+      "local_artifacts": [
+        "collection/08-clark-hill-dam-inflows-and-forecasts/blocked_for_now.txt"
+      ],
+      "provenance_urls": [
+        "https://www.weather.gov/serfc/inflows_chds1"
+      ],
+      "blockers": [
+        "Initial Playwright navigation timed out and was aborted after 328.1 seconds."
+      ],
+      "notes": [
+        "Deferred so the queue could continue."
+      ],
+      "join_keys": [
+        "ano_mes",
+        "ano"
+      ],
+      "artifact_format": "txt"
+    },
+    {
+      "target_id": "14-savannah-and-salkehatchie-surface-water-data",
+      "dataset_name": "Savannah and Salkehatchie Surface Water Data",
+      "source_name": "des.sc.gov",
+      "collection_status": "blocked_for_now",
+      "collection_method": "direct_download",
+      "access_type": "pdf_extraction",
+      "local_artifacts": [
+        "collection/14-savannah-and-salkehatchie-surface-water-data/blocked_for_now.txt"
+      ],
+      "provenance_urls": [
+        "https://www.des.sc.gov/sites/des/files/DNR/Hydrology/pdfs/LSSRBC6_Item%206%20(SWAM%20Introduction).pdf"
+      ],
+      "blockers": [
+        "403 CloudFront geoblock: The Amazon CloudFront distribution is configured to block access from your country."
+      ],
+      "notes": [
+        "Blocked note written; may need different network path or manual retrieval."
+      ],
+      "join_keys": [],
+      "artifact_format": "txt"
+    },
+    {
+      "target_id": "sas-usace-thurmond-basin-dam",
+      "dataset_name": "Thurmond Basin Dam Brochure",
+      "source_name": "sas.usace.army.mil",
+      "collection_status": "blocked_for_now",
+      "collection_method": "direct_download",
+      "access_type": "direct_download",
+      "local_artifacts": [
+        "collection/sas-usace-thurmond-basin-dam/blocked_for_now.txt"
+      ],
+      "provenance_urls": [
+        "https://www.sas.usace.army.mil/Portals/61/docs/lakes/thurmond/basindam.pdf"
+      ],
+      "blockers": [
+        "Access Denied from Akamai/edgesuite when requesting the PDF directly."
+      ],
+      "notes": [
+        "Blocked note written; may need alternate entry page or browser-based discovery."
+      ],
+      "join_keys": [],
+      "artifact_format": "txt"
+    }
+  ],
+  "discovered_only": [
+    {
+      "rank": 2,
+      "source_slug": "02-u-s-environmental-water-quality-and-algal-bloom-data",
+      "dataset_name": "U.S. Environmental Water Quality and Algal Bloom Data",
+      "source_name": "catalog.data.gov",
+      "access_type": "direct_download",
+      "collection_method_hint": "manual_triage",
+      "spatial_coverage": "Estados Unidos, Three Bays estuary, Barnstable, MA",
+      "temporal_coverage": "1987-2018, 2015-2020",
+      "key_parameters": [
+        "nitrogen concentrations",
+        "phosphorus concentrations",
+        "chlorophyll-a concentrations",
+        "cyanobacteria cell densities",
+        "precipitation (June-August)",
+        "sediment grain size",
+        "total organic carbon",
+        "benthic macroinvertebrates counts"
+      ]
+    },
+    {
+      "rank": 5,
+      "source_slug": "05-water-quality-preservation-in-the-savannah-river-basin",
+      "dataset_name": "Water Quality Preservation in the Savannah River Basin",
+      "source_name": "savannahrivercleanwater.org",
+      "access_type": "pdf_extraction",
+      "collection_method_hint": "direct_download_or_pdf",
+      "spatial_coverage": "Lower Savannah River sub-basin, South Carolina",
+      "temporal_coverage": "",
+      "key_parameters": [
+        "water quality",
+        "soil characteristics",
+        "landscape position",
+        "proximity to receiving waters",
+        "soil slope"
+      ]
+    },
+    {
+      "rank": 6,
+      "source_slug": "06-elevation-and-watershed-boundary-data",
+      "dataset_name": "Elevation and Watershed Boundary Data",
+      "source_name": "hec.usace.army.mil",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Área da bacia hidrográfica de interesse (HUC-10), coberta por dados do USGS National Map Viewer",
+      "temporal_coverage": "",
+      "key_parameters": [
+        "elevação (DEM)",
+        "limite da bacia hidrográfica (shapefile)"
+      ]
+    },
+    {
+      "rank": 7,
+      "source_slug": "07-savannah-river-basin-environmental-change-dataset",
+      "dataset_name": "Savannah River Basin Environmental Change Dataset",
+      "source_name": "pmc.ncbi.nlm.nih.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Savannah River Basin, Georgia, USA",
+      "temporal_coverage": "1990s and 2000s (specifically 1990 and 2001)",
+      "key_parameters": [
+        "vegetation growth",
+        "land cover change",
+        "multi-spectral image data"
+      ]
+    },
+    {
+      "rank": 9,
+      "source_slug": "09-j-strom-thurmond-dam-reservoir-data",
+      "dataset_name": "J. Strom Thurmond Dam Reservoir Data",
+      "source_name": "snoflo.org",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Columbia, Georgia, on the Savannah River",
+      "temporal_coverage": "1954",
+      "key_parameters": [
+        "Dam Height",
+        "Dam Length",
+        "Surface Area",
+        "Hydraulic Height",
+        "Drainage Area",
+        "Nid Storage",
+        "Structural Height",
+        "Outlet Gates",
+        "Hazard Potential",
+        "Foundations",
+        "Nid Height",
+        "River"
+      ]
+    },
+    {
+      "rank": 10,
+      "source_slug": "10-j-strom-thurmond-hydroelectric-plant-data",
+      "dataset_name": "J. Strom Thurmond Hydroelectric Plant Data",
+      "source_name": "gem.wiki",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Clarks Hill, McCormick County, South Carolina, United States",
+      "temporal_coverage": "1953 to present",
+      "key_parameters": [
+        "Status",
+        "Commissioning year",
+        "Nameplate capacity",
+        "Turbines",
+        "Technology type",
+        "Owner",
+        "Operator",
+        "Location coordinates"
+      ]
+    },
+    {
+      "rank": 11,
+      "source_slug": "11-upper-savannah-river-reservoirs-drought-trigger-data",
+      "dataset_name": "Upper Savannah River Reservoirs Drought Trigger Data",
+      "source_name": "wnegradio.com",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Upper Savannah River, including Hartwell Lake and J. Strom Thurmond Lake",
+      "temporal_coverage": "December 5, 2025",
+      "key_parameters": [
+        "pool_elevation_hartwell_ft_msl",
+        "pool_elevation_thurmond_ft_msl",
+        "outflow_thurmond_cfs",
+        "drought_trigger_level"
+      ]
+    },
+    {
+      "rank": 12,
+      "source_slug": "12-savannah-river-water-data-at-usace-dock",
+      "dataset_name": "Savannah River Water Data at USACE Dock",
+      "source_name": "waterdata.usgs.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Savannah, Georgia",
+      "temporal_coverage": "",
+      "key_parameters": []
+    },
+    {
+      "rank": 13,
+      "source_slug": "13-savannah-river-near-calhoun-falls-sc-water-quality-data",
+      "dataset_name": "Savannah River Near Calhoun Falls, SC Water Quality Data",
+      "source_name": "waterqualitydata.us",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Savannah River near Calhoun Falls, South Carolina, USA",
+      "temporal_coverage": "",
+      "key_parameters": []
+    },
+    {
+      "rank": 15,
+      "source_slug": "15-river-forecast-national-weather-service",
+      "dataset_name": "River Forecast - National Weather Service",
+      "source_name": "preview-forecast.weather.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Savannah River, Hartwell Dam (GA), Lake Russell (SC)",
+      "temporal_coverage": "not explicitly specified",
+      "key_parameters": [
+        "rainfall forecast",
+        "river inflow rates"
+      ]
+    },
+    {
+      "rank": 16,
+      "source_slug": "16-savannah-river-near-port-wentworth-flow-report",
+      "dataset_name": "Savannah River Near Port Wentworth Flow Report",
+      "source_name": "snoflo.org",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Savannah River near Port Wentworth, Georgia",
+      "temporal_coverage": "since yesterday, last updated 2025-09-11",
+      "key_parameters": [
+        "Streamflow discharge (cfs)",
+        "Gage height (feet)",
+        "Water velocity (ft/sec)",
+        "Specific conductance (microsiemens/cm at 25°C)",
+        "Dissolved oxygen (mg/L)",
+        "Turbidity (FNU)",
+        "pH",
+        "Temperature (°C)"
+      ]
+    },
+    {
+      "rank": 17,
+      "source_slug": "17-savannah-river-at-garden-city-ga",
+      "dataset_name": "Savannah River at Garden City, GA",
+      "source_name": "catalog.data.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Bbox East Long: -81.128334, Bbox North Lat: 32.11608",
+      "temporal_coverage": "",
+      "key_parameters": []
+    },
+    {
+      "rank": 18,
+      "source_slug": "18-serfc-river-conditions",
+      "dataset_name": "SERFC River Conditions",
+      "source_name": "m.daculaweather.com",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "",
+      "temporal_coverage": "",
+      "key_parameters": [
+        "river status",
+        "precipitation",
+        "soil conditions",
+        "river gauges",
+        "lake data",
+        "stream reports"
+      ]
+    },
+    {
+      "rank": 19,
+      "source_slug": "19-suwannee-river-hydrological-data",
+      "dataset_name": "Suwannee River Hydrological Data",
+      "source_name": "archives.waterinstitute.ufl.edu",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Bacia do rio Suwannee, Florida e Geórgia",
+      "temporal_coverage": "",
+      "key_parameters": [
+        "níveis de água subterrânea",
+        "qualidade da água (alcalinidade, temperatura, oxigênio dissolvido, nutrientes, DOC)",
+        "fluxo de rios",
+        "precipitação"
+      ]
+    },
+    {
+      "rank": 20,
+      "source_slug": "20-usgs-annual-peak-streamflow-data",
+      "dataset_name": "USGS Annual Peak Streamflow Data",
+      "source_name": "serc.carleton.edu",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Wabash River at Lafayette (USGS station 03335500)",
+      "temporal_coverage": "1981-2015",
+      "key_parameters": [
+        "peak_dt (date of peak streamflow)",
+        "peak_va (peak streamflow in cfs)"
+      ]
+    },
+    {
+      "rank": 21,
+      "source_slug": "21-lake-hydraulic-residence-time-in-minnesota",
+      "dataset_name": "Lake Hydraulic Residence Time in Minnesota",
+      "source_name": "medcraveonline.com",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Twenty-four lakes in Minnesota",
+      "temporal_coverage": "Three-year period with seasonal data (spring, summer, fall)",
+      "key_parameters": [
+        "δD",
+        "δ18O",
+        "air temperature",
+        "lake water isotopic composition",
+        "precipitation isotopic amplitude"
+      ]
+    },
+    {
+      "rank": 22,
+      "source_slug": "22-reservoir-residence-time-and-dynamics-analysis",
+      "dataset_name": "Reservoir Residence Time and Dynamics Analysis",
+      "source_name": "scielo.br",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Reservoirs in the Paranapanema River cascade, Brazil",
+      "temporal_coverage": "2005 to 2022",
+      "key_parameters": [
+        "residence_time",
+        "temporal_variation",
+        "spatial_variation",
+        "water_quality"
+      ]
+    },
+    {
+      "rank": 23,
+      "source_slug": "23-lake-retention-time-data",
+      "dataset_name": "Lake Retention Time Data",
+      "source_name": "en.wikipedia.org",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Global, with specific lakes in France, Switzerland, Sweden, United States, Canada, and Finland",
+      "temporal_coverage": "",
+      "key_parameters": [
+        "Lake",
+        "Location",
+        "Basin countries",
+        "Residence time"
+      ]
+    },
+    {
+      "rank": 24,
+      "source_slug": "24-lake-retention-time-data",
+      "dataset_name": "Lake Retention Time Data",
+      "source_name": "wikiwand.com",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Global (various lakes worldwide)",
+      "temporal_coverage": "",
+      "key_parameters": [
+        "Lake name",
+        "Location",
+        "Basin countries",
+        "Residence time"
+      ]
+    },
+    {
+      "rank": 25,
+      "source_slug": "25-water-quality-data-portal",
+      "dataset_name": "Water Quality Data Portal",
+      "source_name": "waterqualitydata.us",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "United States and beyond",
+      "temporal_coverage": "",
+      "key_parameters": []
+    },
+    {
+      "rank": 26,
+      "source_slug": "26-water-quality-data-from-wqp",
+      "dataset_name": "Water Quality Data from WQP",
+      "source_name": "epa.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "United States (federal, state, tribal, watershed, and local levels)",
+      "temporal_coverage": "from early 20th century to 1998",
+      "key_parameters": [
+        "physical parameters",
+        "chemical parameters",
+        "biological parameters",
+        "habitat metrics",
+        "indexes"
+      ]
+    },
+    {
+      "rank": 27,
+      "source_slug": "27-water-quality-portal-data",
+      "dataset_name": "Water Quality Portal Data",
+      "source_name": "waterqualitydata.us",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "Estados Unidos, Distrito de Columbia, Porto Rico, Ilhas Virgens, Guam, Samoa Americana, Ilhas Marianas do Norte",
+      "temporal_coverage": "dados disponíveis desde o início do registro em cada banco de dados (NWIS e WQX), atualizados regularmente (diariamente e semanalmente)",
+      "key_parameters": [
+        "localização",
+        "site",
+        "amostragem",
+        "data"
+      ]
+    },
+    {
+      "rank": 28,
+      "source_slug": "28-environmental-and-water-quality-datasets-from-us-epa-and-usgs",
+      "dataset_name": "Environmental and Water Quality Datasets from US EPA and USGS",
+      "source_name": "catalog.data.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "United States, including specific regions such as Detroit MI, Tillamook Estuary OR, Dungeness River WA",
+      "temporal_coverage": "1987-2020",
+      "key_parameters": [
+        "lake nitrogen, phosphorus, chlorophyll-a",
+        "flow rates",
+        "concentrations of alachlor, atrazine, ammonia, total phosphorus, total suspended solids",
+        "cyanobacteria cell densities",
+        "salinity",
+        "soil physical and chemical characteristics",
+        "spectral data bands",
+        "biophysical data of Dungeness River"
+      ]
+    },
+    {
+      "rank": 29,
+      "source_slug": "29-historical-water-quality-data",
+      "dataset_name": "Historical Water Quality Data",
+      "source_name": "help.waterdata.usgs.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "",
+      "temporal_coverage": "",
+      "key_parameters": []
+    },
+    {
+      "rank": 30,
+      "source_slug": "30-usgs-real-time-water-quality-data-for-the-nation",
+      "dataset_name": "USGS Real-Time Water Quality Data for the Nation",
+      "source_name": "nrtwq.usgs.gov",
+      "access_type": "web_portal",
+      "collection_method_hint": "portal_first",
+      "spatial_coverage": "United States",
+      "temporal_coverage": "most recent 120 days",
+      "key_parameters": [
+        "streamflow",
+        "water temperature",
+        "specific conductance",
+        "pH",
+        "dissolved oxygen",
+        "turbidity",
+        "sediment",
+        "nutrients",
+        "bacteria"
+      ]
+    }
+  ],
+  "next_analytic_layer": [
+    "extract watershed and land-cover context from the two collected PDFs",
+    "wait for structured operational and water-quality endpoints before creating staging or analytic tables",
+    "define join strategy once station ids, basin ids, or time keys arrive from collection"
+  ],
+  "not_ready_for_figures": [
+    "no structured reservoir operations time series collected yet",
+    "no structured inflow or outflow time series collected yet",
+    "no structured water-quality table collected yet"
+  ]
+}

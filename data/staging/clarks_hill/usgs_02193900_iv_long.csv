@@ -1,0 +1,8 @@
+﻿"site_no","site_name","latitude","longitude","huc8","data_grain","parameter_code","parameter_name","unit_code","statistic_code","statistic_name","date_time","value","qualifiers","source_artifact"
+"02193900","THURMOND LAKE NEAR PLUM BRANCH, SC","33,84166667","-82,345","03060103","instantaneous","00010","Temperature, water, &#176;C","deg C","00000",,"2026-04-01T21:45:00.000-04:00","18.5","P","iv_02193900.json"
+"02193900","THURMOND LAKE NEAR PLUM BRANCH, SC","33,84166667","-82,345","03060103","instantaneous","00021","Temperature, air, &#176;F","deg F","00000",,"2026-04-01T22:00:00.000-04:00","70.3","P","iv_02193900.json"
+"02193900","THURMOND LAKE NEAR PLUM BRANCH, SC","33,84166667","-82,345","03060103","instantaneous","00035","Wind speed, mph","mph","00000",,"2026-04-01T22:00:00.000-04:00","1.2","P","iv_02193900.json"
+"02193900","THURMOND LAKE NEAR PLUM BRANCH, SC","33,84166667","-82,345","03060103","instantaneous","00036","Wind direction, degrees clockwise from north","Deg","00000",,"2026-04-01T22:00:00.000-04:00","5","P","iv_02193900.json"
+"02193900","THURMOND LAKE NEAR PLUM BRANCH, SC","33,84166667","-82,345","03060103","instantaneous","00045","Precipitation, total, in","in","00000",,"2026-04-01T22:00:00.000-04:00","0.00","P","iv_02193900.json"
+"02193900","THURMOND LAKE NEAR PLUM BRANCH, SC","33,84166667","-82,345","03060103","instantaneous","00052","Relative humidity, percent","%","00000",,"2026-04-01T22:00:00.000-04:00","79.4","P","iv_02193900.json"
+"02193900","THURMOND LAKE NEAR PLUM BRANCH, SC","33,84166667","-82,345","03060103","instantaneous","00062","Elevation of reservoir water surface above datum, ft","ft","00000",,"2026-04-01T21:45:00.000-04:00","323.76","P","iv_02193900.json"
