@@ -1,0 +1,6 @@
+entity_group,entity,layer,source,reach,first_year,last_year,returned_years,target_years,coverage_gap_years,coverage_status,record_count,parameter_count
+River,Augusta,hydrology,USGS daily values,Savannah River at Augusta,2006,2026,21,20,0,meets_target,34406,2
+River,USACE Dock,hydrology,USGS daily values,"Savannah River at USACE dock, Savannah",2007,2026,20,20,0,meets_target,122866,7
+River,Calhoun Falls,water_quality,WQP results,Upper mainstem near Calhoun Falls,1956,1974,11,20,9,below_target,954,
+River,Augusta Intake,water_quality,WQP results,Augusta river intake reach,1970,1970,1,20,19,below_target,7,
+River,US 1 Augusta,water_quality,WQP results,Augusta urban mainstem reach,1997,1998,2,20,18,below_target,340,

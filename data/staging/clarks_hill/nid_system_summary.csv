@@ -1,0 +1,4 @@
+reservoir,nidid,dam_name,hydraulic_height_ft,dam_length_ft,max_storage_acft,normal_storage_acft,surface_area_acres,drainage_area_sqmi,year_completed
+Hartwell,GA01702,,199,17852,3438700,2550000,55950,2088,1962
+Russell,GA01705,,185,4524,1488166,1026200,26653,2890,1986
+Thurmond,GA01701,,170,5680,3820000,2510000,71000,6144,1954

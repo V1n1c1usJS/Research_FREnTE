@@ -1,0 +1,21 @@
+entity_group,entity,parameter_group,years_available,coverage_ratio,first_year,last_year,result_count
+River,Calhoun Falls,Water temperature,18,0.9,1957,1974,34
+River,Calhoun Falls,pH,19,0.95,1956,1974,56
+River,Calhoun Falls,Specific conductance,19,0.95,1956,1974,43
+River,Calhoun Falls,Turbidity / sediment proxy,6,0.3,1969,1974,30
+River,Calhoun Falls,Nitrogen,19,0.95,1956,1974,70
+River,Calhoun Falls,Phosphorus,6,0.3,1969,1974,19
+River,Calhoun Falls,Organic carbon,4,0.2,1971,1974,12
+River,Calhoun Falls,Metals / trace elements,4,0.2,1969,1972,11
+River,Calhoun Falls,Microbiological,6,0.3,1969,1974,30
+River,Calhoun Falls,Drinking-water additives,6,0.3,1956,1961,10
+River,Augusta Intake,Metals / trace elements,1,0.05,1970,1970,7
+River,US 1 Augusta,Water temperature,2,0.1,1997,1998,18
+River,US 1 Augusta,pH,2,0.1,1997,1998,30
+River,US 1 Augusta,Specific conductance,2,0.1,1997,1998,30
+River,US 1 Augusta,Turbidity / sediment proxy,1,0.05,1997,1997,24
+River,US 1 Augusta,Nitrogen,1,0.05,1997,1997,36
+River,US 1 Augusta,Phosphorus,1,0.05,1997,1997,12
+River,US 1 Augusta,Organic carbon,1,0.05,1997,1997,12
+River,US 1 Augusta,Metals / trace elements,2,0.1,1997,1998,16
+River,US 1 Augusta,Microbiological,1,0.05,1997,1997,16

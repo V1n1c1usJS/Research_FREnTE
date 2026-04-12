@@ -1,0 +1,62 @@
+{
+  "study_slug": "clarks_hill",
+  "system_name": "Savannah River mainstem system",
+  "analysis_frame": "river_first",
+  "reservoir_scope": [
+    "Hartwell",
+    "Russell",
+    "Thurmond"
+  ],
+  "sediment_target": "Thurmond",
+  "temporal_target_years": 20,
+  "temporal_policy": "Always search and collect with a 20-year target horizon when the source allows it. If the source returns less, preserve the actual returned coverage and record the limitation explicitly.",
+  "upstream_operational_controls": [
+    "Hartwell",
+    "Russell"
+  ],
+  "excluded_sources_for_now": [
+    "des.sc.gov"
+  ],
+  "agent_chain": [
+    {
+      "agent_name": "rodada_api_handoff",
+      "nickname": "Runner",
+      "scope_file": "EDA/clarks_hill/agent_briefs/runner_scope.md",
+      "responsibility": "rodar a busca geral por API sem Firecrawl e preparar handoff river-first ao Harvester"
+    },
+    {
+      "agent_name": "portal_data_collector",
+      "nickname": "Harvester",
+      "scope_file": "EDA/clarks_hill/agent_briefs/harvester_scope.md",
+      "responsibility": "coletar bruto portal-first do rio e das estruturas de suporte e organizar output rastreavel em data/runs"
+    },
+    {
+      "agent_name": "eda_reservatorio",
+      "nickname": "Analyst",
+      "scope_file": "EDA/clarks_hill/agent_briefs/analyst_scope.md",
+      "responsibility": "transformar a coleta do rio e das estruturas de suporte em staging, analytic, figuras e report_context"
+    },
+    {
+      "agent_name": "relatorio_html",
+      "nickname": "Narrator",
+      "scope_file": "EDA/clarks_hill/agent_briefs/narrator_scope.md",
+      "responsibility": "montar o HTML final preservando o padrao visual do projeto"
+    }
+  ],
+  "round_success_criteria": [
+    "Runner produz handoff com foco no rio Savannah, suas pressoes e seus poluentes, com reservatorios como suporte explicativo",
+    "Harvester coleta pelo menos um bloco auditavel do rio com hidrologia, water quality ou pressao ambiental aproveitavel e documenta a cobertura dos reservatorios de suporte",
+    "Analyst monta pipeline river-first sem fabricar equivalencia e explicita a defasagem frente ao alvo de 20 anos",
+    "Narrator deixa o HTML alinhado ao rio como objeto principal e explicita lacunas restantes"
+  ],
+  "analysis_domains": [
+    "rio_principal",
+    "poluentes_pressao_ambiental",
+    "operacao",
+    "hidrologia",
+    "tempo_de_residencia",
+    "water_quality",
+    "clima_uso_do_solo",
+    "contexto_de_bacia"
+  ]
+}

@@ -1,0 +1,7 @@
+x_field,y_field,n,slope,intercept,correlation,direction
+clay_pct,fe_ppm,19,1729.00619366,-535.26478707,0.685257,positive
+d50,fe_ppm,19,-7779.17578969,115894.68683669,-0.670562,negative
+fe_ppm,carbon_pct,19,1.637e-05,1.17024327,0.745266,positive
+depth,fe_ppm,19,1775.50511476,32651.22879712,0.754624,positive
+depth,d50,19,-0.14652474,8.90741138,-0.72246,negative
+clay_pct,carbon_pct,19,0.03235534,0.99264849,0.583681,positive

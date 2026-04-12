@@ -1,0 +1,105 @@
+- research_track: gap1_mainstem_water_quality_coverage
+  chat_label: chat-gap-mainstem-water-quality
+  search_profile: monitoring_sources
+  target_intent: dataset_discovery
+  research_question: >
+    Which official Savannah River mainstem water-quality sources provide better
+    historical coverage than the current returns, ideally with 20 years of data?
+  task_prompt: >
+    Search only for official sources that expose Savannah River mainstem water-quality
+    data with stronger historical coverage than short one-off returns.
+    Prioritize USGS NWIS, Water Data for the Nation, waterservices.usgs.gov, and
+    Water Quality Portal endpoints tied to stream or river sites on the mainstem.
+    Target reaches above Hartwell, between Hartwell and Russell, between Russell
+    and Thurmond, and below Thurmond toward Augusta.
+    Look for dissolved oxygen, pH, specific conductance, temperature, turbidity,
+    nutrients, and sediment-related proxies.
+    Always ask for a 20-year target window when the source allows it, and record
+    the actual returned coverage if shorter.
+    Exclude des.sc.gov and exclude unofficial mirror sites or generic catalogs.
+    Queries: "Savannah River mainstem USGS NWIS water quality 20 years" "Savannah River WQP mainstem station Augusta"
+    "Savannah River below Thurmond dissolved oxygen turbidity USGS" "Savannah River mainstem water quality waterservices".
+  priority: high
+
+- research_track: gap2_corridor_pollutant_pressures
+  chat_label: chat-gap-pollutant-pressures
+  search_profile: official_data_portals
+  target_intent: dataset_discovery
+  research_question: >
+    Which official pollutant-pressure datasets best cover the Savannah River corridor
+    for ECHO, ATTAINS, impairments, TMDLs, NPDES, and equivalent stressors?
+  task_prompt: >
+    Search for official EPA and state-linked queryable datasets describing pollutant
+    sources and environmental pressures affecting the Savannah River main channel
+    corridor over the last 20 years.
+    Prioritize EPA ECHO, ATTAINS, 303(d), TMDL, How's My Waterway, Reach Address
+    Database, and direct NPDES or impairment exports that can be tied to river reaches.
+    Prefer stable APIs, downloadable CSV/JSON endpoints, or official portal exports.
+    Include Georgia-side sources only if they are official and queryable.
+    Exclude des.sc.gov entirely.
+    Exclude generic educational pages, PDFs without downloadable data, and unofficial mirrors.
+    Queries: "Savannah River ECHO NPDES corridor" "Savannah River ATTAINS impairment TMDL"
+    "Savannah River 303d EPA export" "Savannah River Georgia EPD NPDES data".
+  priority: high
+
+- research_track: gap3_mainstem_gauges_series
+  chat_label: chat-gap-mainstem-gauges
+  search_profile: monitoring_sources
+  target_intent: dataset_discovery
+  research_question: >
+    Which additional mainstem gauges or series exist above, between, and below the
+    Hartwell, Russell, and Thurmond cascade with direct historical access?
+  task_prompt: >
+    Search for official mainstem Savannah River gauges and series from USGS and
+    NOAA/NWS that add coverage above Hartwell, between Hartwell and Russell,
+    between Russell and Thurmond, and below Thurmond toward Augusta.
+    Prefer USGS station pages and waterservices daily-values endpoints over summary sites.
+    Identify direct access paths for discharge, stage, elevation, or related river series.
+    Always ask for a 20-year target window when the endpoint allows it, and keep
+    the actual returned period explicit.
+    Exclude des.sc.gov and exclude secondary aggregators such as RiverApp or SnoFlo.
+    Queries: "Savannah River mainstem USGS gauge Hartwell Russell Thurmond" "Savannah River Augusta USGS daily values"
+    "Savannah River below Thurmond gauge USGS 20 years" "Savannah River Calhoun Falls USGS mainstem".
+  priority: high
+
+- research_track: gap4_supporting_operations_long_history
+  chat_label: chat-gap-operations-support
+  search_profile: official_data_portals
+  target_intent: dataset_discovery
+  research_question: >
+    Which official operational series provide the longest historical support for
+    Hartwell, Russell, and Thurmond as explanatory controls for the river signal?
+  task_prompt: >
+    Search for official USACE and related federal sources that expose daily or
+    regular operational series for Hartwell, Russell, and Thurmond, including pool
+    elevation, storage, inflow, outflow, releases, and rule-curve context.
+    These are supporting annexes only, not the primary river target.
+    Prefer water.usace.army.mil or official Savannah District pages with stable access.
+    Ask for a 20-year target window whenever the endpoint allows it and record
+    the actual returned period if the source is shorter.
+    Exclude des.sc.gov and exclude academic summaries that do not lead to official data access.
+    Queries: "water.usace Hartwell historical pool elevation" "water.usace Richard B Russell inflow outflow"
+    "water.usace Thurmond historical storage" "Savannah District Hartwell Russell Thurmond data download".
+  priority: medium
+
+- research_track: gap5_sediment_turbidity_tss_proxies
+  chat_label: chat-gap-sediment-proxies
+  search_profile: monitoring_sources
+  target_intent: dataset_discovery
+  research_question: >
+    Which official mainstem Savannah River datasets expose suspended sediment,
+    turbidity, TSS, or strong fluvial proxies with usable historical depth?
+  task_prompt: >
+    Search USGS NWIS, waterservices, Water Quality Portal, EPA-linked exports, and
+    official studies that point to actual downloadable data for suspended sediment,
+    turbidity, total suspended solids, sediment loads, or direct fluvial proxies in
+    the Savannah River mainstem.
+    Focus on mainstem river stations first, especially below Thurmond and toward Augusta,
+    then look upstream near Hartwell and Russell if official station coverage exists.
+    Prefer direct datasets or APIs over narrative reports.
+    Ask for a 20-year historical target window when possible and document the actual
+    returned coverage if shorter.
+    Exclude des.sc.gov and exclude unofficial mirrored dashboards.
+    Queries: "Savannah River suspended sediment USGS mainstem" "Savannah River turbidity water quality portal"
+    "Savannah River total suspended solids USGS Augusta" "Savannah River sediment proxy waterservices".
+  priority: high

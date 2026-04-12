@@ -1,35 +1,46 @@
 # ============================================================
-# Clarks Hill Lake — Research context for Research_FREnTE
+# Savannah River mainstem system - Research context for Research_FREnTE
 # Study: Comprehensive Characterization of Lake Floor Sediments
 # GSA 2026 Triple Joint Section Meeting
 # ============================================================
 
-context_id: ctx-clarkshill-reservoir-v1
+context_id: ctx-savannah-river-mainstem-v3
 
 article_goal: >
-  Characterize the hydrodynamic and operational conditions of Clarks Hill Lake
-  (J. Strom Thurmond Reservoir) on the Savannah River (Georgia-South Carolina, USA)
-  to provide the physical context for interpreting spatial patterns of lake floor
-  sediment composition — specifically how reservoir hydrodynamics control
-  fine-sediment deposition zones, iron enrichment, and organic carbon stabilization.
+  Characterize the behavior of the Savannah River mainstem across the Hartwell-
+  Russell-Thurmond corridor (Georgia-South Carolina, USA) using the same analytical
+  logic adopted for the Rio Tiete: the river is the protagonist, environmental
+  pressures and pollutant context are part of the core reading, reservoir operations
+  are supporting explanatory variables embedded in the river system, and sediment
+  interpretation comes at the end as the response layer. The objective is to explain
+  how river flow, stage, water quality, suspended sediment, pollutant pressures, and
+  coordinated upstream regulation shape the hydrodynamic and biogeochemical setting
+  that ultimately controls fine-sediment deposition zones, iron enrichment, and
+  organic carbon stabilization in J. Strom Thurmond Reservoir. This context exists
+  to support the sediment-focused scientific question of the GSA deck, not to
+  replace it with a reservoir-operations-only narrative.
 
 geographic_scope:
-  # --- Reservoir location ---
-  - "Clarks Hill Lake (J. Strom Thurmond Reservoir), Savannah River, GA-SC border"
-  - "Dam location: Clarks Hill, South Carolina (33.66°N, 82.19°W)"
-  - "Surface area at full pool: ~287 km² (71,000 acres)"
-  - "Full pool elevation: 330 ft MSL (100.6 m)"
-  - "Maximum depth: ~43 m; Mean depth: ~6 m"
+  # --- River system and embedded reservoirs ---
+  - "Savannah River mainstem corridor with the federal reservoir cascade Hartwell Lake -> Richard B. Russell Lake -> J. Strom Thurmond Reservoir"
+  - "Primary sediment-study reservoir: Clarks Hill Lake / J. Strom Thurmond Reservoir, GA-SC border"
+  - "Upstream operational controls: Hartwell Dam and Richard B. Russell Dam"
+  - "Thurmond Dam location: Clarks Hill, South Carolina (33.66N, 82.19W)"
+  - "Thurmond surface area at full pool: ~287 km2 (71,000 acres)"
+  - "Thurmond full pool elevation: 330 ft MSL (100.6 m)"
+  - "Thurmond maximum depth: ~43 m; mean depth: ~6 m"
 
   # --- Watershed ---
-  - "Savannah River basin upstream of Clarks Hill Dam"
-  - "Drainage area: ~14,000 km² (5,400 sq mi) above the dam"
+  - "Savannah River basin upstream of Thurmond Dam, including Hartwell and Russell control points"
+  - "Drainage area above Thurmond Dam: ~14,000 km2 (5,400 sq mi)"
   - "States: Georgia (majority), South Carolina, western North Carolina (headwaters)"
   - "Major tributaries: Little River (GA), Stevens Creek (SC), Rocky River (GA)"
 
-  # --- Key upstream gauge locations ---
-  - "USGS 02193900 — monitoring location on Savannah River basin (preferred source)"
-  - "NWS SERFC station CHDS1 — Clarks Hill Dam inflow forecasts (preferred source)"
+  # --- Key operational and monitoring locations ---
+  - "USACE / NID records for Hartwell Dam, Richard B. Russell Dam, and J. Strom Thurmond Dam"
+  - "Mainstem Savannah River reaches above Hartwell, between Hartwell and Russell, between Russell and Thurmond, and below Thurmond toward Augusta"
+  - "USGS 02193900 - monitoring location on Savannah River basin (preferred source for Thurmond context)"
+  - "NWS SERFC station CHDS1 - Clarks Hill Dam inflow forecasts (preferred source)"
   - "Nearest major city: Augusta, GA (downstream of dam)"
 
   # --- Sampling area (sediment study) ---
@@ -37,69 +48,92 @@ geographic_scope:
   - "Sites cover transition from fluvial to lacustrine depositional environments"
 
 thematic_axes:
-  # Level 1 — Regional physical context
-  - reservoir physical characteristics (area, volume, depth, morphometry)
+  # Level 1 - Regional physical context and pressures
+  - Savannah River mainstem corridor and reach segmentation through the Hartwell-Russell-Thurmond cascade
+  - reservoir physical characteristics (area, volume, depth, morphometry) as supporting context
   - Savannah River basin watershed delineation and land cover (NLCD)
   - regional climate and precipitation patterns (Georgia-South Carolina Piedmont)
   - watershed geology and soils (contributing to sediment and iron supply)
+  - "pollutant and environmental pressure context affecting the river: wastewater, industrial discharges, impaired waters, agriculture, urban land use, and nonpoint-source loading"
 
-  # Level 2 — Reservoir operations and hydrology
-  - USACE operational data (pool elevation, storage, inflow, outflow, releases)
-  - streamflow and inflow from Savannah River and tributaries
-  - seasonal hydrograph patterns and flood events
-  - water residence time estimates across the reservoir
+  # Level 2 - River hydrology and supporting operations
+  - mainstem Savannah River flow, stage, and level context above, between, and below the reservoirs
+  - coordinated USACE operational data for Hartwell, Russell, and Thurmond (pool elevation, storage, inflow, outflow, releases) as supporting explanatory variables
+  - seasonal hydrograph patterns, flood attenuation, and propagation of the river signal through the cascade
+  - water residence time estimates for Thurmond conditioned by upstream regulation
 
-  # Level 3 — Water quality and physicochemical conditions
-  - historical water quality at Clarks Hill (DO, pH, temperature, turbidity, nutrients)
+  # Level 3 - Water quality, pollutants, and physicochemical conditions
+  - historical water quality in Savannah River reaches and at mainstem monitoring points (DO, pH, temperature, turbidity, nutrients)
+  - "pollutant-pressure datasets for the river corridor: NPDES/ECHO dischargers, impairments, TMDLs, watershed load indicators, and historical pressure signals"
+  - "contaminant-history datasets and reports for the Savannah corridor: heavy metals, PAHs, PCBs, organochlorine pesticides, butyltins, PFAS, radionuclides, bacteria, and industrial particulates"
+  - reservoir water quality at Hartwell, Russell, and Thurmond where available as supporting annexes
   - trophic status and algal bloom history
   - thermocline and stratification patterns
-  - suspended sediment transport and turbidity gradients
+  - suspended sediment transport, suspended solids, and turbidity gradients along the mainstem
 
-  # Level 4 — Hydrodynamic and sediment context (literature)
+  # Level 4 - Hydrodynamic and sediment context (literature)
   - spatial variation in flow velocity across reservoir zones
   - depositional energy gradients from riverine to lacustrine zones
-  - academic studies on Clarks Hill / Thurmond Lake sediment dynamics
+  - academic studies on the Hartwell-Russell-Thurmond system and Thurmond Lake sediment dynamics
   - comparable southeastern US reservoir studies on iron-organic matter coupling
 
 preferred_sources:
-  # Priority 1 — Provided data endpoints (start searches here)
-  - "NWS SERFC Clarks Hill inflows (https://www.weather.gov/serfc/inflows_chds1) — real-time and historical inflow forecasts for CHDS1"
-  - "USGS monitoring location 02193900 (https://waterdata.usgs.gov/monitoring-location/USGS-02193900/) — continuous streamflow and water quality"
+  # Priority 1 - River signal (start here)
+  - "USGS NWIS (https://waterdata.usgs.gov/nwis) - mainstem Savannah River streamflow, stage, sediment, and water-quality records"
+  - "USGS monitoring location 02193900 (https://waterdata.usgs.gov/monitoring-location/USGS-02193900/) - continuous streamflow and water quality"
+  - "USGS Water Quality Portal (https://www.waterqualitydata.us/) - river-reach and reservoir water chemistry"
+  - "NWS SERFC Clarks Hill inflows (https://www.weather.gov/serfc/inflows_chds1) - real-time and historical inflow forecasts for CHDS1"
+  - "EPA ECHO (https://echo.epa.gov/) - pollutant dischargers, permits, and compliance data affecting the river corridor"
+  - "EPA ATTAINS (https://www.epa.gov/waterdata/attains) - impairments, uses, and TMDL context for Savannah River reaches"
+  - "NOAA contaminant and sediment archives - historical heavy metals, PAHs, PCBs, pesticides, and biota contamination records for the Savannah corridor"
+  - "Savannah Riverkeeper dashboards and reports - recent PFAS, E. coli, and river-quality concern signals"
+  - "DOE / Savannah River Site monitoring reports - radionuclides, tritium, and remediation context affecting the river system"
+  - "City of Savannah / Savannah Water Quality archive (https://savannahwaterquality.com/archive) - annual and quarterly treated-water and PFAS reports tied to the Savannah intake"
+  - "City of Savannah / Savannah Water Quality PFAS page (https://savannahwaterquality.com/pfas) - recent PFAS context and downloadable public-facing reports"
+  - "USGS additional mainstem and low-flow support stations such as 021973269 when they expose modern chemistry or flow context"
+  - "ScienceBase / USGS Savannah 2020 releases - modern campaign chemistry for the lower Savannah"
+  - "Clemson institutional reports on the middle and lower Savannah basin"
 
-  # Priority 2 — USACE operational data
-  - "USACE Savannah District Water Management (https://www.sas.usace.army.mil/) — official dam operations"
-  - "USACE AquaLink / Water Control Data System (https://water.usace.army.mil/) — pool elevation, storage, inflow, outflow"
-  - "USACE National Inventory of Dams — Clarks Hill / J. Strom Thurmond Dam specs"
+  # Priority 2 - USACE operational support
+  - "USACE Savannah District Water Management (https://www.sas.usace.army.mil/) - official dam operations and water control manuals"
+  - "USACE AquaLink / Water Control Data System (https://water.usace.army.mil/) - pool elevation, storage, inflow, outflow for Hartwell, Russell, and Thurmond"
+  - "USACE National Inventory of Dams - structural records for Hartwell, Russell, and Thurmond"
+  - "USACE project pages and manuals for Hartwell, Richard B. Russell, and J. Strom Thurmond"
+  - "USACE / NOAA operational forecast products for the Savannah cascade"
 
-  # Priority 3 — USGS hydrology and water quality
-  - "USGS NWIS (https://waterdata.usgs.gov/nwis) — streamflow, water quality, sediment data"
-  - "USGS Water Quality Portal (https://www.waterqualitydata.us/) — historical water chemistry"
-  - "USGS StreamStats — watershed delineation and basin characteristics"
+  # Priority 3 - Basin and monitoring support
+  - "USGS StreamStats - watershed delineation and basin characteristics"
 
-  # Priority 4 — EPA and environmental monitoring
-  - "EPA ECHO (https://echo.epa.gov/) — discharge permits and water quality violations"
-  - "EPA ATTAINS (https://www.epa.gov/waterdata/attains) — waterbody assessment and impairments"
-  - "EPA STORET / WQP — historical water quality sampling data"
+  # Priority 4 - EPA and environmental monitoring
+  - "EPA ECHO (https://echo.epa.gov/) - discharge permits, pollutant sources, and compliance history"
+  - "EPA ATTAINS (https://www.epa.gov/waterdata/attains) - waterbody assessment, impairments, and TMDLs"
+  - "EPA STORET / WQP - historical water quality sampling data"
 
-  # Priority 5 — Climate and land cover
-  - "NOAA Climate Data Online (https://www.ncdc.noaa.gov/cdo-web/) — precipitation, temperature"
-  - "NLCD (https://www.mrlc.gov/) — National Land Cover Database for watershed characterization"
-  - "USGS EarthExplorer (https://earthexplorer.usgs.gov) — DEM, Landsat imagery"
+  # Priority 5 - Climate and land cover
+  - "NOAA Climate Data Online (https://www.ncdc.noaa.gov/cdo-web/) - precipitation, temperature"
+  - "NLCD (https://www.mrlc.gov/) - National Land Cover Database for watershed characterization"
+  - "USGS EarthExplorer (https://earthexplorer.usgs.gov) - DEM, Landsat imagery"
 
-  # Priority 6 — Academic literature
-  - "Google Scholar — Clarks Hill Lake, J. Strom Thurmond Reservoir, Savannah River hydrology"
-  - "USACE technical reports on Clarks Hill / Thurmond reservoir management"
+  # Priority 6 - Academic literature
+  - "Google Scholar - Hartwell Lake, Richard B. Russell Lake, J. Strom Thurmond Reservoir, Savannah River hydrology"
+  - "USACE technical reports on Savannah system reservoir management"
   - "Southeastern US reservoir limnology and sediment studies"
 
 expected_outputs:
-  - time series of pool elevation and storage volume (daily, multi-year)
-  - inflow and outflow discharge records (daily, from USACE and USGS)
-  - "water quality parameters: DO, pH, temperature, turbidity, nutrients (historical)"
+  - "comparative time series for mainstem Savannah River flow and stage across the cascade (daily, target horizon: 20 years when available)"
+  - "flow and level context near Augusta and below Thurmond (daily, target horizon: 20 years when available)"
+  - suspended sediment, suspended solids, turbidity, or proxy records for the mainstem where available
+  - "historical river water quality parameters: DO, pH, temperature, turbidity, nutrients, conductivity, and sediment-related proxies (target horizon: 20 years, prioritizing river reaches and using reservoir data as support)"
+  - "pollutant and pressure layers affecting the river: dischargers, impairments, TMDLs, land-use pressure, and watershed loading indicators"
+  - "contaminant-history layers for the river corridor: metals, organics, PFAS, radionuclides, bacteria, and sediment-contaminant evidence, preserving period-of-record and evidence type"
+  - "modern pollutant-pressure layers for 2000-2026: PFAS reports, local dashboards, effluent violations, impaired reaches, and institutional chemistry campaigns tied to the mainstem"
+  - "comparative time series of pool elevation and storage volume for Hartwell, Russell, and Thurmond as supporting annexes (daily, target horizon: 20 years when available)"
+  - "inflow and outflow discharge records for the three-reservoir system as supporting explanatory variables embedded in the river narrative (daily, from USACE and USGS, target horizon: 20 years when available)"
   - watershed land cover summary from NLCD (forested vs agricultural vs developed)
-  - reservoir morphometric parameters (area-volume-depth relationships)
-  - residence time estimates or data supporting its calculation
+  - reservoir morphometric parameters (area-volume-depth relationships) for the system
+  - residence time estimates for Thurmond plus supporting upstream regulation context
   - references to algal bloom events and trophic status assessments
-  - academic studies on Clarks Hill sediment dynamics or comparable southeastern reservoirs
+  - academic studies on Savannah system hydrodynamics, Thurmond sediment dynamics, or comparable southeastern reservoirs
 
 exclusions:
   - recreational use reports without hydrological or water quality data
@@ -109,13 +143,24 @@ exclusions:
   - sources without institutional authorship (USACE, USGS, EPA, NOAA, universities)
 
 notes:
-  - "USACE Savannah District operates Clarks Hill Dam for flood control, hydropower, navigation, recreation"
-  - "The reservoir is one of the largest east of the Mississippi — ~287 km² at full pool"
+  - "Primary scientific reference for this axis: `GSA Presentation Slide 2.pptx (1).pdf`"
+  - "That deck is sediment-centered: our pipeline must supply external context for the sediment interpretation, not redefine the study objective."
+  - "USACE Savannah District operates the Hartwell-Russell-Thurmond cascade as a coordinated system for flood control, hydropower, navigation, water supply, and recreation"
+  - "The analytical core is the Savannah River mainstem signal; reservoir operations are supporting context embedded in the river system"
+  - "Use the same analytical framing adopted for the Rio Tiete: river behavior first, pressures and pollutants second, reservoirs as explanatory structures, sediment interpretation last"
+  - "Thurmond is the sediment-study reservoir, but its hydrodynamics depend on upstream regulation by Hartwell and Russell and on the river signal entering and leaving the reservoir"
+  - "Default temporal target for search and collection is 20 years whenever the source allows it"
+  - "If a source returns less than 20 years, preserve the actual returned period and document the shortfall explicitly"
   - "Pool elevation variability directly controls depositional energy and fine-sediment accumulation zones"
-  - "Residence time is critical: longer RT → lower energy → more fine sediment → more Fe and OC"
-  - "Algal bloom concern mentioned in the study (slide 2) — look for eutrophication records"
+  - "Residence time is critical: longer RT -> lower energy -> more fine sediment -> more Fe and OC"
+  - "Slide 2 motivation to preserve explicitly: sediments regulate nutrient storage and mobility, control internal loading potential, influence long-term reservoir sustainability, and connect to periodic algal-bloom concern in Clarks Hill."
+  - "Algal bloom concern mentioned in the study (slide 2) - look for eutrophication records"
   - "The NWS SERFC CHDS1 station provides inflow forecasts that reflect upstream watershed conditions"
-  - "USGS 02193900 is a preferred monitoring location — prioritize data from this gauge"
+  - "USGS 02193900 is a preferred monitoring location for the Thurmond downstream context"
   - "Land cover in the watershed is dominated by forest (Piedmont), with some agriculture and developed areas"
-  - "Sediment data from 23 field sites (lab results) are NOT part of this pipeline — handled separately"
-  - "This pipeline focuses exclusively on reservoir characterization to provide hydrodynamic context"
+  - "Sediment data from 23 field sites (lab results) are NOT part of this pipeline - handled separately"
+  - "This pipeline focuses on river-system characterization to provide hydrologic, pollutant-pressure, and operational context for the sediment work"
+  - "The final contextual report should help answer why the sediment pattern matters biogeochemically and ecologically, especially for nutrients, internal loading, and bloom risk."
+  - "Use discovery notes about historical contaminants as search hypotheses only; promote them to analytical facts only after collecting an official or institutional source"
+  - "Historical contaminant framing to verify: 1940s-1970s industrial metals and organics, 1980s-1990s legacy residues in water/sediment/biota, and 2000-2026 issues such as PFAS, radionuclides, E. coli, and recent metal or particulate concerns"
+  - "For the modern gap, prioritize local river-facing sources that can produce collectible artifacts or queryable services: City of Savannah PFAS pages, Riverkeeper dashboards, SRNS reports, ScienceBase releases, and additional USGS/WQP stations."

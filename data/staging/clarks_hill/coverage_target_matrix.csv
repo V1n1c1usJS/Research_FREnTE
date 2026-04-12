@@ -1,0 +1,10 @@
+layer,entity,source,returned_years,target_years,coverage_status,first_year,last_year,coverage_kind
+River hydrology,Augusta,USGS daily values,21,20,meets_target,2006,2026,series
+River hydrology,USACE Dock,USGS daily values,20,20,meets_target,2007,2026,series
+River chemistry,Calhoun Falls,WQP results,11,20,below_target,1956,1974,series
+River chemistry,Augusta Intake,WQP results,1,20,below_target,1970,1970,series
+River chemistry,US 1 Augusta,WQP results,2,20,below_target,1997,1998,series
+Reservoir operations,Hartwell,USACE series (Pool elevation),11,20,below_target,2016,2026,series
+Reservoir operations,Russell,USACE series (Inflow),7,20,below_target,2020,2026,series
+Reservoir operations,Thurmond,USACE series (Inflow),21,20,meets_target,2006,2026,series
+Treated water compliance,Savannah Main System,City of Savannah annual reports,5,20,below_target,2020,2024,series

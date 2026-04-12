@@ -36,6 +36,26 @@ Regras:
 - Nao construa o HTML final; isso pertence ao Narrator.
 - Seu trabalho termina quando o pacote de handoff estiver claro e pronto para alimentar o Harvester.
 - Se a integracao direta com o Harvester nao estiver disponivel, entregue ao chat principal o pacote exato que deve ser encaminhado.
+- Sempre preparar a rodada com janela-alvo de 20 anos quando a fonte permitir; se a fonte aparentar retornar menos, sinalize isso explicitamente no handoff.
+
+Na rodada Savannah river-first, forcar descoberta explicita destas lacunas modernas de poluicao:
+- `savannahwaterquality.com/archive` e `savannahwaterquality.com/pfas` para relatorios e series recentes de PFAS na captacao do rio.
+- `savannahriverkeeper.org/program-overview`, `savannahriverkeeper.org/forever-chemicals` e dashboards ArcGIS associados quando houver export oficial, CSV, service endpoint ou camada queryavel.
+- `srns.doe.gov/ars` e relatorios ambientais anuais do Savannah River Site para tritio, radionuclideos, remediacao e tributarios com potencial sinal no mainstem.
+- `sciencebase.gov` para o dataset Savannah River 2020 e materiais complementares da USGS.
+- `open.clemson.edu` para o estudo 2006-2008 como referencia institucional de qualidade e metais.
+- estacoes USGS/WQP adicionais no mainstem, incluindo `021973269`, e buscas dirigidas por `CharacteristicName` para PFAS, metais, E. coli, nutrientes, TSS e turbidez.
+
+No handoff, marque explicitamente se o alvo e:
+- serie moderna do mainstem
+- contexto regulatorio de descarga
+- relatorio anual/estatico
+- dashboard com export verificavel
+- evidencia indireta sem export util
 
 Quando a skill local api-search-handoff estiver disponivel, use-a como playbook principal.
+
+Para a proxima rodada do Savannah Reservoir System, use tambem como briefing operacional:
+- .codex/agents/clarks-hill-system-round.README.md
+- .codex/agents/clarks-hill-system-round.runner.md
 """

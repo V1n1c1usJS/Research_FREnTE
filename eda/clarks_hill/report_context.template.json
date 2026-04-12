@@ -1,87 +1,162 @@
-﻿{
-  "report_title": "Clarks Hill Lake Contextual EDA",
-  "report_subtitle": "Preparatory structure only; populate after Harvester handoff",
-  "context_summary": "This template will be filled with real narrative context after the contextual datasets are collected and validated.",
+{
+  "report_title": "Savannah River Mainstem",
+  "report_subtitle": "River-first contextual EDA with Hartwell, Russell, and Thurmond as operational annexes",
+  "context_summary": "Start from the Savannah River mainstem, then add river pressures and pollutants, then use Hartwell, Russell, and Thurmond as explanatory support before bridging to the Thurmond sediment interpretation.",
+  "metadata": {
+    "date_label": "",
+    "status_badge": "River-first + 20-year target explicit"
+  },
+  "output_path": "docs/clarks-hill/index.html",
+  "narrative_rules": [
+    "Keep the Savannah River as the protagonist of the HTML.",
+    "Treat pressures and pollutants on the river as analytical core.",
+    "Use Hartwell, Russell, and Thurmond as explanatory support only.",
+    "Keep the 20-year target visible and separate from the real returned coverage.",
+    "Do not imply three-reservoir parity unless the EDA delivers it."
+  ],
+  "coverage_target_years": 20,
+  "coverage_summary": {
+    "rule": "Always request a 20-year historical window when the source allows it, and separate the returned coverage from the target.",
+    "actual_summary": "",
+    "notes": []
+  },
+  "coverage_layers": [
+    {
+      "layer": "River hydrology",
+      "entity": "",
+      "source": "",
+      "returned_years": 0,
+      "target_years": 20,
+      "coverage_gap_years": 20,
+      "coverage_status": "placeholder",
+      "coverage_kind": "series",
+      "actual_period": ""
+    }
+  ],
   "metrics": [],
-  "sections": [],
+  "sources": {
+    "river_collection_run": "",
+    "reservoir_annex_run": "",
+    "river_collection_manifest": "",
+    "reservoir_collection_manifest": "",
+    "sediment_notebook": "",
+    "sediment_master_data": ""
+  },
+  "source_note": {
+    "text": "Metrics come from local staging tables, figures come from local EDA exports, and narrative text is synthesized only from structured context with traceable file paths.",
+    "artifacts": []
+  },
+  "sections": [
+    {
+      "id": "river-first-frame",
+      "title": "River signal first",
+      "status": "ready",
+      "body": "Lead with Savannah River hydrology and continuity before discussing reservoir behavior."
+    },
+    {
+      "id": "river-pressures-pollutants",
+      "title": "River pressures and pollutants",
+      "status": "partial",
+      "body": "Make pollutants, pressures, impairments, dischargers, turbidity or sediment proxies, and watershed stressors visible in the river narrative."
+    },
+    {
+      "id": "coverage-status",
+      "title": "Coverage status against the 20-year target",
+      "status": "ready",
+      "body": "Expose the real returned period by source, layer, and entity whenever it falls short of the 20-year target."
+    },
+    {
+      "id": "reservoir-modulation",
+      "title": "Reservoir modulation as explanatory annex",
+      "status": "ready",
+      "body": "Use Hartwell, Russell, and Thurmond to explain the river signal, not to replace it."
+    },
+    {
+      "id": "thurmond-bridge",
+      "title": "Bridge to the Thurmond sediment interpretation",
+      "status": "ready",
+      "body": "Only after the river and pressure context is established should the HTML bridge toward the Thurmond sediment evidence."
+    },
+    {
+      "id": "methods-and-gaps",
+      "title": "Methods, provenance, and remaining gaps",
+      "status": "partial",
+      "body": "Keep artifact paths, provenance, and unresolved gaps visible."
+    }
+  ],
+  "current_caveats": [],
+  "sediment_summary": {
+    "sample_count": 0,
+    "interpretation_points": [],
+    "top_depositional_sites": [],
+    "strongest_pairwise_relation": {},
+    "caveat": ""
+  },
   "figures": [
     {
       "id": "fig1",
-      "title": "Reservoir operations: pool elevation and storage",
-      "tag": "Operations",
+      "section": "river-first-frame",
+      "title": "Mainstem hydrologic coverage at the long-horizon USGS sites",
+      "tag": "River Signal",
       "tag_color": "blue",
-      "icon": "water",
+      "icon": "show_chart",
       "image_path": "",
       "summary": "",
       "interpretation": "",
-      "highlight": ""
+      "highlight": "",
+      "source_refs": []
     },
     {
       "id": "fig2",
-      "title": "Inflow and outflow hydrograph",
-      "tag": "Hydrology",
+      "section": "river-pressures-pollutants",
+      "title": "River pressures and pollutant context",
+      "tag": "River Chemistry",
       "tag_color": "green",
-      "icon": "waves",
-      "image_path": "",
-      "summary": "",
-      "interpretation": "",
-      "highlight": ""
-    },
-    {
-      "id": "fig3",
-      "title": "Estimated residence time",
-      "tag": "Residence Time",
-      "tag_color": "orange",
-      "icon": "hourglass_empty",
-      "image_path": "",
-      "summary": "",
-      "interpretation": "",
-      "highlight": ""
-    },
-    {
-      "id": "fig4",
-      "title": "Water quality seasonality and stratification proxies",
-      "tag": "Water Quality",
-      "tag_color": "purple",
       "icon": "science",
       "image_path": "",
       "summary": "",
       "interpretation": "",
-      "highlight": ""
+      "highlight": "",
+      "source_refs": []
     },
     {
-      "id": "fig5",
-      "title": "Watershed hydroclimate context",
-      "tag": "Climate",
-      "tag_color": "red",
-      "icon": "cloud",
-      "image_path": "",
-      "summary": "",
-      "interpretation": "",
-      "highlight": ""
-    },
-    {
-      "id": "fig6",
-      "title": "Watershed land cover summary",
-      "tag": "Land Cover",
-      "tag_color": "blue",
-      "icon": "terrain",
-      "image_path": "",
-      "summary": "",
-      "interpretation": "",
-      "highlight": ""
-    },
-    {
-      "id": "fig7",
-      "title": "Interpretation bridge to depositional zones",
-      "tag": "Interpretation",
+      "id": "fig3",
+      "section": "reservoir-modulation",
+      "title": "Reservoir operations and forebay WQP as explanatory annex",
+      "tag": "Operations",
       "tag_color": "orange",
+      "icon": "water",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": "",
+      "source_refs": []
+    },
+    {
+      "id": "fig4",
+      "section": "thurmond-bridge",
+      "title": "Bridge from river signal to the Thurmond sediment interpretation",
+      "tag": "Interpretation",
+      "tag_color": "green",
       "icon": "hub",
       "image_path": "",
       "summary": "",
       "interpretation": "",
-      "highlight": ""
+      "highlight": "",
+      "source_refs": []
+    },
+    {
+      "id": "fig5",
+      "section": "coverage-status",
+      "title": "Coverage matrix against the 20-year target",
+      "tag": "Coverage",
+      "tag_color": "red",
+      "icon": "grid_view",
+      "image_path": "",
+      "summary": "",
+      "interpretation": "",
+      "highlight": "",
+      "source_refs": []
     }
-  ],
-  "output_path": "EDA/clarks_hill/apresentacao_clarks_hill.html"
+  ]
 }

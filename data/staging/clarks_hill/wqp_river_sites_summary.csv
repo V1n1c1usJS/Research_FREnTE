@@ -1,0 +1,4 @@
+site_label,site_id,site_name,reach,first_year,last_year,years_with_data,activity_count,result_count,latitude,longitude
+Calhoun Falls,USGS-02189000,"SAVANNAH RIVER NEAR CALHOUN FALLS, S. C.",Upper mainstem near Calhoun Falls,1956,1974,11,63,954,34.07094900000000,-82.6415224800000
+Augusta Intake,USGS-02196560,"SAVANNAH RIVER AUGUSTA INTAKE NR AUGUSTA, GA",Augusta river intake reach,1970,1970,1,1,7,33.50957986000000,-81.9998383000000
+US 1 Augusta,USGS-02196671,"SAVANNAH RIVER AT US 1, AT AUGUSTA, GA",Augusta urban mainstem reach,1997,1998,2,18,340,33.47541468000000,-81.9553929000000

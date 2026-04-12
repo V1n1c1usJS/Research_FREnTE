@@ -1,0 +1,56 @@
+context_id: ctx-savannah-river-gapfill-20260409
+
+article_goal: >
+  Fill the current discovery gaps for the Savannah River mainstem using a strict
+  river-first frame. The analytical core is the main channel signal across and
+  around the Hartwell -> Russell -> Thurmond cascade. Supporting reservoir
+  operations are included only to explain the river signal. Prioritize official,
+  queryable sources that can support 20 years of historical collection whenever
+  the source allows it, and record the actual returned period when coverage is
+  shorter.
+
+geographic_scope:
+  - "Savannah River mainstem above Hartwell"
+  - "Savannah River mainstem between Hartwell and Russell"
+  - "Savannah River mainstem between Russell and Thurmond"
+  - "Savannah River mainstem below Thurmond toward Augusta"
+  - "Hartwell, Russell, and Thurmond only as supporting operational controls"
+
+thematic_axes:
+  - mainstem river water quality with better historical coverage than the current run
+  - pollutant and environmental pressure datasets for the Savannah corridor
+  - additional mainstem gauges and historical series above, between, and below the cascade
+  - supporting reservoir operational time series for Hartwell, Russell, and Thurmond
+  - suspended sediment, turbidity, total suspended solids, and related fluvial proxies
+
+preferred_sources:
+  - "USGS NWIS and Water Data for the Nation"
+  - "USGS Water Quality Portal / waterqualitydata.us"
+  - "USGS waterservices.usgs.gov"
+  - "EPA ECHO"
+  - "EPA ATTAINS"
+  - "EPA 303(d) / TMDL / How's My Waterway linked exports"
+  - "USACE water.usace.army.mil"
+  - "USACE Savannah District"
+  - "Georgia EPD only when queryable and tied to the Savannah corridor"
+  - "data.gov only when it resolves to official source files or APIs"
+
+expected_outputs:
+  - "mainstem river-reach water-quality targets with explicit period of record"
+  - "pollutant-pressure targets covering ECHO, ATTAINS, impairments, TMDLs, NPDES, or equivalent corridor stressors"
+  - "mainstem gauge targets above, between, and below the reservoir cascade with direct API or export paths"
+  - "supporting Hartwell, Russell, and Thurmond operational series with actual returned coverage recorded"
+  - "sediment, turbidity, TSS, or proxy targets relevant to the river signal"
+
+exclusions:
+  - "des.sc.gov and all South Carolina DES pages"
+  - recreational, tourism, fishing, or generic river-condition pages
+  - unofficial aggregators that only mirror USGS or EPA data without adding access value
+  - Wikipedia, RiverApp, SnoFlo, or similar secondary summaries
+  - reservoir-only pages unless they materially support river interpretation
+
+notes:
+  - "Mandatory target window is 20 years whenever the source allows it."
+  - "If a source returns less than 20 years, preserve the actual returned coverage explicitly."
+  - "Do not re-explore des.sc.gov in this round."
+  - "Deliver a gap-focused handoff rather than a generic Savannah catalog."

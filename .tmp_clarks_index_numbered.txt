@@ -1,0 +1,640 @@
+   1: <!DOCTYPE html>
+   2: <html lang="en">
+   3: <head>
+   4: <meta charset="UTF-8">
+   5: <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   6: <title>Clarks Hill Lake — Savannah River EDA</title>
+   7: <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+   8: <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   9: <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  10: <style>
+  11: :root {
+  12:   --gsu-blue: #011E42;
+  13:   --gsu-gold: #87714D;
+  14:   --gsu-gold-light: #C4A86C;
+  15:   --slate-bg: #f8fafc;
+  16: }
+  17: body { font-family: 'Inter', sans-serif; background: var(--slate-bg); color: #0f172a; }
+  18: h1, h2, h3 { font-family: 'Bitter', serif; }
+  19: .material-symbols-outlined {
+  20:   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  21:   vertical-align: middle;
+  22: }
+  23: .gold-bar {
+  24:   height: 3px;
+  25:   background: linear-gradient(90deg, var(--gsu-gold), var(--gsu-gold-light), var(--gsu-gold));
+  26:   border-radius: 999px;
+  27: }
+  28: .badge {
+  29:   display: inline-flex;
+  30:   align-items: center;
+  31:   gap: 0.35rem;
+  32:   padding: 0.25rem 0.65rem;
+  33:   border-radius: 999px;
+  34:   font-size: 0.7rem;
+  35:   font-weight: 700;
+  36:   letter-spacing: 0.06em;
+  37:   text-transform: uppercase;
+  38: }
+  39: .field-label {
+  40:   font-size: 0.7rem;
+  41:   font-weight: 700;
+  42:   letter-spacing: 0.06em;
+  43:   text-transform: uppercase;
+  44:   color: #64748b;
+  45:   display: flex;
+  46:   align-items: center;
+  47:   gap: 0.35rem;
+  48: }
+  49: .metric-card {
+  50:   border: 1px solid #e2e8f0;
+  51:   border-radius: 1rem;
+  52:   background: white;
+  53:   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  54: }
+  55: .logo-chip {
+  56:   background: white;
+  57:   border-radius: 0.75rem;
+  58:   padding: 0.35rem 0.6rem;
+  59:   display: flex;
+  60:   align-items: center;
+  61:   justify-content: center;
+  62:   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  63: }
+  64: .fig-img {
+  65:   width: 100%;
+  66:   border-radius: 0.75rem;
+  67:   border: 1px solid #e2e8f0;
+  68: }
+  69: </style>
+  70: </head>
+  71: <body class="min-h-screen">
+  72: 
+  73: <header class="sticky top-0 z-50 shadow-lg" style="background: var(--gsu-blue);">
+  74:   <div class="max-w-6xl mx-auto px-6 py-3 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+  75:     <div class="flex flex-wrap items-center gap-3">
+  76:       <img src="../assets/100K.webp" alt="Project 100K" class="h-9 object-contain">
+  77:       <div class="w-px h-7 bg-white/20 hidden sm:block"></div>
+  78:       <div class="logo-chip">
+  79:         <img src="../assets/Georgia.png" alt="Georgia university logo" class="h-7 object-contain">
+  80:       </div>
+  81:       <div class="logo-chip">
+  82:         <img src="../assets/SENAI.svg" alt="SENAI logo" class="h-6 object-contain">
+  83:       </div>
+  84:     </div>
+  85:     <div class="flex items-center gap-3 text-xs">
+  86:       <span class="hidden sm:inline-block text-white/40">Project FREnTE — EDA</span>
+  87:       <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-semibold"
+  88:             style="background: rgba(134,197,63,.15); color: #86C53F; border: 1px solid rgba(134,197,63,.25);">
+  89:         <span class="w-1.5 h-1.5 rounded-full inline-block" style="background: #86C53F;"></span>
+  90:         Analytical handoff — April 2026
+  91:       </span>
+  92:     </div>
+  93:   </div>
+  94: </header>
+  95: 
+  96: <!-- Hero -->
+  97: <section style="background: var(--gsu-blue);" class="pb-10 pt-8">
+  98:   <div class="max-w-6xl mx-auto px-6">
+  99:     <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-2" style="color: var(--gsu-gold);">
+ 100:       Exploratory Data Report · Savannah River / Clarks Hill Lake
+ 101:     </p>
+ 102:     <h1 class="text-3xl lg:text-4xl font-bold text-white leading-tight mb-3">
+ 103:       Clarks Hill Lake
+ 104:       <span class="block mt-1" style="color: var(--gsu-gold-light);">Savannah River — Flow, Quality &amp; Sediment</span>
+ 105:     </h1>
+ 106:     <p class="text-white/75 text-sm lg:text-base max-w-3xl leading-relaxed mb-6">
+ 107:       Analysis structured in three layers: <strong class="text-white/90">river hydrology</strong> (flow regime and seasonality of the Savannah River),
+ 108:       <strong class="text-white/90">water quality</strong> (pollutant coupling with discharge — turbidity, conductance, DO, pH), and
+ 109:       <strong class="text-white/90">sediment response</strong> (depositional score, geochemistry, and spatial distribution across 19 coring sites).
+ 110:       Cascade system context: Hartwell → Russell → Thurmond.
+ 111:     </p>
+ 112:     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+ 113:       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
+ 114:         <span class="material-symbols-outlined text-2xl" style="color: var(--gsu-gold-light);">water</span>
+ 115:         <p class="text-white font-bold text-lg mt-1">12</p>
+ 116:         <p class="text-white/50 text-xs">Analytical figures</p>
+ 117:       </div>
+ 118:       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
+ 119:         <span class="material-symbols-outlined text-2xl" style="color: var(--gsu-gold-light);">hub</span>
+ 120:         <p class="text-white font-bold text-lg mt-1">44,644</p>
+ 121:         <p class="text-white/50 text-xs">WQP results (3 forebays)</p>
+ 122:       </div>
+ 123:       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
+ 124:         <span class="material-symbols-outlined text-2xl" style="color: var(--gsu-gold-light);">terrain</span>
+ 125:         <p class="text-white font-bold text-lg mt-1">19 sites</p>
+ 126:         <p class="text-white/50 text-xs">Sediment coring locations</p>
+ 127:       </div>
+ 128:       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
+ 129:         <span class="material-symbols-outlined text-2xl" style="color: var(--gsu-gold-light);">calendar_month</span>
+ 130:         <p class="text-white font-bold text-lg mt-1">2006–2026</p>
+ 131:         <p class="text-white/50 text-xs">Analysis window</p>
+ 132:       </div>
+ 133:     </div>
+ 134:   </div>
+ 135: </section>
+ 136: 
+ 137: <div class="max-w-6xl mx-auto px-6 py-4">
+ 138:   <div class="gold-bar"></div>
+ 139: </div>
+ 140: 
+ 141: <main class="max-w-6xl mx-auto px-6 py-6">
+ 142: 
+ 143:   <!-- Overview card -->
+ 144:   <section class="metric-card p-8 mb-10">
+ 145:     <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+ 146:       <div class="max-w-3xl">
+ 147:         <p class="field-label mb-3">
+ 148:           <span class="material-symbols-outlined text-sm">overview</span>
+ 149:           Study context
+ 150:         </p>
+ 151:         <p class="text-base text-slate-700 leading-7">
+ 152:           The Savannah River is the backbone of this analysis. J. Strom Thurmond Dam (Clarks Hill) sits at the Georgia–South Carolina border,
+ 153:           22 miles upstream of Augusta, operating as the terminal unit of the Hartwell → Russell → Thurmond cascade.
+ 154:           This report follows the river signal from its source — daily flow at USGS Augusta and USACE Dock gauges —
+ 155:           through water-quality coupling (turbidity, conductance, dissolved oxygen, pH) and into the sediment record
+ 156:           (19 coring sites, geochemistry, depositional scores). The goal is to understand how river behavior drives
+ 157:           the chemical and physical signature preserved in reservoir sediments.
+ 158:         </p>
+ 159:       </div>
+ 160:       <div class="grid gap-2 text-sm text-slate-500 min-w-[16rem]">
+ 161:         <div class="rounded-xl bg-slate-50 border border-slate-200 px-4 py-3">
+ 162:           <p class="field-label mb-1">
+ 163:             <span class="material-symbols-outlined text-sm">water</span>
+ 164:             River gauges
+ 165:           </p>
+ 166:           <p>USGS 02197000 Augusta · USGS 021989773 USACE Dock</p>
+ 167:         </div>
+ 168:         <div class="rounded-xl bg-slate-50 border border-slate-200 px-4 py-3">
+ 169:           <p class="field-label mb-1">
+ 170:             <span class="material-symbols-outlined text-sm">database</span>
+ 171:             Sources
+ 172:           </p>
+ 173:           <p>USGS NWIS · Water Quality Portal · NID GA01701 · USACE SAS · Field cores</p>
+ 174:         </div>
+ 175:         <div class="rounded-xl bg-slate-50 border border-slate-200 px-4 py-3">
+ 176:           <p class="field-label mb-1">
+ 177:             <span class="material-symbols-outlined text-sm">layers</span>
+ 178:             Analysis layers
+ 179:           </p>
+ 180:           <p>River flow → Water quality coupling → Sediment response</p>
+ 181:         </div>
+ 182:       </div>
+ 183:     </div>
+ 184:   </section>
+ 185: 
+ 186:   <!-- ═══ LAYER 1: RIVER HYDROLOGY ═══ -->
+ 187:   <section class="mb-12">
+ 188:     <div class="flex items-center justify-between gap-4 mb-4">
+ 189:       <div>
+ 190:         <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-1" style="color: var(--gsu-gold);">Layer 1 — River Hydrology</p>
+ 191:         <h2 class="text-2xl font-bold" style="color: var(--gsu-blue);">Savannah River flow regime &amp; seasonality</h2>
+ 192:       </div>
+ 193:       <span class="text-xs text-slate-500">USGS NWIS · 02197000 Augusta · 021989773 USACE Dock</span>
+ 194:     </div>
+ 195:     <div class="gold-bar mb-8"></div>
+ 196: 
+ 197:     <!-- Fig 1: River mainstem hydrograph -->
+ 198:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 199:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 200:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(1,30,66,.10);">
+ 201:           <span class="material-symbols-outlined text-xl" style="color: #011E42;">water</span>
+ 202:         </div>
+ 203:         <div class="flex-1">
+ 204:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 205:             <span class="badge" style="background: rgba(1,30,66,.10); color: #011E42;">Flow Regime</span>
+ 206:             <span class="text-xs text-slate-400 font-mono">FIG 1 · USGS 02197000 + 021989773</span>
+ 207:           </div>
+ 208:           <h2 class="text-xl font-bold text-slate-800">Upper Savannah River — daily flow at Augusta and USACE Dock</h2>
+ 209:         </div>
+ 210:       </div>
+ 211:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 212:       <div class="px-8 py-5">
+ 213:         <img src="figures/fig1_upper_river_flow.svg" alt="Upper Savannah River flow regime" class="fig-img">
+ 214:       </div>
+ 215:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 216:         <div>
+ 217:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 218:           <p class="text-sm text-slate-600 leading-relaxed">
+ 219:             Daily mean discharge (cfs) at USGS 02197000 (Augusta) and USACE Dock gauge (021989773) — the two stations
+ 220:             bracketing the tailwater zone immediately below Thurmond Dam. The dual-gauge view allows separation of the
+ 221:             dam release signal from natural tributary additions between the stations.
+ 222:           </p>
+ 223:         </div>
+ 224:         <div>
+ 225:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 226:           <p class="text-sm text-slate-600 leading-relaxed">
+ 227:             Seasonal asymmetry is clear: winter–spring peaks driven by higher basin precipitation, lower summer baseflow
+ 228:             shaped by reservoir draw-down and evapotranspiration. The release pattern at USACE Dock directly reflects
+ 229:             Thurmond operational decisions, establishing the flow context for all downstream quality parameters.
+ 230:           </p>
+ 231:         </div>
+ 232:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(1,30,66,.07); border-left: 3px solid #011E42;">
+ 233:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #011E42;">star</span>
+ 234:           <p class="text-sm font-semibold" style="color: #011E42;">USACE Dock discharge is the primary driver of tailwater quality — all subsequent parameter analyses use this flow record as the explanatory variable.</p>
+ 235:         </div>
+ 236:       </div>
+ 237:     </section>
+ 238: 
+ 239:     <!-- Fig 3: River seasonality climatology -->
+ 240:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 241:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 242:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(15,123,95,.10);">
+ 243:           <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">calendar_month</span>
+ 244:         </div>
+ 245:         <div class="flex-1">
+ 246:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 247:             <span class="badge" style="background: rgba(15,123,95,.10); color: #0F7B5F;">Seasonality</span>
+ 248:             <span class="text-xs text-slate-400 font-mono">FIG 2 · Monthly median climatology</span>
+ 249:           </div>
+ 250:           <h2 class="text-xl font-bold text-slate-800">River seasonality — 6-panel monthly climatology</h2>
+ 251:         </div>
+ 252:       </div>
+ 253:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 254:       <div class="px-8 py-5">
+ 255:         <img src="figures/fig3_river_seasonality.svg" alt="River seasonality 6-panel climatology" class="fig-img">
+ 256:       </div>
+ 257:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 258:         <div>
+ 259:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 260:           <p class="text-sm text-slate-600 leading-relaxed">
+ 261:             Monthly median values across 6 parameters: discharge, turbidity, specific conductance, dissolved oxygen,
+ 262:             temperature, and pH. Each panel covers all available years, giving the long-term seasonal cycle
+ 263:             independent of individual years.
+ 264:           </p>
+ 265:         </div>
+ 266:         <div>
+ 267:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 268:           <p class="text-sm text-slate-600 leading-relaxed">
+ 269:             Discharge peaks Jan–Mar; temperature troughs Jan–Feb with a strong August maximum. Conductance
+ 270:             inversely tracks flow (dilution in wet season). DO is lowest in August when hypolimnetic releases
+ 271:             from Thurmond drive below-saturation conditions in the tailwater. pH follows the biotic productivity
+ 272:             signal — alkalinized by algae in summer, depressed during winter respiratory dominance.
+ 273:           </p>
+ 274:         </div>
+ 275:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(15,123,95,.10); border-left: 3px solid #0F7B5F;">
+ 276:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #0F7B5F;">star</span>
+ 277:           <p class="text-sm font-semibold" style="color: #0F7B5F;">August is the ecological stress month: low DO, maximum temperature, minimum flow — all converging on the worst tailwater conditions for fish and benthic communities.</p>
+ 278:         </div>
+ 279:       </div>
+ 280:     </section>
+ 281:   </section>
+ 282: 
+ 283:   <!-- ═══ LAYER 2: WATER QUALITY COUPLING ═══ -->
+ 284:   <section class="mb-12">
+ 285:     <div class="flex items-center justify-between gap-4 mb-4">
+ 286:       <div>
+ 287:         <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-1" style="color: var(--gsu-gold);">Layer 2 — Water Quality Coupling</p>
+ 288:         <h2 class="text-2xl font-bold" style="color: var(--gsu-blue);">Pollutants and parameters cross flow discharge</h2>
+ 289:       </div>
+ 290:       <span class="text-xs text-slate-500">USGS NWIS · 021989773 USACE Dock · Pearson r (stdlib)</span>
+ 291:     </div>
+ 292:     <div class="gold-bar mb-8"></div>
+ 293: 
+ 294:     <!-- Fig 2: Water quality timeseries -->
+ 295:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 296:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 297:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(135,113,77,.12);">
+ 298:           <span class="material-symbols-outlined text-xl" style="color: #87714D;">science</span>
+ 299:         </div>
+ 300:         <div class="flex-1">
+ 301:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 302:             <span class="badge" style="background: rgba(135,113,77,.12); color: #87714D;">Timeseries</span>
+ 303:             <span class="text-xs text-slate-400 font-mono">FIG 3 · 021989773 · 5 parameters</span>
+ 304:           </div>
+ 305:           <h2 class="text-xl font-bold text-slate-800">Tailwater water quality — turbidity, conductance, DO, temperature, pH</h2>
+ 306:         </div>
+ 307:       </div>
+ 308:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 309:       <div class="px-8 py-5">
+ 310:         <img src="figures/fig2_lower_river_quality_timeseries.svg" alt="Tailwater water quality timeseries" class="fig-img">
+ 311:       </div>
+ 312:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 313:         <div>
+ 314:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 315:           <p class="text-sm text-slate-600 leading-relaxed">
+ 316:             Five stacked panels at the USACE Dock station: turbidity (FNU), specific conductance (µS/cm),
+ 317:             dissolved oxygen (mg/L), water temperature (°C), and pH (SU). The shared time axis enables
+ 318:             direct comparison of how each parameter responds to the same flow events.
+ 319:           </p>
+ 320:         </div>
+ 321:         <div>
+ 322:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 323:           <p class="text-sm text-slate-600 leading-relaxed">
+ 324:             High-discharge pulses suppress conductance through dilution and temporarily elevate turbidity
+ 325:             from resuspension. DO and temperature move inversely — cold, hypolimnetic Thurmond releases
+ 326:             depress temperature and can drive DO below 5 mg/L. pH depressions coincide with flood pulses
+ 327:             (organic acid flush) and with summer hypolimnetic releases (CO₂-enriched water).
+ 328:           </p>
+ 329:         </div>
+ 330:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(135,113,77,.12); border-left: 3px solid #87714D;">
+ 331:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #87714D;">star</span>
+ 332:           <p class="text-sm font-semibold" style="color: #87714D;">Conductance is the most reliable dilution tracer — negative coupling with discharge is consistent and strong across all years, confirming Thurmond release volume as the dominant control on ionic concentration.</p>
+ 333:         </div>
+ 334:       </div>
+ 335:     </section>
+ 336: 
+ 337:     <!-- Fig 4: Flow-quality coupling scatter -->
+ 338:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 339:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 340:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(194,120,3,.10);">
+ 341:           <span class="material-symbols-outlined text-xl" style="color: #C27803;">scatter_plot</span>
+ 342:         </div>
+ 343:         <div class="flex-1">
+ 344:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 345:             <span class="badge" style="background: rgba(194,120,3,.10); color: #C27803;">Coupling</span>
+ 346:             <span class="text-xs text-slate-400 font-mono">FIG 4 · Pearson r · 4 panels</span>
+ 347:           </div>
+ 348:           <h2 class="text-xl font-bold text-slate-800">Flow–quality coupling — bivariate scatter with Pearson r</h2>
+ 349:         </div>
+ 350:       </div>
+ 351:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 352:       <div class="px-8 py-5">
+ 353:         <img src="figures/fig4_flow_quality_coupling.svg" alt="Flow quality coupling scatter panels" class="fig-img">
+ 354:       </div>
+ 355:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 356:         <div>
+ 357:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 358:           <p class="text-sm text-slate-600 leading-relaxed">
+ 359:             Four scatter panels: discharge vs. turbidity, conductance, dissolved oxygen, and temperature.
+ 360:             Each panel annotated with Pearson r computed from stdlib — no external libraries.
+ 361:             The regression direction (positive or negative) indicates whether the parameter increases or
+ 362:             decreases with flow.
+ 363:           </p>
+ 364:         </div>
+ 365:         <div>
+ 366:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 367:           <p class="text-sm text-slate-600 leading-relaxed">
+ 368:             Conductance shows the strongest negative coupling (dilution). Turbidity is weakly positive
+ 369:             (resuspension at high flows). DO is moderately negative in summer (hypolimnetic release effect),
+ 370:             near-zero in winter (well-oxygenated cold releases). Temperature shows seasonal decoupling —
+ 371:             cold releases in summer push tailwater below ambient air temperature.
+ 372:           </p>
+ 373:         </div>
+ 374:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(194,120,3,.10); border-left: 3px solid #C27803;">
+ 375:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #C27803;">star</span>
+ 376:           <p class="text-sm font-semibold" style="color: #C27803;">Discharge quantitatively controls tailwater conductance (r &lt; −0.4) — this coupling is the dominant signal for ion-transport budget and sediment mineral dissolution estimates.</p>
+ 377:         </div>
+ 378:       </div>
+ 379:     </section>
+ 380: 
+ 381:     <!-- Fig 11: pH + DO deep-dive -->
+ 382:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 383:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 384:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(11,92,173,.10);">
+ 385:           <span class="material-symbols-outlined text-xl" style="color: #0B5CAD;">bubble_chart</span>
+ 386:         </div>
+ 387:         <div class="flex-1">
+ 388:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 389:             <span class="badge" style="background: rgba(11,92,173,.10); color: #0B5CAD;">Deep-dive</span>
+ 390:             <span class="text-xs text-slate-400 font-mono">FIG 5 · pH + DO · series, scatter, climatology</span>
+ 391:           </div>
+ 392:           <h2 class="text-xl font-bold text-slate-800">pH &amp; dissolved oxygen — timeseries, scatter and seasonal climatology</h2>
+ 393:         </div>
+ 394:       </div>
+ 395:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 396:       <div class="px-8 py-5">
+ 397:         <img src="figures/fig11_ph_do_series.svg" alt="pH and DO deep-dive" class="fig-img">
+ 398:       </div>
+ 399:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 400:         <div>
+ 401:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 402:           <p class="text-sm text-slate-600 leading-relaxed">
+ 403:             Four-panel deep-dive: pH and DO raw timeseries, temperature vs DO scatter (stratification signal),
+ 404:             DO vs pH scatter (biotic coupling coefficient), and paired monthly climatology.
+ 405:             The climatology panel makes the anti-correlated seasonal cycles explicit.
+ 406:           </p>
+ 407:         </div>
+ 408:         <div>
+ 409:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 410:           <p class="text-sm text-slate-600 leading-relaxed">
+ 411:             DO drops below 5 mg/L in summer at the USACE Dock — confirming hypolimnetic releases from the
+ 412:             stratified Thurmond pool. This is ecologically stressful for fish communities and mechanistically
+ 413:             linked to iron and manganese mobilization from anoxic sediments (Fe²⁺/Mn²⁺ release under reducing
+ 414:             conditions), which later precipitate when exposed to oxygenated surface water.
+ 415:           </p>
+ 416:         </div>
+ 417:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(11,92,173,.10); border-left: 3px solid #0B5CAD;">
+ 418:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #0B5CAD;">star</span>
+ 419:           <p class="text-sm font-semibold" style="color: #0B5CAD;">Low DO events are the bridge between water quality and sediment geochemistry — anoxic releases dissolve Fe and Mn from sediments, redistributing them through the water column.</p>
+ 420:         </div>
+ 421:       </div>
+ 422:     </section>
+ 423:   </section>
+ 424: 
+ 425:   <!-- ═══ LAYER 3: SEDIMENT RESPONSE ═══ -->
+ 426:   <section class="mb-12">
+ 427:     <div class="flex items-center justify-between gap-4 mb-4">
+ 428:       <div>
+ 429:         <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-1" style="color: var(--gsu-gold);">Layer 3 — Sediment Response</p>
+ 430:         <h2 class="text-2xl font-bold" style="color: var(--gsu-blue);">Depositional score, geochemistry &amp; spatial distribution</h2>
+ 431:       </div>
+ 432:       <span class="text-xs text-slate-500">19 coring sites · Thurmond pool · Sediment master data</span>
+ 433:     </div>
+ 434:     <div class="gold-bar mb-8"></div>
+ 435: 
+ 436:     <!-- Fig 7: Sediment texture score -->
+ 437:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 438:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 439:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(109,40,217,.10);">
+ 440:           <span class="material-symbols-outlined text-xl" style="color: #6D28D9;">layers</span>
+ 441:         </div>
+ 442:         <div class="flex-1">
+ 443:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 444:             <span class="badge" style="background: rgba(109,40,217,.10); color: #6D28D9;">Depositional Score</span>
+ 445:             <span class="text-xs text-slate-400 font-mono">FIG 6 · 19 sites · z-score composite</span>
+ 446:           </div>
+ 447:           <h2 class="text-xl font-bold text-slate-800">Sediment texture &amp; depositional score — all 19 coring sites</h2>
+ 448:         </div>
+ 449:       </div>
+ 450:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 451:       <div class="px-8 py-5">
+ 452:         <img src="figures/fig7_sediment_texture_score.svg" alt="Sediment texture and depositional score" class="fig-img">
+ 453:       </div>
+ 454:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 455:         <div>
+ 456:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 457:           <p class="text-sm text-slate-600 leading-relaxed">
+ 458:             Composite fine-depositional score (z-score sum of clay%, silt%, and organic carbon%) for all 19 coring sites,
+ 459:             displayed as a bilateral bar chart ranked by score. Sites with positive scores are active fine-sediment traps;
+ 460:             negative scores indicate coarser, high-energy environments.
+ 461:           </p>
+ 462:         </div>
+ 463:         <div>
+ 464:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 465:           <p class="text-sm text-slate-600 leading-relaxed">
+ 466:             Cove and mid-pool sites score highest — consistent with the velocity drop that occurs when river
+ 467:             current enters the reservoir body. Near-dam and inlet sites score lowest (coarser fractions dominate).
+ 468:             The Thurmond pool shows more heterogeneous scores than Hartwell, reflecting its longer fetch
+ 469:             and more varied bathymetry. These scores are the direct sediment consequence of the flow
+ 470:             regime characterized in Layer 1.
+ 471:           </p>
+ 472:         </div>
+ 473:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(109,40,217,.10); border-left: 3px solid #6D28D9;">
+ 474:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #6D28D9;">star</span>
+ 475:           <p class="text-sm font-semibold" style="color: #6D28D9;">Fine-sediment traps are spatially predictable from flow geometry — coves and mid-reservoir basins where Savannah River velocity collapses are the highest-priority targets for contaminant monitoring.</p>
+ 476:         </div>
+ 477:       </div>
+ 478:     </section>
+ 479: 
+ 480:     <!-- Fig 8: Sediment cross-relations -->
+ 481:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 482:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 483:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(109,40,217,.10);">
+ 484:           <span class="material-symbols-outlined text-xl" style="color: #6D28D9;">schema</span>
+ 485:         </div>
+ 486:         <div class="flex-1">
+ 487:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 488:             <span class="badge" style="background: rgba(109,40,217,.10); color: #6D28D9;">Geochemistry</span>
+ 489:             <span class="text-xs text-slate-400 font-mono">FIG 7 · 6 scatter panels · Pearson r</span>
+ 490:           </div>
+ 491:           <h2 class="text-xl font-bold text-slate-800">Sediment cross-relations — Fe, OC, clay, Mn, water content</h2>
+ 492:         </div>
+ 493:       </div>
+ 494:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 495:       <div class="px-8 py-5">
+ 496:         <img src="figures/fig8_sediment_relations.svg" alt="Sediment geochemical cross-relations" class="fig-img">
+ 497:       </div>
+ 498:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 499:         <div>
+ 500:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 501:           <p class="text-sm text-slate-600 leading-relaxed">
+ 502:             Six bivariate scatter panels with Pearson r: Fe vs OC (organo-mineral coupling), Fe vs clay
+ 503:             (mineral sorption surface), OC vs clay (co-deposition), sand vs gravel (coarse texture),
+ 504:             Mn vs Fe (diagenetic co-enrichment), and water% vs carbon% (porewater retention linked to organic load).
+ 505:           </p>
+ 506:         </div>
+ 507:         <div>
+ 508:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 509:           <p class="text-sm text-slate-600 leading-relaxed">
+ 510:             Strong Fe–OC coupling (r &gt; 0.6 at multiple sites) confirms Fe-bound organic carbon stabilization —
+ 511:             a critical mechanism for long-term carbon sequestration in reservoir sediments. The Mn–Fe
+ 512:             co-enrichment panel is particularly diagnostic: sites where both metals are elevated signal past
+ 513:             episodes of anoxic porewater, consistent with the low-DO water quality events documented in Layer 2.
+ 514:           </p>
+ 515:         </div>
+ 516:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(109,40,217,.10); border-left: 3px solid #6D28D9;">
+ 517:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #6D28D9;">star</span>
+ 518:           <p class="text-sm font-semibold" style="color: #6D28D9;">Fe–OC organo-mineral coupling closes the loop: Thurmond's low-DO releases mobilize Fe²⁺ → Fe re-precipitates in oxic zones → bonds with organic carbon → stabilized in sediment. This is the river-to-sediment signal chain.</p>
+ 519:         </div>
+ 520:       </div>
+ 521:     </section>
+ 522: 
+ 523:     <!-- Fig 12: Mn and water content -->
+ 524:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 525:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 526:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(194,120,3,.10);">
+ 527:           <span class="material-symbols-outlined text-xl" style="color: #C27803;">biotech</span>
+ 528:         </div>
+ 529:         <div class="flex-1">
+ 530:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 531:             <span class="badge" style="background: rgba(194,120,3,.10); color: #C27803;">Diagenesis</span>
+ 532:             <span class="text-xs text-slate-400 font-mono">FIG 8 · Mn (ppm) · water content (%) · 4 cross-plots</span>
+ 533:           </div>
+ 534:           <h2 class="text-xl font-bold text-slate-800">Sediment Mn &amp; water content — site profiles and cross-plots</h2>
+ 535:         </div>
+ 536:       </div>
+ 537:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 538:       <div class="px-8 py-5">
+ 539:         <img src="figures/fig12_sediment_mn_water.svg" alt="Sediment Mn and water content" class="fig-img">
+ 540:       </div>
+ 541:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 542:         <div>
+ 543:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 544:           <p class="text-sm text-slate-600 leading-relaxed">
+ 545:             Horizontal bar charts of Mn (ppm) and water content (%) per site, followed by four cross-plot panels:
+ 546:             Mn vs Fe (diagenetic co-enrichment), Mn vs OC, water% vs OC, and water% vs clay.
+ 547:           </p>
+ 548:         </div>
+ 549:         <div>
+ 550:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 551:           <p class="text-sm text-slate-600 leading-relaxed">
+ 552:             Manganese co-enrichment with Fe is the diagenetic fingerprint: under anoxic porewater conditions,
+ 553:             both Mn²⁺ and Fe²⁺ are reduced and mobilized, then re-precipitate together when oxygen returns.
+ 554:             High water content sites are finer-grained and organically rich — they have higher porewater
+ 555:             volume, sustaining longer anoxic conditions and more intense diagenetic cycling.
+ 556:           </p>
+ 557:         </div>
+ 558:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(194,120,3,.10); border-left: 3px solid #C27803;">
+ 559:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #C27803;">star</span>
+ 560:           <p class="text-sm font-semibold" style="color: #C27803;">Mn/Fe co-enrichment identifies past anoxic events recorded in the sediment — a geochemical archive of the river's low-DO episodes, extending the water-quality record back before monitoring began.</p>
+ 561:         </div>
+ 562:       </div>
+ 563:     </section>
+ 564: 
+ 565:     <!-- Fig 10: Spatial map -->
+ 566:     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+ 567:       <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+ 568:         <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(8,145,178,.10);">
+ 569:           <span class="material-symbols-outlined text-xl" style="color: #0891B2;">map</span>
+ 570:         </div>
+ 571:         <div class="flex-1">
+ 572:           <div class="flex flex-wrap items-center gap-2 mb-1">
+ 573:             <span class="badge" style="background: rgba(8,145,178,.10); color: #0891B2;">Spatial</span>
+ 574:             <span class="text-xs text-slate-400 font-mono">FIG 9 · Lat/lon · Fe gradient · clay gradient</span>
+ 575:           </div>
+ 576:           <h2 class="text-xl font-bold text-slate-800">Sediment spatial distribution — Fe, clay &amp; depositional score</h2>
+ 577:         </div>
+ 578:       </div>
+ 579:       <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+ 580:       <div class="px-8 py-5">
+ 581:         <img src="figures/fig10_sediment_spatial_map.svg" alt="Sediment spatial distribution map" class="fig-img">
+ 582:       </div>
+ 583:       <div class="px-8 pb-8 grid lg:grid-cols-2 gap-6">
+ 584:         <div>
+ 585:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+ 586:           <p class="text-sm text-slate-600 leading-relaxed">
+ 587:             Lat/lon scatter maps of the 19 coring sites: left panel colored by Fe concentration (warm orange gradient),
+ 588:             right panel colored by clay% (cool blue gradient). Circle size is proportional to the depositional score.
+ 589:             Hartwell, Russell, and Thurmond pools are distinguishable spatially.
+ 590:           </p>
+ 591:         </div>
+ 592:         <div>
+ 593:           <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Interpretation</p>
+ 594:           <p class="text-sm text-slate-600 leading-relaxed">
+ 595:             Fe-enriched sites (warm, large circles) cluster in mid-pool and cove areas — consistent with fine-grain
+ 596:             deposition and Fe co-precipitation with organic matter. Clay-dominated sites (blue, large circles)
+ 597:             largely overlap with Fe-enriched sites, confirming the sorptive coupling between clay minerals and iron
+ 598:             oxyhydroxides that underpins Fe–OC stabilization in Layer 3.
+ 599:           </p>
+ 600:         </div>
+ 601:         <div class="lg:col-span-2 rounded-lg px-5 py-3 flex items-start gap-3" style="background: rgba(8,145,178,.10); border-left: 3px solid #0891B2;">
+ 602:           <span class="material-symbols-outlined text-base flex-shrink-0 mt-0.5" style="color: #0891B2;">star</span>
+ 603:           <p class="text-sm font-semibold" style="color: #0891B2;">Spatial overlap of high-Fe and high-clay zones defines the priority sampling area for future contaminant surveys — these are the locations where bioavailable metals and sorbed organics accumulate most intensively.</p>
+ 604:         </div>
+ 605:       </div>
+ 606:     </section>
+ 607:   </section>
+ 608: 
+ 609:   <!-- ═══ DATA COVERAGE ═══ -->
+ 610:   <section class="metric-card p-8">
+ 611:     <div class="flex items-start gap-4">
+ 612:       <div class="w-12 h-12 rounded-full flex items-center justify-center text-white flex-shrink-0" style="background: var(--gsu-blue);">
+ 613:         <span class="material-symbols-outlined text-2xl">checklist</span>
+ 614:       </div>
+ 615:       <div class="flex-1">
+ 616:         <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-1" style="color: var(--gsu-gold);">Coverage audit</p>
+ 617:         <h2 class="text-2xl font-bold mb-3" style="color: var(--gsu-blue);">Data coverage &amp; gaps</h2>
+ 618:         <ul class="space-y-2 text-sm text-slate-600 leading-6">
+ 619:           <li>&#10003; <strong>River flow (USGS)</strong>: 2006–2026 Augusta and USACE Dock — complete and dense.</li>
+ 620:           <li>&#10003; <strong>WQP forebay monitoring</strong>: 44,644 results across Hartwell, Russell, Thurmond (1990–2025). Russell has lowest density — structural monitoring gap post-2015.</li>
+ 621:           <li>&#10003; <strong>Sediment cores</strong>: 19 sites with Fe, OC, clay, silt, Mn, water% — all parameters resolved.</li>
+ 622:           <li>&#8212; <strong>Thurmond outflow columns</strong> in river_reservoir_bridge.csv: empty (0/244 rows populated). USACE operational coupling cannot be validated at daily resolution this cycle.</li>
+ 623:           <li>&#8212; <strong>No bathymetric data</strong>: spatial maps use lat/lon only — depth-integrated volume weighting is not yet possible.</li>
+ 624:           <li>&#8212; <strong>Long-term sediment time series</strong>: cores are single point-in-time. Repeat coring needed to quantify accumulation rates.</li>
+ 625:         </ul>
+ 626:       </div>
+ 627:     </div>
+ 628:   </section>
+ 629: 
+ 630: </main>
+ 631: 
+ 632: <footer class="mt-12 border-t border-slate-200 py-6">
+ 633:   <div class="max-w-6xl mx-auto px-6 text-xs text-slate-400 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+ 634:     <span>Project FREnTE · GSU / SENAI · 2026</span>
+ 635:     <span>Collection run: operational-collect-clarkshill-20260401-225924 · EDA generated 2026-04-02</span>
+ 636:   </div>
+ 637: </footer>
+ 638: 
+ 639: </body>
+ 640: </html>

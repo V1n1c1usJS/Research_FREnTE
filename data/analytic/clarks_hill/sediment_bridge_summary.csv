@@ -1,0 +1,17 @@
+record_type,site,metric,value,aux_1,aux_2
+top_site,9,fine_depositional_score,5.703366,105704.55,2.78725613208388
+top_site,3,fine_depositional_score,5.693138,99537.98,3.11205305305647
+top_site,7,fine_depositional_score,4.679716,90703.67,2.55339826644755
+top_site,5,fine_depositional_score,4.54115,68429.48,2.38031678807746
+top_site,21,fine_depositional_score,4.40664,93302.8,2.70925848007279
+top_site,6,fine_depositional_score,4.120348,98759.42,2.50272184776152
+top_site,10,fine_depositional_score,3.603055,90688.96,2.76091915038656
+top_site,4,fine_depositional_score,3.263746,98957.07,3.02038426758324
+top_site,1,fine_depositional_score,3.081513,85781.23,2.77128958451421
+top_site,16,fine_depositional_score,-0.357468,68609.91,1.88812675676479
+pairwise_relation,,clay_pct__fe_ppm,0.685257,1729.00619366,positive
+pairwise_relation,,d50__fe_ppm,-0.670562,-7779.17578969,negative
+pairwise_relation,,fe_ppm__carbon_pct,0.745266,1.637e-05,positive
+pairwise_relation,,depth__fe_ppm,0.754624,1775.50511476,positive
+pairwise_relation,,depth__d50,-0.72246,-0.14652474,negative
+pairwise_relation,,clay_pct__carbon_pct,0.583681,0.03235534,positive

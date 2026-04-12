@@ -1,0 +1,19 @@
+reservoir,metric_slug,metric_label,parameter_group,unit,first_year,last_year,years_returned,months_returned,point_count,first_date,last_date
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,2026,4,40,28577,2023-01-01,2026-04-08
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,2026,4,40,28577,2023-01-01,2026-04-08
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,2026,11,116,318888,2016-05-26,2026-04-09
+Hartwell,power_generation,Power generation,Power,MWh,2023,2026,4,40,28587,2023-01-01,2026-04-09
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,2026,4,40,28509,2023-01-01,2026-04-08
+Hartwell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,2026,1,4,1885,2026-01-20,2026-04-08
+Russell,inflow_cfs,Inflow,Flow,cfs,2020,2026,7,53,28718,2020-12-23,2026-04-08
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,2026,4,40,28599,2023-01-01,2026-04-08
+Russell,power_generation,Power generation,Power,MWh,2023,2026,4,40,28613,2023-01-01,2026-04-09
+Russell,storage_acft,Storage,Storage,ac-ft,2023,2026,4,40,28531,2023-01-01,2026-04-08
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,2026,4,40,28604,2023-01-01,2026-04-08
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,2026,21,242,34575,2006-01-01,2026-04-08
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,2026,21,242,34575,2006-01-01,2026-04-08
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,2026,11,120,333830,2016-05-26,2026-04-08
+Thurmond,power_generation,Power generation,Power,MWh,2006,2026,21,242,34577,2006-01-01,2026-04-09
+Thurmond,release_cfs,Release,Flow,cfs,2026,2026,1,4,1888,2026-01-20,2026-04-08
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,2026,21,242,34580,2006-01-01,2026-04-08
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,2026,21,242,34579,2006-01-01,2026-04-08

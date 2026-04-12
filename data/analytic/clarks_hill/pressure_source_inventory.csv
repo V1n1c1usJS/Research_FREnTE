@@ -1,0 +1,24 @@
+source_stage,scope,dataset_name,source_name,status,period_start,period_end,coverage_years,target_years,priority_reason
+collected_context,drinking_water_quality,Savannah Main Report 2021,City of Savannah Water Quality Reports,collected,2020,2020,1,20,"Useful lower-basin compliance layer, but it still needs raw-river chemistry and PFAS context around it."
+collected_context,drinking_water_quality,Savannah Main Report 2022,City of Savannah Water Quality Reports,collected,2021,2021,1,20,"Useful lower-basin compliance layer, but it still needs raw-river chemistry and PFAS context around it."
+collected_context,drinking_water_quality,Savannah Main Report 2023,City of Savannah Water Quality Reports,collected,2022,2022,1,20,"Useful lower-basin compliance layer, but it still needs raw-river chemistry and PFAS context around it."
+collected_context,drinking_water_quality,Savannah Main Report 2024,City of Savannah Water Quality Reports,collected,2023,2023,1,20,"Useful lower-basin compliance layer, but it still needs raw-river chemistry and PFAS context around it."
+collected_context,drinking_water_quality,Savannah Main Report 2025,City of Savannah Water Quality Reports,collected,2024,2024,1,20,"Useful lower-basin compliance layer, but it still needs raw-river chemistry and PFAS context around it."
+collected_context,environmental_pressure,EPA ECHO data downloads landing page,echo.epa.gov,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Basin Bacteria TMDL Report 2023,epd.georgia.gov,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Basin Landscape Analysis,19january2021snapshot.epa.gov,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Basin Landscape Analysis,epa.gov,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Basin Restoration Data,deq.nc.gov,partial,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Basin Restoration Data 2008,deq.nc.gov,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Basin Sediment TMDL Evaluation 2010,epd.georgia.gov,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Basin dissolved oxygen restoration plan,epd.georgia.gov,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Savannah River Bathymetric Digital Elevation Model,ncei.noaa.gov,partial,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Sustainable Rivers Monitoring Plan Savannah River Basin,hec.usace.army.mil,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Thurmond Basin Dam Brochure,sas.usace.army.mil,blocked_for_now,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+collected_context,environmental_pressure,Water Quality Study of Savannah River Basin (2006-2008),open.clemson.edu,collected,,,,20,Needs structured pollutant and pressure layers that can join the river narrative.
+discovery_handoff,corridor_pressure,EPA ECHO Data Downloads,echo.epa.gov,ready,,,,20,Actual period of record still needs confirmation during collection.
+discovery_handoff,corridor_pressure,EPA Enforcement and Compliance Data,catalog.data.gov,ready,,,,20,Actual period of record still needs confirmation during collection.
+discovery_handoff,corridor_pressure,EPA Enforcement and Compliance Data,echo.epa.gov,needs_review,,,,20,Actual period of record still needs confirmation during collection.
+discovery_handoff,corridor_pressure,EPA Enforcement and Compliance Data Sets,catalog.data.gov,ready,2014,2014,,20,Returned coverage shorter than 20 years: 2014-2014.
+discovery_handoff,corridor_pressure,Savannah River Basin Bacteria TMDL Report - August 2023,epd.georgia.gov,ready,2023,2023,,20,Returned coverage shorter than 20 years: 2023-2023.
+discovery_handoff,corridor_pressure,Savannah River Basin Sediment TMDL Evaluation 2010,epd.georgia.gov,ready,2010,2010,,20,Returned coverage shorter than 20 years: 2010-2010.

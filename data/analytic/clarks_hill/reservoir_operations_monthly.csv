@@ -1,0 +1,1828 @@
+reservoir,metric_slug,metric_label,parameter_group,unit,year,month,ano_mes,monthly_mean,monthly_median,monthly_min,monthly_max,point_count
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,1,2023-01,6476.573028,3275.08,-51735.99,77603.98,743
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,2,2023-02,4318.480313,0.0,-54003.89,78694.14,672
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,3,2023-03,4080.935424,0.0,-350161.87,397922.13,743
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,4,2023-04,5452.420142,265.39,-38336.9,69629.93,704
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,5,2023-05,2777.739664,0.0,-403853.94,403853.94,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,6,2023-06,3338.656155,0.0,-436520.0,443361.87,684
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,7,2023-07,1757.723069,0.0,-43294.02,101263.04,743
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,8,2023-08,2135.133387,0.0,-87331.05,108085.83,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,9,2023-09,1597.596736,0.0,-610049.92,623083.86,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,10,2023-10,763.519194,0.0,-324784.05,343168.15,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,11,2023-11,879.129694,0.0,-30035.12,42049.17,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2023,12,2023-12,2703.968562,0.0,-36487.11,64734.96,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,1,2024-01,8788.61547,3123.935,-32335.17,138666.92,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,2,2024-02,5060.686115,3043.06,-673199.96,684318.08,695
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,3,2024-03,6631.959906,4096.15,-55703.94,68369.9,741
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,4,2024-04,3634.731952,1007.885,-84588.87,68420.05,712
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,5,2024-05,4255.949073,0.0,-155649.04,171050.12,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,6,2024-06,1695.125139,0.0,-51953.17,190605.97,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,7,2024-07,1536.883548,0.0,-49613.93,88970.01,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,8,2024-08,1493.103185,0.0,-52351.87,53370.0,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,9,2024-09,6680.383681,0.0,-51835.93,186957.96,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,10,2024-10,1570.837272,0.0,-43046.11,67090.1,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,11,2024-11,1501.602097,0.0,-38407.17,51388.84,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2024,12,2024-12,3538.981089,0.0,-38248.96,93375.16,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,1,2025-01,3101.031022,0.0,-45269.16,56066.98,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,2,2025-02,4381.389762,0.0,-646699.83,118952.16,672
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,3,2025-03,3235.025202,0.0,-63164.17,67090.1,742
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,4,2025-04,3368.001347,0.0,-100635.15,84695.17,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,5,2025-05,4063.447567,0.0,-54735.97,68420.05,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,6,2025-06,2064.891153,0.0,-84118.83,65457.15,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,7,2025-07,1592.655363,0.0,-660000.04,684318.08,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,8,2025-08,3021.618333,0.0,-646699.83,646800.13,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,9,2025-09,1648.55525,0.0,-1894684.14,2002244.13,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,10,2025-10,1219.62711,0.0,-37985.16,48803.1,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,11,2025-11,1146.233708,0.0,-42133.93,38682.98,720
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2025,12,2025-12,1592.425161,0.0,-187805.16,186499.93,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2026,1,2026-01,2495.464005,0.0,-84097.99,62732.97,744
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2026,2,2026-02,2538.650104,0.0,-30035.12,47462.91,672
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2026,3,2026-03,2167.047264,0.0,-44104.13,42049.17,742
+Hartwell,inflow_cfs,Inflow,Flow,cfs,2026,4,2026-04,2601.72788,0.0,-18021.07,32637.11,184
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,1,2023-01,5267.68895,2674.03,0.0,24497.08,743
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,2,2023-02,3154.778914,0.0,0.0,24518.97,672
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,3,2023-03,3070.164105,0.0,-2836.12,24200.08,743
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,4,2023-04,3358.340156,0.0,-2557.14,18829.07,704
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,5,2023-05,4156.460067,0.0,-2561.02,23707.09,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,6,2023-06,3866.929123,0.0,-2840.01,23642.11,684
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,7,2023-07,3451.185505,0.0,-2840.01,24643.99,743
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,8,2023-08,3698.975094,0.0,-1411.88,25139.1,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,9,2023-09,2700.863694,0.0,-2519.0,24532.04,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,10,2023-10,2183.37625,0.0,-1404.11,19149.02,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,11,2023-11,1803.558694,0.0,-1403.05,23349.0,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2023,12,2023-12,1736.601129,0.0,-2806.1,25325.91,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,1,2024-01,3568.016801,0.0,0.0,25566.05,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,2,2024-02,4700.726475,0.0,-4245.18,23778.07,695
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,3,2024-03,6391.222699,4094.03,-1836.01,31438.88,741
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,4,2024-04,3750.07764,0.0,-2547.95,24088.84,712
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,5,2024-05,4347.104973,0.0,-2547.95,24110.03,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,6,2024-06,3318.814139,0.0,-1845.9,190605.97,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,7,2024-07,3511.953884,0.0,-2824.11,24719.91,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,8,2024-08,2589.19539,0.0,-1410.11,24308.85,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,9,2024-09,2658.423389,0.0,0.0,24933.92,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,10,2024-10,3098.328508,0.0,0.0,24238.93,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,11,2024-11,2729.012514,0.0,-1410.11,36542.91,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2024,12,2024-12,2776.880981,0.0,0.0,25874.0,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,1,2025-01,3387.979516,0.0,0.0,25081.89,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,2,2025-02,2984.561622,0.0,0.0,25568.17,672
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,3,2025-03,2671.379367,0.0,0.0,25383.83,742
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,4,2025-04,3189.570222,0.0,-2747.13,24391.13,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,5,2025-05,4043.584825,0.0,0.0,24069.06,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,6,2025-06,2717.300736,0.0,0.0,18818.83,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,7,2025-07,3250.654677,0.0,0.0,23921.1,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,8,2025-08,1970.310134,0.0,0.0,24398.9,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,9,2025-09,3191.193639,0.0,0.0,24965.0,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,10,2025-10,2406.826546,0.0,0.0,22319.93,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,11,2025-11,2055.016875,0.0,0.0,24149.93,720
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2025,12,2025-12,2714.430497,0.0,0.0,25442.1,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2026,1,2026-01,2495.454919,0.0,0.0,25539.92,744
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2026,2,2026-02,2622.415833,0.0,0.0,25526.85,672
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2026,3,2026-03,1705.58748,0.0,0.0,25237.98,742
+Hartwell,outflow_cfs,Outflow,Flow,cfs,2026,4,2026-04,3222.014402,0.0,0.0,20031.89,184
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,5,2016-05,660.327803,660.33,660.14,660.43,487
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,6,2016-06,659.110229,659.06,658.01,660.27,2877
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,7,2016-07,656.957829,656.73,655.91,658.14,2975
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,8,2016-08,656.022208,656.085,655.25,656.43,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,9,2016-09,654.956966,654.99,654.17,655.38,2202
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,10,2016-10,653.002686,653.05,651.77,654.3,2375
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,11,2016-11,650.577547,650.46,649.8,651.77,2878
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2016,12,2016-12,649.701515,649.77,648.82,650.33,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,1,2017-01,649.603152,649.48,648.79,650.49,2843
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,2,2017-02,650.481819,650.52,649.9,650.85,2149
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,3,2017-03,650.059194,650.07,649.64,650.49,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,4,2017-04,651.188726,651.12,649.87,653.81,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,5,2017-05,652.947357,652.85,652.23,653.74,2838
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,6,2017-06,653.679816,653.64,653.35,654.13,2876
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,7,2017-07,653.708136,653.74,653.28,657.02,2801
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,8,2017-08,652.812903,652.85,652.07,655.31,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,9,2017-09,652.169003,652.3,651.38,654.82,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,10,2017-10,651.771018,651.74,651.15,653.9,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,11,2017-11,652.787947,652.69,651.9,653.81,2572
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2017,12,2017-12,651.844516,651.74,651.25,652.43,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,1,2018-01,651.257096,651.38,649.97,655.22,2975
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,2,2018-02,655.355841,655.97,652.1,657.61,2688
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,3,2018-03,659.022762,659.02,657.51,659.88,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,4,2018-04,660.029333,659.97,659.51,660.93,2865
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,5,2018-05,660.704882,660.14,659.55,663.19,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,6,2018-06,661.28773,660.47,660.14,664.34,2789
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,7,2018-07,660.086593,660.07,659.61,660.53,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,8,2018-08,660.974328,660.99,659.61,664.34,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,9,2018-09,660.556219,660.4,659.94,661.32,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,10,2018-10,658.783454,658.83,657.71,660.24,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,11,2018-11,658.650084,658.96,657.55,660.1,2873
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2018,12,2018-12,659.571271,659.48,657.51,662.76,2975
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,1,2019-01,659.697815,659.81,658.27,661.58,2975
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,2,2019-02,659.144662,658.37,657.32,663.94,2664
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,3,2019-03,661.472482,661.52,660.5,662.43,2965
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,4,2019-04,660.70904,660.5,660.01,662.73,2063
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,9,2019-09,656.55832,656.5,656.36,656.92,607
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,10,2019-10,655.893127,655.84,655.54,656.5,2974
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,11,2019-11,656.290305,656.33,655.91,659.06,1705
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2019,12,2019-12,655.875794,655.58,654.79,657.28,2052
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,1,2020-01,659.535108,659.74,657.15,664.24,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,2,2020-02,661.813121,662.2,659.28,663.68,2765
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,3,2020-03,661.268377,661.38,660.04,661.78,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,4,2020-04,660.836625,660.83,660.1,661.78,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,5,2020-05,661.883888,661.65,660.99,663.62,2847
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,6,2020-06,660.679424,660.7,660.01,661.15,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,7,2020-07,660.547045,660.56,660.07,660.86,2975
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,8,2020-08,660.441731,660.33,659.74,661.52,2866
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,9,2020-09,660.481354,660.37,660.01,661.42,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,10,2020-10,660.886275,661.19,659.65,663.25,2969
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,11,2020-11,659.241552,659.42,656.86,665.09,2873
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2020,12,2020-12,657.828636,657.84,656.89,658.6,2588
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,1,2021-01,658.591975,658.79,657.28,659.94,2607
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,2,2021-02,657.879156,657.61,657.05,659.65,2025
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,3,2021-03,659.906015,659.22,658.79,666.8,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,4,2021-04,661.105462,661.12,660.37,662.04,2199
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,5,2021-05,661.367209,661.38,660.89,661.68,2974
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,6,2021-06,661.235648,661.25,660.7,661.98,2776
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,7,2021-07,660.522385,660.6,659.97,661.06,2587
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,8,2021-08,660.557888,660.6,659.42,661.55,2472
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,9,2021-09,659.802128,659.74,658.83,660.6,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,10,2021-10,661.024995,661.22,658.56,669.06,2959
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,11,2021-11,659.323865,659.42,657.87,662.53,2869
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2021,12,2021-12,656.767792,656.59,656.33,661.52,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,1,2022-01,658.068037,658.23,656.5,658.6,2150
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,2,2022-02,659.106209,659.15,658.07,659.71,2688
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,3,2022-03,660.636635,660.93,659.48,661.55,2716
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,4,2022-04,660.522333,660.53,660.17,662.4,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,5,2022-05,660.570505,660.4,660.07,661.94,2612
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,6,2022-06,660.955698,661.09,659.88,665.42,2601
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,7,2022-07,659.222493,659.25,658.07,660.04,2888
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,8,2022-08,656.93476,656.99,656.0,658.23,2857
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,9,2022-09,656.972125,656.76,655.97,658.37,2296
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,10,2022-10,655.139122,654.99,654.46,656.27,2311
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,11,2022-11,654.10563,654.13,653.71,654.86,2865
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2022,12,2022-12,655.378206,655.68,654.04,656.5,2876
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,1,2023-01,657.341292,657.41,656.0,658.14,2942
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,2,2023-02,657.673023,657.74,656.69,661.91,2610
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,3,2023-03,659.551663,659.61,658.66,660.24,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,4,2023-04,660.64567,660.63,659.84,661.91,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,5,2023-05,661.155461,661.29,660.33,662.01,2974
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,6,2023-06,660.580326,660.53,660.24,661.19,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,7,2023-07,659.511314,659.61,658.27,660.33,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,8,2023-08,657.578095,657.66,656.27,658.56,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,9,2023-09,655.924766,655.91,655.12,656.59,2673
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,10,2023-10,654.58627,654.76,653.38,655.22,2686
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,11,2023-11,652.742699,652.66,652.17,653.41,2879
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2023,12,2023-12,652.464204,652.36,651.84,653.48,2945
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,1,2024-01,656.530521,657.22,653.05,660.1,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,2,2024-02,659.595354,659.74,658.69,660.37,2781
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,3,2024-03,661.164291,661.02,659.94,662.34,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,4,2024-04,660.281066,660.3,659.94,660.66,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,5,2024-05,660.39626,660.37,659.91,661.09,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,6,2024-06,659.412731,659.42,658.43,660.24,2860
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,7,2024-07,657.361319,657.55,656.23,658.5,2971
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,8,2024-08,655.717211,655.77,654.82,656.4,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,9,2024-09,654.66759,654.17,653.18,659.51,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,10,2024-10,658.751297,658.86,657.58,659.48,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,11,2024-11,656.821559,656.82,655.97,657.58,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2024,12,2024-12,656.067917,656.1,654.89,657.12,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,1,2025-01,657.234976,657.22,656.79,657.74,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,2,2025-02,657.943006,658.43,656.46,659.38,2688
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,3,2025-03,659.650652,659.68,659.15,660.1,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,4,2025-04,659.966681,659.91,659.55,660.53,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,5,2025-05,660.171868,660.14,659.74,660.56,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,6,2025-06,659.897646,659.84,659.58,660.33,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,7,2025-07,658.606126,658.73,657.51,659.65,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,8,2025-08,658.280286,658.4,657.61,658.79,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,9,2025-09,657.812635,657.71,656.89,658.83,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,10,2025-10,656.060554,655.94,655.41,656.96,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,11,2025-11,655.068747,655.12,654.23,655.61,2880
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2025,12,2025-12,653.673273,653.58,653.12,654.46,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2026,1,2026-01,653.372957,653.35,652.92,653.84,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2026,2,2026-02,652.793795,652.82,652.46,653.15,2688
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2026,3,2026-03,653.463259,653.54,652.99,653.74,2976
+Hartwell,pool_elevation_ft,Pool elevation,Elevation,ft,2026,4,2026-04,653.416502,653.41,653.22,653.67,769
+Hartwell,power_generation,Power generation,Power,MWh,2023,1,2023-01,71.074024,32.0,0.0,324.0,743
+Hartwell,power_generation,Power generation,Power,MWh,2023,2,2023-02,41.83631,0.0,0.0,325.0,672
+Hartwell,power_generation,Power generation,Power,MWh,2023,3,2023-03,41.686406,0.0,0.0,325.0,743
+Hartwell,power_generation,Power generation,Power,MWh,2023,4,2023-04,46.127841,0.0,0.0,260.0,704
+Hartwell,power_generation,Power generation,Power,MWh,2023,5,2023-05,57.56586,0.0,0.0,323.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2023,6,2023-06,53.545322,0.0,0.0,322.0,684
+Hartwell,power_generation,Power generation,Power,MWh,2023,7,2023-07,47.014805,0.0,0.0,324.0,743
+Hartwell,power_generation,Power generation,Power,MWh,2023,8,2023-08,49.267473,0.0,0.0,323.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2023,9,2023-09,33.447222,0.0,0.0,319.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2023,10,2023-10,28.958333,0.0,0.0,251.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2023,11,2023-11,23.098748,0.0,0.0,303.0,719
+Hartwell,power_generation,Power generation,Power,MWh,2023,12,2023-12,22.340054,0.0,0.0,319.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2024,1,2024-01,47.323925,0.0,0.0,324.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2024,2,2024-02,63.961151,0.0,0.0,319.0,695
+Hartwell,power_generation,Power generation,Power,MWh,2024,3,2024-03,86.860999,56.0,0.0,324.0,741
+Hartwell,power_generation,Power generation,Power,MWh,2024,4,2024-04,51.130618,0.0,0.0,322.0,712
+Hartwell,power_generation,Power generation,Power,MWh,2024,5,2024-05,59.377688,0.0,0.0,323.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2024,6,2024-06,40.658333,0.0,0.0,315.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2024,7,2024-07,47.09543,0.0,0.0,323.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2024,8,2024-08,34.211022,0.0,0.0,319.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2024,9,2024-09,35.115278,0.0,0.0,324.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2024,10,2024-10,41.50672,0.0,0.0,321.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2024,11,2024-11,35.981944,0.0,0.0,321.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2024,12,2024-12,36.821237,0.0,0.0,334.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2025,1,2025-01,45.474462,0.0,0.0,328.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2025,2,2025-02,39.915179,0.0,0.0,335.0,672
+Hartwell,power_generation,Power generation,Power,MWh,2025,3,2025-03,35.983827,0.0,0.0,335.0,742
+Hartwell,power_generation,Power generation,Power,MWh,2025,4,2025-04,43.608333,0.0,0.0,332.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2025,5,2025-05,55.408602,0.0,0.0,324.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2025,6,2025-06,39.8125,0.0,0.0,331.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2025,7,2025-07,44.290323,0.0,0.0,321.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2025,8,2025-08,26.72043,0.0,0.0,323.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2025,9,2025-09,43.45,0.0,0.0,325.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2025,10,2025-10,31.901882,0.0,0.0,300.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2025,11,2025-11,26.976389,0.0,0.0,316.0,720
+Hartwell,power_generation,Power generation,Power,MWh,2025,12,2025-12,35.510753,0.0,0.0,323.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2026,1,2026-01,32.350806,0.0,0.0,323.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2026,2,2026-02,33.934524,0.0,0.0,323.0,672
+Hartwell,power_generation,Power generation,Power,MWh,2026,3,2026-03,22.104839,0.0,0.0,321.0,744
+Hartwell,power_generation,Power generation,Power,MWh,2026,4,2026-04,39.26943,0.0,0.0,253.0,193
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,1,2023-01,2414865.794078,2418339.0,2344301.0,2456595.0,743
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,2,2023-02,2431860.751488,2434627.0,2382099.0,2493654.0,672
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,3,2023-03,2534006.496635,2535750.0,2483299.0,2563159.0,743
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,4,2023-04,2594571.302557,2593672.0,2549600.0,2667702.0,704
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,5,2023-05,2621273.252688,2626224.0,2575591.0,2670045.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,6,2023-06,2588440.172515,2586326.0,2553669.0,2619899.0,684
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,7,2023-07,2526983.786003,2530211.0,2464771.0,2573895.0,743
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,8,2023-08,2420291.415323,2422612.0,2351126.0,2474035.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,9,2023-09,2333865.790278,2332256.0,2292681.0,2382099.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,10,2023-10,2263034.615591,2273292.0,2209479.0,2296794.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,11,2023-11,2179070.573611,2174425.0,2153041.0,2209479.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2023,12,2023-12,2166187.759409,2160329.0,2137489.0,2212952.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,1,2024-01,2374099.446237,2406592.0,2195096.0,2559204.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,2,2024-02,2534951.243165,2544061.0,2440791.0,2576719.0,695
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,3,2024-03,2622376.422402,2614151.0,2556380.0,2689384.0,741
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,4,2024-04,2571707.285112,2572201.0,2552990.0,2590844.0,712
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,5,2024-05,2577578.473118,2575591.0,2550731.0,2615874.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,6,2024-06,2521118.090278,2521345.0,2467496.0,2567115.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,7,2024-07,2407842.319892,2417273.0,2345874.0,2469674.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,8,2024-08,2321072.526882,2324548.0,2274305.0,2357426.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,9,2024-09,2272453.047222,2245462.5,2195593.0,2526333.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,10,2024-10,2485165.676075,2492021.0,2422612.0,2523564.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,11,2024-11,2384917.534722,2384723.0,2344301.0,2423681.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2024,12,2024-12,2347628.556452,2349288.5,2287027.0,2411931.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,1,2025-01,2407891.158602,2407127.0,2386300.0,2435427.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,2,2025-02,2446903.70622,2472399.0,2367926.0,2525224.0,672
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,3,2025-03,2537426.954301,2538519.0,2511374.0,2562028.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,4,2025-04,2554959.106944,2551014.0,2532981.0,2588020.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,5,2025-05,2566330.325269,2563159.0,2546831.0,2589151.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,6,2025-06,2548682.216667,2545167.0,2525224.0,2575591.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,7,2025-07,2475107.731882,2484390.0,2417273.0,2532981.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,8,2025-08,2457617.325403,2458748.87,2422077.0,2486024.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,9,2025-09,2432123.437458,2427419.0,2383150.0,2487115.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,10,2025-10,2342542.878468,2334326.0,2310669.0,2387369.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,11,2025-11,2294030.797806,2296279.0,2252545.0,2320950.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2025,12,2025-12,2222211.906609,2215679.5,2192617.0,2263238.0,696
+Hartwell,storage_acft,Storage,Storage,ac-ft,2026,1,2026-01,2208292.347222,2209480.0,2182200.0,2229816.0,720
+Hartwell,storage_acft,Storage,Storage,ac-ft,2026,2,2026-02,2179515.366071,2179770.0,2166162.0,2196088.0,672
+Hartwell,storage_acft,Storage,Storage,ac-ft,2026,3,2026-03,-2.4794010849555336e+16,2215432.0,-9.223372036854775e+18,2223864.0,744
+Hartwell,storage_acft,Storage,Storage,ac-ft,2026,4,2026-04,2206172.434783,2204024.0,2201048.0,2216424.0,184
+Hartwell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,1,2026-01,476.41331,475.2,475.0,482.25,287
+Hartwell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,2,2026-02,476.051949,475.0,473.06,482.94,672
+Hartwell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,3,2026-03,475.806375,475.03,474.54,482.22,742
+Hartwell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,4,2026-04,476.493913,475.835,475.0,480.91,184
+Russell,inflow_cfs,Inflow,Flow,cfs,2020,12,2020-12,-3104.16,-3104.16,-3104.16,-3104.16,1
+Russell,inflow_cfs,Inflow,Flow,cfs,2021,1,2021-01,0.0,0.0,-1927.12,1927.12,4
+Russell,inflow_cfs,Inflow,Flow,cfs,2021,3,2021-03,3101.688571,2171.15,0.0,8684.94,7
+Russell,inflow_cfs,Inflow,Flow,cfs,2021,4,2021-04,11157.553333,11157.67,5578.66,16736.33,3
+Russell,inflow_cfs,Inflow,Flow,cfs,2021,5,2021-05,-1615.506,-1615.65,-2692.39,-538.55,5
+Russell,inflow_cfs,Inflow,Flow,cfs,2021,8,2021-08,-4817.98,-4817.98,-5353.35,-4282.61,2
+Russell,inflow_cfs,Inflow,Flow,cfs,2021,9,2021-09,-9603.12,-9603.12,-11735.42,-7470.82,2
+Russell,inflow_cfs,Inflow,Flow,cfs,2022,2,2022-02,1609.64,1609.64,1609.64,1609.64,1
+Russell,inflow_cfs,Inflow,Flow,cfs,2022,3,2022-03,0.0,0.0,0.0,0.0,1
+Russell,inflow_cfs,Inflow,Flow,cfs,2022,5,2022-05,3603.471081,3721.11,-3250.01,6500.02,37
+Russell,inflow_cfs,Inflow,Flow,cfs,2022,9,2022-09,8554.5375,8554.625,1510.06,15598.84,4
+Russell,inflow_cfs,Inflow,Flow,cfs,2022,10,2022-10,3175.04,3175.14,793.87,5556.41,7
+Russell,inflow_cfs,Inflow,Flow,cfs,2022,11,2022-11,1695.99,1695.99,1194.7,2197.28,2
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,1,2023-01,7514.110754,6400.08,-33519.98,70507.14,743
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,2,2023-02,4263.798899,3156.07,-22080.14,50226.99,672
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,3,2023-03,3598.398911,204.12,-41371.84,49611.1,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,4,2023-04,4550.757111,3205.87,-110280.99,99256.11,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,5,2023-05,4700.451478,3193.15,-45180.17,66424.06,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,6,2023-06,4962.5815,3076.615,-326330.83,316628.12,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,7,2023-07,5923.672177,3175.14,-28736.96,60419.86,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,8,2023-08,7219.485995,6385.95,-71214.14,51392.02,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,9,2023-09,5548.786722,3224.94,-25407.84,318600.09,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,10,2023-10,2365.375954,0.0,-64619.84,64380.05,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,11,2023-11,4586.046931,3199.86,-324323.9,317988.09,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2023,12,2023-12,5767.359382,3256.01,-990416.07,1032468.07,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,1,2024-01,6476.270484,3221.935,-25560.05,91532.08,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,2,2024-02,5847.746897,3161.02,-56574.1,65730.13,696
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,3,2024-03,7972.125806,6506.02,-19365.86,66659.96,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,4,2024-04,4208.066292,3218.93,-37585.05,39925.0,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,5,2024-05,4615.916909,3186.09,-28907.88,49453.95,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,6,2024-06,5110.794347,3186.09,-19530.07,43431.04,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,7,2024-07,6212.97047,3186.09,-160000.16,329408.85,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,8,2024-08,7824.322796,5240.17,-320503.91,326247.84,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,9,2024-09,9406.180097,6412.08,-63120.02,387152.93,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,10,2024-10,4920.804476,3193.15,-32196.03,38102.05,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,11,2024-11,5828.211528,3521.05,-29025.12,44799.13,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2024,12,2024-12,5566.089032,3218.93,-311014.15,323551.92,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,1,2025-01,6522.535269,3239.945,-618987.0,664697.95,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,2,2025-02,6184.182589,3236.94,-25678.0,58761.13,672
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,3,2025-03,4403.797527,3186.09,-320462.94,317500.04,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,4,2025-04,3705.505792,499.53,-330460.17,315462.03,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,5,2025-05,4667.555659,3158.545,-61085.9,100302.84,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,6,2025-06,4507.893097,1168.56,-50088.91,49530.94,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,7,2025-07,6882.87832,4317.04,-96359.95,105369.08,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,8,2025-08,6504.683992,3268.02,-246182.07,153419.98,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,9,2025-09,6387.340125,4061.01,-1016428.15,945139.14,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,10,2025-10,6956.041922,5065.01,-48059.02,66873.97,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,11,2025-11,6716.956028,4967.535,-71000.14,87422.16,720
+Russell,inflow_cfs,Inflow,Flow,cfs,2025,12,2025-12,4905.812702,3123.94,-315600.11,309492.09,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2026,1,2026-01,5819.002782,3180.615,-319945.94,316800.11,744
+Russell,inflow_cfs,Inflow,Flow,cfs,2026,2,2026-02,6691.56942,3164.55,-30583.91,46950.14,672
+Russell,inflow_cfs,Inflow,Flow,cfs,2026,3,2026-03,5120.781682,3193.15,-322535.91,138863.98,743
+Russell,inflow_cfs,Inflow,Flow,cfs,2026,4,2026-04,4247.416778,3193.15,-19080.16,38400.11,180
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,1,2023-01,7789.165155,0.0,0.0,47166.98,743
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,2,2023-02,4064.207455,0.0,0.0,28056.09,672
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,3,2023-03,3228.888076,0.0,0.0,27910.95,733
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,4,2023-04,4646.607847,0.0,0.0,28995.11,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,5,2023-05,4654.91547,0.0,0.0,40094.15,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,6,2023-06,5026.128194,0.0,0.0,44076.94,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,7,2023-07,5541.912261,0.0,0.0,44200.9,721
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,8,2023-08,7097.730215,0.0,0.0,44240.1,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,9,2023-09,5467.11025,0.0,0.0,42962.06,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,10,2023-10,1880.577272,0.0,0.0,27321.9,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,11,2023-11,4993.367306,0.0,0.0,41882.14,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2023,12,2023-12,5823.054946,0.0,0.0,49159.08,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,1,2024-01,6487.220403,0.0,0.0,43756.99,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,2,2024-02,6161.72908,0.0,0.0,44491.89,696
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,3,2024-03,7542.243989,0.0,0.0,36708.89,742
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,4,2024-04,4283.262031,0.0,0.0,36921.13,719
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,5,2024-05,4859.650363,0.0,0.0,44544.86,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,6,2024-06,5298.064,0.0,0.0,44008.08,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,7,2024-07,6109.351777,0.0,0.0,47412.06,743
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,8,2024-08,8219.924516,0.0,0.0,49790.85,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,9,2024-09,7297.988792,0.0,0.0,46462.09,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,10,2024-10,6551.563212,0.0,0.0,45946.85,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,11,2024-11,5784.652847,0.0,0.0,48018.06,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2024,12,2024-12,5245.239503,0.0,0.0,50065.96,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,1,2025-01,7305.497849,0.0,0.0,53348.1,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,2,2025-02,6048.244747,0.0,0.0,50281.02,672
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,3,2025-03,4291.736941,0.0,0.0,47625.01,742
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,4,2025-04,3519.595083,0.0,0.0,47176.86,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,5,2025-05,4096.739207,0.0,0.0,47270.09,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,6,2025-06,5525.535736,0.0,0.0,47770.86,720
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,7,2025-07,7418.397352,0.0,0.0,51959.88,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,8,2025-08,6047.186384,0.0,0.0,51443.93,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,9,2025-09,6488.556259,0.0,0.0,46706.83,719
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,10,2025-10,7366.267429,0.0,0.0,50313.16,743
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,11,2025-11,6956.380431,0.0,0.0,47722.83,719
+Russell,outflow_cfs,Outflow,Flow,cfs,2025,12,2025-12,4589.340847,0.0,0.0,46986.87,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2026,1,2026-01,5714.349261,0.0,0.0,46137.91,744
+Russell,outflow_cfs,Outflow,Flow,cfs,2026,2,2026-02,6436.033467,0.0,0.0,46260.09,672
+Russell,outflow_cfs,Outflow,Flow,cfs,2026,3,2026-03,5139.680969,0.0,0.0,45764.98,743
+Russell,outflow_cfs,Outflow,Flow,cfs,2026,4,2026-04,3753.119389,0.0,0.0,41521.93,180
+Russell,power_generation,Power generation,Power,MWh,2023,1,2023-01,88.164199,0.0,0.0,531.0,743
+Russell,power_generation,Power generation,Power,MWh,2023,2,2023-02,45.543155,0.0,0.0,314.0,672
+Russell,power_generation,Power generation,Power,MWh,2023,3,2023-03,36.91678,0.0,0.0,310.0,733
+Russell,power_generation,Power generation,Power,MWh,2023,4,2023-04,51.906944,0.0,0.0,312.0,720
+Russell,power_generation,Power generation,Power,MWh,2023,5,2023-05,51.790323,0.0,0.0,437.0,744
+Russell,power_generation,Power generation,Power,MWh,2023,6,2023-06,55.877778,0.0,0.0,490.0,720
+Russell,power_generation,Power generation,Power,MWh,2023,7,2023-07,62.069348,0.0,0.0,494.0,721
+Russell,power_generation,Power generation,Power,MWh,2023,8,2023-08,80.419355,0.0,0.0,496.0,744
+Russell,power_generation,Power generation,Power,MWh,2023,9,2023-09,63.123611,0.0,0.0,492.0,720
+Russell,power_generation,Power generation,Power,MWh,2023,10,2023-10,21.635753,0.0,0.0,312.0,744
+Russell,power_generation,Power generation,Power,MWh,2023,11,2023-11,58.429764,0.0,0.0,490.0,719
+Russell,power_generation,Power generation,Power,MWh,2023,12,2023-12,68.526882,0.0,0.0,565.0,744
+Russell,power_generation,Power generation,Power,MWh,2024,1,2024-01,74.389785,0.0,0.0,490.0,744
+Russell,power_generation,Power generation,Power,MWh,2024,2,2024-02,68.739943,0.0,0.0,493.0,696
+Russell,power_generation,Power generation,Power,MWh,2024,3,2024-03,84.574124,0.0,0.0,411.0,742
+Russell,power_generation,Power generation,Power,MWh,2024,4,2024-04,47.826147,0.0,0.0,413.0,719
+Russell,power_generation,Power generation,Power,MWh,2024,5,2024-05,54.25672,0.0,0.0,493.0,744
+Russell,power_generation,Power generation,Power,MWh,2024,6,2024-06,57.586111,0.0,0.0,490.0,720
+Russell,power_generation,Power generation,Power,MWh,2024,7,2024-07,68.888291,0.0,0.0,534.0,743
+Russell,power_generation,Power generation,Power,MWh,2024,8,2024-08,93.927419,0.0,0.0,554.0,744
+Russell,power_generation,Power generation,Power,MWh,2024,9,2024-09,84.686111,0.0,0.0,535.0,720
+Russell,power_generation,Power generation,Power,MWh,2024,10,2024-10,73.862903,0.0,0.0,524.0,744
+Russell,power_generation,Power generation,Power,MWh,2024,11,2024-11,65.644444,0.0,0.0,540.0,720
+Russell,power_generation,Power generation,Power,MWh,2024,12,2024-12,59.782258,0.0,0.0,574.0,744
+Russell,power_generation,Power generation,Power,MWh,2025,1,2025-01,83.180108,0.0,0.0,612.0,744
+Russell,power_generation,Power generation,Power,MWh,2025,2,2025-02,68.440476,0.0,0.0,569.0,672
+Russell,power_generation,Power generation,Power,MWh,2025,3,2025-03,48.041779,0.0,0.0,531.0,742
+Russell,power_generation,Power generation,Power,MWh,2025,4,2025-04,39.243056,0.0,0.0,532.0,720
+Russell,power_generation,Power generation,Power,MWh,2025,5,2025-05,45.69086,0.0,0.0,527.0,744
+Russell,power_generation,Power generation,Power,MWh,2025,6,2025-06,60.584722,0.0,0.0,534.0,720
+Russell,power_generation,Power generation,Power,MWh,2025,7,2025-07,83.274194,0.0,0.0,582.0,744
+Russell,power_generation,Power generation,Power,MWh,2025,8,2025-08,67.333333,0.0,0.0,572.0,744
+Russell,power_generation,Power generation,Power,MWh,2025,9,2025-09,73.485396,0.0,0.0,531.0,719
+Russell,power_generation,Power generation,Power,MWh,2025,10,2025-10,83.920592,0.0,0.0,577.0,743
+Russell,power_generation,Power generation,Power,MWh,2025,11,2025-11,79.806944,0.0,0.0,544.0,720
+Russell,power_generation,Power generation,Power,MWh,2025,12,2025-12,52.920699,0.0,0.0,535.0,744
+Russell,power_generation,Power generation,Power,MWh,2026,1,2026-01,66.594086,0.0,0.0,537.0,744
+Russell,power_generation,Power generation,Power,MWh,2026,2,2026-02,74.504464,0.0,0.0,537.0,672
+Russell,power_generation,Power generation,Power,MWh,2026,3,2026-03,59.626344,0.0,0.0,529.0,744
+Russell,power_generation,Power generation,Power,MWh,2026,4,2026-04,40.611399,0.0,0.0,487.0,193
+Russell,storage_acft,Storage,Storage,ac-ft,2023,1,2023-01,1020650.274563,1015095.0,986073.0,1077835.0,743
+Russell,storage_acft,Storage,Storage,ac-ft,2023,2,2023-02,1001434.193452,1002466.0,975000.0,1018801.0,672
+Russell,storage_acft,Storage,Storage,ac-ft,2023,3,2023-03,989670.948158,987884.0,967585.0,1025977.0,733
+Russell,storage_acft,Storage,Storage,ac-ft,2023,4,2023-04,1027391.708333,1030516.0,1004302.0,1042330.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2023,5,2023-05,1015482.361559,1015888.0,1006664.0,1022517.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2023,6,2023-06,1012629.427778,1013775.0,997501.0,1029714.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2023,7,2023-07,1006658.49792,1007452.0,992293.0,1023847.0,721
+Russell,storage_acft,Storage,Storage,ac-ft,2023,8,2023-08,1018381.275538,1018271.0,1007452.0,1030248.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2023,9,2023-09,1022580.572222,1022916.5,996197.0,1041252.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2023,10,2023-10,988909.513441,985814.0,950618.0,1031585.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2023,11,2023-11,1011515.445833,1012059.0,993334.0,1045299.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2023,12,2023-12,1013752.46371,1011136.0,987366.0,1076177.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2024,1,2024-01,1017514.125,1010873.0,988143.0,1067639.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2024,2,2024-02,992807.083333,990735.0,967075.0,1021189.0,696
+Russell,storage_acft,Storage,Storage,ac-ft,2024,3,2024-03,1040774.923181,1037754.0,994634.0,1083933.0,742
+Russell,storage_acft,Storage,Storage,ac-ft,2024,4,2024-04,1022916.802503,1023050.0,1012982.0,1034800.0,719
+Russell,storage_acft,Storage,Storage,ac-ft,2024,5,2024-05,1022167.591398,1020525.5,1006664.0,1038829.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2024,6,2024-06,1011728.219444,1010609.0,997240.0,1024114.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2024,7,2024-07,1010484.126514,1010345.0,990476.0,1165580.0,743
+Russell,storage_acft,Storage,Storage,ac-ft,2024,8,2024-08,996995.227151,997762.0,967585.0,1021986.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2024,9,2024-09,1017932.95,1005876.0,976282.0,1129921.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2024,10,2024-10,1016797.569892,1005481.5,970392.0,1115661.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2024,11,2024-11,1018862.020891,1020127.0,1001681.0,1033459.0,718
+Russell,storage_acft,Storage,Storage,ac-ft,2024,12,2024-12,1012902.856183,1012982.0,977052.0,1051258.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2025,1,2025-01,1007787.893817,1009556.0,976282.0,1046111.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2025,2,2025-02,1017933.657738,1018801.0,996458.0,1043679.0,672
+Russell,storage_acft,Storage,Storage,ac-ft,2025,3,2025-03,1013394.282392,1013775.0,995415.0,1028112.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2025,4,2025-04,1017805.156944,1019067.0,999328.0,1045841.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2025,5,2025-05,1021621.357527,1020525.5,991514.0,1065718.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2025,6,2025-06,1017465.788889,1014567.0,992033.0,1064622.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2025,7,2025-07,1001983.625685,1002728.0,975256.0,1019067.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2025,8,2025-08,999472.230995,1004046.365,958946.0,1037216.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2025,9,2025-09,1007868.198806,1009819.0,990476.0,1027578.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2025,10,2025-10,993758.490457,995155.0,960467.0,1023316.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2025,11,2025-11,974394.895986,971286.5,939849.0,1016683.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2025,12,2025-12,979650.557471,981426.0,949361.0,1000112.0,696
+Russell,storage_acft,Storage,Storage,ac-ft,2026,1,2026-01,990923.359722,989887.5,957739.0,1039702.0,720
+Russell,storage_acft,Storage,Storage,ac-ft,2026,2,2026-02,982421.696429,982772.0,951144.0,1008032.0,672
+Russell,storage_acft,Storage,Storage,ac-ft,2026,3,2026-03,-1.2397005424872022e+16,1009220.0,-9.223372036854775e+18,1045084.0,744
+Russell,storage_acft,Storage,Storage,ac-ft,2026,4,2026-04,1009667.144444,1010012.0,1004073.0,1015159.0,180
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,1,2023-01,327.16961,327.1,324.64,329.72,743
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,2,2023-02,327.664688,327.89,0.0,372.7,672
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,3,2023-03,319.313915,328.87,0.0,330.71,733
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,4,2023-04,330.0715,330.02,329.17,331.82,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,5,2023-05,330.265766,330.25,329.56,330.84,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,6,2023-06,329.732069,329.72,328.87,330.77,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,7,2023-07,327.07767,328.84,0.0,330.02,721
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,8,2023-08,327.206438,327.26,325.59,475.07,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,9,2023-09,325.002,324.97,323.49,326.25,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,10,2023-10,322.171747,324.15,0.0,325.3,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,11,2023-11,321.454361,322.41,0.0,323.72,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,12,2023-12,319.396747,321.56,0.0,323.0,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,1,2024-01,322.643414,326.655,0.0,329.17,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,2,2024-02,328.798764,328.87,327.3,330.05,696
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,3,2024-03,329.293477,329.36,33.07,331.82,742
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,4,2024-04,329.651349,329.53,326.51,330.94,719
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,5,2024-05,326.409489,329.63,0.0,359.55,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,6,2024-06,325.280208,329.13,0.0,329.99,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,7,2024-07,327.062974,327.07,326.08,329.92,743
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,8,2024-08,325.168333,325.07,323.65,326.64,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,9,2024-09,323.771889,323.29,321.75,328.54,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,10,2024-10,328.182151,328.15,326.71,329.63,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,11,2024-11,326.128931,326.67,0.0,329.66,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,12,2024-12,320.914919,325.69,0.0,329.95,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,1,2025-01,325.993347,325.95,324.48,327.03,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,2,2025-02,327.564464,327.675,325.26,329.72,672
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,3,2025-03,329.002043,328.97,327.89,329.99,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,4,2025-04,329.613486,329.63,328.22,330.45,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,5,2025-05,329.619126,329.36,328.61,331.23,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,6,2025-06,329.343847,329.4,328.51,329.95,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,7,2025-07,327.731909,327.69,326.51,329.17,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,8,2025-08,329.197742,329.36,327.0,330.61,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,9,2025-09,326.912694,326.64,325.1,328.74,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,10,2025-10,325.398468,325.36,324.44,326.54,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,11,2025-11,324.618806,324.61,323.36,325.75,720
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,12,2025-12,323.327312,323.33,321.56,324.57,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,1,2026-01,322.077379,322.11,320.54,323.0,744
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,2,2026-02,322.747887,322.77,321.36,324.41,672
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,3,2026-03,323.136137,323.13,321.92,324.18,743
+Russell,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,4,2026-04,323.030556,323.0,322.38,323.69,180
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,1,2006-01,-17414.096333,-16940.09,-59290.15,8469.87,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,2,2006-02,-17544.955714,-21175.025,-50819.92,8469.87,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,3,2006-03,-20770.779667,-16940.09,-92732.08,28633.13,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,4,2006-04,-10348.903333,-7103.37,-42350.05,25473.18,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,5,2006-05,-20953.363548,-21967.14,-50819.92,8469.87,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,6,2006-06,-8961.685,-8469.87,-33879.83,37243.91,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,7,2006-07,-29553.571667,-25854.395,-67760.02,0.0,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,8,2006-08,-22243.844516,-21779.97,-65339.9,7259.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,9,2006-09,-15245.979,-14519.98,-43559.94,7259.99,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,10,2006-10,-38176.495862,-36299.95,-87119.87,7259.99,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,11,2006-11,-41868.558276,-43559.94,-87119.87,7259.99,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2006,12,2006-12,-49558.069655,-58079.91,-87119.87,14519.98,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,1,2007-01,-41241.880323,-43559.94,-76970.08,0.0,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,2,2007-02,-33853.711786,-31459.895,-87119.87,0.0,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,3,2007-03,-25205.329677,-25409.96,-87119.87,84700.11,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,4,2007-04,-15955.413,-8469.87,-59290.15,16940.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,5,2007-05,-10358.861613,-8469.87,-42350.05,8617.13,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,6,2007-06,-8737.624667,-8469.87,-42350.05,25409.96,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,7,2007-07,-3003.771333,0.0,-42350.05,29039.96,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,8,2007-08,-12646.434194,-7259.99,-43559.94,14519.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,9,2007-09,-22366.405,-21779.97,-50819.92,0.0,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,10,2007-10,-20416.634,-12499.98,-81249.87,12499.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,11,2007-11,-28879.264138,-31249.95,-68749.89,6249.99,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2007,12,2007-12,-16733.844194,-12499.98,-74999.88,12499.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,1,2008-01,-17025.668387,-12499.98,-62499.9,12499.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,2,2008-02,-52801.639655,-43749.93,-106249.83,-12499.98,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,3,2008-03,-38502.044839,-37499.94,-74999.88,11950.13,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,4,2008-04,-33886.284,-32669.955,-116159.83,7259.99,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,5,2008-05,-30894.548387,-36299.95,-58079.91,14519.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,6,2008-06,-20575.326333,-27019.96,-50819.92,168750.08,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,7,2008-07,-25600.992903,-24999.96,-81249.87,0.0,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,8,2008-08,-22120.937097,-24999.96,-49999.92,38150.08,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,9,2008-09,-2030.004333,-2725.055,-18749.97,43599.84,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,10,2008-10,-21448.384516,-16349.98,-70850.05,10899.87,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,11,2008-11,-40405.11931,-43599.84,-70850.05,0.0,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2008,12,2008-12,-26136.727742,-21800.1,-81249.87,5450.11,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,1,2009-01,-34902.056129,-37499.94,-56249.91,-6249.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,2,2009-02,-39021.874643,-38150.08,-65399.94,-5450.11,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,3,2009-03,-29038.02129,-29039.96,-65339.9,18749.97,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,4,2009-04,-26121.730667,-23555.06,-59219.16,8550.03,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,5,2009-05,-11501.951613,-16940.09,-33879.83,8469.87,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,6,2009-06,-3105.654,-4234.935,-25409.96,25409.96,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,7,2009-07,-5113.222258,-7259.99,-59290.15,25409.96,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,8,2009-08,-3044.478065,-7259.99,-36299.95,72599.89,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,9,2009-09,-15003.979,-18149.975,-58079.91,36299.95,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,10,2009-10,-25626.430323,-21779.97,-76229.89,16940.09,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,11,2009-11,-23082.98069,-16940.09,-156593.0,19660.03,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2009,12,2009-12,822.285484,7809.84,-59599.86,69719.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,1,2010-01,-8269.081,-16940.09,-50819.92,64989.93,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,2,2010-02,-10916.992593,-16792.83,-83649.85,50819.92,27
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,3,2010-03,-19925.787097,-16940.09,-50819.92,8469.87,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,4,2010-04,-11359.409,-8469.87,-42350.05,16940.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,5,2010-05,-250.415161,0.0,-59290.15,43540.16,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,6,2010-06,3237.154333,4308.39,-59290.15,33879.83,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,7,2010-07,6307.693,4234.935,-33879.83,50819.92,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,8,2010-08,-800.093871,0.0,-33790.13,50819.92,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,9,2010-09,-887.339667,0.0,-25409.96,14519.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,10,2010-10,-17447.371935,-14519.98,-59290.15,16941.15,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,11,2010-11,-17756.545172,-14519.98,-43559.94,7259.99,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2010,12,2010-12,-16867.710323,-21779.97,-50819.92,21779.97,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,1,2011-01,-19398.381613,-21671.9,-36299.95,-7259.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,2,2011-02,-22773.887143,-15730.035,-79859.88,0.0,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,3,2011-03,-25318.725161,-20230.01,-101639.85,50819.92,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,4,2011-04,-12113.024333,-16940.09,-59290.15,33879.83,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,5,2011-05,-8192.056452,-8469.87,-33879.83,42350.05,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,6,2011-06,8202.360333,8469.87,-76229.89,67760.02,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,7,2011-07,-585.516774,0.0,-42350.05,72599.89,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,8,2011-08,-6845.577097,-7259.99,-50819.92,21926.88,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,9,2011-09,-13213.183667,-14519.98,-50819.92,14519.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,10,2011-10,-25332.271154,-21779.97,-65339.9,0.0,26
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,11,2011-11,-37499.965,-28124.955,-168750.08,18749.97,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2011,12,2011-12,-34976.786774,-37499.94,-74999.88,-6249.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,1,2012-01,-36733.826774,-36299.95,-123420.17,7259.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,2,2012-02,-36813.270714,-36299.95,-79859.88,0.0,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,3,2012-03,-41586.304667,-29039.96,-428340.07,33089.84,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,4,2012-04,-19103.246,-14519.98,-87119.87,14519.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,5,2012-05,-2341.932258,0.0,-36299.95,21779.97,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,6,2012-06,-11268.087,-7259.99,-58079.91,14519.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,7,2012-07,-32862.850645,-37499.94,-62499.9,18749.97,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,8,2012-08,-39516.065806,-43749.93,-68749.89,0.0,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,9,2012-09,-24353.40931,-24999.96,-56249.91,6249.99,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,10,2012-10,-21370.933548,-18749.97,-49999.92,12499.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,11,2012-11,-43245.160345,-43599.84,-76300.16,-5450.11,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2012,12,2012-12,-50280.648065,-54500.07,-76300.16,-21800.1,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,1,2013-01,-49939.303226,-49999.92,-87499.86,-10899.87,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,2,2013-02,-45736.1275,-46874.925,-112500.17,0.0,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,3,2013-03,-25315.809032,-21485.09,-79859.88,36299.95,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,4,2013-04,-21779.968571,-21779.97,-72599.89,29039.96,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,5,2013-05,-13335.96,-8469.87,-43559.94,50819.92,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,6,2013-06,3831.726552,0.0,-84700.11,101639.85,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,7,2013-07,1995.597419,0.0,-47550.14,88859.82,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,8,2013-08,4712.160968,8469.87,-33879.83,33879.83,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,9,2013-09,-1938.728,0.0,-33879.83,25409.96,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,10,2013-10,-19662.73871,-16792.83,-67760.02,16940.09,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,11,2013-11,-36255.167931,-42350.05,-84700.11,9059.98,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2013,12,2013-12,-19881.769032,-25409.96,-76229.89,42350.05,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,1,2014-01,-26578.364516,-31590.03,-94253.08,24446.93,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,2,2014-02,-23887.722143,-25409.96,-59290.15,8469.87,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,3,2014-03,-22261.764333,-19085.105,-76229.89,16940.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,4,2014-04,-19036.922667,-25409.96,-50819.92,61139.93,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,5,2014-05,-7789.959032,-8469.87,-33879.83,28189.93,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,6,2014-06,-11558.642667,-8469.87,-59290.15,8469.87,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,7,2014-07,-9144.626333,-8469.87,-42350.05,26109.9,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,8,2014-08,-8388.223226,-8469.87,-50673.02,93989.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,9,2014-09,-23741.614333,-16940.09,-59290.15,7259.99,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,10,2014-10,-23434.472,-21779.97,-58079.91,14519.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,11,2014-11,-40209.935714,-36299.95,-72599.89,-7259.99,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2014,12,2014-12,-38671.131935,-36299.95,-101639.85,11260.08,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,1,2015-01,-47778.837,-50819.92,-93169.98,8469.87,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,2,2015-02,-50474.458929,-50746.47,-160783.09,8469.87,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,3,2015-03,-34396.020345,-33879.83,-84112.12,-310.06,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,4,2015-04,-7623.023,0.0,-42350.05,16940.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,5,2015-05,3278.715806,0.0,-16940.09,25409.96,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,6,2015-06,-9348.532667,-4234.935,-58995.98,23549.94,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,7,2015-07,-20881.535714,-12289.855,-67172.03,2689.92,14
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,8,2015-08,-27281.578889,-25409.96,-50673.02,0.0,18
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,9,2015-09,-37851.173448,-42350.05,-84700.11,15149.99,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,10,2015-10,-8268.341667,7864.93,-87119.87,33879.83,6
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2015,12,2015-12,-19847.054667,-16940.09,-76229.89,56640.13,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,1,2016-01,-11422.256129,-12729.88,-69059.95,45590.18,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,2,2016-02,-14295.936897,-16940.09,-84700.11,59290.15,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,3,2016-03,-27653.913333,-25409.96,-76229.89,16940.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,4,2016-04,-12422.663,-8469.87,-59290.15,16940.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,5,2016-05,8773.836774,8469.87,-67760.02,50819.92,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,6,2016-06,-969.104667,0.0,-50819.92,38539.96,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,7,2016-07,-27069.944516,-29039.96,-76229.89,15860.17,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,8,2016-08,-14754.172581,-14519.98,-65339.9,21779.97,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,9,2016-09,-31339.04,-36299.95,-72599.89,0.0,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,10,2016-10,-30674.582903,-21779.97,-261359.96,7259.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,11,2016-11,-53909.397407,-49999.92,-101639.85,-18749.97,27
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2016,12,2016-12,-53548.918065,-49853.01,-112500.17,-6103.08,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,1,2017-01,-37604.197419,-36299.95,-101492.94,7259.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,2,2017-02,-60073.63,-46690.05,-243749.95,-6249.99,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,3,2017-03,-25995.543214,-24999.96,-137500.13,106249.83,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,4,2017-04,-12235.826667,-13509.98,-56249.91,14519.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,5,2017-05,-410.082903,0.0,-29039.96,14519.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,6,2017-06,4283.681,7259.99,-36299.95,79859.88,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,7,2017-07,-27480.416452,-29039.96,-65339.9,14519.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,8,2017-08,-32808.009355,-36299.95,-65339.9,7259.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,9,2017-09,-22021.968333,-21779.97,-79859.88,7259.99,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,10,2017-10,-24054.904516,-21779.97,-79859.88,29039.96,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,11,2017-11,-31258.18963,-29039.96,-108899.84,87119.87,27
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2017,12,2017-12,-15383.696774,-21779.97,-80079.89,50819.92,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,1,2018-01,-7259.99,-7259.99,-7259.99,-7259.99,1
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,3,2018-03,-15141.274211,-8469.87,-101639.85,25409.96,19
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,4,2018-04,-18926.6,-16940.09,-84700.11,16941.15,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,5,2018-05,11454.084516,8469.87,-33879.83,89060.06,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,6,2018-06,10117.322,11839.95,-84700.11,48679.86,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,7,2018-07,-273.199032,0.0,-50819.92,50819.92,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,8,2018-08,10498.172258,8469.87,-24672.95,52190.13,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,9,2018-09,-1374.776333,0.0,-42350.05,25704.84,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,10,2018-10,-13352.280968,-8469.87,-84700.11,33879.83,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,11,2018-11,-32085.311034,-16940.09,-110110.07,25409.96,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2018,12,2018-12,-1858.644516,590.11,-48280.09,36830.02,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,1,2019-01,-7970.987097,-10009.94,-52480.07,57729.95,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,2,2019-02,-30048.669643,-25409.96,-101639.85,16940.09,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,3,2019-03,-12873.949655,-8469.87,-70245.11,33820.15,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,4,2019-04,-5590.238276,-1529.83,-59290.15,44840.09,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,5,2019-05,7900.341034,8469.87,-25409.96,42350.05,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,6,2019-06,-1376.424333,0.0,-50819.92,50819.92,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,7,2019-07,7293.902581,8469.87,-25263.05,52250.17,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,8,2019-08,-6261.336333,-8469.87,-41907.91,25409.96,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,9,2019-09,-16775.231333,-21272.495,-50819.92,16940.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,10,2019-10,-21522.00129,-21779.97,-58079.91,14519.98,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,11,2019-11,-29879.375,-21779.97,-98310.03,0.0,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2019,12,2019-12,-2690.836,-20450.015,-84552.85,697254.9,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,1,2020-01,-30991.126774,-33732.92,-79750.05,22528.99,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,2,2020-02,-257791.518571,2859.955,-7282500.17,59089.91,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,3,2020-03,1282.898333,-1194.875,-51240.17,51650.17,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,4,2020-04,-8096.496207,-8469.87,-42350.05,42350.05,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,5,2020-05,-7944.472414,0.0,-66080.1,37759.85,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,6,2020-06,2037.127333,0.0,-37759.85,50319.87,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,7,2020-07,-1207.453226,0.0,-41169.84,25409.96,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,8,2020-08,865.866552,0.0,-33290.08,42350.05,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,9,2020-09,2189.662,0.0,-18879.93,37550.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,10,2020-10,-4183.250323,-2240.01,-58553.13,50819.92,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,11,2020-11,-2557.236071,-4842.52,-50819.92,42999.84,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2020,12,2020-12,-20363.442593,-22520.16,-50819.92,16940.09,27
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,1,2021-01,-13388.05129,-8469.87,-67760.02,33879.83,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,2,2021-02,-68420.275,-8469.87,-871967.86,42350.05,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,3,2021-03,-14139.438667,-16940.09,-76229.89,19970.09,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,4,2021-04,-7565.971724,-6099.9,-84700.11,35880.05,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,5,2021-05,7143.426552,0.0,-28319.89,103839.95,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,6,2021-06,10229.988621,8469.87,-16940.09,50819.92,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,7,2021-07,6000.473226,8469.87,-25409.96,50881.02,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,8,2021-08,8448.247097,8476.93,-23328.16,59355.13,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,9,2021-09,10012.33,8532.02,-16940.09,50881.02,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,10,2021-10,-3573.377097,-4899.91,-39399.87,59290.15,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,11,2021-11,-14222.930714,-8469.87,-50819.92,24179.95,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2021,12,2021-12,-22351.596774,-16940.09,-93169.98,33879.83,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,1,2022-01,-12346.747419,-8469.87,-68790.15,42350.05,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,2,2022-02,-18902.24037,-8469.87,-287658.09,33879.83,27
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,3,2022-03,-137.775172,0.0,-50819.92,57609.88,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,4,2022-04,2397.828621,0.0,-16940.09,56640.13,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,5,2022-05,3918.588621,0.0,-16940.09,25409.96,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,6,2022-06,11806.5625,8381.935,-16940.09,50819.92,28
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,7,2022-07,-118.047931,0.0,-50819.92,45619.84,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,8,2022-08,-5245.822581,0.0,-58079.91,33879.83,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,9,2022-09,-3983.176667,0.0,-29039.96,14519.98,30
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,10,2022-10,-7514.175806,0.0,-43559.94,21779.97,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,11,2022-11,-12764.803448,-7259.99,-50819.92,7259.99,29
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2022,12,2022-12,-8831.789032,-8469.87,-76229.89,42643.87,31
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,1,2023-01,16480.533073,13405.095,-2537159.98,2550501.86,742
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,2,2023-02,10665.450075,8469.87,-150459.9,154550.05,671
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,3,2023-03,8563.052227,7839.86,-287684.93,279509.94,741
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,4,2023-04,10251.158238,8469.87,-229839.86,311596.84,715
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,5,2023-05,7658.511456,4130.05,-826450.08,824889.87,735
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,6,2023-06,6955.365768,3225.11,-525140.04,533609.91,716
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,7,2023-07,5587.693239,0.0,-80822.91,858999.96,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,8,2023-08,4413.360148,0.0,-853419.89,873339.83,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,9,2023-09,3713.120639,0.0,-203820.01,224279.92,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,10,2023-10,1921.332433,0.0,-210540.04,232320.01,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,11,2023-11,2800.618222,0.0,-169999.86,231720.01,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2023,12,2023-12,3231.815914,0.0,-108899.84,152490.14,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,1,2024-01,13547.039382,8469.87,-1686520.07,1663779.89,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,2,2024-02,11991.538635,8300.01,-1679269.97,1708189.85,696
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,3,2024-03,15182.210687,11909.87,-93662.97,123180.03,742
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,4,2024-04,7557.593292,4365.955,-84700.11,135520.03,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,5,2024-05,8112.573575,5944.34,-76229.89,101639.85,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,6,2024-06,4064.068536,0.0,-81300.01,110110.07,717
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,7,2024-07,5536.40625,0.0,-299749.83,343970.15,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,8,2024-08,2862.112473,0.0,-101639.85,113589.98,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,9,2024-09,7884.367153,7259.99,-166980.1,137940.15,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,10,2024-10,5216.872177,1868.5,-93169.98,110379.88,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,11,2024-11,3590.381028,3639.88,-93169.98,186559.97,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2024,12,2024-12,5281.66168,269.985,-101639.85,160269.96,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,1,2025-01,6522.140927,1575.035,-126230.16,176600.17,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,2,2025-02,8957.057083,3893.62,-109815.9,253509.87,672
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,3,2025-03,5586.228143,1049.91,-127057.93,181380.01,743
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,4,2025-04,7706.750667,3549.83,-214452.9,201653.1,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,5,2025-05,9484.581048,8159.985,-79940.05,113279.92,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,6,2025-06,6569.707702,2663.61,-84700.11,115381.84,718
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,7,2025-07,3919.485887,0.0,-235258.89,331899.95,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,8,2025-08,9764.156505,7844.975,-246102.97,262621.05,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,9,2025-09,3466.600694,0.0,-1678320.0,1700980.01,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,10,2025-10,3031.778398,146.91,-135520.03,156009.96,743
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,11,2025-11,93345.703458,0.0,-87119.87,65303699.83,720
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2025,12,2025-12,3770.30207,49.97,-2163000.03,2178913.88,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2026,1,2026-01,6484.212634,0.0,-7260000.13,9383360.15,744
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2026,2,2026-02,4660.648363,3793.5,-128719.84,181793.9,672
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2026,3,2026-03,4120.279179,1380.1,-268619.95,123567.08,743
+Thurmond,inflow_cfs,Inflow,Flow,cfs,2026,4,2026-04,3903.485914,3565.015,-50819.92,91046.86,186
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,1,2006-01,90.558667,0.0,0.0,2653.9,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,2,2006-02,0.0,0.0,0.0,0.0,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,3,2006-03,2662.878667,0.0,0.0,28633.13,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,4,2006-04,97.386,0.0,0.0,2733.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,5,2006-05,631.414839,0.0,0.0,7280.82,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,6,2006-06,1484.628333,0.0,0.0,16852.16,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,7,2006-07,252.7,0.0,0.0,7581.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,8,2006-08,4.510968,0.0,0.0,69.92,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,9,2006-09,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,10,2006-10,0.0,0.0,0.0,0.0,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,11,2006-11,0.0,0.0,0.0,0.0,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2006,12,2006-12,10.131724,0.0,0.0,146.91,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,1,2007-01,93.230645,0.0,0.0,2890.15,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,2,2007-02,26.233929,0.0,0.0,146.91,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,3,2007-03,9.478065,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,4,2007-04,137.562333,0.0,0.0,3979.96,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,5,2007-05,23.706452,0.0,0.0,294.17,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,6,2007-06,14.691,0.0,0.0,146.91,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,7,2007-07,101.894667,0.0,0.0,3056.84,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,8,2007-08,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,9,2007-09,4.897,0.0,0.0,146.91,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,10,2007-10,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,11,2007-11,0.0,0.0,0.0,0.0,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2007,12,2007-12,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,1,2008-01,313.013548,0.0,0.0,3139.83,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,2,2008-02,0.0,0.0,0.0,0.0,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,3,2008-03,207.593226,0.0,0.0,5700.14,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,4,2008-04,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,5,2008-05,18.956129,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,6,2008-06,3.296,0.0,0.0,98.88,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,7,2008-07,3.804839,0.0,0.0,117.95,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,8,2008-08,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,9,2008-09,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,10,2008-10,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,11,2008-11,0.0,0.0,0.0,0.0,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2008,12,2008-12,198.719355,0.0,0.0,3080.15,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,1,2009-01,122.086452,0.0,0.0,3050.13,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,2,2009-02,335.25,0.0,0.0,3159.96,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,3,2009-03,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,4,2009-04,54.629667,70.98,0.0,95.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,5,2009-05,90.644839,0.0,0.0,2809.99,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,6,2009-06,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,7,2009-07,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,8,2009-08,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,9,2009-09,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,10,2009-10,212.901935,0.0,0.0,6599.96,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,11,2009-11,11620.218621,3510.98,0.0,29099.99,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2009,12,2009-12,18347.712258,24749.93,0.0,25419.85,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,1,2010-01,11494.264667,10069.975,0.0,25099.9,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,2,2010-02,18750.754074,24249.88,0.0,27300.0,27
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,3,2010-03,620.809032,0.0,0.0,7780.17,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,4,2010-04,216.267,0.0,0.0,3189.97,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,5,2010-05,842.482581,0.0,0.0,9659.97,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,6,2010-06,978.499,0.0,0.0,9520.13,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,7,2010-07,96.338333,0.0,0.0,2890.15,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,8,2010-08,19.593548,0.0,0.0,96.06,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,9,2010-09,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,10,2010-10,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,11,2010-11,17.925172,0.0,0.0,146.91,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2010,12,2010-12,462.588065,0.0,0.0,7980.06,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,1,2011-01,39.654516,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,2,2011-02,0.0,0.0,0.0,0.0,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,3,2011-03,871.930645,0.0,0.0,13649.82,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,4,2011-04,2286.000667,0.0,0.0,22030.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,5,2011-05,4.739032,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,6,2011-06,14.702667,0.0,0.0,294.17,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,7,2011-07,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,8,2011-08,297.315484,0.0,0.0,9069.87,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,9,2011-09,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,10,2011-10,0.0,0.0,0.0,0.0,26
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,11,2011-11,0.0,0.0,0.0,0.0,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2011,12,2011-12,4.739032,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,1,2012-01,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,2,2012-02,5.246786,0.0,0.0,146.91,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,3,2012-03,279.668667,0.0,0.0,4049.89,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,4,2012-04,14.726333,0.0,0.0,294.88,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,5,2012-05,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,6,2012-06,4.897,0.0,0.0,146.91,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,7,2012-07,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,8,2012-08,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,9,2012-09,0.0,0.0,0.0,0.0,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,10,2012-10,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,11,2012-11,210.00069,0.0,0.0,3080.15,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2012,12,2012-12,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,1,2013-01,379.997097,0.0,0.0,4209.86,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,2,2013-02,124.181429,0.0,0.0,3330.17,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,3,2013-03,211.250323,0.0,0.0,5960.06,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,4,2013-04,0.0,0.0,0.0,0.0,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,5,2013-05,94.996333,0.0,0.0,2849.89,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,6,2013-06,326.892069,0.0,0.0,5559.94,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,7,2013-07,18320.440645,20890.04,0.0,37589.99,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,8,2013-08,4.739032,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,9,2013-09,319.927333,0.0,0.0,9009.83,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,10,2013-10,9.478065,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,11,2013-11,2005.86069,0.0,0.0,13470.07,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2013,12,2013-12,9.478065,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,1,2014-01,10545.187419,7399.84,0.0,27659.86,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,2,2014-02,9.787143,0.0,0.0,97.12,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,3,2014-03,889.553,0.0,0.0,4179.84,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,4,2014-04,726.364,0.0,0.0,10320.01,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,5,2014-05,680.012581,0.0,0.0,4989.96,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,6,2014-06,1146.372667,0.0,0.0,7540.03,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,7,2014-07,2148.697333,0.0,0.0,17640.03,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,8,2014-08,1174.66871,0.0,0.0,13079.85,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,9,2014-09,14.702667,0.0,0.0,294.17,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,10,2014-10,2701.501,0.0,0.0,22379.96,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,11,2014-11,1275.717143,0.0,0.0,18680.05,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2014,12,2014-12,1375.916129,0.0,0.0,8300.01,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,1,2015-01,1218.073667,0.0,0.0,8779.93,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,2,2015-02,950.5325,0.0,0.0,9740.14,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,3,2015-03,652.237586,0.0,0.0,10019.83,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,4,2015-04,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,5,2015-05,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,6,2015-06,2509.472333,0.0,0.0,18319.84,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,7,2015-07,2713.427857,0.0,0.0,26239.86,14
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,8,2015-08,1422.278333,0.0,0.0,12873.96,18
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,9,2015-09,1244.318276,0.0,0.0,15149.99,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,10,2015-10,0.0,0.0,0.0,0.0,6
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2015,12,2015-12,3514.268333,0.0,0.0,29220.06,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,1,2016-01,33272.179355,31439.94,11891.15,50479.84,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,2,2016-02,891.622414,0.0,0.0,13560.13,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,3,2016-03,14.702667,0.0,0.0,441.08,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,4,2016-04,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,5,2016-05,303.865484,0.0,0.0,9419.83,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,6,2016-06,160.234333,0.0,0.0,4660.12,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,7,2016-07,252.613871,0.0,0.0,7389.95,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,8,2016-08,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,9,2016-09,454.731379,0.0,0.0,6520.15,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,10,2016-10,4.739032,0.0,0.0,146.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,11,2016-11,551.628519,0.0,0.0,8420.08,27
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2016,12,2016-12,402.632903,0.0,0.0,8441.97,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,1,2017-01,561.583226,0.0,0.0,6389.84,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,2,2017-02,1102.750714,0.0,0.0,13590.14,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,3,2017-03,120.498571,0.0,0.0,3227.05,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,4,2017-04,259.845333,0.0,0.0,7060.11,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,5,2017-05,760.905806,0.0,0.0,8399.95,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,6,2017-06,895.697333,0.0,0.0,10449.96,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,7,2017-07,856.984194,0.0,0.0,10609.94,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,8,2017-08,447.425484,0.0,0.0,9740.14,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,9,2017-09,0.0,0.0,0.0,0.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,10,2017-10,203.446774,0.0,0.0,6159.94,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,11,2017-11,21.777407,0.0,0.0,294.17,27
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2017,12,2017-12,1026.278065,0.0,0.0,9150.03,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,1,2018-01,0.0,0.0,0.0,0.0,1
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,3,2018-03,15.52,0.0,0.0,294.88,19
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,4,2018-04,300.280667,0.0,0.0,8420.08,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,5,2018-05,7082.482258,0.0,0.0,32350.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,6,2018-06,7858.655667,0.0,0.0,31740.12,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,7,2018-07,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,8,2018-08,935.291935,0.0,0.0,9840.08,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,9,2018-09,319.221,0.0,0.0,7660.1,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,10,2018-10,582.259032,0.0,0.0,10730.01,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,11,2018-11,7928.106552,0.0,0.0,19789.99,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2018,12,2018-12,21599.759355,23959.94,442.14,28460.09,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,1,2019-01,19820.014194,21689.92,0.0,26929.91,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,2,2019-02,4479.54,0.0,0.0,24659.88,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,3,2019-03,8154.996897,10449.96,0.0,19400.11,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,4,2019-04,5508.369655,0.0,0.0,31830.17,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,5,2019-05,598.656552,0.0,0.0,13966.95,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,6,2019-06,1164.572,0.0,0.0,13980.02,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,7,2019-07,2649.067097,0.0,0.0,18369.98,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,8,2019-08,514.711667,0.0,0.0,8300.01,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,9,2019-09,285.731,0.0,0.0,4350.06,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,10,2019-10,23.774839,0.0,0.0,737.02,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,11,2019-11,1234.878571,0.0,0.0,15439.93,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2019,12,2019-12,818.123333,0.0,0.0,13739.88,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,1,2020-01,2615.643871,0.0,0.0,13289.97,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,2,2020-02,17667.536786,25244.865,0.0,35579.88,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,3,2020-03,19339.546333,23510.03,0.0,30779.91,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,4,2020-04,1292.114828,0.0,0.0,30779.91,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,5,2020-05,1060.694138,0.0,0.0,30760.13,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,6,2020-06,3610.465667,0.0,0.0,18740.08,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,7,2020-07,1251.597742,0.0,0.0,11249.84,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,8,2020-08,1742.072759,0.0,0.0,31140.12,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,9,2020-09,2101.328667,0.0,0.0,18879.93,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,10,2020-10,1585.753871,0.0,0.0,14700.08,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,11,2020-11,11937.403929,13250.065,0.0,21189.86,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2020,12,2020-12,654.786296,0.0,0.0,2909.93,27
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,1,2021-01,0.0,0.0,0.0,0.0,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,2,2021-02,549.723214,0.0,0.0,14950.11,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,3,2021-03,1106.502667,0.0,0.0,15149.99,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,4,2021-04,3824.736552,0.0,0.0,21420.11,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,5,2021-05,374.481724,0.0,0.0,10859.97,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,6,2021-06,299.651034,0.0,0.0,5939.93,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,7,2021-07,535.939355,0.0,0.0,7320.02,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,8,2021-08,2710.420645,62.15,6.0,15222.03,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,9,2021-09,130.685,61.09,0.0,2620.0,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,10,2021-10,7685.314194,0.0,0.0,23690.14,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,11,2021-11,599.529643,0.0,0.0,7239.86,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2021,12,2021-12,763.309355,0.0,0.0,15390.13,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,1,2022-01,1587.736129,0.0,0.0,16769.88,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,2,2022-02,672.848889,0.0,0.0,9319.89,27
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,3,2022-03,7106.02931,0.0,0.0,23869.89,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,4,2022-04,11135.383448,6.0,0.0,28439.96,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,5,2022-05,121.725862,0.0,0.0,3530.05,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,6,2022-06,1521.57,0.0,0.0,8294.0,28
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,7,2022-07,2510.593103,0.0,0.0,14790.14,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,8,2022-08,999.325161,0.0,0.0,15590.01,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,9,2022-09,9.829333,0.0,0.0,294.88,30
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,10,2022-10,136.132258,0.0,0.0,4220.1,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,11,2022-11,253.108966,0.0,0.0,3720.05,29
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2022,12,2022-12,145.621613,0.0,0.0,4220.1,31
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,1,2023-01,11945.484515,11919.935,0.0,33450.05,742
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,2,2023-02,11599.554083,10980.04,0.0,31610.16,671
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,3,2023-03,4957.467787,3530.05,0.0,27749.91,741
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,4,2023-04,10118.250615,8640.09,0.0,26959.92,715
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,5,2023-05,7432.258884,3470.02,0.0,29799.93,735
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,6,2023-06,7496.819846,516.125,0.0,38098.17,716
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,7,2023-07,7333.079167,811.005,0.0,37050.03,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,8,2023-08,6952.092688,0.0,0.0,38159.97,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,9,2023-09,5155.063861,0.0,0.0,30909.87,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,10,2023-10,4126.658427,0.0,0.0,32090.08,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,11,2023-11,3647.635347,294.88,0.0,25080.12,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2023,12,2023-12,3617.408723,146.91,0.0,29459.85,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,1,2024-01,5263.280551,590.11,0.0,28370.04,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,2,2024-02,11200.511509,8524.96,0.0,30679.97,696
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,3,2024-03,13758.842183,15319.86,0.0,31140.12,742
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,4,2024-04,7512.825653,3470.02,0.0,28200.17,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,5,2024-05,8128.524556,3569.96,0.0,28069.86,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,6,2024-06,5961.914184,0.0,0.0,27960.03,717
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,7,2024-07,7312.365538,515.065,0.0,28059.97,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,8,2024-08,5671.973145,0.0,0.0,22509.92,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,9,2024-09,3697.974931,0.0,0.0,21349.83,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,10,2024-10,6378.069032,3786.97,0.0,34840.04,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,11,2024-11,5790.222736,3639.88,0.0,26049.86,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2024,12,2024-12,5205.197809,3639.88,0.0,37589.99,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,1,2025-01,4908.798199,3639.88,0.0,27209.95,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,2,2025-02,5251.456503,3599.98,0.0,30559.9,672
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,3,2025-03,5597.623661,3599.98,0.0,36660.16,743
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,4,2025-04,6565.653444,3549.83,0.0,36860.04,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,5,2025-05,9328.801062,10530.13,0.0,30100.1,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,6,2025-06,7934.050808,1546.96,0.0,36399.89,718
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,7,2025-07,5775.125094,0.0,0.0,36860.04,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,8,2025-08,9007.51828,6136.63,0.0,35129.97,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,9,2025-09,6689.888361,0.0,0.0,32220.04,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,10,2025-10,4412.755222,146.91,0.0,28289.87,743
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,11,2025-11,4319.946181,3680.14,0.0,32099.97,720
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2025,12,2025-12,4980.304583,3720.05,0.0,35299.83,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2026,1,2026-01,4118.134435,3639.88,0.0,32370.13,744
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2026,2,2026-02,3870.274881,294.17,0.0,30119.88,672
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2026,3,2026-03,3931.626931,3470.02,0.0,31259.84,743
+Thurmond,outflow_cfs,Outflow,Flow,cfs,2026,4,2026-04,3747.360806,146.91,0.0,22479.9,186
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,5,2016-05,328.479877,328.44,328.35,328.64,488
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,6,2016-06,328.710764,328.77,328.18,329.46,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,7,2016-07,326.923686,326.9,325.49,328.48,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,8,2016-08,325.610843,325.62,325.03,326.05,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,9,2016-09,324.898514,324.9,323.65,325.92,2201
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,10,2016-10,322.274158,322.24,321.1,323.72,2369
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,11,2016-11,320.716149,320.8,319.29,321.78,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2016,12,2016-12,319.705749,319.69,318.93,320.7,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,1,2017-01,320.362931,320.31,318.9,321.92,2842
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,2,2017-02,320.551744,320.51,319.91,321.36,2150
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,3,2017-03,320.169607,320.14,319.52,320.7,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,4,2017-04,321.645615,321.85,320.05,322.83,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,5,2017-05,322.767526,322.67,322.18,323.72,2837
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,6,2017-06,323.73383,323.75,323.16,324.28,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,7,2017-07,324.291961,324.21,323.43,324.97,2800
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,8,2017-08,323.354523,323.39,322.51,323.88,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,9,2017-09,322.739271,322.8,321.75,323.65,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,10,2017-10,321.29246,321.29,320.73,321.92,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,11,2017-11,321.30741,321.29,320.44,321.95,2571
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2017,12,2017-12,321.054674,321.1,320.28,336.52,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,1,2018-01,322.283058,322.15,321.19,336.61,2950
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,2,2018-02,324.938541,325.52,322.77,326.21,2686
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,3,2018-03,326.788658,326.8,325.82,327.53,2973
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,4,2018-04,328.191128,327.79,327.07,330.58,2864
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,5,2018-05,329.86665,329.82,329.4,336.75,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,6,2018-06,328.787471,328.51,327.92,330.02,2879
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,7,2018-07,328.762836,328.74,328.12,329.4,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,8,2018-08,328.849079,328.94,327.66,330.02,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,9,2018-09,327.108292,326.77,326.35,328.22,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,10,2018-10,326.538444,326.51,326.28,336.52,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,11,2018-11,327.45095,326.8,326.25,329.99,2873
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2018,12,2018-12,327.270027,327.1,325.89,329.27,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,1,2019-01,327.763441,327.95,325.43,336.48,2973
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,2,2019-02,326.912946,326.61,325.89,328.22,2654
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,3,2019-03,328.821626,328.81,327.62,336.48,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,4,2019-04,328.44256,328.18,327.79,336.71,2805
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,5,2019-05,328.3601,328.38,328.08,328.81,2908
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,6,2019-06,329.440267,329.43,328.18,330.87,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,7,2019-07,329.684755,329.63,329.04,338.09,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,8,2019-08,328.373697,328.595,327.36,329.2,2946
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,9,2019-09,326.596566,326.35,325.36,336.55,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,10,2019-10,324.775901,324.7,324.11,325.75,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,11,2019-11,324.380082,324.44,323.72,324.84,1706
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2019,12,2019-12,326.103972,326.28,323.39,327.85,2052
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,1,2020-01,328.471206,327.89,327.17,330.54,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,2,2020-02,331.629902,332.78,326.9,336.71,2764
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,3,2020-03,331.942103,331.79,330.02,336.84,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,4,2020-04,330.889353,330.77,330.31,336.71,2876
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,5,2020-05,331.114917,331.14,330.38,336.71,2845
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,6,2020-06,330.33168,330.15,329.53,336.71,2875
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,7,2020-07,330.459131,330.35,329.76,336.78,2968
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,8,2020-08,329.747631,329.72,329.4,330.22,2866
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,9,2020-09,330.272201,329.89,329.33,331.59,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,10,2020-10,330.07376,329.95,329.43,330.87,2968
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,11,2020-11,329.396599,329.86,327.13,331.36,2876
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2020,12,2020-12,327.12476,327.03,326.48,336.55,2586
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,1,2021-01,328.287265,328.35,327.49,328.9,2614
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,2,2021-02,328.58419,328.15,327.72,330.48,2024
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,3,2021-03,329.692057,329.53,328.81,334.25,2975
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,4,2021-04,330.770944,330.74,330.35,331.17,2193
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,5,2021-05,331.169923,331.23,330.54,336.94,2971
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,6,2021-06,330.65356,330.64,330.31,330.94,2778
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,7,2021-07,330.2016,330.25,329.3,336.75,2587
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,8,2021-08,330.132292,329.99,329.2,336.71,2478
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,9,2021-09,329.636806,329.66,329.07,330.15,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,10,2021-10,330.885098,330.71,329.3,336.91,2958
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,11,2021-11,329.259164,329.36,328.28,329.92,2872
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2021,12,2021-12,327.065541,326.9,326.51,328.41,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,1,2022-01,328.940726,329.2,327.76,329.63,2149
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,2,2022-02,329.936618,329.86,328.97,330.87,2688
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,3,2022-03,330.9862,331.14,329.89,331.92,2716
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,4,2022-04,331.426375,330.91,330.15,334.38,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,5,2022-05,330.124553,330.09,329.82,330.54,2609
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,6,2022-06,330.463628,330.58,329.76,330.91,2599
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,7,2022-07,329.308423,329.4,328.22,331.96,2891
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,8,2022-08,327.173528,327.03,325.85,328.35,2857
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,9,2022-09,326.21792,326.31,325.33,336.71,2284
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,10,2022-10,325.346546,325.33,324.34,336.75,2299
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,11,2022-11,324.085007,324.08,323.72,324.44,2864
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2022,12,2022-12,326.059505,325.905,323.98,336.84,2870
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,1,2023-01,327.956127,327.85,325.92,330.09,2941
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,2,2023-02,329.084509,328.67,328.12,336.94,2608
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,3,2023-03,329.655306,329.66,328.48,336.78,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,4,2023-04,330.964007,330.87,330.41,336.84,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,5,2023-05,331.123888,331.1,330.77,331.46,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,6,2023-06,330.588115,330.61,330.15,331.07,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,7,2023-07,329.728488,329.72,328.51,330.87,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,8,2023-08,327.854116,328.15,326.8,328.64,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,9,2023-09,325.825335,325.85,325.0,326.94,2671
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,10,2023-10,324.75371,325.03,323.52,325.49,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,11,2023-11,323.140799,323.23,322.38,323.65,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2023,12,2023-12,322.280699,322.28,321.52,322.97,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,1,2024-01,326.365806,327.36,322.15,329.76,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,2,2024-02,329.55657,329.66,328.41,330.64,2784
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,3,2024-03,330.50374,330.18,329.3,332.28,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,4,2024-04,330.451302,330.31,330.02,331.43,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,5,2024-05,330.474509,330.45,330.18,330.91,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,6,2024-06,329.743906,329.99,328.58,330.41,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,7,2024-07,327.855037,327.89,327.2,328.61,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,8,2024-08,325.945393,325.82,325.03,327.43,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,9,2024-09,324.470562,323.92,323.23,328.97,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,10,2024-10,328.964526,328.97,327.85,329.92,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,11,2024-11,327.356892,327.46,326.18,328.08,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2024,12,2024-12,326.465138,326.44,325.69,327.33,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,1,2025-01,326.722675,326.67,325.82,327.36,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,2,2025-02,328.300171,328.22,326.35,330.38,2688
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,3,2025-03,329.767732,329.72,329.49,330.28,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,4,2025-04,330.37651,330.41,329.63,331.14,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,5,2025-05,330.419654,330.12,329.79,331.89,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,6,2025-06,330.142979,330.18,329.36,330.58,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,7,2025-07,328.563676,328.44,327.62,329.59,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,8,2025-08,329.984042,330.135,327.79,331.36,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,9,2025-09,327.710111,327.4,326.61,329.4,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,10,2025-10,326.173249,326.08,325.36,326.97,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,11,2025-11,325.377674,325.39,324.84,326.12,2880
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2025,12,2025-12,324.076604,324.08,323.23,325.16,2886
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2026,1,2026-01,322.826922,322.87,321.95,325.16,2976
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2026,2,2026-02,323.520288,323.52,322.8,325.2,2641
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2026,3,2026-03,323.884926,323.88,323.26,325.1,2968
+Thurmond,pool_elevation_ft,Pool elevation,Elevation,ft,2026,4,2026-04,323.752409,323.75,323.59,324.08,768
+Thurmond,power_generation,Power generation,Power,MWh,2006,1,2006-01,0.866667,0.0,0.0,25.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2006,2,2006-02,0.0,0.0,0.0,0.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2006,3,2006-03,27.733333,0.0,0.0,311.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2006,4,2006-04,0.966667,0.0,0.0,26.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2006,5,2006-05,6.387097,0.0,0.0,75.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2006,6,2006-06,15.433333,0.0,0.0,179.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2006,7,2006-07,2.633333,0.0,0.0,79.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2006,8,2006-08,0.129032,0.0,0.0,2.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2006,9,2006-09,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2006,10,2006-10,0.0,0.0,0.0,0.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2006,11,2006-11,0.0,0.0,0.0,0.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2006,12,2006-12,0.068966,0.0,0.0,1.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2007,1,2007-01,0.83871,0.0,0.0,26.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2007,2,2007-02,0.178571,0.0,0.0,1.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2007,3,2007-03,0.064516,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2007,4,2007-04,1.433333,0.0,0.0,42.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2007,5,2007-05,0.16129,0.0,0.0,2.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2007,6,2007-06,0.1,0.0,0.0,1.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2007,7,2007-07,0.933333,0.0,0.0,28.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2007,8,2007-08,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2007,9,2007-09,0.033333,0.0,0.0,1.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2007,10,2007-10,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2007,11,2007-11,0.0,0.0,0.0,0.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2007,12,2007-12,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2008,1,2008-01,2.774194,0.0,0.0,28.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2008,2,2008-02,0.0,0.0,0.0,0.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2008,3,2008-03,1.774194,0.0,0.0,50.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2008,4,2008-04,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2008,5,2008-05,0.129032,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2008,6,2008-06,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2008,7,2008-07,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2008,8,2008-08,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2008,9,2008-09,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2008,10,2008-10,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2008,11,2008-11,0.0,0.0,0.0,0.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2008,12,2008-12,1.741935,0.0,0.0,27.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2009,1,2009-01,1.032258,0.0,0.0,27.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2009,2,2009-02,2.928571,0.0,0.0,28.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2009,3,2009-03,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2009,4,2009-04,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2009,5,2009-05,0.83871,0.0,0.0,26.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2009,6,2009-06,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2009,7,2009-07,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2009,8,2009-08,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2009,9,2009-09,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2009,10,2009-10,2.096774,0.0,0.0,65.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2009,11,2009-11,119.551724,35.0,0.0,306.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2009,12,2009-12,187.548387,253.0,0.0,256.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2010,1,2010-01,118.266667,104.5,0.0,256.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2010,2,2010-02,193.148148,253.0,0.0,282.0,27
+Thurmond,power_generation,Power generation,Power,MWh,2010,3,2010-03,6.16129,0.0,0.0,79.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2010,4,2010-04,2.0,0.0,0.0,31.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2010,5,2010-05,8.483871,0.0,0.0,104.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2010,6,2010-06,10.166667,0.0,0.0,100.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2010,7,2010-07,0.9,0.0,0.0,27.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2010,8,2010-08,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2010,9,2010-09,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2010,10,2010-10,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2010,11,2010-11,0.034483,0.0,0.0,1.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2010,12,2010-12,4.548387,0.0,0.0,81.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2011,1,2011-01,0.032258,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2011,2,2011-02,0.0,0.0,0.0,0.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2011,3,2011-03,8.83871,0.0,0.0,143.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2011,4,2011-04,23.566667,0.0,0.0,227.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2011,5,2011-05,0.032258,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2011,6,2011-06,0.1,0.0,0.0,2.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2011,7,2011-07,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2011,8,2011-08,3.096774,0.0,0.0,95.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2011,9,2011-09,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2011,10,2011-10,0.0,0.0,0.0,0.0,25
+Thurmond,power_generation,Power generation,Power,MWh,2011,11,2011-11,0.0,0.0,0.0,0.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2011,12,2011-12,0.032258,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2012,1,2012-01,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2012,2,2012-02,0.035714,0.0,0.0,1.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2012,3,2012-03,2.733333,0.0,0.0,41.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2012,4,2012-04,0.1,0.0,0.0,2.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2012,5,2012-05,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2012,6,2012-06,0.033333,0.0,0.0,1.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2012,7,2012-07,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2012,8,2012-08,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2012,9,2012-09,0.0,0.0,0.0,0.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2012,10,2012-10,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2012,11,2012-11,1.827586,0.0,0.0,27.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2012,12,2012-12,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2013,1,2013-01,3.645161,0.0,0.0,41.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2013,2,2013-02,1.142857,0.0,0.0,31.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2013,3,2013-03,1.870968,0.0,0.0,54.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2013,4,2013-04,0.0,0.0,0.0,0.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2013,5,2013-05,0.9,0.0,0.0,27.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2013,6,2013-06,3.206897,0.0,0.0,52.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2013,7,2013-07,189.903226,218.0,0.0,384.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2013,8,2013-08,0.032258,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2013,9,2013-09,3.366667,0.0,0.0,97.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2013,10,2013-10,0.064516,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2013,11,2013-11,21.103448,0.0,0.0,144.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2013,12,2013-12,0.064516,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2014,1,2014-01,107.935484,74.0,0.0,286.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2014,2,2014-02,0.0,0.0,0.0,0.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2014,3,2014-03,9.166667,0.0,0.0,45.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2014,4,2014-04,7.466667,0.0,0.0,108.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2014,5,2014-05,7.096774,0.0,0.0,54.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2014,6,2014-06,11.766667,0.0,0.0,78.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2014,7,2014-07,22.6,0.0,0.0,187.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2014,8,2014-08,12.129032,0.0,0.0,141.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2014,9,2014-09,0.1,0.0,0.0,2.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2014,10,2014-10,27.8,0.0,0.0,229.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2014,11,2014-11,13.035714,0.0,0.0,192.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2014,12,2014-12,13.83871,0.0,0.0,85.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2015,1,2015-01,12.266667,0.0,0.0,93.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2015,2,2015-02,9.5,0.0,0.0,104.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2015,3,2015-03,6.793103,0.0,0.0,107.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2015,4,2015-04,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2015,5,2015-05,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2015,6,2015-06,26.466667,0.0,0.0,195.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2015,7,2015-07,28.071429,0.0,0.0,274.0,14
+Thurmond,power_generation,Power generation,Power,MWh,2015,8,2015-08,14.777778,0.0,0.0,134.0,18
+Thurmond,power_generation,Power generation,Power,MWh,2015,9,2015-09,12.793103,0.0,0.0,159.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2015,10,2015-10,0.0,0.0,0.0,0.0,6
+Thurmond,power_generation,Power generation,Power,MWh,2015,12,2015-12,36.5,0.0,0.0,304.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2016,1,2016-01,273.870968,310.0,0.0,335.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2016,2,2016-02,9.310345,0.0,0.0,143.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2016,3,2016-03,0.1,0.0,0.0,3.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2016,4,2016-04,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2016,5,2016-05,3.290323,0.0,0.0,102.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2016,6,2016-06,1.7,0.0,0.0,50.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2016,7,2016-07,2.516129,0.0,0.0,75.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2016,8,2016-08,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2016,9,2016-09,4.310345,0.0,0.0,62.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2016,10,2016-10,0.032258,0.0,0.0,1.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2016,11,2016-11,5.259259,0.0,0.0,84.0,27
+Thurmond,power_generation,Power generation,Power,MWh,2016,12,2016-12,3.709677,0.0,0.0,81.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2017,1,2017-01,5.16129,0.0,0.0,59.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2017,2,2017-02,10.857143,0.0,0.0,136.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2017,3,2017-03,1.071429,0.0,0.0,29.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2017,4,2017-04,2.433333,0.0,0.0,68.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2017,5,2017-05,7.451613,0.0,0.0,85.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2017,6,2017-06,8.833333,0.0,0.0,101.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2017,7,2017-07,8.290323,0.0,0.0,103.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2017,8,2017-08,4.580645,0.0,0.0,100.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2017,9,2017-09,0.0,0.0,0.0,0.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2017,10,2017-10,1.83871,0.0,0.0,56.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2017,11,2017-11,0.148148,0.0,0.0,2.0,27
+Thurmond,power_generation,Power generation,Power,MWh,2017,12,2017-12,10.0,0.0,0.0,93.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2018,1,2018-01,0.0,0.0,0.0,0.0,1
+Thurmond,power_generation,Power generation,Power,MWh,2018,3,2018-03,0.105263,0.0,0.0,2.0,19
+Thurmond,power_generation,Power generation,Power,MWh,2018,4,2018-04,3.1,0.0,0.0,89.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2018,5,2018-05,72.258065,0.0,0.0,325.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2018,6,2018-06,80.8,0.0,0.0,323.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2018,7,2018-07,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2018,8,2018-08,9.096774,0.0,0.0,96.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2018,9,2018-09,3.033333,0.0,0.0,78.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2018,10,2018-10,5.83871,0.0,0.0,107.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2018,11,2018-11,81.827586,0.0,0.0,203.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2018,12,2018-12,218.193548,245.0,3.0,290.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2019,1,2019-01,202.032258,222.0,0.0,264.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2019,2,2019-02,45.071429,0.0,0.0,251.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2019,3,2019-03,84.931034,104.0,0.0,201.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2019,4,2019-04,56.0,0.0,0.0,321.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2019,5,2019-05,6.137931,0.0,0.0,146.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2019,6,2019-06,12.233333,0.0,0.0,150.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2019,7,2019-07,27.935484,0.0,0.0,197.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2019,8,2019-08,5.2,0.0,0.0,88.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2019,9,2019-09,2.8,0.0,0.0,46.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2019,10,2019-10,0.16129,0.0,0.0,5.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2019,11,2019-11,11.821429,0.0,0.0,154.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2019,12,2019-12,8.5,0.0,0.0,143.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2020,1,2020-01,26.580645,0.0,0.0,138.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2020,2,2020-02,184.142857,267.5,0.0,327.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2020,3,2020-03,202.566667,248.0,0.0,323.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2020,4,2020-04,13.137931,0.0,0.0,321.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2020,5,2020-05,11.034483,0.0,0.0,320.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2020,6,2020-06,38.033333,0.0,0.0,197.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2020,7,2020-07,12.580645,0.0,0.0,117.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2020,8,2020-08,17.655172,0.0,0.0,321.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2020,9,2020-09,22.166667,0.0,0.0,200.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2020,10,2020-10,16.580645,0.0,0.0,157.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2020,11,2020-11,124.214286,137.0,0.0,218.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2020,12,2020-12,6.0,0.0,0.0,27.0,27
+Thurmond,power_generation,Power generation,Power,MWh,2021,1,2021-01,0.0,0.0,0.0,0.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2021,2,2021-02,5.5,0.0,0.0,151.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2021,3,2021-03,11.433333,0.0,0.0,159.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2021,4,2021-04,39.793103,0.0,0.0,224.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2021,5,2021-05,3.964286,0.0,0.0,111.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2021,6,2021-06,2.862069,0.0,0.0,57.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2021,7,2021-07,5.193548,0.0,0.0,75.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2021,8,2021-08,27.032258,0.0,0.0,155.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2021,9,2021-09,0.8,0.0,0.0,24.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2021,10,2021-10,82.645161,0.0,0.0,263.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2021,11,2021-11,5.964286,0.0,0.0,74.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2021,12,2021-12,7.516129,0.0,0.0,159.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2022,1,2022-01,16.548387,0.0,0.0,176.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2022,2,2022-02,7.423077,0.0,0.0,100.0,26
+Thurmond,power_generation,Power generation,Power,MWh,2022,3,2022-03,75.137931,0.0,0.0,253.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2022,4,2022-04,116.827586,0.0,0.0,294.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2022,5,2022-05,1.241379,0.0,0.0,36.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2022,6,2022-06,15.785714,0.0,0.0,86.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2022,7,2022-07,26.310345,0.0,0.0,159.0,29
+Thurmond,power_generation,Power generation,Power,MWh,2022,8,2022-08,10.225806,0.0,0.0,163.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2022,9,2022-09,0.066667,0.0,0.0,2.0,30
+Thurmond,power_generation,Power generation,Power,MWh,2022,10,2022-10,1.419355,0.0,0.0,44.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2022,11,2022-11,2.607143,0.0,0.0,37.0,28
+Thurmond,power_generation,Power generation,Power,MWh,2022,12,2022-12,1.483871,0.0,0.0,44.0,31
+Thurmond,power_generation,Power generation,Power,MWh,2023,1,2023-01,123.192722,122.5,0.0,338.0,742
+Thurmond,power_generation,Power generation,Power,MWh,2023,2,2023-02,120.488823,111.0,0.0,325.0,671
+Thurmond,power_generation,Power generation,Power,MWh,2023,3,2023-03,51.892038,36.0,0.0,288.0,741
+Thurmond,power_generation,Power generation,Power,MWh,2023,4,2023-04,106.71049,93.0,0.0,279.0,715
+Thurmond,power_generation,Power generation,Power,MWh,2023,5,2023-05,78.247619,35.0,0.0,320.0,735
+Thurmond,power_generation,Power generation,Power,MWh,2023,6,2023-06,77.655028,3.0,0.0,381.0,716
+Thurmond,power_generation,Power generation,Power,MWh,2023,7,2023-07,76.771505,5.5,0.0,382.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2023,8,2023-08,71.474462,0.0,0.0,380.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2023,9,2023-09,52.884722,0.0,0.0,313.0,720
+Thurmond,power_generation,Power generation,Power,MWh,2023,10,2023-10,42.306452,0.0,0.0,323.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2023,11,2023-11,37.031989,2.0,0.0,253.0,719
+Thurmond,power_generation,Power generation,Power,MWh,2023,12,2023-12,36.375,1.0,0.0,295.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2024,1,2024-01,54.918011,5.0,0.0,289.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2024,2,2024-02,116.857759,92.0,0.0,315.0,696
+Thurmond,power_generation,Power generation,Power,MWh,2024,3,2024-03,145.359838,160.0,0.0,326.0,742
+Thurmond,power_generation,Power generation,Power,MWh,2024,4,2024-04,79.794444,36.0,0.0,295.0,720
+Thurmond,power_generation,Power generation,Power,MWh,2024,5,2024-05,84.969086,37.0,0.0,292.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2024,6,2024-06,61.126918,0.0,0.0,288.0,717
+Thurmond,power_generation,Power generation,Power,MWh,2024,7,2024-07,75.409946,3.5,0.0,288.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2024,8,2024-08,57.069892,0.0,0.0,229.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2024,9,2024-09,37.747222,0.0,0.0,215.0,720
+Thurmond,power_generation,Power generation,Power,MWh,2024,10,2024-10,62.004032,38.0,0.0,275.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2024,11,2024-11,59.995833,37.0,0.0,269.0,720
+Thurmond,power_generation,Power generation,Power,MWh,2024,12,2024-12,55.955645,37.0,0.0,378.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2025,1,2025-01,50.802419,37.0,0.0,283.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2025,2,2025-02,54.895833,37.0,0.0,323.0,672
+Thurmond,power_generation,Power generation,Power,MWh,2025,3,2025-03,59.014805,37.0,0.0,380.0,743
+Thurmond,power_generation,Power generation,Power,MWh,2025,4,2025-04,69.172222,37.0,0.0,379.0,720
+Thurmond,power_generation,Power generation,Power,MWh,2025,5,2025-05,99.110215,111.0,0.0,311.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2025,6,2025-06,82.743733,24.5,0.0,379.0,718
+Thurmond,power_generation,Power generation,Power,MWh,2025,7,2025-07,60.420699,0.0,0.0,379.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2025,8,2025-08,94.602151,62.0,0.0,366.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2025,9,2025-09,69.668056,0.0,0.0,324.0,720
+Thurmond,power_generation,Power generation,Power,MWh,2025,10,2025-10,45.570659,1.0,0.0,297.0,743
+Thurmond,power_generation,Power generation,Power,MWh,2025,11,2025-11,44.102778,37.0,-15.0,326.0,720
+Thurmond,power_generation,Power generation,Power,MWh,2025,12,2025-12,50.255376,37.0,0.0,347.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2026,1,2026-01,40.827957,35.0,-15.0,315.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2026,2,2026-02,38.577381,2.0,-15.0,306.0,672
+Thurmond,power_generation,Power generation,Power,MWh,2026,3,2026-03,39.235215,34.0,-15.0,317.0,744
+Thurmond,power_generation,Power generation,Power,MWh,2026,4,2026-04,36.124352,1.0,-29.0,230.0,193
+Thurmond,release_cfs,Release,Flow,cfs,2026,1,2026-01,0.0,0.0,0.0,0.0,287
+Thurmond,release_cfs,Release,Flow,cfs,2026,2,2026-02,0.0,0.0,0.0,0.0,672
+Thurmond,release_cfs,Release,Flow,cfs,2026,3,2026-03,0.0,0.0,0.0,0.0,743
+Thurmond,release_cfs,Release,Flow,cfs,2026,4,2026-04,0.0,0.0,0.0,0.0,186
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,1,2006-01,2374176.4,2365800.0,2342000.0,2437199.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,2,2006-02,2467990.607143,2459251.0,2442100.0,2535739.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,3,2006-03,2489771.333333,2503700.5,2412699.0,2537300.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,4,2006-04,2400333.266667,2402900.0,2384699.0,2415500.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,5,2006-05,2390051.354839,2393099.0,2360900.0,2421799.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,6,2006-06,2327463.2,2329399.5,2283899.0,2380500.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,7,2006-07,2272676.6,2281450.0,2209699.0,2311901.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,8,2006-08,2160441.806452,2167699.0,2096400.0,2208300.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,9,2006-09,2055760.0,2065800.5,2004600.0,2104799.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,10,2006-10,1949255.37931,1947001.0,1909200.0,1991400.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,11,2006-11,1963510.37931,1962599.0,1911599.0,2019000.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2006,12,2006-12,1982854.965517,1982401.0,1954799.0,2042999.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,1,2007-01,2148603.290323,2160000.0,2016000.0,2241901.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,2,2007-02,2219050.035714,2228601.0,2180999.0,2249600.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,3,2007-03,2482298.064516,2506501.0,2205500.0,2544320.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,4,2007-04,2430176.433333,2430900.0,2411300.0,2448400.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,5,2007-05,2369390.387097,2386101.0,2281799.0,2424600.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,6,2007-06,2284599.966667,2288799.5,2235599.0,2313300.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,7,2007-07,2202836.633333,2210400.0,2151599.0,2232100.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,8,2007-08,2125819.258065,2131800.0,2067001.0,2158200.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,9,2007-09,1976619.766667,1986299.5,1888200.0,2059200.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,10,2007-10,1855018.633333,1856620.0,1814760.0,1879200.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,11,2007-11,1775275.896552,1775240.0,1734680.0,1817360.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2007,12,2007-12,1694304.451613,1699841.0,1661360.0,1731560.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,1,2008-01,1717419.290323,1715961.0,1668640.0,1748200.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,2,2008-02,1750405.655172,1751320.0,1734680.0,1769521.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,3,2008-03,1829796.096774,1819440.0,1756000.0,1912200.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,4,2008-04,1963620.1,1965900.0,1914000.0,1990800.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,5,2008-05,1951142.0,1952401.0,1924799.0,1969200.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,6,2008-06,1880234.466667,1884300.0,1817360.0,1923600.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,7,2008-07,1782503.096774,1780440.0,1735719.0,1821000.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,8,2008-08,1678771.483871,1682680.0,1629120.0,1744039.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,9,2008-09,1636389.333333,1640039.0,1590999.0,1662920.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,10,2008-10,1581730.322581,1582000.0,1561301.0,1609880.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,11,2008-11,1556396.586207,1556800.0,1539250.0,1572100.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2008,12,2008-12,1654560.419355,1679039.0,1558150.0,1724800.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,1,2009-01,1676674.645161,1669680.0,1651479.0,1704000.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,2,2009-02,1637254.357143,1636920.0,1618200.0,1656680.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,3,2009-03,1922605.129032,1930800.0,1683719.0,2106000.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,4,2009-04,2227783.233333,2243649.0,2128200.0,2267100.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,5,2009-05,2267777.16129,2266399.0,2227199.0,2295800.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,6,2009-06,2282919.9,2285650.0,2237000.0,2309100.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,7,2009-07,2233883.774194,2236300.0,2184500.0,2271300.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,8,2009-08,2146345.387097,2143200.0,2116800.0,2181700.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,9,2009-09,2100280.233333,2099400.5,2070601.0,2149799.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,10,2009-10,2279471.064516,2346200.0,2123401.0,2418300.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,11,2009-11,2430996.965517,2388201.0,2211799.0,2706559.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2009,12,2009-12,2331635.709677,2335000.0,2216700.0,2401501.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,1,2010-01,2355594.6,2324851.0,2269901.0,2537300.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,2,2010-02,2455005.148148,2431600.0,2346200.0,2605160.0,27
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,3,2010-03,2351145.354839,2349699.0,2315400.0,2396600.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,4,2010-04,2359266.533333,2360900.0,2341300.0,2372801.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,5,2010-05,2355367.419355,2355999.0,2340599.0,2378400.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,6,2010-06,2341906.733333,2344800.0,2307000.0,2361600.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,7,2010-07,2341113.3,2338851.0,2320999.0,2363000.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,8,2010-08,2276967.645161,2276901.0,2225800.0,2325199.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,9,2010-09,2211169.933333,2211450.0,2169801.0,2255199.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,10,2010-10,2183033.548387,2179600.0,2121599.0,2277845.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,11,2010-11,2098572.275862,2094600.0,2057999.0,2136000.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2010,12,2010-12,2087103.0,2080800.0,2054399.0,2273799.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,1,2011-01,2094565.903226,2087999.0,2063401.0,2252545.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,2,2011-02,2197228.607143,2216700.0,2086199.0,2250999.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,3,2011-03,2285390.419355,2295800.0,2197801.0,2423201.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,4,2011-04,2310602.533333,2351800.5,1012982.0,2419699.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,5,2011-05,2320345.129032,2315400.0,2290900.0,2365099.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,6,2011-06,2330729.766667,2331850.0,2302100.0,2351799.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,7,2011-07,2282883.741935,2288099.0,2223700.0,2339901.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,8,2011-08,2166006.419355,2161399.0,2100000.0,2230000.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,9,2011-09,2051239.933333,2042700.0,2012401.0,2106000.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,10,2011-10,1963315.384615,1962300.0,1900201.0,2008801.0,26
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,11,2011-11,1860821.357143,1860300.5,1815281.0,1895400.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2011,12,2011-12,1830619.387097,1852719.0,982199.0,1930201.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,1,2012-01,1875157.774194,1929600.0,924976.0,2001599.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,2,2012-02,1996992.75,1998899.0,1955400.0,2015400.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,3,2012-03,2001899.966667,2005500.0,1975800.0,2016000.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,4,2012-04,1982000.1,1984800.0,1944600.0,2011800.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,5,2012-05,1954354.83871,1952401.0,1940400.0,1973401.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,6,2012-06,1930200.0,1932600.5,1901400.0,1956599.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,7,2012-07,1832740.709677,1853240.0,971159.0,1911599.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,8,2012-08,1822104.677419,1811120.0,1783039.0,2012937.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,9,2012-09,1754332.310345,1755479.0,1720120.0,1785640.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,10,2012-10,1694673.580645,1694120.0,1669159.0,1713360.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,11,2012-11,1600220.896552,1616120.0,979881.0,1671760.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2012,12,2012-12,1599641.258065,1598200.0,1574350.0,1640039.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,1,2013-01,1679310.483871,1662920.0,1633800.0,1877749.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,2,2013-02,1812334.285714,1816580.0,1725320.0,1953600.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,3,2013-03,2006593.612903,1991400.0,1962599.0,2105400.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,4,2013-04,2135900.0,2138700.5,2099399.0,2169801.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,5,2013-05,2391350.1,2433700.5,2182401.0,2469401.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,6,2013-06,2529715.206897,2531059.0,2456799.0,2642325.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,7,2013-07,2543437.774194,2564000.0,1136812.0,2688621.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,8,2013-08,2513757.516129,2547441.0,1042330.0,2655079.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,9,2013-09,2508429.866667,2521700.0,2423899.0,2571641.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,10,2013-10,2445690.290323,2446300.0,2426700.0,2469401.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,11,2013-11,2393485.931034,2390999.0,2361600.0,2455400.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2013,12,2013-12,2485834.741935,2450500.0,2365800.0,2752579.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,1,2014-01,2520744.935484,2529500.0,2320999.0,2755700.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,2,2014-02,2398475.0,2417599.5,2320999.0,2449801.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,3,2014-03,2491759.8,2500549.0,2412699.0,2574739.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,4,2014-04,2483189.966667,2485849.5,2450500.0,2510000.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,5,2014-05,2374778.483871,2465900.0,1003515.0,2499500.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,6,2014-06,2476633.333333,2477100.0,2454001.0,2493899.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,7,2014-07,2366683.566667,2408849.5,1005613.0,2458899.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,8,2014-08,2329264.354839,2335000.0,2255199.0,2371399.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,9,2014-09,2244396.733333,2246450.0,2184500.0,2276200.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,10,2014-10,2176426.766667,2173649.0,2155800.0,2198499.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,11,2014-11,2115649.928571,2110500.0,2085601.0,2165599.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2014,12,2014-12,2112580.677419,2105400.0,2082599.0,2176799.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,1,2015-01,2270250.1,2277949.5,2202000.0,2304901.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,2,2015-02,2325625.0,2316099.5,2250301.0,2436501.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,3,2015-03,2426386.241379,2426700.0,2390999.0,2468000.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,4,2015-04,2478806.5,2462399.0,2418300.0,2560800.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,5,2015-05,2514365.83871,2524820.0,2459600.0,2556020.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,6,2015-06,2497031.333333,2494249.5,2437199.0,2556020.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,7,2015-07,2435849.928571,2436850.0,2397301.0,2464500.0,14
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,8,2015-08,2301555.722222,2296850.0,2248201.0,2358099.0,18
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,9,2015-09,2191003.448276,2172599.0,2145000.0,2258000.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,10,2015-10,2241900.0,2227900.5,2170500.0,2350400.0,6
+Thurmond,storage_acft,Storage,Storage,ac-ft,2015,12,2015-12,2429826.7,2324150.0,2218800.0,2882059.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,1,2016-01,2521672.806452,2453300.0,2330099.0,2975200.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,2,2016-02,2413375.827586,2409200.0,2379100.0,2456101.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,3,2016-03,2458596.6,2456799.0,2433000.0,2485500.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,4,2016-04,2506970.7,2504750.0,2480599.0,2538860.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,5,2016-05,2461561.83871,2465199.0,2389600.0,2524820.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,6,2016-06,2422196.433333,2425299.5,2386101.0,2468700.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,7,2016-07,2284486.903226,2288099.0,2195000.0,2382599.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,8,2016-08,2196309.677419,2198499.0,2168400.0,2218099.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,9,2016-09,2143810.37931,2146800.0,2080800.0,2209001.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,10,2016-10,1997458.096774,1998600.0,1929600.0,2067599.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,11,2016-11,1890622.111111,1899600.0,1823599.0,1952401.0,27
+Thurmond,storage_acft,Storage,Storage,ac-ft,2016,12,2016-12,1840988.580645,1838680.0,1803320.0,1887001.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,1,2017-01,1877694.032258,1874399.0,1802281.0,1964399.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,2,2017-02,1887204.321429,1885500.5,1854800.0,1930201.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,3,2017-03,1864719.928571,1862700.0,1837640.0,1885800.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,4,2017-04,1950916.0,1963801.0,1856880.0,2016599.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,5,2017-05,2019058.096774,2013600.0,1990201.0,2065800.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,6,2017-06,2044069.466667,2079300.0,1020284.0,2098801.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,7,2017-07,2111167.677419,2107200.0,2070601.0,2139000.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,8,2017-08,2022053.032258,2058600.0,974251.0,2074799.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,9,2017-09,2021859.733333,2026199.0,1972200.0,2061599.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,10,2017-10,1934903.096774,1937999.0,1901400.0,1961400.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,11,2017-11,1935999.925926,1935000.0,1891800.0,1967999.0,27
+Thurmond,storage_acft,Storage,Storage,ac-ft,2017,12,2017-12,1919574.225806,1924200.0,1883401.0,1954200.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,1,2018-01,1929000.0,1929000.0,1929000.0,1929000.0,1
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,3,2018-03,2293147.315789,2293700.0,2254500.0,2320301.0,19
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,4,2018-04,2321949.4,2340600.5,1016153.0,2527941.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,5,2018-05,2491674.806452,2489001.0,2459600.0,2524820.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,6,2018-06,2371857.166667,2400800.0,1031318.0,2493899.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,7,2018-07,2332890.612903,2422500.0,1014567.0,2457500.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,8,2018-08,2425841.677419,2433000.0,2344100.0,2505800.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,9,2018-09,2307396.8,2282500.0,2252401.0,2377000.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,10,2018-10,2263577.419355,2260800.0,2250301.0,2282500.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,11,2018-11,2329987.206897,2279699.0,2250999.0,2526333.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2018,12,2018-12,2313232.129032,2300701.0,2225800.0,2440000.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,1,2019-01,2344709.645161,2356700.0,2189401.0,2416901.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,2,2019-02,2284924.821429,2265349.0,2218099.0,2370000.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,3,2019-03,2417406.827586,2417599.0,2335701.0,2478499.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,4,2019-04,2391265.275862,2374200.0,2353899.0,2467301.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,5,2019-05,2336737.62069,2383300.0,1020393.0,2404299.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,6,2019-06,2464025.566667,2462399.5,2388201.0,2564000.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,7,2019-07,2484168.935484,2477100.0,2444200.0,2537300.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,8,2019-08,2392096.9,2405000.0,2328000.0,2444200.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,9,2019-09,2270973.133333,2254150.0,2192900.0,2355301.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,10,2019-10,2150803.548387,2142001.0,2107200.0,2319406.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,11,2019-11,2124683.928571,2120099.5,2083200.0,2336950.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2019,12,2019-12,2230298.733333,2253450.5,2083801.0,2342000.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,1,2020-01,2400296.645161,2353899.0,2307000.0,2551859.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,2,2020-02,2597726.214286,2706949.5,2008200.0,2804840.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,3,2020-03,2655499.3,2644939.5,2502301.0,2850860.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,4,2020-04,2570804.827586,2560001.0,2524039.0,2640261.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,5,2020-05,2527233.103448,2582539.0,1004826.0,2652739.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,6,2020-06,2529064.333333,2517410.5,2474299.0,2630121.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,7,2020-07,2479697.645161,2530281.0,1027311.0,2564000.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,8,2020-08,2385706.655172,2485500.0,1011136.0,2510781.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,9,2020-09,2472898.7,2492500.0,1040444.0,2623879.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,10,2020-10,2459363.096774,2500199.0,1021720.0,2565559.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,11,2020-11,2456722.714286,2487249.0,2302801.0,2600480.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2020,12,2020-12,2301737.333333,2298601.0,2255199.0,2361600.0,27
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,1,2021-01,2336505.548387,2383300.0,1017212.0,2471311.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,2,2021-02,2424916.428571,2378401.0,2300000.0,2561600.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,3,2021-03,2477455.266667,2466250.0,2424600.0,2556800.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,4,2021-04,2555449.103448,2551340.0,2528719.0,2583320.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,5,2021-05,2534339.586207,2592680.0,1025445.0,2609059.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,6,2021-06,2549842.793103,2548219.0,2525601.0,2567839.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,7,2021-07,2512589.225806,2508601.0,2458899.0,2586441.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,8,2021-08,2464117.129032,2501600.0,1017212.0,2578640.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,9,2021-09,2427038.666667,2476400.5,1011664.0,2507900.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,10,2021-10,2566576.677419,2554461.0,2450500.0,2712020.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,11,2021-11,2451718.428571,2453300.0,2384699.0,2538519.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2021,12,2021-12,2292783.16129,2283201.0,2258000.0,2382599.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,1,2022-01,2426632.516129,2440000.0,2343400.0,2467301.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,2,2022-02,2437271.444444,2486901.0,1020923.0,2552121.0,27
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,3,2022-03,2584196.241379,2595020.0,2503000.0,2669899.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,4,2022-04,2599838.0,2560800.0,2513899.0,2834480.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,5,2022-05,2506873.551724,2501600.0,2486200.0,2578416.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,6,2022-06,2534888.321429,2540810.5,2493899.0,2631976.0,28
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,7,2022-07,2455400.172414,2462401.0,2393800.0,2489699.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,8,2022-08,2305283.83871,2293700.0,2220900.0,2379801.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,9,2022-09,2193637.9,2229649.5,1008240.0,2276200.0,30
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,10,2022-10,2152366.483871,2188000.0,1003515.0,2347451.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,11,2022-11,2100182.413793,2094000.0,2072999.0,2273292.0,29
+Thurmond,storage_acft,Storage,Storage,ac-ft,2022,12,2022-12,2206597.677419,2230000.0,2094000.0,2332900.0,31
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,1,2023-01,2355449.983827,2351101.0,2177500.0,2503700.0,742
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,2,2023-02,2418059.47392,2405000.0,2366501.0,2489699.0,671
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,3,2023-03,2466853.249663,2472900.0,977566.0,2602820.0,741
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,4,2023-04,2565412.262937,2562401.0,2527160.0,2636360.0,715
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,5,2023-05,2581797.310204,2580200.0,2510000.0,2607500.0,735
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,6,2023-06,2540423.967877,2541980.0,2507900.0,2580200.0,716
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,7,2023-07,2477050.28629,2477100.0,1010345.0,2560001.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,8,2023-08,2348756.306452,2368601.0,2275500.0,2407100.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,9,2023-09,2207546.0875,2209699.0,2149799.0,2285301.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,10,2023-10,2136605.705645,2152800.0,2063401.0,2197801.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,11,2023-11,2036858.638889,2042401.0,1990201.0,2082001.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2023,12,2023-12,1986970.22043,1988401.0,1941000.0,2027401.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,1,2024-01,2255155.157258,2320299.5,1978801.0,2485500.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,2,2024-02,2466356.310345,2472199.0,2300000.0,2546660.0,696
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,3,2024-03,2535509.278976,2507199.0,2448400.0,2675360.0,742
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,4,2024-04,2528743.561111,2518579.0,2497401.0,2611399.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,5,2024-05,2531219.584677,2527941.0,2510000.0,2567081.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,6,2024-06,2480110.951185,2495999.0,2402199.0,2527160.0,717
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,7,2024-07,2351295.638441,2353201.0,2304901.0,2402900.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,8,2024-08,2216601.232527,2209001.0,2155201.0,2311200.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,9,2024-09,2125251.966667,2086800.0,2047200.0,2426700.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,10,2024-10,2425092.025538,2425999.0,2348300.0,2492500.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,11,2024-11,2310523.309722,2317500.0,2231399.0,2365800.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2024,12,2024-12,2250794.321237,2251000.5,2198499.0,2314001.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,1,2025-01,2267091.30914,2263601.0,2209001.0,2311200.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,2,2025-02,2377194.622024,2382599.0,2242599.0,2521700.0,672
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,3,2025-03,2478236.892473,2476399.0,2459600.0,2513121.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,4,2025-04,2522909.238889,2523261.0,2468700.0,2580200.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,5,2025-05,2525843.040323,2501600.0,2479901.0,2634020.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,6,2025-06,2505303.186111,2505099.0,2450500.0,2535739.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,7,2025-07,2398768.532258,2393099.0,2330800.0,2466600.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,8,2025-08,2503258.163978,2511170.0,2351799.0,2612961.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,9,2025-09,2337762.582208,2316101.0,2262900.0,2448400.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,10,2025-10,2231094.969758,2225099.0,2185199.0,2287401.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,11,2025-11,2175871.630556,2176101.0,2143200.0,2222301.0,720
+Thurmond,storage_acft,Storage,Storage,ac-ft,2025,12,2025-12,2093500.196237,2092800.0,1929000.0,2151599.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2026,1,2026-01,2019296.641129,2021400.0,1969800.0,2716700.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2026,2,2026-02,2058511.607143,2059800.0,2027400.0,2091000.0,672
+Thurmond,storage_acft,Storage,Storage,ac-ft,2026,3,2026-03,-1.2397005423804922e+16,2080800.0,-9.223372036854775e+18,2109600.0,744
+Thurmond,storage_acft,Storage,Storage,ac-ft,2026,4,2026-04,2073225.806452,2073000.0,2063400.0,2083200.0,186
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,1,2006-01,185.919,186.105,184.88,186.78,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,2,2006-02,186.019643,185.96,184.81,187.99,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,3,2006-03,186.584,185.825,184.84,191.93,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,4,2006-04,186.024333,186.04,185.53,186.52,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,5,2006-05,185.917742,185.86,185.5,186.55,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,6,2006-06,186.125,185.99,185.66,187.24,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,7,2006-07,186.269667,186.075,185.37,187.27,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,8,2006-08,186.357742,186.42,185.04,187.37,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,9,2006-09,185.777333,185.715,185.33,186.98,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,10,2006-10,185.971724,186.12,185.01,186.45,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,11,2006-11,185.705862,185.66,185.01,186.25,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2006,12,2006-12,185.523103,185.5,184.28,187.43,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,1,2007-01,186.002258,185.86,184.71,187.83,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,2,2007-02,185.819286,185.93,184.55,187.04,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,3,2007-03,185.947419,186.22,184.74,187.8,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,4,2007-04,185.397,185.56,182.84,186.45,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,5,2007-05,186.104839,186.06,185.01,187.24,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,6,2007-06,186.201,186.17,185.5,187.11,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,7,2007-07,185.517,185.45,184.81,186.65,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,8,2007-08,185.242903,185.27,184.09,185.99,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,9,2007-09,185.438333,185.7,183.92,186.45,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,10,2007-10,185.500333,185.56,184.42,185.86,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,11,2007-11,185.998276,186.06,184.35,186.75,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2007,12,2007-12,186.066774,186.09,185.47,186.78,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,1,2008-01,185.895806,185.79,184.35,186.94,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,2,2008-02,185.37069,185.24,184.15,186.68,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,3,2008-03,185.26129,185.2,184.02,187.24,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,4,2008-04,185.617,185.595,184.74,186.94,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,5,2008-05,185.535484,185.53,184.97,186.29,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,6,2008-06,185.119333,185.12,184.65,185.66,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,7,2008-07,184.767097,184.84,184.38,184.97,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,8,2008-08,185.073548,184.91,184.12,186.35,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,9,2008-09,183.543,185.185,131.27,186.02,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,10,2008-10,184.283548,186.22,128.22,186.88,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,11,2008-11,185.74931,185.73,185.33,186.98,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2008,12,2008-12,185.513548,185.43,184.32,187.63,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,1,2009-01,185.465806,185.53,184.42,185.89,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,2,2009-02,185.869286,185.99,185.24,186.38,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,3,2009-03,186.303871,186.19,183.89,188.02,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,4,2009-04,185.982333,186.06,184.71,187.14,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,5,2009-05,185.994194,186.09,182.91,187.66,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,6,2009-06,183.702,185.945,118.34,186.58,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,7,2009-07,186.258065,186.29,185.96,186.55,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,8,2009-08,185.943226,185.86,185.04,186.71,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,9,2009-09,185.851,185.83,185.01,186.81,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,10,2009-10,185.711935,185.63,184.65,186.81,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,11,2009-11,188.186552,187.66,182.15,192.91,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2009,12,2009-12,190.461613,192.49,179.99,193.01,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,1,2010-01,188.999333,189.34,183.69,192.88,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,2,2010-02,191.35037,192.45,184.15,193.5,27
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,3,2010-03,186.305161,186.52,184.22,188.75,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,4,2010-04,185.895,185.975,183.69,188.85,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,5,2010-05,185.942258,185.76,184.74,188.19,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,6,2010-06,186.319333,186.27,184.32,188.58,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,7,2010-07,186.079667,186.055,185.4,186.84,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,8,2010-08,186.571613,186.75,185.47,187.3,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,9,2010-09,185.615333,185.63,185.2,185.99,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,10,2010-10,185.851613,185.86,185.47,186.19,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,11,2010-11,185.547931,185.56,185.1,186.22,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2010,12,2010-12,185.592903,185.63,185.01,186.06,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,1,2011-01,185.489355,185.56,183.69,186.29,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,2,2011-02,185.105714,185.055,184.51,187.04,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,3,2011-03,185.956129,185.73,184.81,189.83,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,4,2011-04,186.868,186.485,185.17,191.93,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,5,2011-05,186.090968,186.15,185.17,187.34,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,6,2011-06,186.297667,186.305,185.79,186.78,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,7,2011-07,186.915806,186.98,185.24,187.86,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,8,2011-08,186.14,186.09,185.37,187.2,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,9,2011-09,185.853333,185.93,184.51,186.12,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,10,2011-10,185.645385,185.63,185.43,185.86,26
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,11,2011-11,185.413929,185.45,184.94,185.83,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2011,12,2011-12,185.197097,185.17,183.86,185.86,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,1,2012-01,185.337742,185.27,184.84,186.06,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,2,2012-02,185.423929,185.4,184.74,186.75,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,3,2012-03,185.872667,185.86,185.43,186.45,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,4,2012-04,185.81,185.79,185.1,186.32,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,5,2012-05,185.723871,185.73,185.14,186.22,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,6,2012-06,185.703333,185.73,185.14,186.22,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,7,2012-07,185.653226,185.73,184.25,186.38,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,8,2012-08,185.664839,185.53,184.84,187.4,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,9,2012-09,185.39069,185.47,184.51,185.7,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,10,2012-10,185.946129,186.06,185.27,186.35,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,11,2012-11,185.504483,185.73,184.38,186.32,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2012,12,2012-12,185.254516,185.24,184.74,185.99,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,1,2013-01,185.434194,185.33,185.04,185.96,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,2,2013-02,185.692857,185.695,184.78,186.71,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,3,2013-03,184.917419,184.88,183.66,187.27,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,4,2013-04,185.690714,185.86,183.73,187.14,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,5,2013-05,185.469667,185.4,184.88,186.84,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,6,2013-06,185.748966,185.56,184.97,187.4,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,7,2013-07,190.902258,190.65,186.06,195.51,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,8,2013-08,187.342258,187.73,181.4,189.8,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,9,2013-09,186.391667,186.535,185.24,187.7,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,10,2013-10,185.900645,185.7,185.1,186.81,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,11,2013-11,243.804483,185.89,185.2,1860.1,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2013,12,2013-12,186.699677,186.65,184.42,189.21,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,1,2014-01,190.379677,190.58,186.68,192.95,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,2,2014-02,185.887857,185.775,183.69,187.7,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,3,2014-03,186.188667,186.04,184.38,188.02,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,4,2014-04,186.879333,186.53,184.74,191.37,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,5,2014-05,186.377742,186.32,185.76,187.5,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,6,2014-06,186.347667,186.305,184.91,187.57,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,7,2014-07,186.532667,186.4,185.86,187.76,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,8,2014-08,186.182903,186.29,184.09,187.37,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,9,2014-09,185.883333,185.91,184.94,186.61,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,10,2014-10,186.282667,186.205,184.97,189.24,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,11,2014-11,185.685714,185.515,184.84,188.42,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2014,12,2014-12,185.257419,185.6,181.79,187.4,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,1,2015-01,185.593333,185.645,182.35,186.88,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,2,2015-02,186.108214,186.135,185.4,187.53,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,3,2015-03,186.425862,186.48,184.65,188.42,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,4,2015-04,187.154333,186.875,185.5,189.27,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,5,2015-05,186.968387,186.94,186.32,187.73,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,6,2015-06,186.090333,185.775,185.17,188.35,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,7,2015-07,186.251429,185.93,185.1,189.99,14
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,8,2015-08,186.501667,186.615,185.33,187.27,18
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,9,2015-09,186.151379,186.29,184.74,187.43,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,10,2015-10,186.98,186.595,186.42,188.02,6
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2015,12,2015-12,188.684,188.73,185.86,194.19,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,1,2016-01,194.319677,194.42,188.48,196.82,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,2,2016-02,186.402069,186.52,184.58,188.65,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,3,2016-03,186.271667,186.285,184.65,187.5,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,4,2016-04,186.316667,186.17,185.24,188.29,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,5,2016-05,186.431613,186.42,185.43,187.66,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,6,2016-06,186.101,186.15,185.2,186.75,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,7,2016-07,186.396452,186.45,185.63,186.94,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,8,2016-08,180.313548,186.32,0.0,186.58,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,9,2016-09,186.33931,186.32,185.3,187.17,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,10,2016-10,185.969677,185.99,185.53,186.38,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,11,2016-11,179.464074,185.6,18.01,186.19,27
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2016,12,2016-12,185.570968,185.56,184.81,186.65,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,1,2017-01,186.13,186.02,184.84,187.93,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,2,2017-02,183.310714,185.715,114.9,187.73,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,3,2017-03,185.562143,185.45,185.07,186.45,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,4,2017-04,186.245,186.305,184.61,187.66,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,5,2017-05,186.392903,186.42,185.66,186.98,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,6,2017-06,186.378667,186.35,185.96,186.78,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,7,2017-07,186.593226,186.55,185.53,187.2,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,8,2017-08,186.494516,186.45,186.15,187.47,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,9,2017-09,184.923,186.63,135.4,187.01,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,10,2017-10,186.724194,186.78,186.19,186.98,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,11,2017-11,186.235556,186.22,185.47,187.07,27
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2017,12,2017-12,185.978387,185.96,185.53,187.01,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,1,2018-01,185.6,185.6,185.6,185.6,1
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,3,2018-03,186.21,186.32,185.37,186.98,19
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,4,2018-04,186.917,186.58,185.6,196.16,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,5,2018-05,188.625484,187.5,186.15,194.49,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,6,2018-06,188.693333,188.27,185.66,194.19,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,7,2018-07,186.129032,186.15,185.7,186.65,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,8,2018-08,187.311935,186.81,186.22,190.03,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,9,2018-09,186.549333,186.35,185.76,188.02,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,10,2018-10,186.105161,186.19,183.86,186.94,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,11,2018-11,187.321724,186.71,183.14,191.73,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2018,12,2018-12,192.319355,192.98,188.19,194.13,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,1,2019-01,191.725484,191.57,186.52,196.03,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,2,2019-02,180.289286,187.25,0.0,192.72,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,3,2019-03,188.366552,188.48,186.32,190.72,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,4,2019-04,187.993793,187.4,185.43,193.21,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,5,2019-05,185.610345,185.43,184.09,189.04,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,6,2019-06,185.357,185.125,184.06,187.53,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,7,2019-07,185.589032,185.27,184.15,188.35,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,8,2019-08,185.588667,185.43,183.56,187.34,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,9,2019-09,184.947333,184.88,183.92,186.12,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,10,2019-10,184.536129,184.45,183.4,185.63,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,11,2019-11,186.132143,186.17,184.58,187.99,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2019,12,2019-12,186.301333,186.185,184.12,189.44,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,1,2020-01,188.654194,188.62,186.29,190.39,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,2,2020-02,171.088214,192.57,0.0,194.72,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,3,2020-03,191.495667,192.42,186.25,194.42,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,4,2020-04,187.455172,187.24,184.74,191.5,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,5,2020-05,187.882759,187.4,184.91,193.37,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,6,2020-06,187.594333,187.45,186.06,191.83,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,7,2020-07,186.849355,187.11,184.58,188.52,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,8,2020-08,186.410345,185.79,184.97,193.11,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,9,2020-09,186.460333,185.595,184.68,191.17,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,10,2020-10,174.269032,185.86,0.0,188.94,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,11,2020-11,189.706786,189.86,186.61,192.13,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2020,12,2020-12,178.727778,185.24,0.0,187.57,27
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,1,2021-01,186.401613,186.35,184.48,188.06,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,2,2021-02,187.082857,186.91,185.99,189.01,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,3,2021-03,187.476667,186.865,185.3,192.36,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,4,2021-04,188.633793,188.02,186.84,192.68,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,5,2021-05,179.917586,186.06,0.0,188.06,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,6,2021-06,179.304138,185.63,0.0,186.68,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,7,2021-07,185.391613,185.3,184.61,186.58,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,8,2021-08,186.536774,186.61,185.14,189.57,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,9,2021-09,185.943667,185.84,184.65,187.6,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,10,2021-10,188.380968,187.99,184.91,192.32,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,11,2021-11,186.291786,186.12,184.94,188.02,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2021,12,2021-12,186.861935,186.68,184.94,190.12,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,1,2022-01,186.522903,186.52,185.04,189.04,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,2,2022-02,186.332593,186.32,184.74,187.93,27
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,3,2022-03,181.383793,187.11,0.0,191.99,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,4,2022-04,188.944828,188.19,185.01,193.24,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,5,2022-05,186.135517,186.02,185.76,187.99,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,6,2022-06,186.55,186.305,185.73,188.35,28
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,7,2022-07,186.667241,186.48,185.47,189.21,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,8,2022-08,186.656774,186.78,185.33,189.21,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,9,2022-09,185.812667,185.79,185.43,186.25,30
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,10,2022-10,185.845806,185.83,184.51,188.48,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,11,2022-11,173.078966,185.86,0.0,187.01,29
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2022,12,2022-12,186.07,185.99,184.91,188.09,31
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,1,2023-01,188.99659,189.01,183.76,193.5,742
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,2,2023-02,188.165186,188.62,0.0,193.27,671
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,3,2023-03,184.629136,185.99,0.0,196.0,741
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,4,2023-04,187.010839,186.75,0.0,192.68,715
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,5,2023-05,182.991048,186.35,0.0,191.47,735
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,6,2023-06,186.847514,186.32,183.56,193.64,716
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,7,2023-07,184.683118,186.22,0.0,193.47,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,8,2023-08,183.795887,186.52,0.0,193.77,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,9,2023-09,182.817375,185.37,0.0,191.37,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,10,2023-10,183.837554,184.84,0.0,190.26,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,11,2023-11,182.584097,184.65,0.0,189.37,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2023,12,2023-12,181.566142,184.61,0.0,190.29,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,1,2024-01,183.740309,185.17,0.0,190.35,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,2,2024-02,187.666782,187.515,182.78,197.31,696
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,3,2024-03,188.066577,188.22,0.0,192.72,742
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,4,2024-04,185.653833,185.66,0.0,191.67,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,5,2024-05,185.962204,185.775,0.0,192.09,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,6,2024-06,183.928396,185.27,0.0,193.6,717
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,7,2024-07,185.631263,185.91,0.0,191.14,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,8,2024-08,183.522554,185.1,0.0,189.93,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,9,2024-09,180.519806,185.07,0.0,192.06,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,10,2024-10,184.967594,185.33,0.0,192.72,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,11,2024-11,185.249222,185.5,0.0,190.19,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2024,12,2024-12,178.201169,185.04,0.0,194.95,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,1,2025-01,183.004167,184.94,0.0,190.35,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,2,2025-02,185.420342,185.17,182.84,190.85,672
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,3,2025-03,185.857634,185.1,182.91,192.78,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,4,2025-04,185.603486,185.2,181.86,196.69,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,5,2025-05,186.683118,186.45,182.74,191.01,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,6,2025-06,186.337958,185.6,182.91,192.75,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,7,2025-07,186.12496,185.775,183.07,192.13,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,8,2025-08,187.473925,187.14,183.73,193.11,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,9,2025-09,186.093194,185.56,182.97,194.88,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,10,2025-10,184.992406,184.695,182.87,189.96,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,11,2025-11,185.549042,185.43,183.23,191.4,720
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2025,12,2025-12,186.749812,186.52,185.24,192.45,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,1,2026-01,186.826331,186.25,183.83,486.15,744
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,2,2026-02,185.18817,185.04,183.23,190.19,672
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,3,2026-03,185.143755,185.04,183.27,189.99,743
+Thurmond,tailwater_ft,Tailwater elevation,Tailwater,ft,2026,4,2026-04,184.429731,184.365,182.71,187.93,186

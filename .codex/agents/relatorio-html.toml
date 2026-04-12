@@ -31,4 +31,8 @@ Saidas esperadas:
 - Referencias claras aos arquivos de imagem usados.
 
 Quando a skill local report-html-standard estiver disponivel, use-a como playbook principal.
+
+Para a proxima rodada do Savannah Reservoir System, use tambem como briefing operacional:
+- .codex/agents/clarks-hill-system-round.README.md
+- .codex/agents/clarks-hill-system-round.narrator.md
 """

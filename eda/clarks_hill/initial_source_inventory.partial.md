@@ -1,43 +1,40 @@
-# Clarks Hill Initial Source Inventory
+# Savannah River Inventory
 
-- Search run: `perplexity-intel-8ba66531`
-- Collection run: `operational-collect-clarkshill-20260401-225924`
-- Ranked datasets: `30`
-- Collected now: `3`
-- Blocked now: `3`
+- River collection run: `operational-collect-savannah-river-20260410-204518`
+- River targets collected: `13/13`
+- Reservoir annex run: `operational-collect-savannah-system-20260409-013209`
+- Reservoir annex targets collected: `11/16`
+- Analytical frame: `river-first`
+- Target coverage rule: `always request 20 years when the source allows it`
 
-## Usable Now
+## Mainstem hydrology integrated now
 
-- `03-savannah-river-basin-landscape-analysis` | Savannah River Basin Landscape Analysis
-  local: `collection/03-savannah-river-basin-landscape-analysis/savannah_river_basin_landscape_analysis.pdf`
-  note: Direct PDF download succeeded.
-- `04-savannah-river-basin-restoration-data-2008` | Savannah River Basin Restoration Data 2008
-  local: `collection/04-savannah-river-basin-restoration-data-2008/savannah_rbrp_2018.pdf`
-  note: Direct download endpoint returned a PDF successfully.
-- `usgs-02193900-monitoring-location` | USGS 02193900 THURMOND LAKE NEAR PLUM BRANCH, SC
-  local: `collection/usgs-02193900-monitoring-location/endpoint_confirmed.json`
-  local: `collection/usgs-02193900-monitoring-location/iv_02193900.json`
-  local: `collection/usgs-02193900-monitoring-location/dv_02193900.json`
-  note: Official USGS Water Services endpoints confirmed for site 02193900 and iv/dv JSON artifacts were downloaded.
-  note: Site inventory shows 00062 elevation and water-quality/climate variables, not 00060/00065 for this location.
+- `Augusta` | 2006 to 2026 | 21 returned years | 2 parameter codes | 34,406 daily points
+- `USACE Dock` | 2007 to 2026 | 20 returned years | 7 parameter codes | 122,866 daily points
 
-## Blocked
+## River chemistry integrated now
 
-- `08-clark-hill-dam-inflows-and-forecasts` | Clark Hill Dam Inflows and Forecasts
-  blocker: Initial Playwright navigation timed out and was aborted after 328.1 seconds.
-- `14-savannah-and-salkehatchie-surface-water-data` | Savannah and Salkehatchie Surface Water Data
-  blocker: 403 CloudFront geoblock: The Amazon CloudFront distribution is configured to block access from your country.
-- `sas-usace-thurmond-basin-dam` | Thurmond Basin Dam Brochure
-  blocker: Access Denied from Akamai/edgesuite when requesting the PDF directly.
+- `Calhoun Falls` | 1956 to 1974 | 11 years with data | 63 activities | 954 results
+- `Augusta Intake` | 1970 to 1970 | 1 years with data | 1 activities | 7 results
+- `US 1 Augusta` | 1997 to 1998 | 2 years with data | 18 activities | 340 results
 
-## Next Analytic Layer
+## Reservoir annex integrated now
 
-- extract watershed and land-cover context from the two collected PDFs
-- wait for structured operational and water-quality endpoints before creating staging or analytic tables
-- define join strategy once station ids, basin ids, or time keys arrive from collection
 
-## Not Ready For Figures
+## Sediment notebook materialized now
 
-- no structured reservoir operations time series collected yet
-- no structured inflow or outflow time series collected yet
-- no structured water-quality table collected yet
+- `Master Data` parsed to `19` valid sediment sites using the same notebook filter (`Site` and `Fe_ppm` present, `1 <= Site <= 30`).
+- Top fine-depositional-score sites in the current staging pass: `9, 3, 7, 5, 21`.
+
+## Analytical caveats
+
+- The 20-year target is satisfied by `2` mainstem USGS endpoints in the current staging pass, but river WQP chemistry remains below that target at most sites.
+- River chemistry is now real and explicit, but it remains patchier and older than the daily hydrology layer.
+- Reservoir operations remain necessary as explanatory modulation, not as the protagonist of the report.
+- Thurmond stays the sediment-study target, but the causal path should now start from the river signal.
+
+## Next collection priorities
+
+- River-first gaps still active: `8` priority targets or layers need stronger mainstem coverage.
+- Pressure and pollutant gaps still active: `17` contextual targets still need structured ingestion.
+- Operational long-series gaps still active: `4` reservoir-operation layers remain snapshot-only or short.

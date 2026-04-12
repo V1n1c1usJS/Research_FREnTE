@@ -1,0 +1,7 @@
+reservoir,layer,source,first_year,last_year,returned_years,target_years,coverage_gap_years,coverage_status,record_count,support_value_1,support_value_2
+Hartwell,operations_series,USACE series (Pool elevation),2016,2026,11,20,9,below_target,318888,2979,2979
+Hartwell,structure,NID inventory,1962,1962,,20,,metadata,1,55950,2088
+Russell,operations_series,USACE series (Inflow),2020,2026,7,20,13,below_target,28718,-6386,0
+Russell,structure,NID inventory,1986,1986,,20,,metadata,1,26653,2890
+Thurmond,operations_series,USACE series (Inflow),2006,2026,21,20,0,meets_target,34575,294,294
+Thurmond,structure,NID inventory,1954,1954,,20,,metadata,1,71000,6144

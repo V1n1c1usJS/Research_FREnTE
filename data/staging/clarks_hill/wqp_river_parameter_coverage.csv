@@ -1,0 +1,21 @@
+site_label,site_id,reach,parameter_group,result_count,first_year,last_year
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Drinking-water additives,10,1956,1961
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Metals / trace elements,11,1969,1972
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Microbiological,30,1969,1974
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Nitrogen,70,1956,1974
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Organic carbon,12,1971,1974
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Phosphorus,19,1969,1974
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Specific conductance,43,1956,1974
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Turbidity / sediment proxy,30,1969,1974
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,Water temperature,34,1957,1974
+Calhoun Falls,USGS-02189000,Upper mainstem near Calhoun Falls,pH,56,1956,1974
+Augusta Intake,USGS-02196560,Augusta river intake reach,Metals / trace elements,7,1970,1970
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Metals / trace elements,16,1997,1998
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Microbiological,16,1997,1997
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Nitrogen,36,1997,1997
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Organic carbon,12,1997,1997
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Phosphorus,12,1997,1997
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Specific conductance,30,1997,1998
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Turbidity / sediment proxy,24,1997,1997
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,Water temperature,18,1997,1998
+US 1 Augusta,USGS-02196671,Augusta urban mainstem reach,pH,30,1997,1998

@@ -1,0 +1,4 @@
+reservoir,public_name,nidid,nearest_city,latitude,longitude,current_pool_elevation_ft,rule_curve_ft,delta_to_rule_curve_ft,current_storage_acft,storage_pct_conservation,current_inflow_cfs,current_outflow_cfs,current_tailwater_ft,current_power_mwh
+Hartwell,HARTWELL DAM,GA01702,"Hartwell, GA",34.35746,-82.82138,653.39,660,-6.610000000000014,2204520,86.4653278945717,2979,2979,476.69,0
+Russell,Richard B. Russell Dam,GA01705,"Calhoun Falls, SC",34.0253,-82.59403,,475,,1010672,98.48262206648711,-6386,0,323.03,0
+Thurmond,THURMOND DAM,GA01701,"Augusta, GA",33.66125,-82.19986,323.76,330,-6.240000000000009,2073600,83.14288709794162,294,294,183.79,-15

@@ -1,92 +1,160 @@
-﻿{
-    "sections":  [
-                     {
-                         "status":  "ready",
-                         "title":  "Already Usable Now",
-                         "body":  "The report layer can already narrate basin-context readiness using the two collected PDFs, the confirmed USGS 02193900 endpoint metadata, the downloaded USGS iv/dv JSON artifacts, and WQP station metadata for USGS-02196560.",
-                         "id":  "available-now"
-                     },
-                     {
-                         "status":  "partial",
-                         "title":  "First Hydrology or Context Figure Dependency",
-                         "body":  "The first low-risk hydrology/context figure should use USGS site 02193900 daily and instantaneous reservoir-elevation and weather variables as the structured core, with the two basin PDFs as static watershed context. It must not claim inflow, outflow, or residence time yet.",
-                         "id":  "first-hydrology-pass"
-                     },
-                     {
-                         "status":  "placeholder",
-                         "title":  "Placeholder Sections Kept Open",
-                         "body":  "Operational inflow forecasts, broader surface-water systems context, and additional USACE basin documentation remain placeholders because the weather.gov and USACE/DES sources are still blocked in this collection cycle.",
-                         "id":  "blocked-placeholders"
-                     }
-                 ],
-    "report_subtitle":  "Partial context based on current collected artifacts",
-    "source_note":  {
-                        "text":  "Current partial report context is grounded in local collected artifacts only: two contextual PDFs, USGS 02193900 endpoint metadata plus iv/dv JSON downloads, and WQP station metadata for USGS-02196560. Blocked sources are explicitly left as placeholders.",
-                        "artifacts":  [
-                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/03-savannah-river-basin-landscape-analysis/savannah_river_basin_landscape_analysis.pdf",
-                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/04-savannah-river-basin-restoration-data-2008/savannah_rbrp_2018.pdf",
-                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/usgs-02193900-monitoring-location/endpoint_confirmed.json",
-                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/usgs-02193900-monitoring-location/iv_02193900.json",
-                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/usgs-02193900-monitoring-location/dv_02193900.json",
-                                          "data/runs/operational-collect-clarkshill-20260401-225924/collection/01-savannah-river-augusta-intake-data/station_USGS-02196560.csv"
-                                      ]
-                    },
-    "report_title":  "Clarks Hill Lake Contextual EDA",
-    "context_summary":  "This partial handoff covers source readiness, currently usable contextual assets, and the first hydrology/context figure dependencies. It does not claim complete operations, inflow, or full water-quality coverage.",
-    "output_path":  "EDA/clarks_hill/apresentacao_clarks_hill.html",
-    "metrics":  [
-                    {
-                        "label":  "Collected sources ready now",
-                        "note":  "2 PDFs, 2 structured/source metadata assets",
-                        "value":  "4"
-                    },
-                    {
-                        "label":  "Blocked sources",
-                        "note":  "weather.gov, des.sc.gov, sas.usace.army.mil",
-                        "value":  "3"
-                    },
-                    {
-                        "label":  "Partial sources",
-                        "note":  "WQP station metadata collected; result export still pending",
-                        "value":  "1"
-                    }
-                ],
-    "figures":  [
-                    {
-                        "summary":  "Current usable assets include two watershed-context PDFs, USGS 02193900 structured iv/dv JSON downloads, and WQP station metadata for USGS-02196560.",
-                        "id":  "fig0",
-                        "tag_color":  "blue",
-                        "status":  "partial",
-                        "icon":  "inventory_2",
-                        "image_path":  "",
-                        "tag":  "Data Availability",
-                        "interpretation":  "The report can already describe source readiness and site coverage honestly, but it should not present a full reservoir-operations narrative yet because inflow and broader USACE operational sources remain incomplete.",
-                        "title":  "Current Clarks Hill data readiness",
-                        "highlight":  "Structured USGS reservoir-level and weather observations are now available for the first analytical pass."
-                    },
-                    {
-                        "summary":  "A first hydrology/context figure can be built from USGS 02193900 daily and instantaneous records, supplemented by watershed context from the collected PDFs.",
-                        "id":  "fig1",
-                        "tag_color":  "green",
-                        "status":  "partial",
-                        "icon":  "water",
-                        "image_path":  "",
-                        "tag":  "Hydrology",
-                        "interpretation":  "This figure must stay scoped to reservoir elevation and local meteorological covariates at site 02193900 until inflow, outflow, and richer water-quality exports are collected.",
-                        "title":  "First hydrology-context figure prerequisites",
-                        "highlight":  "Safe first figure scope: reservoir elevation plus local weather context, not full hydrodynamics."
-                    },
-                    {
-                        "summary":  "Three high-value sources remain blocked in the current cycle: NWS inflows/forecasts, DES surface-water context, and the USACE Thurmond basin document.",
-                        "id":  "fig2",
-                        "tag_color":  "orange",
-                        "status":  "placeholder",
-                        "icon":  "pending",
-                        "image_path":  "",
-                        "tag":  "Pending Sources",
-                        "interpretation":  "These sections should remain placeholders in the HTML layer so the report can signal what is still missing without fabricating continuity in the operations story.",
-                        "title":  "Blocked source placeholders",
-                        "highlight":  "Inflow and broader operational context remain blocked on collection."
-                    }
-                ]
+{
+  "report_title": "Savannah River Mainstem",
+  "report_subtitle": "Partial river-first handoff with Thurmond sediment bridge and incomplete pressure context",
+  "context_summary": "This partial context is already river-first, but the next pass still needs stronger pollutant and pressure joins on the Savannah River. Hartwell, Russell, and Thurmond stay in the report as explanatory support, while Thurmond remains the sediment-study focus.",
+  "metadata": {
+    "date_label": "Partial handoff",
+    "status_badge": "River-first + partial pressure layer"
+  },
+  "output_path": "docs/clarks-hill/index.html",
+  "narrative_rules": [
+    "Start from the Savannah River mainstem.",
+    "Pressures and pollutants on the river are part of the analytical core.",
+    "Reservoir operations explain the river signal and do not replace it.",
+    "The 20-year target must remain explicit even when coverage is shorter."
+  ],
+  "coverage_target_years": 20,
+  "coverage_summary": {
+    "rule": "Treat 20 years as the analytical target horizon. If real availability falls below this, the report must show the gap by source, layer, entity, and variable.",
+    "actual_summary": "Current safe scope already supports river hydrology and a partial chemistry layer, but pressure and pollutant joins still need strengthening before the HTML can claim a mature river-pressure narrative.",
+    "notes": [
+      "River-first framing is already mandatory in the HTML.",
+      "Pressure and pollutant layers should remain visible as partial when the EDA has not yet normalized them.",
+      "Do not present Hartwell and Russell as protagonists if the strongest evidence still sits on the mainstem and at Thurmond."
+    ]
+  },
+  "coverage_layers": [
+    {
+      "layer": "River hydrology",
+      "entity": "Mainstem USGS sites",
+      "source": "USGS daily values",
+      "returned_years": 20,
+      "target_years": 20,
+      "coverage_gap_years": 0,
+      "coverage_status": "meets_target",
+      "coverage_kind": "series",
+      "actual_period": "real period pending exact export"
+    },
+    {
+      "layer": "River chemistry",
+      "entity": "Mainstem WQP sites",
+      "source": "WQP results",
+      "returned_years": 0,
+      "target_years": 20,
+      "coverage_gap_years": 20,
+      "coverage_status": "below_target",
+      "coverage_kind": "series",
+      "actual_period": "real period must be filled by the next EDA pass"
+    }
+  ],
+  "metrics": [
+    {
+      "label": "River-first frame",
+      "value": "ready",
+      "note": "The HTML must now start from the Savannah River.",
+      "icon": "waves",
+      "tone": "blue"
+    },
+    {
+      "label": "Pressure layer maturity",
+      "value": "partial",
+      "note": "Pollutant and pressure joins still need stronger structured support.",
+      "icon": "science",
+      "tone": "red"
+    },
+    {
+      "label": "Target horizon",
+      "value": "20 years",
+      "note": "Coverage below this stays explicit.",
+      "icon": "show_chart",
+      "tone": "blue"
+    }
+  ],
+  "sources": {
+    "river_collection_run": "",
+    "reservoir_annex_run": "",
+    "river_collection_manifest": "",
+    "reservoir_collection_manifest": "",
+    "sediment_notebook": "analise_sedimentos/Analise_sedimentos_Clarks_Hill_Lake.ipynb",
+    "sediment_master_data": "analise_sedimentos/Most Corrected Master_Data Clarks Hill Lake (version 3).xlsb.xlsx"
+  },
+  "source_note": {
+    "text": "This partial context is grounded only in local collected artifacts and partial staging. Any stronger claim about pollutant-pressure continuity still depends on the next EDA round.",
+    "artifacts": []
+  },
+  "sections": [
+    {
+      "id": "river-first-frame",
+      "title": "River signal first",
+      "status": "ready",
+      "body": "The hero, top metrics, and the first figures must all keep the Savannah River as the main storyline."
+    },
+    {
+      "id": "river-pressures-pollutants",
+      "title": "River pressures and pollutants",
+      "status": "partial",
+      "body": "Keep pollutant and pressure context visible even when it is incomplete, instead of burying it under reservoir operations."
+    },
+    {
+      "id": "coverage-status",
+      "title": "Coverage status against the 20-year target",
+      "status": "ready",
+      "body": "Show real coverage honestly and do not shorten the target horizon silently."
+    },
+    {
+      "id": "reservoir-modulation",
+      "title": "Reservoir modulation as explanatory annex",
+      "status": "ready",
+      "body": "Use Hartwell, Russell, and Thurmond as support for the river signal."
+    },
+    {
+      "id": "thurmond-bridge",
+      "title": "Bridge to the Thurmond sediment interpretation",
+      "status": "ready",
+      "body": "Keep Thurmond as the sediment target without letting it silently stand in for the full system."
+    }
+  ],
+  "current_caveats": [
+    "The pressure and pollutant layer is still partial and should remain explicit in the HTML.",
+    "Do not imply system-wide parity if Hartwell and Russell are still support-only in the current evidence.",
+    "Do not imply 20-year chemistry coverage when the returned series are shorter."
+  ],
+  "sediment_summary": {
+    "sample_count": 0,
+    "interpretation_points": [
+      "The Thurmond sediment notebook remains the interpretive anchor.",
+      "The HTML should use river and pressure context to explain, not replace, the sediment interpretation."
+    ],
+    "top_depositional_sites": [],
+    "strongest_pairwise_relation": {},
+    "caveat": "Granulometric caveats and short chemistry coverage must remain visible."
+  },
+  "figures": [
+    {
+      "id": "fig1",
+      "section": "river-first-frame",
+      "title": "Mainstem hydrologic coverage",
+      "tag": "River Signal",
+      "tag_color": "blue",
+      "icon": "show_chart",
+      "image_path": "",
+      "summary": "The safest current layer is still the river signal.",
+      "interpretation": "This should remain the first figure block.",
+      "highlight": "Hydrology leads the report.",
+      "source_refs": []
+    },
+    {
+      "id": "fig2",
+      "section": "river-pressures-pollutants",
+      "title": "River pressure and pollutant context",
+      "tag": "River Chemistry",
+      "tag_color": "green",
+      "icon": "science",
+      "image_path": "",
+      "summary": "Partial pressure context is already part of scope.",
+      "interpretation": "Keep it visible and honest until the next EDA export strengthens it.",
+      "highlight": "Pressure context stays partial, not hidden.",
+      "source_refs": []
+    }
+  ]
 }

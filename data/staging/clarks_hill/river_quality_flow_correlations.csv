@@ -1,0 +1,6 @@
+source_series_slug,source_series_label,target_series_slug,target_series_label,overlap_months,first_ano_mes,last_ano_mes,slope,intercept,correlation
+augusta_flow_cfs,Augusta discharge,dock_conductance_us_cm,Dock specific conductance,228,2007-05,2026-04,-0.75781147,21385.25231978,-0.789504
+augusta_flow_cfs,Augusta discharge,dock_do_mg_l,Dock dissolved oxygen,228,2007-05,2026-04,0.00013414,4.71351644,0.359123
+augusta_flow_cfs,Augusta discharge,dock_turbidity_fnu,Dock turbidity,152,2013-09,2026-04,0.00128134,20.0249798,0.402526
+augusta_flow_cfs,Augusta discharge,dock_water_temp_c,Dock water temperature,228,2007-05,2026-04,-0.00040098,23.92542189,-0.327894
+augusta_stage_ft,Augusta stage,dock_conductance_us_cm,Dock specific conductance,228,2007-05,2026-04,-60.0711915,21141.07603191,-0.312422

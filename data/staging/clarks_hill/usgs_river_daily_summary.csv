@@ -1,0 +1,3 @@
+site_label,site_no,site_name,reach,first_date,last_date,first_year,last_year,years_returned,variable_count,point_count,variables
+Augusta,02197000,"SAVANNAH RIVER AT AUGUSTA, GA",Savannah River at Augusta,2006-01-01T00:00:00.000,2026-04-09T00:00:00.000,2006,2026,21,2,34406,"00060, 00065"
+USACE Dock,021989773,"SAVANNAH RIVER AT USACE DOCK, AT SAVANNAH, GA","Savannah River at USACE dock, Savannah",2007-05-25T00:00:00.000,2026-04-09T00:00:00.000,2007,2026,20,7,122866,"00010, 00060, 00065, 00095, 00300, 00400, 63680"

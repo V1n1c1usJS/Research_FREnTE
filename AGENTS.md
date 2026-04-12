@@ -12,6 +12,22 @@ O trabalho esta alinhado ao Projeto 100K e hoje possui dois eixos geograficos:
 - Brasil - Bacia do Rio Tiete: Sao Paulo -> Tres Lagoas / Jupia
 - EUA - Clarks Hill Lake / J. Strom Thurmond
 
+No eixo EUA, o trabalho atual deve ser lido como suporte contextual ao estudo
+sedimentologico apresentado em `GSA Presentation Slide 2.pptx (1).pdf`.
+A pergunta cientifica principal desse eixo nao e "como operam os reservatorios"
+isoladamente, mas "que contexto hidrologico, ambiental e de pressao explica os
+padroes sedimentares observados em Clarks Hill / J. Strom Thurmond".
+
+Em termos praticos, isso significa:
+- o estudo principal e sedimentocentrico
+- o rio Savannah e o eixo contextual principal, no mesmo espirito em que o Tiete
+  foi tratado no caso Brasil
+- Hartwell, Russell e Thurmond entram como estruturas explicativas dentro do sistema
+  fluvial
+- os relatorios HTML e EDA deste eixo devem apoiar a interpretacao dos sedimentos,
+  especialmente para nutrientes, carga interna, sustentabilidade do reservatorio e
+  preocupacao com floracoes algais periodicas
+
 No eixo Brasil, as prioridades praticas do repositorio continuam sendo:
 - corredor entre Sao Paulo e Tres Lagoas
 - Rio Tiete
@@ -86,6 +102,14 @@ A linha mais madura de EDA esta em:
 - `EDA/operacao_reservatorio/apresentacao_reservatorios.html`
 
 O padrao visual dessa apresentacao e da familia de relatorios HTML do projeto deve ser preservado em novas entregas HTML.
+
+Para o eixo `Clarks Hill / Savannah River`, a EDA e o HTML devem funcionar como
+camada de contexto para o estudo sedimentologico da GSA:
+- mostrar comportamento do rio
+- mostrar pressoes ambientais e poluentes que atuam sobre o rio
+- mostrar modulacao operacional dos reservatorios apenas como explicacao secundaria
+- fechar a ponte interpretativa com os sedimentos, sem substituir a analise
+  laboratorial e geocientifica do deck principal
 
 ### 3.4 Publicacao
 O repositorio tambem entrega HTML para `docs/`, incluindo:

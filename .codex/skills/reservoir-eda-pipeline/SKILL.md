@@ -100,6 +100,16 @@ For sediment studies like Clarks Hill, the bridge should connect:
 
 without replacing the lab sediment analysis itself.
 
+When a sediment-focused slide deck or paper is the scientific anchor, treat the
+EDA output as contextual support:
+
+- preserve the original sediment-centered question
+- use the river, pressures, and reservoir operations to explain why the observed
+  sediment patterns matter
+- keep explicit links to nutrient storage and mobility, internal loading
+  potential, reservoir sustainability, and bloom concern when the study raises
+  those motivations
+
 ## Output rules for this repository
 
 - `data/runs/` remains raw only

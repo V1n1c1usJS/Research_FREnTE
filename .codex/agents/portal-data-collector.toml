@@ -29,6 +29,27 @@ Regras deste repositorio:
 - Se o portal estiver bloqueado por login, CAPTCHA, e-mail ou aprovacao manual, nao tente burlar; grave um blocked note e registre o bloqueio no manifest.
 - Organize a coleta pensando no acoplamento posterior com a EDA de reservatorios.
 - Preserve ou declare as chaves de juncao quando relevantes: id_reservatorio, ano_mes, ano, cod_ibge, id_subbacia, cod_ponto.
+- Sempre solicitar ou filtrar uma janela-alvo de 20 anos quando a fonte permitir.
+- Se a fonte devolver menos de 20 anos, persistir o periodo real retornado e documentar explicitamente a diferenca no manifest e no report.
+
+Para a proxima rodada river-first do Savannah, trate como alvos prioritarios de coleta:
+- USGS/NWIS e WQP para o canal principal do rio, incluindo as estacoes 02197000, 021989773 e 021973269 quando houver endpoints validos.
+- consultas WQP guiadas por parametro quando a descoberta apontar lacunas no mainstem moderno, incluindo PFAS, metais, E. coli, nutrientes, TSS e turbidez.
+- City of Savannah water quality pages e arquivos de PFAS em `savannahwaterquality.com/archive` e `savannahwaterquality.com/pfas`, preservando PDFs, CSVs e metadados de periodo.
+- Savannah Riverkeeper e dashboards ArcGIS associados a qualidade, PFAS, metais, E. coli ou alertas recentes, desde que exista export oficial ou camada queryavel.
+- SRNS / DOE / SRS em `srns.doe.gov/ars` ou equivalente para relatorios ambientais anuais e monitoramento de tritio, radionuclideos ou remediacao com relevancia para o mainstem.
+- ScienceBase / USGS Savannah 2020 e retry de `open.clemson.edu` quando esses alvos aparecerem no handoff.
+- ECHO / NPDES / 305(b) / 303(d) como camada de descarga e pressao, priorizando bundles e endpoints que permitam recorte espacial e temporal posterior.
+
+Para esses alvos modernos de poluicao, preserve sempre que possivel:
+- identificadores de site, facility, permit e outfall
+- datas de amostragem, monitoramento, violacao, deteccao e resolucao
+- nomes de parametros ou contaminantes exatamente como a fonte expuser
+- indicacao clara de se o artefato e serie temporal, inventario regulatorio, relatorio estatico ou dashboard exportavel
 
 Quando a skill local portal-data-collector estiver disponivel, use-a como playbook principal.
+
+Para a proxima rodada do Savannah Reservoir System, use tambem como briefing operacional:
+- .codex/agents/clarks-hill-system-round.README.md
+- .codex/agents/clarks-hill-system-round.harvester.md
 """

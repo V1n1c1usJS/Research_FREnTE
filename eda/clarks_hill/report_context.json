@@ -1,0 +1,487 @@
+{
+  "report_title": "Savannah River Mainstem",
+  "report_subtitle": "Behavior-first context for Clarks Hill sediments: river, reservoirs, pressures, then sediment response",
+  "context_summary": "This report is meant to tell a simple river story before it reaches the sediment notebook. It starts with the Savannah River near Augusta, then adds the reservoir cascade upstream of that reach, then turns to the pollutant and pressure-like signals we currently have for the lower basin, and only then closes with the sediment interpretation at Thurmond. The backbone is 2006-2026 of USGS mainstem behavior, operational series from Hartwell, Russell, and Thurmond, and the modern Savannah Main compliance reports that give the best current pollutant-like time slice available in the workspace.",
+  "metadata": {
+    "date_label": "April 2026",
+    "status_badge": "River-first + 20-year target explicit"
+  },
+  "output_path": "docs/clarks-hill/index.html",
+  "narrative_rules": [
+    "Keep the Savannah River as the protagonist of the HTML.",
+    "Treat pressures and pollutants on the river as analytical core, not optional appendix.",
+    "Use Hartwell, Russell, and Thurmond only as explanatory support for the river signal.",
+    "Keep the 20-year target visible and separate from real returned coverage in every layer.",
+    "Do not imply system-wide parity when evidence is stronger for some layers than others."
+  ],
+  "domain_contract": {
+    "rule": "Every layer must belong to an explicit domain before any crossing is interpreted.",
+    "domains": [
+      {
+        "domain_id": "river_core",
+        "domain_label": "Savannah River mainstem behavior",
+        "layer_count": 4
+      },
+      {
+        "domain_id": "pressure_core",
+        "domain_label": "Pollution, pressure, and treated-water compliance",
+        "layer_count": 4
+      },
+      {
+        "domain_id": "reservoir_support",
+        "domain_label": "Reservoir operations and structural annex",
+        "layer_count": 3
+      },
+      {
+        "domain_id": "sediment_response",
+        "domain_label": "Sediment-response interpretation",
+        "layer_count": 3
+      },
+      {
+        "domain_id": "supporting_context",
+        "domain_label": "Coverage, provenance, and support context",
+        "layer_count": 3
+      }
+    ],
+    "artifacts": [
+      "data/staging/clarks_hill/domain_registry.csv",
+      "data/analytic/clarks_hill/domain_registry.csv",
+      "data/analytic/clarks_hill/crosswalk_registry.csv"
+    ],
+    "ready_crosswalks": 2
+  },
+  "coverage_target_years": 20,
+  "coverage_summary": {
+    "rule": "Always request a 20-year historical window when the source allows it, and separate the returned coverage from the target.",
+    "actual_summary": "USGS daily river endpoints meet the target window (2006-2026), lower-river continuous quality extends across 2007-2026, and the best river-to-sensor monthly coupling is Augusta discharge vs Dock specific conductance (r=-0.79)",
+    "notes": [
+      "The river run collected 13 of 13 curated targets with no blockers.",
+      "The reservoir annex run remains available with 11 of 16 official targets collected.",
+      "Reservoir operational series currently return these best windows: Hartwell 2016-2026, Russell 2020-2026, Thurmond 2006-2026.",
+      "Thurmond still keeps the strongest sediment-facing operational bridge to Augusta, but the story now starts from the river and only then crosses the cascade.",
+      "The sediment notebook works on 19 valid sites from the Master Data table and should be treated as the interpretive anchor for fine texture, Fe enrichment, and Fe-C coupling.",
+      "Cross-layer parameter overlap still covers 3 entities across river and reservoir WQP layers, but the main analytical weight now sits in the continuous behavior series rather than the sparse WQP exports.",
+      "The current intake inventory flags 29 priority follow-up rows for the next gap-focused collection round."
+    ]
+  },
+  "coverage_layers": [
+    {
+      "layer": "River hydrology",
+      "entity": "Augusta",
+      "source": "USGS daily values",
+      "returned_years": 21,
+      "target_years": 20,
+      "coverage_gap_years": 0,
+      "coverage_status": "meets_target",
+      "coverage_kind": "series",
+      "actual_period": "2006-2026"
+    },
+    {
+      "layer": "River hydrology",
+      "entity": "USACE Dock",
+      "source": "USGS daily values",
+      "returned_years": 20,
+      "target_years": 20,
+      "coverage_gap_years": 0,
+      "coverage_status": "meets_target",
+      "coverage_kind": "series",
+      "actual_period": "2007-2026"
+    },
+    {
+      "layer": "River chemistry",
+      "entity": "Calhoun Falls",
+      "source": "WQP results",
+      "returned_years": 11,
+      "target_years": 20,
+      "coverage_gap_years": 9,
+      "coverage_status": "below_target",
+      "coverage_kind": "series",
+      "actual_period": "1956-1974"
+    },
+    {
+      "layer": "River chemistry",
+      "entity": "Augusta Intake",
+      "source": "WQP results",
+      "returned_years": 1,
+      "target_years": 20,
+      "coverage_gap_years": 19,
+      "coverage_status": "below_target",
+      "coverage_kind": "series",
+      "actual_period": "1970-1970"
+    },
+    {
+      "layer": "River chemistry",
+      "entity": "US 1 Augusta",
+      "source": "WQP results",
+      "returned_years": 2,
+      "target_years": 20,
+      "coverage_gap_years": 18,
+      "coverage_status": "below_target",
+      "coverage_kind": "series",
+      "actual_period": "1997-1998"
+    },
+    {
+      "layer": "Reservoir operations",
+      "entity": "Hartwell",
+      "source": "USACE series (Pool elevation)",
+      "returned_years": 11,
+      "target_years": 20,
+      "coverage_gap_years": 9,
+      "coverage_status": "below_target",
+      "coverage_kind": "series",
+      "actual_period": "2016-2026"
+    },
+    {
+      "layer": "Reservoir operations",
+      "entity": "Russell",
+      "source": "USACE series (Inflow)",
+      "returned_years": 7,
+      "target_years": 20,
+      "coverage_gap_years": 13,
+      "coverage_status": "below_target",
+      "coverage_kind": "series",
+      "actual_period": "2020-2026"
+    },
+    {
+      "layer": "Reservoir operations",
+      "entity": "Thurmond",
+      "source": "USACE series (Inflow)",
+      "returned_years": 21,
+      "target_years": 20,
+      "coverage_gap_years": 0,
+      "coverage_status": "meets_target",
+      "coverage_kind": "series",
+      "actual_period": "2006-2026"
+    },
+    {
+      "layer": "Treated water compliance",
+      "entity": "Savannah Main System",
+      "source": "City of Savannah annual reports",
+      "returned_years": 5,
+      "target_years": 20,
+      "coverage_gap_years": 15,
+      "coverage_status": "below_target",
+      "coverage_kind": "series",
+      "actual_period": "2020-2024"
+    }
+  ],
+  "metrics": [
+    {
+      "label": "River targets collected",
+      "value": "13/13",
+      "note": "operational-collect-savannah-river-20260410-204518",
+      "icon": "hub",
+      "tone": "green"
+    },
+    {
+      "label": "USGS daily mainstem coverage",
+      "value": "2006-2026",
+      "note": "2 official river endpoints returned multi-year daily data",
+      "icon": "show_chart",
+      "tone": "blue"
+    },
+    {
+      "label": "Lower-river sensor behavior",
+      "value": "2007-2026",
+      "note": "USACE Dock carries continuous water temperature, DO, conductance, pH and turbidity behavior",
+      "icon": "science",
+      "tone": "green"
+    },
+    {
+      "label": "Best river-quality coupling",
+      "value": "r=-0.79",
+      "note": "Augusta discharge vs Dock specific conductance",
+      "icon": "multiline_chart",
+      "tone": "blue"
+    },
+    {
+      "label": "Reservoir operational support",
+      "value": "Hartwell 2016-2026, Russell 2020-2026, Thurmond 2006-2026",
+      "note": "Best available operation windows from the annex series",
+      "icon": "water",
+      "tone": "gold"
+    },
+    {
+      "label": "Sediment study support",
+      "value": "19 sites",
+      "note": "Master Data variables cover texture, water content, D10-D50-D90, Fe, Mn, carbon, pH, DO and conductivity",
+      "icon": "experiment",
+      "tone": "green"
+    },
+    {
+      "label": "Cross-layer overlap entities",
+      "value": "3",
+      "note": "Still useful as support, but no longer the main visual anchor",
+      "icon": "table_chart",
+      "tone": "blue"
+    },
+    {
+      "label": "Priority next-round gaps",
+      "value": "29",
+      "note": "River chemistry, pollutant-pressure joins, extra gauges, and long operational support remain the main backlog",
+      "icon": "priority_high",
+      "tone": "red"
+    }
+  ],
+  "sources": {
+    "river_collection_run": "operational-collect-savannah-river-20260410-204518",
+    "reservoir_annex_run": "operational-collect-savannah-system-20260409-013209",
+    "legacy_thurmond_detail_run": "operational-collect-clarkshill-20260401-225924",
+    "river_collection_manifest": "data\\runs\\operational-collect-savannah-river-20260410-204518\\manifest.json",
+    "reservoir_collection_manifest": "data\\runs\\operational-collect-savannah-system-20260409-013209\\manifest.json",
+    "legacy_thurmond_manifest": "data\\runs\\operational-collect-clarkshill-20260401-225924\\manifest.json",
+    "sediment_notebook": "analise_sedimentos/Analise_sedimentos_Clarks_Hill_Lake.ipynb",
+    "sediment_master_data": "analise_sedimentos/Most Corrected Master_Data Clarks Hill Lake (version 3).xlsb.xlsx"
+  },
+  "source_note": {
+    "text": "Metrics come from local staging tables, figures come from generated SVG artifacts under docs/clarks-hill/figures, and the main charts now prioritize monthly river and reservoir behavior instead of source-inventory coverage alone.",
+    "artifacts": [
+      "data/staging/clarks_hill/domain_registry.csv",
+      "data/staging/clarks_hill/coverage_target_matrix.csv",
+      "data/staging/clarks_hill/river_monthly_behavior.csv",
+      "data/staging/clarks_hill/river_monthly_climatology.csv",
+      "data/staging/clarks_hill/river_quality_flow_correlations.csv",
+      "data/staging/clarks_hill/reservoir_operations_monthly.csv",
+      "data/staging/clarks_hill/river_reservoir_bridge.csv",
+      "data/analytic/clarks_hill/domain_registry.csv",
+      "data/analytic/clarks_hill/crosswalk_registry.csv",
+      "data/staging/clarks_hill/sediment_master_data.csv",
+      "data/staging/clarks_hill/sediment_depositional_scores.csv",
+      "data/staging/clarks_hill/sediment_pairwise_relations.csv"
+    ]
+  },
+  "sections": [
+    {
+      "id": "river-first-frame",
+      "title": "River signal first",
+      "status": "ready",
+      "body": "Open with the Savannah River near Augusta and show the monthly behavior that the rest of the story has to explain."
+    },
+    {
+      "id": "reservoir-modulation",
+      "title": "Reservoir modulation as explanatory annex",
+      "status": "ready",
+      "body": "Use Hartwell, Russell, and Thurmond as the operational structure that helps explain the river behavior observed downstream of Clarks Hill."
+    },
+    {
+      "id": "river-pressures-pollutants",
+      "title": "River pressures and pollutants",
+      "status": "partial",
+      "body": "After the behavior panels, show the pollutant and pressure evidence we actually have today: lower-river sensors, treated-water compliance, and the current pressure inventory."
+    },
+    {
+      "id": "coverage-status",
+      "title": "Coverage status against the 20-year target",
+      "status": "ready",
+      "body": "Expose the real returned period by source, layer, and entity whenever it falls short of the 20-year target. Do not silently shorten the horizon."
+    },
+    {
+      "id": "thurmond-bridge",
+      "title": "Bridge to the Thurmond sediment interpretation",
+      "status": "ready",
+      "body": "Keep Thurmond as the sediment-study focus, but only after the report shows how river conditions and regulated cascade behavior plausibly connect to the depositional pattern."
+    },
+    {
+      "id": "methods-and-gaps",
+      "title": "Methods, provenance, and remaining gaps",
+      "status": "partial",
+      "body": "List the artifact paths behind metrics and figures, then state the unresolved river-pressure and long-series gaps plainly."
+    }
+  ],
+  "next_collection_priorities": [
+    "River water quality on the mainstem remains the first priority when returned chemistry stays short of the 20-year target.",
+    "Additional mainstem gauges should be added whenever they extend continuity above, between, or below Hartwell, Russell, and Thurmond.",
+    "Pollutants and environmental pressures need structured joins, not only PDF references, before the river narrative can match the Tiete benchmark.",
+    "Operational support should move from snapshots to long series wherever USACE or companion sources expose multi-decade histories."
+  ],
+  "current_caveats": [
+    "Discrete river WQP chemistry is still sparse even after the river-first rebuild, so the stronger water-quality layer currently comes from the continuous USACE Dock sensor series.",
+    "Pressure and pollutant context still needs more structured joins to reach the same maturity as hydrology and continuous sensor behavior.",
+    "Reservoir operations are now analytical series instead of snapshots, but Hartwell and Russell still return shorter windows than Thurmond.",
+    "Hartwell and Russell remain support layers for the river narrative, not independent protagonists of the HTML.",
+    "Thurmond is still the sediment-study target, but the next round should deepen river-first explanation before adding more reservoir-first detail."
+  ],
+  "sediment_summary": {
+    "sample_count": 19,
+    "master_data_fields": [
+      "Site",
+      "Depth",
+      "Latitude",
+      "Longitude",
+      "%Clay",
+      "%Silt",
+      "%Sand",
+      "Water_%",
+      "D10",
+      "D50",
+      "D90",
+      "Fe_ppm",
+      "Mn_ppm",
+      "%Carbon",
+      "pH",
+      "DO (%)",
+      "Cond."
+    ],
+    "interpretation_points": [
+      "The sediment system is dominated by fine material, especially clay plus silt, with generally low sand fractions.",
+      "Iron tracks the fine fraction: it increases with clay and decreases as median grain size D50 becomes coarser.",
+      "Total carbon is strongly associated with iron, consistent with organo-mineral coupling and greater carbon preservation in Fe-rich sediments.",
+      "Greater depth tends to coincide with finer and more Fe-enriched sediment, reinforcing the interpretation of low-energy depositional zones.",
+      "A composite fine-depositional score identifies the sites most consistent with fine, wet, Fe-C enriched depositional settings."
+    ],
+    "top_depositional_sites": [
+      9,
+      3,
+      7,
+      5,
+      21
+    ],
+    "strongest_pairwise_relation": {
+      "x_field": "depth",
+      "y_field": "fe_ppm",
+      "n": 19,
+      "slope": 1775.50511476,
+      "intercept": 32651.22879712,
+      "correlation": 0.754624,
+      "direction": "positive"
+    },
+    "caveat": "The notebook flags any use of D90 in final conclusions when D90 < D50 appears; those values still need manual checking."
+  },
+  "figures": [
+    {
+      "id": "fig1",
+      "title": "Savannah River behavior near Augusta: discharge and stage",
+      "tag": "River Signal",
+      "tag_color": "blue",
+      "icon": "show_chart",
+      "section": "river-first-frame",
+      "image_path": "figures/fig1_river_mainstem_hydrograph.svg",
+      "summary": "The opening panel now looks like a river-behavior chart instead of a data-inventory panel: monthly discharge and stage at Augusta, each with a 12-month mean.",
+      "interpretation": "This is the mainstem reference for the whole report. Before we talk about reservoirs, pressures, or sediments, we first show how the river itself expands, contracts, and stabilizes across the 20-year window.",
+      "highlight": "Augusta contributes a continuous 2006-2026 behavior record.",
+      "source_refs": [
+        "data/staging/clarks_hill/river_monthly_behavior.csv",
+        "docs/clarks-hill/figures/fig1_river_mainstem_hydrograph.svg"
+      ]
+    },
+    {
+      "id": "fig2",
+      "title": "Cascade behavior upstream of Augusta: Hartwell, Russell, and Thurmond outflow",
+      "tag": "Operations",
+      "tag_color": "orange",
+      "icon": "water",
+      "section": "reservoir-modulation",
+      "image_path": "figures/fig2_cascade_operations.svg",
+      "summary": "The reservoir annex now starts with behavior, not cards: three clean monthly outflow panels show how the cascade is operating through time.",
+      "interpretation": "This is the first explanatory layer behind the river. The reservoirs are not the protagonist, but their release behavior helps frame why the Savannah signal near Augusta looks the way it does.",
+      "highlight": "Hartwell, Russell, and Thurmond now appear as time series instead of static snapshots.",
+      "source_refs": [
+        "data/staging/clarks_hill/reservoir_operations_monthly.csv",
+        "data/staging/clarks_hill/reservoir_operations_summary.csv",
+        "docs/clarks-hill/figures/fig2_cascade_operations.svg"
+      ]
+    },
+    {
+      "id": "fig3",
+      "title": "Thurmond to Augusta: reservoir release and downstream response",
+      "tag": "Operations",
+      "tag_color": "orange",
+      "icon": "hub",
+      "section": "reservoir-modulation",
+      "image_path": "figures/fig3_thurmond_augusta_bridge.svg",
+      "summary": "A dedicated bridge panel now ties Thurmond outflow and storage to Augusta discharge, keeping the reservoir role explanatory and downstream-facing.",
+      "interpretation": "This is the cleanest operational link in the current workspace. It shows how the river signal near Augusta can carry the imprint of release behavior before the report moves into pollutants and pressures.",
+      "highlight": "Thurmond remains the strongest operational bridge into the sediment story.",
+      "source_refs": [
+        "data/staging/clarks_hill/river_reservoir_bridge.csv",
+        "data/staging/clarks_hill/reservoir_operations_summary.csv",
+        "docs/clarks-hill/figures/fig3_thurmond_augusta_bridge.svg"
+      ]
+    },
+    {
+      "id": "fig4",
+      "title": "Lower-river water-quality behavior at USACE Dock",
+      "tag": "River Chemistry",
+      "tag_color": "green",
+      "icon": "science",
+      "section": "river-pressures-pollutants",
+      "image_path": "figures/fig4_lower_river_quality_timeseries.svg",
+      "summary": "Once the behavior of the river and the cascade is clear, the report moves into the continuous quality signals we have downstream: temperature, dissolved oxygen, conductance, and turbidity.",
+      "interpretation": "These are still the strongest continuous water-quality-style records in the Savannah workspace. They let the report show real variation in the river corridor instead of only categorical coverage notes.",
+      "highlight": "USACE Dock contributes a continuous 2007-2026 quality-behavior layer.",
+      "source_refs": [
+        "data/staging/clarks_hill/river_monthly_behavior.csv",
+        "docs/clarks-hill/figures/fig4_lower_river_quality_timeseries.svg"
+      ]
+    },
+    {
+      "id": "fig5",
+      "title": "Pollutants and pressure indicators in the lower basin",
+      "tag": "Basin Pressures",
+      "tag_color": "green",
+      "icon": "warning",
+      "section": "river-pressures-pollutants",
+      "image_path": "figures/fig5_pressures_pollutants.svg",
+      "summary": "This panel turns the modern Savannah Main reports into a visual pollutant and pressure layer, instead of leaving them as raw tables or source inventory.",
+      "interpretation": "It is not raw mainstem chemistry, but it is still one of the only modern time-structured pollutant-like datasets we currently have in the lower basin. It works as a practical bridge between river behavior and the pressure narrative.",
+      "highlight": "The 2020 data year remains the main modern compliance outlier in the current lower-basin slice.",
+      "source_refs": [
+        "data/staging/clarks_hill/savannah_main_treated_water_summary.csv",
+        "data/staging/clarks_hill/savannah_main_treated_water_long.csv",
+        "data/analytic/clarks_hill/pressure_source_inventory.csv",
+        "docs/clarks-hill/figures/fig5_pressures_pollutants.svg"
+      ]
+    },
+    {
+      "id": "fig6",
+      "title": "Flow-quality coupling inside the river",
+      "tag": "River Chemistry",
+      "tag_color": "green",
+      "icon": "multiline_chart",
+      "section": "river-pressures-pollutants",
+      "image_path": "figures/fig6_flow_quality_coupling.svg",
+      "summary": "After the time-series panels, the report closes the river-quality block with direct flow-quality relationships.",
+      "interpretation": "These scatterplots show which lower-river signals intensify with discharge and which oppose it. They are the clean behavioral bridge from river hydraulics into the pressure-response interpretation.",
+      "highlight": "Flow versus conductance remains the strongest current river-only coupling.",
+      "source_refs": [
+        "data/staging/clarks_hill/river_quality_flow_correlations.csv",
+        "data/staging/clarks_hill/river_reservoir_bridge.csv",
+        "docs/clarks-hill/figures/fig6_flow_quality_coupling.svg"
+      ]
+    },
+    {
+      "id": "fig7",
+      "title": "Sediment texture and fine-depositional score by site",
+      "tag": "Sediment Texture",
+      "tag_color": "green",
+      "icon": "stacked_bar_chart",
+      "section": "thurmond-bridge",
+      "image_path": "figures/fig7_sediment_texture_score.svg",
+      "summary": "The sediment notebook is materialized as a site-by-site view of texture and a composite depositional score that combines fine fraction, water content, Fe, carbon, D50, and sand.",
+      "interpretation": "This figure makes the notebook visible in the report itself. It shows where fine material dominates and which sites are the strongest candidates for low-energy, Fe-C enriched depositional settings.",
+      "highlight": "Sites 9, 3, 7 emerge as the strongest fine-depositional candidates in the current staging pass.",
+      "source_refs": [
+        "data/staging/clarks_hill/sediment_master_data.csv",
+        "data/staging/clarks_hill/sediment_depositional_scores.csv",
+        "docs/clarks-hill/figures/fig7_sediment_texture_score.svg"
+      ]
+    },
+    {
+      "id": "fig8",
+      "title": "Key sediment geochemical relations: Fe, clay, carbon, depth, and D50",
+      "tag": "Sediment Relations",
+      "tag_color": "stone",
+      "icon": "scatter_plot",
+      "section": "thurmond-bridge",
+      "image_path": "figures/fig8_sediment_relations.svg",
+      "summary": "A multi-panel scatter view reconstructs the main sediment relations used in the notebook, including Fe vs clay, Fe vs D50, carbon vs Fe, and depth vs Fe.",
+      "interpretation": "These crossplots close the report's analytical loop. They show that the final sediment claim is not generic: the low-energy interpretation is supported by coherent relations between texture, iron enrichment, carbon preservation, and depth.",
+      "highlight": "The Fe-clay and Fe-carbon relations are the clearest visual anchors for the depositional interpretation at Thurmond.",
+      "source_refs": [
+        "data/staging/clarks_hill/sediment_master_data.csv",
+        "data/staging/clarks_hill/sediment_pairwise_relations.csv",
+        "docs/clarks-hill/figures/fig8_sediment_relations.svg"
+      ]
+    }
+  ]
+}
