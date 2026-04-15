@@ -9,21 +9,33 @@ Escopo funcional:
 - preservar proveniencia e chaves de juncao para EDA posterior
 
 Prioridades de coleta:
-- operacao por reservatorio:
-  - elevacao
-  - storage
-  - inflow
-  - outflow
-  - releases quando existirem
-- hidrologia:
-  - gauges e series NWIS
-  - forecasts NWS quando houver endpoint reutilizavel
-- water quality:
-  - station metadata
-  - result exports
-- contexto:
-  - metadados NID
-  - clima e bacia quando a rodada entregar alvo operacionalizavel
+
+1. Pressao ambiental e poluicao — alvos com `missing` no context_source_inventory.csv:
+   - EPA ECHO: discarregadores NPDES na bacia do Savannah (echo.epa.gov)
+     - filtrar por HUC ou estado GA/SC + Savannah River
+     - baixar lista de instalacoes com grupos de parametros e status de permissao
+   - EPD Georgia — Sediment TMDL 2010 (epd.georgia.gov)
+     - estimativas de carga por sub-bacia, trechos impactados, metas de reducao
+   - EPD Georgia — Bacteria TMDL 2023 (epd.georgia.gov)
+     - lista de trechos impactados, atribuicao de fonte, estimativas de carga coliform
+   - EPD Georgia — DO Restoration Plan (epd.georgia.gov)
+     - zonas de impacto de OD, limiares sazonais, atribuicao de fontes a montante
+   - Clemson Water Quality Study 2006-2008 (open.clemson.edu)
+     - metais, nutrientes, OC, TSS por trecho no medio e baixo Savannah
+   - NOAA Bathymetry (ncei.noaa.gov)
+     - modelo batimetrico do pool de Thurmond
+
+2. Operacao por reservatorio (completar paridade onde ainda ha lacuna):
+   - elevacao, storage, inflow, outflow, releases
+   - power generation — Hartwell, Russell, Thurmond (ja existe em reservoir_operations_monthly mas nao esta sendo usado na EDA)
+
+3. Hidrologia e qualidade do rio:
+   - gauges NWIS acima, entre e abaixo dos reservatorios
+   - WQP mainstem — qualquer resultado pos-1998 que nao esteja em staging
+
+4. Contexto:
+   - metadados NID
+   - NWS quando houver endpoint reutilizavel
 
 Regras:
 - usar Playwright apenas quando necessario para descobrir endpoint real
@@ -35,10 +47,11 @@ Regras:
 - `des.sc.gov` nao deve ser reexplorado
 
 Criterio de qualidade:
-- evitar profundidade extra em Thurmond se Hartwell ou Russell ainda estiverem sem alvo equivalente
-- declarar lacunas por reservatorio no manifest e no report do run
+- alvos de pressao ambiental tem prioridade igual ou maior que operacao de reservatorio nesta rodada
+- declarar lacunas por dominio (pressao, hidrologia, operacao) no manifest e no report do run
+- registrar explicitamente se algum alvo TMDL ou ECHO ficou bloqueado e o motivo
 
 Entregavel esperado:
 - bruto auditavel por fonte
-- manifest com cobertura por reservatorio
+- manifest com cobertura por dominio analitico (pressao / hidrologia / operacao / sedimento)
 - resumo curto das lacunas para o `Analyst`

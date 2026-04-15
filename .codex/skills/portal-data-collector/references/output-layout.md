@@ -22,32 +22,48 @@ data/runs/{run-id}/
 
 Declare these in the manifest when relevant. Do not create them unless the task explicitly includes normalization.
 
-- Qualidade da agua
-  - `data/staging/qualidade_agua/qualidade_agua_ponto_amostra.parquet`
-  - `data/staging/qualidade_agua/pontos_monitoramento_tiete.parquet`
-  - `data/analytic/reservatorio_mes/qualidade_agua_reservatorio_mes.parquet`
-  - `data/analytic/reservatorio_ano/qualidade_agua_reservatorio_ano.parquet`
+### Savannah River / Clarks Hill system
 
-- Queimadas
-  - `data/staging/queimadas/focos_calor_evento.parquet`
-  - `data/analytic/subbacia_ano/queimadas_subbacia_ano.parquet`
-  - `data/analytic/reservatorio_ano/queimadas_reservatorio_ano.parquet`
+- River hydrology
+  - `data/staging/clarks_hill/usgs_river_daily_long.csv`
+  - `data/staging/clarks_hill/river_monthly_behavior.csv`
+  - `data/staging/clarks_hill/river_annual_anomalies.csv`
+  - `data/staging/clarks_hill/river_monthly_climatology.csv`
 
-- SNIS
-  - `data/staging/snis/snis_municipios_serie.parquet`
-  - `data/analytic/municipio_ano/snis_municipio_ano.parquet`
-  - `data/analytic/reservatorio_ano/snis_reservatorio_ano.parquet`
+- River water quality
+  - `data/staging/clarks_hill/river_quality_flow_correlations.csv`
+  - `data/staging/clarks_hill/river_reservoir_bridge.csv`
+  - `data/staging/clarks_hill/wqp_river_parameter_coverage.csv`
+  - `data/staging/clarks_hill/wqp_river_yearly_counts.csv`
 
-- Residuos
-  - `data/staging/residuos/residuos_municipio_ano.parquet`
-  - `data/analytic/municipio_ano/residuos_municipio_ano.parquet`
-  - `data/analytic/reservatorio_ano/residuos_reservatorio_ano.parquet`
+- Environmental pressure and pollutants
+  - `data/staging/clarks_hill/npdes_dischargers.csv`         — EPA ECHO point-source dischargers in Savannah watershed
+  - `data/staging/clarks_hill/tmdl_sediment.csv`             — EPD Georgia Sediment TMDL load estimates by sub-basin
+  - `data/staging/clarks_hill/tmdl_bacteria.csv`             — EPD Georgia Bacteria TMDL impairment context
+  - `data/staging/clarks_hill/do_restoration_context.csv`    — Savannah Harbor DO restoration plan parameters
+  - `data/staging/clarks_hill/savannah_main_treated_water_long.csv`  — City of Savannah drinking-water compliance
+
+- Reservoir operations
+  - `data/staging/clarks_hill/reservoir_operations_monthly.csv`
+  - `data/staging/clarks_hill/reservoir_operations_summary.csv`
+  - `data/staging/clarks_hill/usace_system_snapshot.csv`
+  - `data/staging/clarks_hill/nid_system_summary.csv`
+
+- Sediment
+  - `data/staging/clarks_hill/sediment_master_data.csv`
+  - `data/staging/clarks_hill/sediment_depositional_scores.csv`
+  - `data/staging/clarks_hill/sediment_pairwise_relations.csv`
 
 ## Join keys to preserve
 
-- `id_reservatorio`
+- `station_id`
+- `site_no`
+- `gage_id`
+- `river_reach_id`
+- `river_segment`
+- `reservoir_id`
+- `reservoir_name`
+- `date`
+- `year`
+- `month`
 - `ano_mes`
-- `ano`
-- `cod_ibge`
-- `id_subbacia`
-- `cod_ponto`

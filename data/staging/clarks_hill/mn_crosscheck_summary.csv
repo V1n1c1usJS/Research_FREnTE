@@ -1,0 +1,8 @@
+source_layer,scope,data_year,parameter,value_min,value_max,value_median,unit,availability_flag,comparison_note
+sediment_master_data,Clarks Hill sediment cores,,mn,541.79,4643.46,1228.48,ppm,1,Sediment Mn is available at the core scale.
+savannah_main_treated_water_long,Savannah Main System,2020,manganese,8.0,11.0,11.0,ppb,1,8-11 ppb
+savannah_main_treated_water_long,Savannah Main System,2021,manganese,8.0,11.0,11.0,ppb,1,8-11 ppb
+savannah_main_treated_water_long,Savannah Main System,2022,manganese,8.0,11.0,11.0,ppb,1,8-11 ppb
+savannah_main_treated_water_long,Savannah Main System,2023,manganese,8.0,11.0,11.0,ppb,1,8-11 ppb
+savannah_main_treated_water_long,Savannah Main System,2024,manganese,8.0,11.0,11.0,ppb,1,8-11 ppb
+npdes_dischargers,Savannah Basin HUC8 facility inventory,,manganese,,,,,0,"ECHO facility-search export does not expose pollutant-specific discharge parameters, so Mn cannot be directly crossed at the facility level."

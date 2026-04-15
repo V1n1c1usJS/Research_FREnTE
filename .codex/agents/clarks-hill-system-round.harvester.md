@@ -19,7 +19,7 @@ Reservoir scope:
 Collection priorities:
 
 1. USGS, WQP, NWS, and other sources tied to the Savannah River mainstem
-2. Pollutant and environmental-pressure datasets affecting the river corridor
+2. Pollutant and environmental-pressure datasets affecting the river corridor — see explicit target list below
 3. `water.usace` operational series for all three reservoirs
 4. NID structural metadata for all three dams
 5. Supporting documents that explain the interaction between the river and the regulated system
@@ -30,6 +30,45 @@ River-first target:
 - river water quality
 - suspended sediment / turbidity / TSS proxies
 - pollutant-pressure sources and impairment context
+
+Environmental pressure targets (priority collect — all marked `missing` in context_source_inventory.csv):
+
+- **EPA ECHO** (echo.epa.gov)
+  - NPDES point-source dischargers with permits on the Savannah River watershed
+  - Target: facility list, discharge parameter groups, permit status, SIC codes
+  - Collection hint: ECHO Facility Search → CSV download, filter by HUC or state GA/SC + Savannah River
+  - Expected format: CSV via direct download after filter
+  - Why: only structured dataset of direct industrial and municipal discharge into the river corridor
+
+- **EPD Georgia — Sediment TMDL 2010** (epd.georgia.gov)
+  - Savannah River Basin Sediment TMDL Evaluation
+  - Target: load estimates by sub-basin, impaired reaches, reduction targets
+  - Collection hint: PDF or structured table download from EPD site
+  - Why: directly validates the depositional scores in the sediment cores
+
+- **EPD Georgia — Bacteria TMDL 2023** (epd.georgia.gov)
+  - Savannah River Basin Bacteria TMDL Report
+  - Target: impaired reach list, source attribution, coliform load estimates
+  - Collection hint: PDF download
+  - Why: complements microbiological data already in treated-water layer
+
+- **EPD Georgia — DO Restoration Plan** (epd.georgia.gov)
+  - Savannah Harbor dissolved oxygen restoration plan
+  - Target: DO impairment zones, seasonal thresholds, upstream source attribution
+  - Collection hint: PDF download
+  - Why: mechanistic explanation for low-DO episodes at USACE Dock that drive Fe/Mn mobilization in sediments
+
+- **Clemson Water Quality Study 2006–2008** (open.clemson.edu)
+  - Middle and lower Savannah River water quality chemistry
+  - Target: metals, nutrients, OC, TSS measurements by reach
+  - Collection hint: repository bitstream or direct PDF/dataset link
+  - Why: only known raw-river chemistry dataset in the 2006–2008 window
+
+- **NOAA Bathymetry** (ncei.noaa.gov)
+  - Savannah River bathymetric digital elevation model
+  - Target: depth grid or point dataset for Thurmond pool area
+  - Collection hint: NCEI search → direct raster or point download
+  - Why: needed to weight sediment core locations by depth and volume
 
 Parity target across reservoirs:
 

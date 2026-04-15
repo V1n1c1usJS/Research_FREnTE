@@ -1,0 +1,76 @@
+{
+  "run_id": "operational-collect-savannah-pressure-20260415-001840",
+  "generated_at": "2026-04-15T04:07:54+00:00",
+  "study_focus": "Savannah River / Clarks Hill pressure-and-pollution context",
+  "pressure_summary": {
+    "npdes_facility_count": 1845,
+    "npdes_facility_type_counts": {
+      "industrial": 1675,
+      "municipal": 170
+    },
+    "npdes_violation_facility_count": 179,
+    "npdes_significant_violation_count": 24,
+    "npdes_huc8_counts": {
+      "03060101": 588,
+      "03060102": 259,
+      "03060103": 460,
+      "03060104": 538
+    },
+    "tmdl_impacted_reaches": {
+      "sediment_subwatersheds": 10,
+      "bacteria_impacted_reaches": 15,
+      "do_segments": [
+        "FR15",
+        "FR17",
+        "FR19"
+      ]
+    },
+    "compliance_snapshot_window": {
+      "year_start": 2024,
+      "year_end": 2026,
+      "exact_violation_years_available": false,
+      "significant_anomaly_years_in_window": [
+        2025,
+        2026
+      ],
+      "note": "ECHO facility-search export only provides rolling noncompliance counts; annual crossing is approximate."
+    },
+    "mn_crosscheck": {
+      "sediment_mn_ppm_range": [
+        541.79,
+        4643.46
+      ],
+      "treated_water_mn_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "npdes_mn_available": false,
+      "note": "Mn is directly comparable between sediment cores and treated-water reports, but not in the current ECHO facility export."
+    },
+    "available_pressure_parameters_for_sediment_bridge": [
+      "NPDES facility density and compliance flags by HUC8",
+      "Sediment-load reduction targets by tributary subwatershed",
+      "Bacteria TMDL point-source WLAs and nonpoint segment loads",
+      "Savannah Harbor dissolved oxygen deficit / CBOD5-ammonia restoration context",
+      "Manganese in treated-water reports (2020-2024)"
+    ]
+  },
+  "artifact_paths": {
+    "npdes_dischargers": "data/staging/clarks_hill/npdes_dischargers.csv",
+    "tmdl_sediment": "data/staging/clarks_hill/tmdl_sediment.csv",
+    "tmdl_bacteria": "data/staging/clarks_hill/tmdl_bacteria.csv",
+    "do_restoration_context": "data/staging/clarks_hill/do_restoration_context.csv",
+    "mn_crosscheck_summary": "data/staging/clarks_hill/mn_crosscheck_summary.csv",
+    "echo_compliance_anomaly_window": "data/staging/clarks_hill/echo_compliance_anomaly_window.csv",
+    "pressure_context_notes": "data/staging/clarks_hill/pressure_context_notes.md"
+  },
+  "gaps": [
+    "Clemson 2006-2008 raw PDF remains partial because deterministic HTTP download is blocked by an AWS WAF challenge.",
+    "NOAA official coverage found for Savannah is estuarine only and does not reach the Thurmond pool bbox requested for this round.",
+    "ECHO facility-search export does not expose pollutant-specific parameter groups, so Mn cannot yet be crossed to NPDES discharge data.",
+    "ECHO does not expose exact violation dates in this export; anomaly-year comparison is necessarily an inferred recent-window view."
+  ]
+}

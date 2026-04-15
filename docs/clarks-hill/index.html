@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Savannah River Mainstem - EDA Report</title>
+<title>Savannah River — EDA Report: Flow, Water Quality & Sediments</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root {
   --gsu-blue: #011E42;
@@ -63,29 +65,39 @@ h1, h2, h3 { font-family: 'Bitter', serif; }
 }
 .fig-img {
   width: 100%;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   border: 1px solid #e2e8f0;
   background: white;
+  display: block;
 }
-.placeholder-box {
-  width: 100%;
-  min-height: 16rem;
-  border-radius: 0.75rem;
-  border: 1px dashed #cbd5e1;
-  background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
-  color: #64748b;
+.fig-panel {
+  padding: 1rem 1rem 0.5rem;
+}
+.act-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.act-number {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--gsu-blue);
+  color: white;
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.95rem;
-  line-height: 1.7;
+  flex-shrink: 0;
 }
 </style>
 </head>
 <body class="min-h-screen">
 
+<!-- ─── Header ─────────────────────────────────────────────────────────── -->
 <header class="sticky top-0 z-50 shadow-lg" style="background: var(--gsu-blue);">
   <div class="max-w-6xl mx-auto px-6 py-3 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
     <div class="flex flex-wrap items-center gap-3">
@@ -99,629 +111,835 @@ h1, h2, h3 { font-family: 'Bitter', serif; }
       </div>
     </div>
     <div class="flex items-center gap-3 text-xs">
-      <span class="hidden sm:inline-block text-white/40">Project FREnTE - EDA</span>
+      <span class="hidden sm:inline-block text-white/40">Project FREnTE — EDA</span>
       <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-semibold"
-            style="background: rgba(134,197,63,.15); color: #86C53F; border: 1px solid rgba(134,197,63,.25);">
-        <span class="w-1.5 h-1.5 rounded-full inline-block" style="background: #86C53F;"></span>
-        River-first + 20-year target explicit - April 2026
+            style="background: rgba(196,168,108,.15); color: #C4A86C; border: 1px solid rgba(196,168,108,.35);">
+        <span class="w-1.5 h-1.5 rounded-full inline-block" style="background: #C4A86C;"></span>
+        In development
       </span>
     </div>
   </div>
 </header>
 
-<section style="background: var(--gsu-blue);" class="pb-10 pt-8">
+<!-- ─── Hero ────────────────────────────────────────────────────────────── -->
+<section style="background: var(--gsu-blue);" class="pb-12 pt-10">
   <div class="max-w-6xl mx-auto px-6">
     <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-2" style="color: var(--gsu-gold);">
-      Exploratory Data Report - Savannah River Mainstem
+      Exploratory Data Report — Savannah River / Clarks Hill
     </p>
     <h1 class="text-3xl lg:text-4xl font-bold text-white leading-tight mb-3">
-      Savannah River Mainstem
-      <span class="block mt-1" style="color: var(--gsu-gold-light);">Behavior-first context for Clarks Hill sediments: river, reservoirs, pressures, then sediment response</span>
+      Savannah River — Flow, Water Quality, Pressures &amp; Sediments
+      <span class="block mt-1 text-xl font-normal" style="color: var(--gsu-gold-light);">
+        From hydrological behavior to the geochemical record in Clarks Hill sediment cores
+      </span>
     </h1>
-    <p class="text-white/75 text-sm lg:text-base max-w-4xl leading-relaxed mb-5">
-      This report is meant to tell a simple river story before it reaches the sediment notebook. It starts with the Savannah River near Augusta, then adds the reservoir cascade upstream of that reach, then turns to the pollutant and pressure-like signals we currently have for the lower basin, and only...
+    <p class="text-white/75 text-sm lg:text-base max-w-4xl leading-relaxed mb-6">
+      This report tells a sequential story. It begins with what the river does — discharge, seasonality, reservoir cascade operations. Then it examines water quality parameters as independent series. Next, quality is crossed with hydrological behavior. Environmental pressures (NPDES, TMDL, DO) are introduced. Finally, sediments appear as the physical archive of everything that happened before.
     </p>
-    <div class="flex flex-wrap gap-2 mb-5 text-[11px]">
-      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">8 figures</span>
-      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">River-first reading</span>
-      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">Reservoirs as annex</span>
-      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">Sediment bridge at the end</span>
+    <div class="flex flex-wrap gap-2 mb-6 text-[11px]">
+      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">12 figures</span>
+      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">Narrative sequence</span>
+      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">Individual figures per topic</span>
+      <span class="badge" style="background: rgba(255,255,255,.10); color: #E2E8F0;">Sediments last</span>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      
       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
-        <span class="material-symbols-outlined text-2xl" style="color: #86C53F;">hub</span>
-        <p class="text-white font-bold text-lg mt-1">13/13</p>
-        <p class="text-white/55 text-xs">operational-collect-savannah-river-20260410-204518</p>
+        <span class="material-symbols-outlined text-2xl" style="color: #86C53F;">waves</span>
+        <p class="text-white font-bold text-lg mt-1">2006–2026</p>
+        <p class="text-white/55 text-xs">21 years · Augusta (02197000) + USACE Dock, Savannah (021989773)</p>
       </div>
-    
       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
-        <span class="material-symbols-outlined text-2xl" style="color: #C4A86C;">show_chart</span>
-        <p class="text-white font-bold text-lg mt-1">2006-2026</p>
-        <p class="text-white/55 text-xs">2 official river endpoints returned multi-year daily data</p>
+        <span class="material-symbols-outlined text-2xl" style="color: #C4A86C;">water_drop</span>
+        <p class="text-white font-bold text-lg mt-1">3 reservoirs</p>
+        <p class="text-white/55 text-xs">Hartwell · Russell · Thurmond — outflow, storage, power</p>
       </div>
-    
       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
         <span class="material-symbols-outlined text-2xl" style="color: #86C53F;">science</span>
-        <p class="text-white font-bold text-lg mt-1">2007-2026</p>
-        <p class="text-white/55 text-xs">USACE Dock carries continuous water temperature, DO, conductance, pH and turbidity behavior</p>
+        <p class="text-white font-bold text-lg mt-1">1,845 NPDES</p>
+        <p class="text-white/55 text-xs">Facilities across 4 HUC8 watersheds — 179 in non-compliance</p>
       </div>
-    
       <div class="rounded-xl px-4 py-3" style="background: rgba(255,255,255,.07);">
-        <span class="material-symbols-outlined text-2xl" style="color: #C4A86C;">multiline_chart</span>
-        <p class="text-white font-bold text-lg mt-1">r=-0.79</p>
-        <p class="text-white/55 text-xs">Augusta discharge vs Dock specific conductance</p>
+        <span class="material-symbols-outlined text-2xl" style="color: #C4A86C;">layers</span>
+        <p class="text-white font-bold text-lg mt-1">19 sites</p>
+        <p class="text-white/55 text-xs">Sediment cores with Fe, Mn, OC, grain size</p>
       </div>
-    
     </div>
   </div>
 </section>
 
-<div class="max-w-6xl mx-auto px-6 py-4">
-  <div class="gold-bar"></div>
+<div class="max-w-screen-xl mx-auto px-6 py-4"><div class="gold-bar"></div></div>
+
+<!-- ─── Station Map ───────────────────────────────────────────────────────── -->
+<section class="max-w-screen-xl mx-auto px-6 py-6">
+  <div class="bg-white rounded-2xl border border-slate-100 shadow-sm" style="overflow: hidden;">
+    <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+      <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(1,30,66,.08);">
+        <span class="material-symbols-outlined text-xl" style="color: var(--gsu-blue);">map</span>
+      </div>
+      <div class="flex-1">
+        <div class="flex flex-wrap items-center gap-2 mb-1">
+          <span class="badge" style="background: rgba(1,30,66,.08); color: var(--gsu-blue);">Location</span>
+          <span class="text-xs text-slate-400 font-mono">Data collection stations</span>
+        </div>
+        <h2 class="text-xl font-bold text-slate-800">Where data were collected — Savannah River Basin</h2>
+      </div>
+    </div>
+    <div class="px-8 pb-3"><div class="gold-bar"></div></div>
+
+    <!-- Legend -->
+    <div class="px-8 pb-3 flex flex-wrap gap-4 text-xs font-semibold">
+      <span class="flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-full" style="background:#0B5CAD;"></span>USGS gauge (flow / water quality)</span>
+      <span class="flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-full" style="background:#0F7B5F;"></span>USACE reservoir</span>
+      <span class="flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-full" style="background:#6D28D9;"></span>Sediment core site</span>
+      <span class="flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-full" style="background:#C27803;"></span>Historical WQP station</span>
+    </div>
+
+    <div id="map" style="height: 600px; width: 100%;"></div>
+
+    <div class="px-8 py-4 text-xs text-slate-400 border-t border-slate-100">
+      Interactive map — click markers for details. Tiles: OpenStreetMap &copy; contributors.
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([33.3, -82.1], 8);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18
+  }).addTo(map);
+
+  function circleMarker(lat, lon, color, radius, label, detail) {
+    return L.circleMarker([lat, lon], {
+      radius: radius,
+      fillColor: color,
+      color: '#fff',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.88
+    }).bindPopup('<b style="color:' + color + ';">' + label + '</b>' + (detail ? '<br><span style="font-size:12px;color:#64748b;">' + detail + '</span>' : ''));
+  }
+
+  // ── USACE Reservoirs ──────────────────────────────────────────────────
+  var reservoirs = [
+    [34.35746, -82.82138, 'Hartwell Dam', 'Hartwell Reservoir — NIDID GA01702<br>Area: 55,950 ac · Storage: 2,550,000 ac·ft'],
+    [34.0253,  -82.59403, 'Russell Dam',  'Richard B. Russell Dam — NIDID GA01705<br>Storage: 1,026,200 ac·ft'],
+    [33.66125, -82.19986, 'Thurmond Dam', 'J. Strom Thurmond Dam — NIDID GA01701<br>Area: 71,000 ac · Storage: 2,510,000 ac·ft']
+  ];
+  reservoirs.forEach(function(r) {
+    circleMarker(r[0], r[1], '#0F7B5F', 14, r[2], r[3]).addTo(map);
+  });
+
+  // ── USGS Gauges ───────────────────────────────────────────────────────
+  var usgs = [
+    [33.37253, -81.94208, 'USGS 02197000 — Augusta',        'Main streamflow gauge · 2006–2026<br>Daily values NWIS'],
+    [33.50958, -81.99984, 'USGS 02196560 — Augusta Intake', 'Water quality · 1970<br>Historical WQP'],
+    [33.47541, -81.95539, 'USGS 02196671 — Augusta US-1',   'Water quality · 1997–1998'],
+    [34.07095, -82.64152, 'USGS 02189000 — Calhoun Falls',  'Historical WQP · 1956–1974<br>Classical river chemistry'],
+    [32.08042, -81.08136, 'USGS 021989773 — USACE Dock',    'Temp, DO, pH, conductance (2007–2026)<br>Turbidity (2013–2026) · ~227 months · Savannah, GA']
+  ];
+  usgs.forEach(function(s) {
+    circleMarker(s[0], s[1], '#0B5CAD', 10, s[2], s[3]).addTo(map);
+  });
+
+  // ── Sediment core sites ───────────────────────────────────────────────
+  var sediment = [
+    [33.715568, -82.250964, 1],
+    [33.693165, -82.243759, 2],
+    [33.674843, -82.234175, 3],
+    [33.675674, -82.220154, 4],
+    [33.663384, -82.216124, 5],
+    [33.669019, -82.196771, 6],
+    [33.680048, -82.208856, 7],
+    [33.694348, -82.216474, 8],
+    [33.687512, -82.225752, 9],
+    [33.676609, -82.249560, 10],
+    [33.660155, -82.272611, 12],
+    [33.723406, -82.226169, 13],
+    [33.762727, -82.225450, 14],
+    [33.774548, -82.230376, 15],
+    [33.762370, -82.238670, 16],
+    [33.746248, -82.263118, 19],
+    [33.734357, -82.256677, 20],
+    [33.688528, -82.262249, 21],
+    [33.708875, -82.305079, 23]
+  ];
+  sediment.forEach(function(s) {
+    circleMarker(s[0], s[1], '#6D28D9', 7,
+      'Site ' + s[2] + ' — Sediment core',
+      'Fe, Mn, OC, grain size, water%<br>Clarks Hill / Thurmond reservoir'
+    ).addTo(map);
+  });
+
+  // ── River centerline (approximate — Hartwell to Savannah) ─────────────
+  var river = [
+    [34.357, -82.821], [34.25, -82.72], [34.16, -82.65],
+    [34.025, -82.594], [33.9,  -82.5],  [33.8,  -82.42],
+    [33.72,  -82.33],  [33.661,-82.20], [33.55, -82.08],
+    [33.373, -81.942], [33.2,  -81.75], [33.05, -81.55],
+    [32.85,  -81.38],  [32.6,  -81.25], [32.35, -81.15],
+    [32.08,  -81.081]
+  ];
+  L.polyline(river, { color: '#0B5CAD', weight: 2.5, opacity: 0.45, dashArray: '6,4' }).addTo(map);
+
+})();
+</script>
+
+<main class="max-w-screen-xl mx-auto px-6 py-6">
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ACT 1 — WHAT WE HAVE
+════════════════════════════════════════════════════════════════════════ -->
+<div class="act-header mt-2 mb-6">
+  <div class="act-number">1</div>
+  <div>
+    <p class="text-xs font-semibold tracking-[0.18em] uppercase" style="color: var(--gsu-gold);">Act 1</p>
+    <h2 class="text-xl font-bold" style="color: var(--gsu-blue);">Available data coverage</h2>
+  </div>
 </div>
 
-<main class="max-w-6xl mx-auto px-6 py-6">
+<div class="mb-6">
+  <p class="text-sm text-slate-600 leading-7 max-w-4xl">
+    Six analytical domains form the backbone of this report. The report follows this exact sequence — each layer depends on the previous one to be correctly interpreted. Sediments only make sense after we understand what the river does, what the cascade controls, and what pressures reach the basin.
+  </p>
+</div>
 
-  <section class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,22rem)] mb-8">
-    <article class="metric-card p-6">
-      <p class="field-label mb-2">
-        <span class="material-symbols-outlined text-sm">visibility</span>
-        How to read this page
-      </p>
-      <p class="text-sm text-slate-700 leading-7">The page is organized as a visual reading of river behavior first, then lower-river quality, reservoir regulation, and the sediment response that Thurmond still needs to explain.</p>
-    </article>
-    <article class="metric-card p-6">
-      <p class="field-label mb-2">
-        <span class="material-symbols-outlined text-sm">timeline</span>
-        Coverage note
-      </p>
-      <p class="text-sm text-slate-700 leading-7">Always request a 20-year historical window when the source allows it, and separate the returned coverage from the target.</p>
-      <p class="text-xs text-slate-500 leading-6 mt-2">USGS daily river endpoints meet the target window (2006-2026), lower-river continuous quality extends across 2007-2026, and the best river-to-sensor monthly coupling is Augusta...</p>
-      <p class="text-[11px] text-slate-400 font-mono mt-3">River: operational-collect-savannah-river-20260410-204518 | Annex: operational-collect-savannah-system-20260409-013209</p>
-    </article>
-  </section>
+<!-- Domain cards grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
 
-  
-    <section class="mb-10">
-      <div class="flex items-center justify-between gap-4 mb-4">
+  <!-- Card 1: River flow -->
+  <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div class="h-1.5 w-full" style="background: #0B5CAD;"></div>
+    <div class="px-6 py-5 flex-1 flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(11,92,173,.10);">
+          <span class="material-symbols-outlined text-xl" style="color: #0B5CAD;">waves</span>
+        </div>
         <div>
-          <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-1" style="color: var(--gsu-gold);">Available data</p>
-          <h2 class="text-2xl font-bold" style="color: var(--gsu-blue);">What is already available by analytical domain</h2>
+          <p class="text-xs font-bold tracking-widest uppercase" style="color: #0B5CAD;">01 — River flow</p>
+          <p class="text-sm font-semibold text-slate-800 leading-tight">Augusta + USACE Dock</p>
         </div>
-        <span class="text-xs text-slate-500">Compact source map before the figure sequence starts</span>
       </div>
-      <div class="gold-bar mb-6"></div>
-      <div class="grid gap-4 md:grid-cols-2">
-        
-            <article class="metric-card p-5">
-              <div class="flex items-start gap-3 mb-3">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(29,78,216,.08);">
-                  <span class="material-symbols-outlined text-xl" style="color: #1D4ED8;">waves</span>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold tracking-[0.20em] uppercase mb-1" style="color: #1D4ED8;">River core</p>
-                  <h3 class="text-lg font-bold text-slate-800">Savannah River mainstem behavior</h3>
-                  <p class="text-xs text-slate-500 mt-1">Available window: 2006-2026</p>
-                </div>
-              </div>
-              <div class="space-y-3">
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">dataset</span>Available data</p>
-                  <ul class="space-y-1.5 text-sm text-slate-600 leading-6">
-                    <li>Annual river anomalies: 2006-2026 - 136 rows</li><li>Monthly river behavior: 2006-2026 - 1552 rows</li><li>USGS daily mainstem series: 2006-2026 - 130438 rows</li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">link</span>Sources</p>
-                  <p class="text-sm text-slate-600 leading-6">waterservices.usgs.gov, waterdata.usgs.gov, waterqualitydata.us</p>
-                </div>
-                <p class="text-xs text-slate-500 leading-6">Canonical annual layer for river x pressure and river x compliance crossings.</p>
-              </div>
-            </article>
-            
-            <article class="metric-card p-5">
-              <div class="flex items-start gap-3 mb-3">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(15,123,95,.08);">
-                  <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">science</span>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold tracking-[0.20em] uppercase mb-1" style="color: #0F7B5F;">Pressure core</p>
-                  <h3 class="text-lg font-bold text-slate-800">Pollution, pressure, and treated-water compliance</h3>
-                  <p class="text-xs text-slate-500 mt-1">Available window: 2020-2024</p>
-                </div>
-              </div>
-              <div class="space-y-3">
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">dataset</span>Available data</p>
-                  <ul class="space-y-1.5 text-sm text-slate-600 leading-6">
-                    <li>Savannah Main compliance by parameter: 2020-2024 - 75 rows</li><li>Savannah Main annual compliance: 2020-2024 - 5 rows</li><li>Savannah Main violation detail: 2020-2024 - 1 rows</li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">link</span>Sources</p>
-                  <p class="text-sm text-slate-600 leading-6">City of Savannah Water Quality Reports, epd.georgia.gov, echo.epa.gov, hec.usace.army.mil, 19january2021snapshot.epa.gov</p>
-                </div>
-                <p class="text-xs text-slate-500 leading-6">Lower-basin treated-water compliance layer; pressure-like, but not raw-river chemistry.</p>
-              </div>
-            </article>
-            
-            <article class="metric-card p-5">
-              <div class="flex items-start gap-3 mb-3">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(199,93,44,.08);">
-                  <span class="material-symbols-outlined text-xl" style="color: #C75D2C;">water</span>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold tracking-[0.20em] uppercase mb-1" style="color: #C75D2C;">Reservoir annex</p>
-                  <h3 class="text-lg font-bold text-slate-800">Reservoir operations and structural annex</h3>
-                  <p class="text-xs text-slate-500 mt-1">Available window: 2006-2026</p>
-                </div>
-              </div>
-              <div class="space-y-3">
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">dataset</span>Available data</p>
-                  <ul class="space-y-1.5 text-sm text-slate-600 leading-6">
-                    <li>Reservoir operations monthly: 2006-2026 - 1827 rows</li><li>NID structural metadata: snapshot - 3 rows</li><li>USACE reservoir snapshots: snapshot - 3 rows</li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">link</span>Sources</p>
-                  <p class="text-sm text-slate-600 leading-6">water.usace.army.mil, nid.sec.usace.army.mil, waterqualitydata.us</p>
-                </div>
-                <p class="text-xs text-slate-500 leading-6">Reservoir annex for monthly modulation of the river signal.</p>
-              </div>
-            </article>
-            
-            <article class="metric-card p-5">
-              <div class="flex items-start gap-3 mb-3">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(107,72,168,.08);">
-                  <span class="material-symbols-outlined text-xl" style="color: #6B48A8;">experiment</span>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold tracking-[0.20em] uppercase mb-1" style="color: #6B48A8;">Sediment response</p>
-                  <h3 class="text-lg font-bold text-slate-800">Sediment-response interpretation</h3>
-                  <p class="text-xs text-slate-500 mt-1">Available window: 2026-2026</p>
-                </div>
-              </div>
-              <div class="space-y-3">
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">dataset</span>Available data</p>
-                  <ul class="space-y-1.5 text-sm text-slate-600 leading-6">
-                    <li>Sediment bridge summary: 2026-2026 - 6 rows</li><li>Depositional scores: 2026-2026 - 19 rows</li><li>Sediment master data: 2026-2026 - 19 rows</li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">link</span>Sources</p>
-                  <p class="text-sm text-slate-600 leading-6">Analise_sedimentos notebook, Master Data Clarks Hill Lake</p>
-                </div>
-                <p class="text-xs text-slate-500 leading-6">Interpretive bridge layer for sediment-facing summaries used by the report.</p>
-              </div>
-            </article>
-            
+      <div class="gold-bar"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl px-4 py-3" style="background: #f0f7ff;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Period</p>
+          <p class="text-base font-bold" style="color: #0B5CAD;">2006–2026</p>
+        </div>
+        <div class="rounded-xl px-4 py-3" style="background: #f0f7ff;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Coverage</p>
+          <p class="text-base font-bold" style="color: #0B5CAD;">21 years</p>
+        </div>
       </div>
-    </section>
-    
+      <p class="text-xs text-slate-500 leading-5">Daily discharge USGS (02197000) aggregated into monthly series. The mandatory starting point — everything that follows is a consequence of this signal.</p>
+    </div>
+  </div>
 
-  
-                <div class="mb-5">
-                  <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-2" style="color: var(--gsu-gold);">River Frame</p>
-                  <div class="gold-bar"></div>
-                </div>
-                
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(1,30,66,.10);">
-          <span class="material-symbols-outlined text-xl" style="color: #011E42;">show_chart</span>
+  <!-- Card 2: Cascade operations -->
+  <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div class="h-1.5 w-full" style="background: #0F7B5F;"></div>
+    <div class="px-6 py-5 flex-1 flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(15,123,95,.10);">
+          <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">water_drop</span>
         </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(1,30,66,.10); color: #011E42;">River Signal</span>
-            <span class="text-xs text-slate-400 font-mono">FIG1</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Savannah River behavior near Augusta: discharge and stage</h2>
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase" style="color: #0F7B5F;">02 — Cascade operations</p>
+          <p class="text-sm font-semibold text-slate-800 leading-tight">Hartwell · Russell · Thurmond</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="">
-          <img src="figures/fig1_river_mainstem_hydrograph.svg" alt="Savannah River behavior near Augusta: discharge and stage" class="fig-img">
+      <div class="gold-bar"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl px-4 py-3" style="background: #f0faf7;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Period</p>
+          <p class="text-base font-bold" style="color: #0F7B5F;">2006–2026</p>
         </div>
-    
-        
-        <div class="space-y-5 ">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">The opening panel now looks like a river-behavior chart instead of a data-inventory panel: monthly discharge and stage at Augusta, each with a 12-month mean.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">This is the mainstem reference for the whole report. Before we talk about reservoirs, pressures, or sediments, we first show how the river itself expands, contracts, and stabilizes across the 20-year window.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(1,30,66,.08); border: 1px solid #011E4233;">
-            <p class="field-label mb-2" style="color: #011E42;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #011E42;">Augusta contributes a continuous 2006-2026 behavior record.</p>
-          </div>
-        </div>
-    
-      </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 3 source reference(s)
-        </p>
-      </div>
-    
-    </section>
-    
-                <div class="mb-5">
-                  <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-2" style="color: var(--gsu-gold);">Reservoir Annex</p>
-                  <div class="gold-bar"></div>
-                </div>
-                
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(199,93,44,.10);">
-          <span class="material-symbols-outlined text-xl" style="color: #C75D2C;">water</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(199,93,44,.10); color: #C75D2C;">Operations</span>
-            <span class="text-xs text-slate-400 font-mono">FIG2</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Cascade behavior upstream of Augusta: Hartwell, Russell, and Thurmond outflow</h2>
+        <div class="rounded-xl px-4 py-3" style="background: #f0faf7;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Reservoirs</p>
+          <p class="text-base font-bold" style="color: #0F7B5F;">3 in cascade</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="lg:order-2">
-          <img src="figures/fig2_cascade_operations.svg" alt="Cascade behavior upstream of Augusta: Hartwell, Russell, and Thurmond outflow" class="fig-img">
+      <p class="text-xs text-slate-500 leading-5">Monthly outflow, storage, and power generation per reservoir. Explains how USACE operations modulate the downstream hydrological signal.</p>
+    </div>
+  </div>
+
+  <!-- Card 3: Water quality -->
+  <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div class="h-1.5 w-full" style="background: #C27803;"></div>
+    <div class="px-6 py-5 flex-1 flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(194,120,3,.10);">
+          <span class="material-symbols-outlined text-xl" style="color: #C27803;">science</span>
         </div>
-    
-        
-        <div class="space-y-5 lg:order-1">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">The reservoir annex now starts with behavior, not cards: three clean monthly outflow panels show how the cascade is operating through time.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">This is the first explanatory layer behind the river. The reservoirs are not the protagonist, but their release behavior helps frame why the Savannah signal near Augusta looks the way it does.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(251,146,60,.12); border: 1px solid #C2410C33;">
-            <p class="field-label mb-2" style="color: #C2410C;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #C2410C;">Hartwell, Russell, and Thurmond now appear as time series instead of static snapshots.</p>
-          </div>
-        </div>
-    
-      </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 4 source reference(s)
-        </p>
-      </div>
-    
-    </section>
-    
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(199,93,44,.10);">
-          <span class="material-symbols-outlined text-xl" style="color: #C75D2C;">hub</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(199,93,44,.10); color: #C75D2C;">Operations</span>
-            <span class="text-xs text-slate-400 font-mono">FIG3</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Thurmond to Augusta: reservoir release and downstream response</h2>
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase" style="color: #C27803;">03 — Water quality</p>
+          <p class="text-sm font-semibold text-slate-800 leading-tight">USACE Dock, Savannah — 5 parameters</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="">
-          <img src="figures/fig3_thurmond_augusta_bridge.svg" alt="Thurmond to Augusta: reservoir release and downstream response" class="fig-img">
+      <div class="gold-bar"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl px-4 py-3" style="background: #fffbf0;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Period</p>
+          <p class="text-base font-bold" style="color: #C27803;">2007–2026</p>
         </div>
-    
-        
-        <div class="space-y-5 ">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">A dedicated bridge panel now ties Thurmond outflow and storage to Augusta discharge, keeping the reservoir role explanatory and downstream-facing.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">This is the cleanest operational link in the current workspace. It shows how the river signal near Augusta can carry the imprint of release behavior before the report moves into pollutants and pressures.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(251,146,60,.12); border: 1px solid #C2410C33;">
-            <p class="field-label mb-2" style="color: #C2410C;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #C2410C;">Thurmond remains the strongest operational bridge into the sediment story.</p>
-          </div>
-        </div>
-    
-      </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 4 source reference(s)
-        </p>
-      </div>
-    
-    </section>
-    
-                <div class="mb-5">
-                  <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-2" style="color: var(--gsu-gold);">Pressures And Pollutants</p>
-                  <div class="gold-bar"></div>
-                </div>
-                
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(15,123,95,.10);">
-          <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">science</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(15,123,95,.10); color: #0F7B5F;">River Chemistry</span>
-            <span class="text-xs text-slate-400 font-mono">FIG4</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Lower-river water-quality behavior at USACE Dock</h2>
+        <div class="rounded-xl px-4 py-3" style="background: #fffbf0;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Samples</p>
+          <p class="text-base font-bold" style="color: #C27803;">~227 months</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="lg:order-2">
-          <img src="figures/fig4_lower_river_quality_timeseries.svg" alt="Lower-river water-quality behavior at USACE Dock" class="fig-img">
+      <p class="text-xs text-slate-500 leading-5">Temperature, DO, pH, conductance since 2007. Turbidity since 2013. Analyzed first as independent series, then crossed with hydrology.</p>
+    </div>
+  </div>
+
+  <!-- Card 4: NPDES pressures -->
+  <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div class="h-1.5 w-full" style="background: #B91C1C;"></div>
+    <div class="px-6 py-5 flex-1 flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(185,28,28,.10);">
+          <span class="material-symbols-outlined text-xl" style="color: #B91C1C;">warning</span>
         </div>
-    
-        
-        <div class="space-y-5 lg:order-1">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">Once the behavior of the river and the cascade is clear, the report moves into the continuous quality signals we have downstream: temperature, dissolved oxygen, conductance, and turbidity.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">These are still the strongest continuous water-quality-style records in the Savannah workspace. They let the report show real variation in the river corridor instead of only categorical coverage notes.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(16,185,129,.10); border: 1px solid #065f4633;">
-            <p class="field-label mb-2" style="color: #065f46;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #065f46;">USACE Dock contributes a continuous 2007-2026 quality-behavior layer.</p>
-          </div>
-        </div>
-    
-      </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 3 source reference(s)
-        </p>
-      </div>
-    
-    </section>
-    
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(15,123,95,.10);">
-          <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">warning</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(15,123,95,.10); color: #0F7B5F;">Basin Pressures</span>
-            <span class="text-xs text-slate-400 font-mono">FIG5</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Pollutants and pressure indicators in the lower basin</h2>
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase" style="color: #B91C1C;">04 — NPDES pressures</p>
+          <p class="text-sm font-semibold text-slate-800 leading-tight">HUC8 03060101–03060104</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="">
-          <img src="figures/fig5_pressures_pollutants.svg" alt="Pollutants and pressure indicators in the lower basin" class="fig-img">
+      <div class="gold-bar"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl px-4 py-3" style="background: #fff5f5;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Period</p>
+          <p class="text-base font-bold" style="color: #B91C1C;">2023–2026</p>
         </div>
-    
-        
-        <div class="space-y-5 ">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">This panel turns the modern Savannah Main reports into a visual pollutant and pressure layer, instead of leaving them as raw tables or source inventory.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">It is not raw mainstem chemistry, but it is still one of the only modern time-structured pollutant-like datasets we currently have in the lower basin. It works as a practical bridge between river behavior and the pressure narrative.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(16,185,129,.10); border: 1px solid #065f4633;">
-            <p class="field-label mb-2" style="color: #065f46;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #065f46;">The 2020 data year remains the main modern compliance outlier in the current lower-basin slice.</p>
-          </div>
-        </div>
-    
-      </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 5 source reference(s)
-        </p>
-      </div>
-    
-    </section>
-    
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(15,123,95,.10);">
-          <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">multiline_chart</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(15,123,95,.10); color: #0F7B5F;">River Chemistry</span>
-            <span class="text-xs text-slate-400 font-mono">FIG6</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Flow-quality coupling inside the river</h2>
+        <div class="rounded-xl px-4 py-3" style="background: #fff5f5;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Facilities</p>
+          <p class="text-base font-bold" style="color: #B91C1C;">1,845</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="lg:order-2">
-          <img src="figures/fig6_flow_quality_coupling.svg" alt="Flow-quality coupling inside the river" class="fig-img">
+      <p class="text-xs text-slate-500 leading-5">EPA ECHO inventory of NPDES permittees across 4 HUC8 sub-watersheds. Includes facility type, violations, and geographic distribution.</p>
+    </div>
+  </div>
+
+  <!-- Card 5: TMDL sediment -->
+  <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div class="h-1.5 w-full" style="background: #87714D;"></div>
+    <div class="px-6 py-5 flex-1 flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(135,113,77,.10);">
+          <span class="material-symbols-outlined text-xl" style="color: #87714D;">terrain</span>
         </div>
-    
-        
-        <div class="space-y-5 lg:order-1">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">After the time-series panels, the report closes the river-quality block with direct flow-quality relationships.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">These scatterplots show which lower-river signals intensify with discharge and which oppose it. They are the clean behavioral bridge from river hydraulics into the pressure-response interpretation.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(16,185,129,.10); border: 1px solid #065f4633;">
-            <p class="field-label mb-2" style="color: #065f46;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #065f46;">Flow versus conductance remains the strongest current river-only coupling.</p>
-          </div>
-        </div>
-    
-      </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 4 source reference(s)
-        </p>
-      </div>
-    
-    </section>
-    
-                <div class="mb-5">
-                  <p class="text-xs font-semibold tracking-[0.24em] uppercase mb-2" style="color: var(--gsu-gold);">Sediment Bridge</p>
-                  <div class="gold-bar"></div>
-                </div>
-                
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(15,123,95,.10);">
-          <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">stacked_bar_chart</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(15,123,95,.10); color: #0F7B5F;">Sediment Texture</span>
-            <span class="text-xs text-slate-400 font-mono">FIG7</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Sediment texture and fine-depositional score by site</h2>
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase" style="color: #87714D;">05 — Sediment TMDL</p>
+          <p class="text-sm font-semibold text-slate-800 leading-tight">Georgia EPD 2010</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="">
-          <img src="figures/fig7_sediment_texture_score.svg" alt="Sediment texture and fine-depositional score by site" class="fig-img">
+      <div class="gold-bar"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl px-4 py-3" style="background: #fdf8f0;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Type</p>
+          <p class="text-base font-bold" style="color: #87714D;">Static</p>
         </div>
-    
-        
-        <div class="space-y-5 ">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">The sediment notebook is materialized as a site-by-site view of texture and a composite depositional score that combines fine fraction, water content, Fe, carbon, D50, and sand.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">This figure makes the notebook visible in the report itself. It shows where fine material dominates and which sites are the strongest candidates for low-energy, Fe-C enriched depositional settings.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(16,185,129,.10); border: 1px solid #065f4633;">
-            <p class="field-label mb-2" style="color: #065f46;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #065f46;">Sites 9, 3, 7 emerge as the strongest fine-depositional candidates in the current staging pass.</p>
-          </div>
-        </div>
-    
-      </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 4 source reference(s)
-        </p>
-      </div>
-    
-    </section>
-    
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
-      <div class="px-8 pt-7 pb-4 flex items-start gap-4">
-        <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(120,113,108,.12);">
-          <span class="material-symbols-outlined text-xl" style="color: #57534E;">scatter_plot</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="badge" style="background: rgba(120,113,108,.12); color: #57534E;">Sediment Relations</span>
-            <span class="text-xs text-slate-400 font-mono">FIG8</span>
-          </div>
-          <h2 class="text-xl font-bold text-slate-800">Key sediment geochemical relations: Fe, clay, carbon, depth, and D50</h2>
+        <div class="rounded-xl px-4 py-3" style="background: #fdf8f0;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Sub-watersheds</p>
+          <p class="text-base font-bold" style="color: #87714D;">10</p>
         </div>
       </div>
-      <div class="px-8 pb-2"><div class="gold-bar"></div></div>
-      <div class="px-8 py-6 grid gap-6 lg:grid-cols-[minmax(0,1.75fr)_minmax(18rem,1fr)] items-start">
-        
-        <div class="lg:order-2">
-          <img src="figures/fig8_sediment_relations.svg" alt="Key sediment geochemical relations: Fe, clay, carbon, depth, and D50" class="fig-img">
+      <p class="text-xs text-slate-500 leading-5">Total maximum daily loads for sediment and bacteria issued by Georgia EPD. Regulatory reference for interpreting observed loads.</p>
+    </div>
+  </div>
+
+  <!-- Card 6: Sediment -->
+  <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div class="h-1.5 w-full" style="background: #6D28D9;"></div>
+    <div class="px-6 py-5 flex-1 flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(109,40,217,.10);">
+          <span class="material-symbols-outlined text-xl" style="color: #6D28D9;">layers</span>
         </div>
-    
-        
-        <div class="space-y-5 lg:order-1">
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
-            <p class="text-sm text-slate-600 leading-7">A multi-panel scatter view reconstructs the main sediment relations used in the notebook, including Fe vs clay, Fe vs D50, carbon vs Fe, and depth vs Fe.</p>
-          </div>
-          <div>
-            <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
-            <p class="text-sm text-slate-600 leading-7">These crossplots close the report&#x27;s analytical loop. They show that the final sediment claim is not generic: the low-energy interpretation is supported by coherent relations between texture, iron enrichment, carbon preservation, and depth.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(245,245,244,1); border: 1px solid #44403C33;">
-            <p class="field-label mb-2" style="color: #44403C;">
-              <span class="material-symbols-outlined text-sm">flag</span>
-              Main takeaway
-            </p>
-            <p class="text-sm leading-6" style="color: #44403C;">The Fe-clay and Fe-carbon relations are the clearest visual anchors for the depositional interpretation at Thurmond.</p>
-          </div>
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase" style="color: #6D28D9;">06 — Sediment cores</p>
+          <p class="text-sm font-semibold text-slate-800 leading-tight">19 sites — Clarks Hill reservoir</p>
         </div>
-    
       </div>
-      
-      <div class="px-8 pb-6">
-        <p class="text-[11px] text-slate-400">
-          Image ready - 4 source reference(s)
-        </p>
+      <div class="gold-bar"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl px-4 py-3" style="background: #f5f3ff;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Type</p>
+          <p class="text-base font-bold" style="color: #6D28D9;">Point-in-time</p>
+        </div>
+        <div class="rounded-xl px-4 py-3" style="background: #f5f3ff;">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Variables</p>
+          <p class="text-base font-bold" style="color: #6D28D9;">15 parameters</p>
+        </div>
       </div>
-    
-    </section>
-    
+      <p class="text-xs text-slate-500 leading-5">Fe, Mn, OC, water%, grain size (clay/silt/sand/d₁₀/d₅₀/d₉₀), pH, DO%, conductance — 19 core sites. The geochemical archive of everything that came before.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Reading guide -->
+<div class="rounded-2xl px-6 py-4 mb-10 flex items-start gap-3" style="background: rgba(1,30,66,.04); border: 1px solid rgba(1,30,66,.08);">
+  <span class="material-symbols-outlined text-xl mt-0.5 flex-shrink-0" style="color: var(--gsu-blue);">flag</span>
+  <div>
+    <p class="text-xs font-bold tracking-wider uppercase mb-1" style="color: var(--gsu-blue);">Reading guide</p>
+    <p class="text-sm leading-6" style="color: var(--gsu-blue);">The numbering 01 through 06 is deliberate. Each domain depends on the previous one to be correctly interpreted. Sediments only make sense after we understand what the river does, what the cascade controls, and what pressures reach the basin.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ACT 2 — RIVER BEHAVIOR
+════════════════════════════════════════════════════════════════════════ -->
+<div class="act-header mt-4 mb-6">
+  <div class="act-number">2</div>
+  <div>
+    <p class="text-xs font-semibold tracking-[0.18em] uppercase" style="color: var(--gsu-gold);">Act 2</p>
+    <h2 class="text-xl font-bold" style="color: var(--gsu-blue);">River behavior</h2>
+  </div>
+</div>
+
+<!-- FIG2: Augusta discharge -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(11,92,173,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #0B5CAD;">waves</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(11,92,173,.10); color: #0B5CAD;">Hydrology</span>
+        <span class="text-xs text-slate-400 font-mono">FIG2</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Savannah River discharge at Augusta — monthly series 2006–2026</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig2_flow_regime.svg" alt="Monthly discharge Augusta 2006-2026 with 12-month moving average" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Monthly discharge (ft³/s) at USGS gauge 02197000 in Augusta, with a 12-month moving average overlaid. Annotated points mark the 2009 peak, the 2015 drought, and the 2022 flood. The filled area conveys interannual variability; the thick line reveals the medium-term trend.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">This is the anchor for everything that follows. The discharge regime at Augusta integrates precipitation, evapotranspiration, and upstream reservoir operations. All water quality parameters and all sediment depositional patterns are, ultimately, a response to this curve.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(11,92,173,.06); border: 1px solid rgba(11,92,173,.12);">
+      <p class="field-label mb-1" style="color: #0B5CAD;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #0B5CAD;">The river has wide interannual amplitude — peak discharge exceeds 3× the drought minimum — with strong seasonality and identifiable extreme events. The moving average reveals that 2015–2016 was the driest period in the record; 2009 and 2022 were the wettest.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Source: USGS NWIS — gauge 02197000, Savannah River at Augusta, GA</p></div>
+</section>
+
+<!-- FIG3: Seasonality -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(11,92,173,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #0B5CAD;">calendar_month</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(11,92,173,.10); color: #0B5CAD;">Seasonality</span>
+        <span class="text-xs text-slate-400 font-mono">FIG3</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Monthly flow climatology — seasonal pattern and variability envelope</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig3_flow_seasonality.svg" alt="Monthly flow climatology with individual years" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">The thick curve is the climatological mean for each calendar month across all 21 years (2006–2026). Semi-transparent thin curves are individual years overlaid. The envelope they form reveals real variability between dry and wet years within each month.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">The Savannah peaks hydrologically in March and reaches its minimum in September–October. This seasonal rhythm controls when low-DO pulses occur (summer–fall), when turbidity rises (spring), and when reservoir recharge happens. Understanding the seasonal pattern is a prerequisite for interpreting any water quality or sediment data.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(11,92,173,.06); border: 1px solid rgba(11,92,173,.12);">
+      <p class="field-label mb-1" style="color: #0B5CAD;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #0B5CAD;">Peak in March, minimum in September–October. Spread between years is greatest in winter–spring (when floods vary most) and smallest in summer (a more predictable low-flow period). The critical window for DO depletion and Mn mobilization coincides with the summer flow minimum.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Source: USGS NWIS — gauge 02197000, climatology computed over 2006–2026</p></div>
+</section>
+
+<!-- FIG4: Cascade -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(15,123,95,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">water_drop</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(15,123,95,.10); color: #0F7B5F;">Cascade</span>
+        <span class="text-xs text-slate-400 font-mono">FIG4</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Reservoir cascade — Hartwell, Russell, and Thurmond monthly outflow</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig4_cascade_operations.svg" alt="Monthly outflow from the three cascade reservoirs" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Three independent panels — one per reservoir — with monthly outflow and 12-month moving average. Hartwell (green) and Russell (purple) are the headwater reservoirs; Thurmond (orange) is the direct regulator of the Savannah River. Each panel has its own Y-axis to allow shape comparison without compression by magnitude differences.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">The Hartwell–Russell–Thurmond cascade is the operational control mechanism of the river. Thurmond has the largest storage capacity in the system (3.82 million ac·ft) and determines the discharge regime reaching Augusta. Low-outflow periods at Thurmond coincide with documented low-DO events at the USACE Dock station.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(15,123,95,.06); border: 1px solid rgba(15,123,95,.12);">
+      <p class="field-label mb-1" style="color: #0F7B5F;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #0F7B5F;">Thurmond dominates the outflow signal reaching the river. Hartwell and Russell show distinct patterns by operating period — Russell, in particular, has periods of negative outflow (pump-back). The joint operation of all three determines how much and when Thurmond releases, directly controlling downstream water quality.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Source: USACE operational data — Hartwell, Russell, Thurmond (2006–2026)</p></div>
+</section>
+
+<!-- FIG5: Thurmond–Augusta bridge -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(194,120,3,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #C27803;">compare_arrows</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(194,120,3,.10); color: #C27803;">Operational link</span>
+        <span class="text-xs text-slate-400 font-mono">FIG5</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Thurmond to Augusta: reservoir release and downstream river response</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig5_thurmond_bridge.svg" alt="Thurmond outflow vs Augusta discharge with storage" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Upper panel: Augusta discharge (blue) overlaid with Thurmond outflow (orange) on a shared Y-axis. The Pearson r value in the corner quantifies the coupling. Lower panel: Thurmond storage (ac·ft) — the reservoir level context that governs releases.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">This is the most direct mechanical link in the dataset. Thurmond outflow explains a large fraction of the variance in Augusta discharge. Any pattern in downstream water quality parameters (DO, conductance, temperature) is, to a large extent, a function of what Thurmond released — and when.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(194,120,3,.06); border: 1px solid rgba(194,120,3,.12);">
+      <p class="field-label mb-1" style="color: #C27803;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #C27803;">Thurmond outflow and Augusta discharge are strongly covariant. During low-storage periods (2015–2016), outflow drops and the river enters a low-flow regime that promotes thermal stratification, DO depletion, and reductive mobilization of Mn and Fe from bottom sediments — the same Mn that appears enriched in the Clarks Hill sediment cores.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Sources: USACE operational data (Thurmond) · USGS 02197000 (Augusta)</p></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ACT 3 — WATER QUALITY
+════════════════════════════════════════════════════════════════════════ -->
+<div class="act-header mt-4 mb-6">
+  <div class="act-number">3</div>
+  <div>
+    <p class="text-xs font-semibold tracking-[0.18em] uppercase" style="color: var(--gsu-gold);">Act 3</p>
+    <h2 class="text-xl font-bold" style="color: var(--gsu-blue);">Water quality — individual series</h2>
+  </div>
+</div>
+
+<!-- FIG6: Temperature and DO -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(15,123,95,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #0F7B5F;">science</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(15,123,95,.10); color: #0F7B5F;">Water quality</span>
+        <span class="text-xs text-slate-400 font-mono">FIG6</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Water temperature and dissolved oxygen — USACE Dock (2007–2026)</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig6_water_temp_do.svg" alt="Water temperature and dissolved oxygen at USACE Dock" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Two independent panels: water temperature (°C, green) and dissolved oxygen (mg/L, blue), both at USACE Dock gauge (021989773). The dashed red line in the DO panel marks the critical threshold of 5 mg/L — below this value, suboxic conditions promote reductive mobilization of Fe and Mn from sediments.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">DO and temperature are the parameters with the most direct geochemical relevance. In warm summers with low discharge (Thurmond releasing less), DO can drop below 5 mg/L. Under these conditions, Fe²⁺ and Mn²⁺ become soluble and migrate into the water column — the same iron and manganese that, upon re-oxidation and precipitation, form the metal-enriched deposits in the Clarks Hill sediment cores.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(15,123,95,.06); border: 1px solid rgba(15,123,95,.12);">
+      <p class="field-label mb-1" style="color: #0F7B5F;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #0F7B5F;">DO shows clear seasonality: summer minima (July–September) and winter maxima. Depression below 5 mg/L occurs in drought years. Temperature follows the expected seasonal cycle, ranging from ~8°C to ~28°C annually. The mechanistic link temperature → DO → Mn mobilization is the bridge connecting river behavior to the sediment record.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Source: USGS NWIS — gauge 021989773, Savannah River at USACE Dock at Savannah, GA (2007–2026)</p></div>
+</section>
+
+<!-- FIG7: Conductance and turbidity -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(194,120,3,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #C27803;">electric_bolt</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(194,120,3,.10); color: #C27803;">Water quality</span>
+        <span class="text-xs text-slate-400 font-mono">FIG7</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Specific conductance and turbidity — USACE Dock (2007–2026)</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig7_conductance_turbidity.svg" alt="Conductance and turbidity at USACE Dock" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Specific conductance (µS/cm, orange) and turbidity (FNU, red) in separate panels. Conductance is a proxy for total ionic load — it drops when the river dilutes during flood events. Turbidity responds to discharge pulses that resuspend fine particles.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">Conductance is the cleanest dilution tracer in the dataset (r = −0.79 with Augusta discharge). When the river is high, conductance drops — indicating dissolved ions (including Fe²⁺ and Mn²⁺) are being diluted and transported. Turbidity, in turn, marks episodes of fine particle transport — exactly the material that settles in the low-energy zones of Clarks Hill reservoir.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(194,120,3,.06); border: 1px solid rgba(194,120,3,.12);">
+      <p class="field-label mb-1" style="color: #C27803;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #C27803;">Conductance and discharge are inversely coupled — every flood peak produces a conductance depression. Turbidity has more pronounced episodic spikes than the moving average reveals: extreme turbidity events are the sediment recharge episodes for the reservoir.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Source: USGS NWIS — gauge 021989773 (conductance: 2007–2026; turbidity: 2013–2026)</p></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ACT 4 — QUALITY × FLOW CROSSOVER
+════════════════════════════════════════════════════════════════════════ -->
+<div class="act-header mt-4 mb-6">
+  <div class="act-number">4</div>
+  <div>
+    <p class="text-xs font-semibold tracking-[0.18em] uppercase" style="color: var(--gsu-gold);">Act 4</p>
+    <h2 class="text-xl font-bold" style="color: var(--gsu-blue);">Cross-analysis: water quality × river behavior</h2>
+  </div>
+</div>
+
+<!-- FIG8: Quality × Flow -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(11,92,173,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #0B5CAD;">scatter_plot</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(11,92,173,.10); color: #0B5CAD;">Cross-analysis</span>
+        <span class="text-xs text-slate-400 font-mono">FIG8</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Augusta discharge × water quality parameters — 4 scatterplots with Pearson correlation</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig8_quality_flow_coupling.svg" alt="Scatterplots water quality versus Augusta discharge" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Four scatterplots: Augusta discharge (X-axis) versus conductance, DO, turbidity, and temperature (Y-axis, one per panel). Each point is one month. The dashed line is the linear regression. The Pearson r value is shown in the corner of each panel, with color indicating direction (green = positive, red = negative).</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">This is the central quantitative cross-analysis of the report. The strong negative correlation between discharge and conductance (r = −0.79) confirms that the river dilutes its ionic load during flood events. The DO–discharge relationship is weaker because DO also depends on temperature and organic matter decomposition — factors independent of flow. Each r value here has a direct implication for metal transport and sediment geochemistry.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(11,92,173,.06); border: 1px solid rgba(11,92,173,.12);">
+      <p class="field-label mb-1" style="color: #0B5CAD;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #0B5CAD;">Conductance (r ≈ −0.79) is the parameter most mechanistically coupled to discharge — it is the dilution tracer of the system. DO and temperature show weaker coupling because other factors intervene. Turbidity correlates positively with discharge, confirming that flood pulses are the vectors of fine particle transport into Clarks Hill.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Sources: USGS NWIS — 02197000 (Augusta) × 021989773 (USACE Dock) — ~227 overlapping months</p></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ACT 5 — ENVIRONMENTAL PRESSURES
+════════════════════════════════════════════════════════════════════════ -->
+<div class="act-header mt-4 mb-6">
+  <div class="act-number">5</div>
+  <div>
+    <p class="text-xs font-semibold tracking-[0.18em] uppercase" style="color: var(--gsu-gold);">Act 5</p>
+    <h2 class="text-xl font-bold" style="color: var(--gsu-blue);">Environmental pressures in the basin</h2>
+  </div>
+</div>
+
+<!-- FIG9: Pressures -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(185,28,28,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #B91C1C;">warning</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(185,28,28,.10); color: #B91C1C;">Pressures</span>
+        <span class="text-xs text-slate-400 font-mono">FIG9</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Pressure inventory — NPDES, sediment TMDL, bacteria, and DO deficit</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig9_pressures.svg" alt="Environmental pressures: NPDES, TMDL, bacteria, DO" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Four regulatory panels: (A) 1,845 NPDES facilities by HUC8 sub-watershed with violations highlighted; (B) sediment loads per tributary sub-watershed vs. allowed TMDL (total excess: 1,762 tons/year); (C) bacteria-impaired reaches — 14 segments, 3 indicators; (D) DO deficit zones in Savannah Harbor linked to Thurmond releases.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">These four regulatory layers quantify the pressure load that the Clarks Hill sediment archive must eventually reflect. Sub-watersheds such as Dove Creek (1,138 tons/year, −55% reduction required), Big Toms (−63%), and Eastanollee (−64%) are the most likely pathways for delivery of fine, chemically reactive material to the highest-scoring depositional sites. The DO deficit in the estuary closes the chain: Thurmond releases control water quality both at Augusta and in the estuary 400 km downstream.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(185,28,28,.06); border: 1px solid rgba(185,28,28,.12);">
+      <p class="field-label mb-1" style="color: #B91C1C;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #B91C1C;">The Savannah basin has 1,845 active NPDES sources and multiple tributaries with sediment loads 50–64% above TMDL limits. The pressure is not diffuse noise — it is concentrated in identifiable sub-watersheds that feed directly into Clarks Hill. The regulatory inventory provides the spatial framework for interpreting Fe and Mn enrichment in the sediment cores.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Sources: EPA ECHO NPDES (2026, HUC8 03060101–03060104) · Georgia EPD Sediment TMDL 2010 · Bacteria TMDL 2023 · Savannah Harbor 5R DO Plan 2015</p></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ACT 6 — SEDIMENTS
+════════════════════════════════════════════════════════════════════════ -->
+<div class="act-header mt-4 mb-6">
+  <div class="act-number">6</div>
+  <div>
+    <p class="text-xs font-semibold tracking-[0.18em] uppercase" style="color: var(--gsu-gold);">Act 6</p>
+    <h2 class="text-xl font-bold" style="color: var(--gsu-blue);">Sediments — the physical archive</h2>
+  </div>
+</div>
+
+<!-- FIG10: Depositional score -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(109,40,217,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #6D28D9;">layers</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(109,40,217,.10); color: #6D28D9;">Sediment</span>
+        <span class="text-xs text-slate-400 font-mono">FIG10</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Depositional score — ranking of 19 sediment core sites</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig10_sediment_score.svg" alt="Depositional score by sediment core site" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Horizontal ranking of the 19 sediment core sites by composite depositional score (z-score of clay%, silt%, water content, and OC%). Sites with high scores concentrate the finest, most chemically reactive fractions. For each site, Fe (ppm), Mn (ppm), clay%, and OC% are shown inline.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">The depositional score is the sedimentary consequence of the flow regime documented in Acts 2 and 3. Sites in coves and mid-pool basins where Savannah River current velocity collapses accumulate the finest particles, the most organic carbon, and the most Fe. These are the sites where pressure signals — metals, sorbed organics — accumulate most intensely.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(109,40,217,.06); border: 1px solid rgba(109,40,217,.12);">
+      <p class="field-label mb-1" style="color: #6D28D9;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #6D28D9;">Sites 9, 3, and 7 lead the depositional score ranking and also have the highest Fe and Mn values. This is not coincidental: they are low-hydrodynamic-energy sites that preferentially capture the fine material delivered by the tributaries identified in the TMDL. These are the priority sites for future contaminant monitoring.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Data: Clarks Hill sediment cores — 19 sites with grain-size and geochemical analyses</p></div>
+</section>
+
+<!-- FIG11: Sediment geochemistry -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(109,40,217,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #6D28D9;">bubble_chart</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(109,40,217,.10); color: #6D28D9;">Geochemistry</span>
+        <span class="text-xs text-slate-400 font-mono">FIG11</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Sediment geochemical relationships — Fe, Mn, OC, clay, and water content (6 pairs)</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig11_sediment_geochemistry.svg" alt="Geochemical relationship scatterplots in sediments" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Six geochemical pair scatterplots: Fe×Mn (diagenetic co-enrichment), Fe×OC (organo-mineral coupling), clay×Fe (grain-size control), Fe×water (Fe in saturated sediments), Mn×DO (reductive mobilization), OC×water (saturation and organic matter accumulation). Each panel includes Pearson r and n.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">These six pairs are the geochemical structure supporting interpretation of the Clarks Hill sediment. Fe×Mn (r ≈ 0.62) confirms diagenetic co-enrichment — Fe and Mn mobilize together under reducing conditions. Fe×OC (r ≈ 0.75) confirms organo-mineral coupling — organic matter is chemically associated with iron phases. Mn×DO (r ≈ −0.55) shows that sites with lower pore-water DO have higher Mn — a direct reductive dissolution signature.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(109,40,217,.06); border: 1px solid rgba(109,40,217,.12);">
+      <p class="field-label mb-1" style="color: #6D28D9;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #6D28D9;">The geochemistry of the Clarks Hill cores is internally consistent: Fe and Mn co-enrich, are associated with OC and clay, and Mn is inversely correlated with pore-water DO. The signature is that of fine, organic, suboxically deposited sediment — exactly the environment that the low-flow, low-DO regimes documented in Acts 2 and 3 create every summer.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Data: 19 sediment cores — geochemical analyses of Fe, Mn, OC, and grain size</p></div>
+</section>
+
+<!-- FIG12: Spatial gradient -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-10">
+  <div class="px-8 pt-7 pb-4 flex items-start gap-4">
+    <div class="mt-0.5 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(109,40,217,.10);">
+      <span class="material-symbols-outlined text-xl" style="color: #6D28D9;">map</span>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <span class="badge" style="background: rgba(109,40,217,.10); color: #6D28D9;">Spatial</span>
+        <span class="text-xs text-slate-400 font-mono">FIG12</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Spatial gradient of Fe and Mn — latitudinal distribution across 19 sites</h2>
+    </div>
+  </div>
+  <div class="px-8 pb-2"><div class="gold-bar"></div></div>
+  <div class="fig-panel">
+    <img src="figures/report_fig12_sediment_spatial.svg" alt="Spatial gradient of Fe and Mn by latitude" class="fig-img">
+  </div>
+  <div class="px-8 py-5 space-y-4">
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">description</span>What it shows</p>
+      <p class="text-sm text-slate-600 leading-7">Fe (ppm) and Mn (ppm) bars by site, ordered from highest latitude (north, near Thurmond Dam) to lowest (south). The r value indicates whether there is a systematic north–south gradient. Sites with the tallest bars are the metal accumulation hotspots in the Clarks Hill basin.</p>
+    </div>
+    <div>
+      <p class="field-label mb-2"><span class="material-symbols-outlined text-sm">lightbulb</span>Why it matters</p>
+      <p class="text-sm text-slate-600 leading-7">The spatial gradient reveals which reservoir zones concentrate the most geochemically active material. Sites at the southern end (lower latitude, closer to the Savannah River inlet) tend to have higher Fe and Mn values — they sit in the river-to-reservoir transition zone, where current velocity drops rapidly and fine particles flocculate and settle. This spatial pattern is the final link between fluvial transport and the sediment archive.</p>
+    </div>
+    <div class="rounded-2xl px-5 py-4" style="background: rgba(109,40,217,.06); border: 1px solid rgba(109,40,217,.12);">
+      <p class="field-label mb-1" style="color: #6D28D9;"><span class="material-symbols-outlined text-sm">flag</span>Takeaway</p>
+      <p class="text-sm leading-6" style="color: #6D28D9;">Sites 3, 6, 7, and 9 (southern end, depositional trap zone) concentrate the highest Fe and Mn values. The spatial signature is clear: fine, metal-enriched material accumulates in the southern coves of the reservoir, fed by tributaries entering along the Savannah River axis. This is the priority target for any future contaminant monitoring in the Clarks Hill basin.</p>
+    </div>
+  </div>
+  <div class="px-8 pb-5"><p class="text-[11px] text-slate-400">Data: 19 sediment cores — geographic coordinates and Fe and Mn analyses (ppm)</p></div>
+</section>
 
 </main>
 
-<footer class="mt-12 border-t border-slate-200 py-6">
-  <div class="max-w-6xl mx-auto px-6 text-xs text-slate-400 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
-    <span>Project FREnTE - GSU / SENAI - 2026</span>
-    <span>River: operational-collect-savannah-river-20260410-204518 | Annex: operational-collect-savannah-system-20260409-013209</span>
+<!-- ─── Footer ───────────────────────────────────────────────────────────── -->
+<footer style="background: var(--gsu-blue);" class="mt-10 py-8">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <p class="text-white/80 text-sm font-semibold">Project FREnTE — Savannah River / Clarks Hill EDA</p>
+        <p class="text-white/40 text-xs mt-1">Data: USGS NWIS · USACE · EPA ECHO · Georgia EPD · NOAA · Clarks Hill sediment cores</p>
+      </div>
+      <div class="text-xs text-white/30">April 2026</div>
+    </div>
   </div>
 </footer>
 

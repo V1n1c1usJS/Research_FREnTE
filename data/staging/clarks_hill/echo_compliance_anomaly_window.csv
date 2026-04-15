@@ -1,0 +1,4 @@
+year,inferred_echo_snapshot_year,significant_anomaly_series_count,significant_series_slugs,echo_violation_facility_count,echo_significant_violation_facility_count,comparison_note
+2024,1,0,,179,24,"ECHO export exposes a rolling 3-year noncompliance snapshot, not exact violation timestamps; the year mapping here is an annual approximation."
+2025,1,1,dock_ph_su,179,24,"ECHO export exposes a rolling 3-year noncompliance snapshot, not exact violation timestamps; the year mapping here is an annual approximation."
+2026,1,5,augusta_flow_cfs;dock_conductance_us_cm;dock_do_mg_l;dock_ph_su;dock_water_temp_c,179,24,"ECHO export exposes a rolling 3-year noncompliance snapshot, not exact violation timestamps; the year mapping here is an annual approximation."

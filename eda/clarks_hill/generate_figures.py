@@ -232,6 +232,22 @@ def load_savannah_main_long() -> list[dict[str, str]]:
     return read_csv(STAGING_DIR / "savannah_main_treated_water_long.csv")
 
 
+def load_npdes_dischargers() -> list[dict[str, str]]:
+    return read_csv(STAGING_DIR / "npdes_dischargers.csv")
+
+
+def load_tmdl_sediment() -> list[dict[str, str]]:
+    return read_csv(STAGING_DIR / "tmdl_sediment.csv")
+
+
+def load_tmdl_bacteria() -> list[dict[str, str]]:
+    return read_csv(STAGING_DIR / "tmdl_bacteria.csv")
+
+
+def load_do_restoration() -> list[dict[str, str]]:
+    return read_csv(STAGING_DIR / "do_restoration_context.csv")
+
+
 # ─── Series extractors ────────────────────────────────────────────────────────
 
 def series_from_monthly(rows: list[dict[str, str]], series_slug: str) -> list[dict]:
@@ -1255,7 +1271,7 @@ def fig12_sediment_mn_water(master_rows: list[dict], score_rows: list[dict]) -> 
     save_svg("fig12_sediment_mn_water.svg", "".join(pieces))
 
 
-# ─── Main ─────────────────────────────────────────────────────────────────────
+# ─── Report figures (narrative sequence) ──────────────────────────────────────
 
 def clean_fig1_river_mainstem_hydrograph(monthly_rows: list[dict]) -> None:
     flow = series_from_monthly(monthly_rows, "augusta_flow_cfs")
@@ -1365,54 +1381,178 @@ def clean_fig4_lower_river_quality(monthly_rows: list[dict]) -> None:
     save_svg("fig4_lower_river_quality_timeseries.svg", "".join(pieces))
 
 
-def clean_fig5_pressures_pollutants(summary_rows: list[dict], detail_rows: list[dict]) -> None:
-    years = [int(row["data_year"]) for row in summary_rows]
-    source_share = [float(row["surface_water_share_pct"] or 0) for row in summary_rows]
-    width, height = 1400, 940
+def clean_fig5_pressures_pollutants(
+    npdes_rows: list[dict],
+    tmdl_sediment_rows: list[dict],
+    tmdl_bacteria_rows: list[dict],
+    do_rows: list[dict],
+) -> None:
+    width, height = 1400, 980
     pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
-    pieces.append(text(70, 70, "Pollutants and pressure indicators in the lower basin", 30, "700", BLUE))
-    pieces.append(text(70, 98, "Savannah Main annual reports provide the clearest modern pollutant-like slice currently available in the lower basin.", 14, "400", SLATE))
+    pieces.append(text(70, 60, "Environmental pressures in the Savannah River basin", 30, "700", BLUE))
+    pieces.append(text(70, 88, "NPDES facility inventory, sediment and bacteria loading targets, and dissolved-oxygen deficit zones.", 14, "400", SLATE))
 
-    band_x, band_y, band_w = 80, 150, 1240
-    pieces.append(rect(band_x, band_y, band_w, 120, WHITE, SLATE_LIGHT, 18))
-    pieces.append(text(band_x + 20, band_y + 30, "Source-water share from the Savannah River (%)", 16, "700", BLUE))
-    max_share = max(source_share) if source_share else 1.0
-    for index, row in enumerate(summary_rows):
-        year = int(row["data_year"])
-        share = float(row["surface_water_share_pct"] or 0)
-        vx = band_x + 24 + index * 230
-        pieces.append(text(vx + 60, band_y + 58, str(year), 11, "600", SLATE, "middle"))
-        pieces.append(rect(vx, band_y + 72, 120, 16, SLATE_LIGHT, "none", 8))
-        pieces.append(rect(vx, band_y + 72, 120 * share / max_share, 16, BLUE, "none", 8))
-        pieces.append(text(vx + 130, band_y + 85, f"{share:.1f}%", 11, "700", BLUE))
-        if int(row.get("violation_flag") or 0) == 1:
-            draw_badge(pieces, vx, band_y + 96, "Violation", "#FEE2E2", RED)
+    # ── Panel A: NPDES facility inventory by river segment ────────────────────
+    ax, ay, aw, ah = 70, 125, 580, 290
+    pieces.append(rect(ax - 14, ay - 28, aw + 28, ah + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(ax, ay - 4, "NPDES dischargers by basin segment", 16, "700", BLUE))
 
-    for index, (slug, title, color) in enumerate([("tthms", "TTHMs (ppb)", ORANGE), ("thaas", "THAAs (ppb)", PINK), ("nitrate", "Nitrate (ppm)", TEAL), ("lead", "Lead (ppb)", PURPLE)]):
-        x, y = [(80, 330), (720, 330), (80, 620), (720, 620)][index]
-        w, h = 560, 180
-        pieces.append(rect(x - 18, y - 34, w + 36, h + 82, WHITE, SLATE_LIGHT, 18))
-        pieces.append(text(x, y - 8, title, 16, "700", BLUE))
-        series_rows, values = [], []
-        for year in years:
-            row = next((item for item in detail_rows if int(item["data_year"]) == year and item["parameter_slug"] == slug), None)
-            value = None if row is None else to_float(row.get("amount_detected_value") or row.get("range_detected_max") or row.get("range_detected_min"))
-            if value is not None:
-                series_rows.append((year, value))
-                values.append(value)
-        top = max(values) if values else 1.0
-        pieces.append(line(x, y + h, x + w, y + h, SLATE_LIGHT, 2))
-        for i, year in enumerate(years):
-            bx = x + 26 + i * 100
-            pieces.append(text(bx + 22, y + h + 24, str(year), 11, "500", SLATE, "middle"))
-            match = next((value for current_year, value in series_rows if current_year == year), None)
-            if match is None:
-                pieces.append(rect(bx, y + h - 6, 44, 6, SLATE_LIGHT, "none", 4))
-                continue
-            bar_h = max(10.0, (match / top) * (h - 26))
-            by = y + h - bar_h
-            pieces.append(rect(bx, by, 44, bar_h, color, "none", 8))
-            pieces.append(text(bx + 22, by - 8, format_number(match, 1), 11, "700", color, "middle"))
+    segments = [
+        ("Seneca", "03060101"),
+        ("Tugaloo", "03060102"),
+        ("Upper Savannah", "03060103"),
+        ("Broad", "03060104"),
+    ]
+    seg_counts = {}
+    seg_viols = {}
+    for r in npdes_rows:
+        h = r.get("huc8", "")
+        seg_counts[h] = seg_counts.get(h, 0) + 1
+        if r.get("compliance_violation_flag") == "1":
+            seg_viols[h] = seg_viols.get(h, 0) + 1
+
+    seg_colors = {"03060101": TEAL, "03060102": PURPLE, "03060103": ORANGE, "03060104": RIVER_BLUE}
+    max_count = max((seg_counts.get(huc, 0) for _, huc in segments), default=1)
+    bar_h = 44
+    bar_gap = 20
+    bar_w = aw - 150
+    for i, (label, huc) in enumerate(segments):
+        by = ay + 24 + i * (bar_h + bar_gap)
+        count = seg_counts.get(huc, 0)
+        viols = seg_viols.get(huc, 0)
+        color = seg_colors.get(huc, SLATE)
+        filled_w = (count / max_count) * bar_w if max_count else 0
+        pieces.append(text(ax, by + 16, label, 13, "600", BLUE))
+        pieces.append(rect(ax, by + 22, bar_w, 20, SLATE_LIGHT, "none", 6))
+        pieces.append(rect(ax, by + 22, filled_w, 20, color, "none", 6))
+        pieces.append(text(ax + filled_w + 8, by + 37, str(count), 13, "700", color))
+        if viols:
+            pieces.append(text(ax + filled_w + 60, by + 37, f"({viols} violations)", 11, "500", RED))
+
+    # Total count stat
+    total = len(npdes_rows)
+    total_viols = sum(1 for r in npdes_rows if r.get("compliance_violation_flag") == "1")
+    sig_viols = sum(1 for r in npdes_rows if r.get("significant_violation_flag") == "1")
+    pieces.append(rect(ax, ay + 270, 170, 50, BACKGROUND, SLATE_LIGHT, 10))
+    pieces.append(text(ax + 12, ay + 290, f"{total:,} facilities", 14, "700", BLUE))
+    pieces.append(text(ax + 12, ay + 308, f"{total_viols} in noncompliance  ·  {sig_viols} significant", 11, "500", RED))
+
+    # ── Panel B: Sediment TMDL — current load vs allowable ────────────────────
+    bx, by2, bw, bh = 700, 125, 630, 290
+    pieces.append(rect(bx - 14, by2 - 28, bw + 28, bh + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(bx, by2 - 4, "Sediment loads: current vs. TMDL allowable (ton/yr)", 16, "700", BLUE))
+
+    tmdl_plot = sorted(tmdl_sediment_rows, key=lambda r: -(to_float(r.get("current_load_tons_year")) or 0))[:8]
+    max_load = max((to_float(r.get("current_load_tons_year")) or 0 for r in tmdl_plot), default=1)
+    tbar_h = 22
+    tbar_gap = 10
+    tw = bw - 140
+    for i, r in enumerate(tmdl_plot):
+        ty = by2 + 24 + i * (tbar_h + tbar_gap)
+        current = to_float(r.get("current_load_tons_year")) or 0
+        allowable = to_float(r.get("total_allowable_load_tons_year")) or 0
+        reduction = to_float(r.get("reduction_required_pct")) or 0
+        label = r.get("subwatershed_name", "")
+        if len(label) > 22:
+            label = label[:20] + "…"
+        curr_w = (current / max_load) * tw if max_load else 0
+        allow_w = (allowable / max_load) * tw if max_load else 0
+        pieces.append(text(bx, ty + 15, label, 11, "500", SLATE))
+        pieces.append(rect(bx, ty + 18, tw, 10, SLATE_LIGHT, "none", 4))
+        pieces.append(rect(bx, ty + 18, curr_w, 10, ORANGE, "none", 4))
+        pieces.append(rect(bx, ty + 18, allow_w, 4, TEAL, "none", 3))
+        if reduction > 0:
+            pieces.append(text(bx + curr_w + 6, ty + 27, f"−{reduction:.0f}%", 10, "700", RED))
+
+    # Legend
+    lx = bx
+    ly = by2 + bh + 14
+    pieces.append(rect(lx, ly, 14, 10, ORANGE, "none", 3))
+    pieces.append(text(lx + 18, ly + 9, "Current load", 11, "500", SLATE))
+    pieces.append(rect(lx + 120, ly, 14, 6, TEAL, "none", 3))
+    pieces.append(text(lx + 138, ly + 9, "TMDL allowable", 11, "500", SLATE))
+    pieces.append(text(lx + 280, ly + 9, "% = required reduction", 11, "400", SLATE))
+
+    # ── Panel C: Bacteria TMDL — impaired segments by indicator ───────────────
+    cx, cy, cw, ch = 70, 475, 580, 240
+    pieces.append(rect(cx - 14, cy - 28, cw + 28, ch + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(cx, cy - 4, "Bacteria TMDL — impaired reaches (2023)", 16, "700", BLUE))
+
+    # Count segments by indicator
+    indicators = {}
+    for r in tmdl_bacteria_rows:
+        ind = r.get("bacterial_indicator", "Other")
+        indicators[ind] = indicators.get(ind, 0) + 1
+    indicator_list = sorted(indicators.items(), key=lambda x: -x[1])
+    total_bacteria_segs = len(set(r.get("auid", "") for r in tmdl_bacteria_rows if r.get("auid")))
+    # Unique impaired reaches
+    reaches = list(dict.fromkeys(r.get("impacted_reach", "") for r in tmdl_bacteria_rows if r.get("impacted_reach")))
+
+    # Summary stat chips
+    pieces.append(rect(cx, cy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+    pieces.append(text(cx + 14, cy + 44, f"{total_bacteria_segs}", 28, "700", RED))
+    pieces.append(text(cx + 14, cy + 62, "impaired segments", 11, "500", SLATE))
+
+    pieces.append(rect(cx + 190, cy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+    pieces.append(text(cx + 204, cy + 44, f"{len(reaches)}", 28, "700", ORANGE))
+    pieces.append(text(cx + 204, cy + 62, "impaired reaches", 11, "500", SLATE))
+
+    # Indicator breakdown bars
+    max_ind = indicator_list[0][1] if indicator_list else 1
+    ind_colors = {"E. coli": RED, "Fecal coliform": ORANGE, "enterococci": PURPLE}
+    for i, (ind, count) in enumerate(indicator_list[:4]):
+        iy = cy + 100 + i * 34
+        ibar_w = (count / max_ind) * (cw - 60)
+        color = ind_colors.get(ind, SLATE)
+        pieces.append(text(cx, iy + 12, ind, 12, "600", BLUE))
+        pieces.append(rect(cx, iy + 16, cw - 60, 14, SLATE_LIGHT, "none", 5))
+        pieces.append(rect(cx, iy + 16, ibar_w, 14, color, "none", 5))
+        pieces.append(text(cx + ibar_w + 8, iy + 27, str(count), 11, "700", color))
+
+    # ── Panel D: DO Restoration — deficit zones ────────────────────────────────
+    dx, dy, dw, dh = 700, 475, 630, 240
+    pieces.append(rect(dx - 14, dy - 28, dw + 28, dh + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(dx, dy - 4, "Dissolved-oxygen deficit — Savannah Harbor zones", 16, "700", BLUE))
+
+    if do_rows:
+        # DO criterion chips
+        row0 = do_rows[0]
+        criterion = to_float(row0.get("daily_avg_do_criterion_mg_l")) or 5.0
+        min_crit = to_float(row0.get("minimum_do_criterion_mg_l")) or 4.0
+        pieces.append(rect(dx, dy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+        pieces.append(text(dx + 14, dy + 44, f"{criterion:.1f} mg/L", 24, "700", RIVER_BLUE))
+        pieces.append(text(dx + 14, dy + 62, "daily avg DO criterion", 11, "500", SLATE))
+
+        pieces.append(rect(dx + 190, dy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+        pieces.append(text(dx + 204, dy + 44, f"{min_crit:.1f} mg/L", 24, "700", TEAL))
+        pieces.append(text(dx + 204, dy + 62, "minimum DO criterion", 11, "500", SLATE))
+
+        # Zone-level deficit bars
+        max_deficit = max((to_float(r.get("existing_permitted_do_deficit_mg_l")) or 0 for r in do_rows), default=1)
+        for i, r in enumerate(do_rows):
+            zy = dy + 105 + i * 42
+            zone = r.get("zone_of_impact", "")
+            permitted = to_float(r.get("existing_permitted_do_deficit_mg_l")) or 0
+            predicted = to_float(r.get("predicted_do_deficit_mg_l")) or 0
+            progress = to_float(r.get("progress_toward_attainment_pct")) or 0
+            bar_scale = dw - 200
+            p_w = (permitted / max_deficit) * bar_scale if max_deficit else 0
+            pred_w = (predicted / max_deficit) * bar_scale if max_deficit else 0
+            pieces.append(text(dx, zy + 12, f"Zone {zone}", 12, "700", BLUE))
+            pieces.append(rect(dx, zy + 16, bar_scale, 10, SLATE_LIGHT, "none", 4))
+            pieces.append(rect(dx, zy + 16, p_w, 10, RED, "none", 4))
+            pieces.append(rect(dx, zy + 16, pred_w, 6, TEAL, "none", 3))
+            pieces.append(text(dx + bar_scale + 8, zy + 25, f"{progress:.0f}% attained", 11, "600", TEAL))
+
+        do_note = row0.get("critical_period", "")
+        if len(do_note) > 80:
+            do_note = do_note[:78] + "…"
+        pieces.append(text(dx, dy + dh + 26, do_note, 10, "400", SLATE))
+    else:
+        pieces.append(text(dx + 14, dy + 60, "DO restoration data not available", 13, "400", SLATE))
+
+    # ── Source caption ────────────────────────────────────────────────────────
+    pieces.append(text(70, height - 22, "Sources: EPA ECHO (2026 snapshot, HUC8 03060101–03060104) · Georgia EPD Sediment TMDL 2010 · Georgia EPD Bacteria TMDL 2023 · Savannah Harbor 5R DO Restoration Plan 2015", 10, "400", SLATE))
 
     pieces.append("</svg>")
     save_svg("fig5_pressures_pollutants.svg", "".join(pieces))
@@ -1512,10 +1652,687 @@ def clean_fig8_sediment_relations(master_rows: list[dict], pairwise_rows: list[d
     save_svg("fig8_sediment_relations.svg", "".join(pieces))
 
 
+# ─── NEW narrative figures ─────────────────────────────────────────────────────
+
+def report_fig1_data_availability(
+    monthly_rows: list[dict],
+    reservoir_summary_rows: list[dict],
+    sediment_rows: list[dict],
+    npdes_rows: list[dict],
+    tmdl_s_rows: list[dict],
+) -> None:
+    """Act 1 — What we have: data coverage cards per domain."""
+    width, height = 1400, 760
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Data coverage — six analytical domains", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Each analytical domain with its temporal window and sample size. The report follows this sequence from left to right.", 14, "400", SLATE))
+
+    domains = [
+        # (label, sublabel, period, n_label, color, icon_text)
+        ("River flow",         "Augusta + USACE Dock",        "2006–2026",  "21 years",     RIVER_BLUE, "waves"),
+        ("Cascade ops",        "Hartwell · Russell · Thurmond","2006–2026", "3 reservoirs", TEAL,       "water_drop"),
+        ("Water quality",      "USACE Dock — 5 parameters",   "2007–2026",  "~227 months",  ORANGE,     "science"),
+        ("NPDES pressures",    "HUC8 03060101–03060104",      "2023–2026",  "1,845 facil.", RED,        "warning"),
+        ("Sediment TMDL",      "Georgia EPD 2010",             "static",    "10 sub-wsheds",GOLD,       "terrain"),
+        ("Sediment cores",     "19 sites — Clarks Hill",      "point-in-time","15 variables",PURPLE,    "layers"),
+    ]
+
+    card_w = 196
+    card_h = 300
+    gap = 28
+    start_x = 70
+    y0 = 138
+
+    for i, (label, sub, period, n_label, color, icon) in enumerate(domains):
+        cx = start_x + i * (card_w + gap)
+        # card background
+        pieces.append(rect(cx, y0, card_w, card_h, WHITE, SLATE_LIGHT, 16))
+        # color top bar
+        pieces.append(rect(cx, y0, card_w, 8, color, "none", 0))
+        # icon circle
+        pieces.append(circle(cx + card_w / 2, y0 + 52, 28, f"{color}18" if len(color) == 7 else RIVER_PALE, "none"))
+        # icon text (material symbols rendered as text fallback letter)
+        icon_map = {"waves": "≈", "water_drop": "▼", "science": "⬡", "warning": "▲", "terrain": "◈", "layers": "◧"}
+        pieces.append(text(cx + card_w / 2, y0 + 60, icon_map.get(icon, "■"), 22, "700", color, "middle"))
+        # domain label
+        pieces.append(text(cx + card_w / 2, y0 + 102, label, 14, "700", BLUE, "middle"))
+        pieces.append(text(cx + card_w / 2, y0 + 120, sub, 10, "500", SLATE, "middle"))
+        # divider
+        pieces.append(line(cx + 20, y0 + 134, cx + card_w - 20, y0 + 134, SLATE_LIGHT, 1))
+        # period badge
+        pieces.append(rect(cx + 18, y0 + 148, card_w - 36, 36, BACKGROUND, "none", 10))
+        pieces.append(text(cx + card_w / 2, y0 + 160, "Period", 9, "600", SLATE, "middle"))
+        pieces.append(text(cx + card_w / 2, y0 + 176, period, 13, "700", color, "middle"))
+        # n badge
+        pieces.append(rect(cx + 18, y0 + 198, card_w - 36, 36, BACKGROUND, "none", 10))
+        pieces.append(text(cx + card_w / 2, y0 + 210, "Sample", 9, "600", SLATE, "middle"))
+        pieces.append(text(cx + card_w / 2, y0 + 226, n_label, 13, "700", BLUE, "middle"))
+        # sequence number
+        pieces.append(circle(cx + 24, y0 + 280, 14, color, "none"))
+        pieces.append(text(cx + 24, y0 + 285, str(i + 1), 12, "700", WHITE, "middle"))
+        pieces.append(text(cx + 44, y0 + 285, "in this order", 10, "500", SLATE))
+
+    # arrow between cards
+    for i in range(len(domains) - 1):
+        ax = start_x + (i + 1) * (card_w + gap) - gap // 2
+        pieces.append(text(ax, y0 + card_h / 2 + 8, "→", 20, "700", SLATE_LIGHT, "middle"))
+
+    # bottom note
+    pieces.append(text(70, y0 + card_h + 40, "Report sequence: river behavior -> water quality -> cross-analysis -> pressures -> sediments.", 12, "400", SLATE))
+
+    pieces.append("</svg>")
+    save_svg("report_fig1_data_availability.svg", "".join(pieces))
+
+
+def report_fig2_flow_regime(monthly_rows: list[dict]) -> None:
+    """Act 2a — Augusta discharge: monthly series + 12-month moving average."""
+    flow = series_from_monthly(monthly_rows, "augusta_flow_cfs")
+    months = [item["ano_mes"] for item in flow]
+    trend = rolling_mean(flow)
+
+    width, height = 1400, 560
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Savannah River discharge at Augusta (2006–2026)", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Complete monthly series with 12-month moving average. This is the starting point — everything that follows is a consequence of this signal.", 14, "400", SLATE))
+    draw_line_legend(pieces, [("Monthly (raw)", RIVER_BLUE, 2, 0.35), ("12-month average", BLUE, 4, 1.0)], 70, 118)
+
+    x, y, w, h = 80, 148, 1250, 340
+    pieces.append(rect(x - 18, y - 28, w + 36, h + 72, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(x, y - 4, "Discharge (ft³/s)", 15, "700", BLUE))
+    draw_badge(pieces, x + w - 140, y - 22, f"{months[0][:4]}–{months[-1][:4]}", RIVER_PALE, BLUE)
+    draw_badge(pieces, x + w - 260, y - 22, f"n = {len(flow)} months", EMERALD_PALE, TEAL)
+
+    all_vals = [item["value"] for item in flow] + [item["value"] for item in trend]
+    mn, mx = nice_domain(all_vals)
+    x_map = x_lookup_from_months(months, x, w)
+    draw_y_guides(pieces, x, w, y + 16, h, mn, mx)
+    raw_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in flow if it["ano_mes"] in x_map]
+    trend_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in trend if it["ano_mes"] in x_map]
+    if raw_pts:
+        pieces.append(polygon([(raw_pts[0][0], y + 16 + h)] + raw_pts + [(raw_pts[-1][0], y + 16 + h)], RIVER_BLUE, 0.08))
+        pieces.append(polyline(raw_pts, RIVER_BLUE, 2, opacity=0.35))
+    if trend_pts:
+        pieces.append(polyline(trend_pts, BLUE, 4))
+    draw_time_axis(pieces, months, x_map, y + 16 + h)
+
+    # Annotate a few extreme years
+    ann_years = {"2009": "Peak 2009", "2015": "Drought 2015", "2022": "Flood 2022"}
+    for item in flow:
+        yr = item["ano_mes"][:4]
+        if yr in ann_years and item["ano_mes"][5:7] == "03":
+            px = x_map.get(item["ano_mes"])
+            py = scale(item["value"], mn, mx, y + 16 + h, y + 16)
+            if px:
+                pieces.append(circle(px, py, 5, RED, WHITE, 1.5))
+                pieces.append(text(px + 8, py - 8, ann_years.pop(yr), 10, "600", RED))
+
+    pieces.append("</svg>")
+    save_svg("report_fig2_flow_regime.svg", "".join(pieces))
+
+
+def report_fig3_flow_seasonality(monthly_rows: list[dict], climatology_rows: list[dict]) -> None:
+    """Act 2b — Flow seasonality: monthly climatology with individual-year envelope."""
+    clim = series_from_climatology(climatology_rows, "augusta_flow_cfs")
+    monthly = series_from_monthly(monthly_rows, "augusta_flow_cfs")
+
+    # Build per-year profiles
+    years_data: dict[int, dict[int, float]] = {}
+    for item in monthly:
+        years_data.setdefault(item["year"], {})[item["month"]] = item["value"]
+
+    width, height = 1400, 540
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Flow seasonality — monthly climatology (2006–2026)", 30, "700", BLUE))
+    pieces.append(text(70, 90, "The thick curve shows the historical mean for each month. Thin curves are individual years — the envelope reveals real variability.", 14, "400", SLATE))
+    draw_line_legend(pieces, [("Individual years", RIVER_BLUE, 1, 0.25), ("Climatology (mean)", BLUE, 4, 1.0)], 70, 118)
+
+    x, y, w, h = 80, 148, 1250, 330
+    pieces.append(rect(x - 18, y - 28, w + 36, h + 72, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(x, y - 4, "Monthly mean discharge (ft³/s)", 15, "700", BLUE))
+
+    all_vals = [item["value"] for item in clim]
+    for yr_data in years_data.values():
+        all_vals.extend(yr_data.values())
+    mn, mx = nice_domain(all_vals)
+    draw_y_guides(pieces, x, w, y + 16, h, mn, mx)
+
+    # Individual years
+    for yr, yr_data in years_data.items():
+        pts = []
+        for m in range(1, 13):
+            if m in yr_data:
+                px = x + w * (m - 1) / 11.0
+                py = scale(yr_data[m], mn, mx, y + 16 + h, y + 16)
+                pts.append((px, py))
+        if len(pts) >= 6:
+            pieces.append(polyline(pts, RIVER_BLUE, 1, opacity=0.22))
+
+    # Climatology mean
+    clim_pts = [(x + w * (it["month"] - 1) / 11.0, scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in clim]
+    pieces.append(polyline(clim_pts, BLUE, 4))
+
+    # Month axis
+    for i, label in enumerate(MONTH_LABELS):
+        px = x + w * i / 11.0
+        pieces.append(line(px, y + 16 + h - 4, px, y + 16 + h + 4, SLATE_LIGHT, 1))
+        pieces.append(text(px, y + 16 + h + 22, label, 11, "500", SLATE, "middle"))
+    pieces.append(line(x, y + 16 + h, x + w, y + 16 + h, SLATE_LIGHT, 2))
+
+    # Annotate peak and low months
+    peak = max(clim, key=lambda row: row["value"])
+    low = min(clim, key=lambda row: row["value"])
+    for it, label, c in [(peak, f"Peak: {format_number(peak['value'])} ft³/s", RIVER_BLUE), (low, f"Low: {format_number(low['value'])} ft³/s", ORANGE)]:
+        px = x + w * (it["month"] - 1) / 11.0
+        py = scale(it["value"], mn, mx, y + 16 + h, y + 16)
+        pieces.append(circle(px, py, 6, c, WHITE, 1.5))
+        off = -14 if it == peak else 16
+        pieces.append(text(px + 10, py + off, label, 10, "700", c))
+
+    pieces.append("</svg>")
+    save_svg("report_fig3_flow_seasonality.svg", "".join(pieces))
+
+
+def report_fig4_cascade_operations(reservoir_monthly_rows: list[dict]) -> None:
+    """Act 2c — Hartwell-Russell-Thurmond cascade: individual outflow per reservoir."""
+    width, height = 1400, 820
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Reservoir cascade: Hartwell - Russell - Thurmond", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Each reservoir in a separate panel — monthly outflow with 12-month average. The cascade controls what reaches the river at Augusta.", 14, "400", SLATE))
+    draw_line_legend(pieces, [("Monthly", SLATE, 2, 0.35), ("12-month average", BLUE, 4, 1.0)], 70, 118)
+
+    panel_configs = [
+        ("Hartwell",  TEAL,       148),
+        ("Russell",   PURPLE,     390),
+        ("Thurmond",  ORANGE,     632),
+    ]
+    for reservoir, color, y_start in panel_configs:
+        series = reservoir_series(reservoir_monthly_rows, reservoir, "outflow_cfs")
+        if not series:
+            continue
+        trend = rolling_mean(series)
+        months = [it["ano_mes"] for it in series]
+        x, w, h = 80, 1250, 160
+        y = y_start
+        pieces.append(rect(x - 18, y - 28, w + 36, h + 72, WHITE, SLATE_LIGHT, 18))
+        pieces.append(text(x, y - 4, f"{reservoir} — outflow (ft³/s)", 15, "700", BLUE))
+        draw_badge(pieces, x + w - 140, y - 22, f"{months[0][:4]}–{months[-1][:4]}", RIVER_PALE, color)
+        all_vals = [it["value"] for it in series] + [it["value"] for it in trend]
+        mn, mx = nice_domain(all_vals)
+        x_map = x_lookup_from_months(months, x, w)
+        draw_y_guides(pieces, x, w, y + 16, h, mn, mx)
+        raw_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in series if it["ano_mes"] in x_map]
+        trend_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in trend if it["ano_mes"] in x_map]
+        if raw_pts:
+            pieces.append(polygon([(raw_pts[0][0], y + 16 + h)] + raw_pts + [(raw_pts[-1][0], y + 16 + h)], color, 0.08))
+            pieces.append(polyline(raw_pts, color, 2, opacity=0.35))
+        if trend_pts:
+            pieces.append(polyline(trend_pts, BLUE, 4))
+        draw_time_axis(pieces, months, x_map, y + 16 + h)
+
+    pieces.append("</svg>")
+    save_svg("report_fig4_cascade_operations.svg", "".join(pieces))
+
+
+def report_fig5_thurmond_bridge(bridge_rows: list[dict]) -> None:
+    """Act 2d — Thurmond-Augusta: release vs downstream response + storage."""
+    flow_s = [{"ano_mes": r["ano_mes"], "value": float(r["augusta_flow_cfs"])}
+              for r in bridge_rows if to_float(r.get("augusta_flow_cfs")) is not None and to_float(r.get("thurmond_outflow_cfs")) is not None]
+    thur_s = [{"ano_mes": r["ano_mes"], "value": float(r["thurmond_outflow_cfs"])}
+              for r in bridge_rows if to_float(r.get("augusta_flow_cfs")) is not None and to_float(r.get("thurmond_outflow_cfs")) is not None]
+    stor_s = [{"ano_mes": r["ano_mes"], "value": float(r["thurmond_storage_acft"])}
+              for r in bridge_rows if to_float(r.get("thurmond_storage_acft")) is not None]
+
+    r_val = pearson_r([it["value"] for it in flow_s], [it["value"] for it in thur_s]) if len(flow_s) >= 5 else None
+
+    width, height = 1400, 760
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Thurmond to Augusta: reservoir release and downstream river response", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Thurmond outflow is the proximal driver of the signal observed at Augusta. The most direct operational link in the dataset.", 14, "400", SLATE))
+    draw_line_legend(pieces, [("Augusta (discharge)", RIVER_BLUE, 4, 1.0), ("Thurmond (outflow)", ORANGE, 4, 1.0)], 70, 118)
+
+    months = [it["ano_mes"] for it in flow_s]
+    x, y, w, h = 80, 148, 1250, 280
+    pieces.append(rect(x - 18, y - 28, w + 36, h + 72, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(x, y - 4, "Augusta discharge vs Thurmond outflow (ft³/s)", 15, "700", BLUE))
+    if r_val is not None:
+        r_color = TEAL if r_val > 0 else RED
+        pieces.append(text(x + w - 4, y - 4, f"r = {r_val:.2f}", 15, "700", r_color, "end"))
+    all_vals = [it["value"] for it in flow_s] + [it["value"] for it in thur_s]
+    mn, mx = nice_domain(all_vals)
+    x_map = x_lookup_from_months(months, x, w)
+    draw_y_guides(pieces, x, w, y + 16, h, mn, mx)
+    flow_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in flow_s if it["ano_mes"] in x_map]
+    thur_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in thur_s if it["ano_mes"] in x_map]
+    trend_f = rolling_mean(flow_s)
+    trend_t = rolling_mean(thur_s)
+    trend_fp = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in trend_f if it["ano_mes"] in x_map]
+    trend_tp = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in trend_t if it["ano_mes"] in x_map]
+    if flow_pts:
+        pieces.append(polyline(flow_pts, RIVER_BLUE, 2, opacity=0.30))
+    if trend_fp:
+        pieces.append(polyline(trend_fp, RIVER_BLUE, 4))
+    if thur_pts:
+        pieces.append(polyline(thur_pts, ORANGE, 2, opacity=0.30))
+    if trend_tp:
+        pieces.append(polyline(trend_tp, ORANGE, 4))
+    draw_time_axis(pieces, months, x_map, y + 16 + h)
+
+    # Storage panel
+    stor_months = [it["ano_mes"] for it in stor_s]
+    x2, y2, w2, h2 = 80, 510, 1250, 180
+    pieces.append(rect(x2 - 18, y2 - 28, w2 + 36, h2 + 72, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(x2, y2 - 4, "Thurmond — storage (ac·ft)", 15, "700", BLUE))
+    draw_series_with_trend(pieces, stor_s, x2, y2 + 16, w2, h2, GOLD, GOLD)
+
+    pieces.append("</svg>")
+    save_svg("report_fig5_thurmond_bridge.svg", "".join(pieces))
+
+
+def report_fig6_water_temp_do(monthly_rows: list[dict]) -> None:
+    """Act 3a — Water quality: temperature and DO, separate panels."""
+    temp = series_from_monthly(monthly_rows, "dock_water_temp_c")
+    do = series_from_monthly(monthly_rows, "dock_do_mg_l")
+
+    width, height = 1400, 740
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Water quality — temperature and dissolved oxygen (USACE Dock)", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Temperature and DO have the greatest direct geochemical relevance: low DO mobilizes Fe and Mn from sediments into the water column.", 14, "400", SLATE))
+    draw_line_legend(pieces, [("Monthly", SLATE, 2, 0.35), ("12-month average", BLUE, 4, 1.0)], 70, 118)
+
+    for slug, series, title, color, y_start, note in [
+        ("dock_water_temp_c", temp, "Water temperature (°C)", TEAL, 148, ""),
+        ("dock_do_mg_l",      do,   "Dissolved oxygen (mg/L)", RIVER_BLUE, 460, "Red line = critical threshold 5 mg/L"),
+    ]:
+        months = [it["ano_mes"] for it in series]
+        x, w, h = 80, 1250, 220
+        y = y_start
+        pieces.append(rect(x - 18, y - 28, w + 36, h + 84, WHITE, SLATE_LIGHT, 18))
+        pieces.append(text(x, y - 4, title, 15, "700", BLUE))
+        if note:
+            pieces.append(text(x + w - 4, y - 4, note, 11, "500", RED, "end"))
+        draw_badge(pieces, x + w - 140, y - 22, f"{months[0][:4]}–{months[-1][:4]}", RIVER_PALE, color)
+        all_vals = [it["value"] for it in series] + [it["value"] for it in rolling_mean(series)]
+        mn, mx = nice_domain(all_vals)
+        x_map = x_lookup_from_months(months, x, w)
+        draw_y_guides(pieces, x, w, y + 16, h, mn, mx)
+        raw_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in series if it["ano_mes"] in x_map]
+        trend_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in rolling_mean(series) if it["ano_mes"] in x_map]
+        if raw_pts:
+            pieces.append(polygon([(raw_pts[0][0], y + 16 + h)] + raw_pts + [(raw_pts[-1][0], y + 16 + h)], color, 0.08))
+            pieces.append(polyline(raw_pts, color, 2, opacity=0.35))
+        if trend_pts:
+            pieces.append(polyline(trend_pts, BLUE, 4))
+        # DO threshold line at 5 mg/L
+        if slug == "dock_do_mg_l" and mn < 5.0 < mx:
+            threshold_y = scale(5.0, mn, mx, y + 16 + h, y + 16)
+            pieces.append(line(x, threshold_y, x + w, threshold_y, RED, 2, "8 4"))
+            pieces.append(text(x + 6, threshold_y - 6, "5 mg/L", 10, "700", RED))
+        draw_time_axis(pieces, months, x_map, y + 16 + h)
+
+    pieces.append("</svg>")
+    save_svg("report_fig6_water_temp_do.svg", "".join(pieces))
+
+
+def report_fig7_conductance_turbidity(monthly_rows: list[dict]) -> None:
+    """Act 3b — Water quality: conductance and turbidity, individual panels."""
+    cond = series_from_monthly(monthly_rows, "dock_conductance_us_cm")
+    turb = series_from_monthly(monthly_rows, "dock_turbidity_fnu")
+
+    width, height = 1400, 740
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Water quality — specific conductance and turbidity (USACE Dock)", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Conductance is the cleanest dilution tracer in the dataset. Turbidity responds to discharge pulses that mobilize fine particles.", 14, "400", SLATE))
+    draw_line_legend(pieces, [("Monthly", SLATE, 2, 0.35), ("12-month average", BLUE, 4, 1.0)], 70, 118)
+
+    for series, title, color, y_start in [
+        (cond, "Specific conductance (µS/cm)", ORANGE, 148),
+        (turb, "Turbidity (FNU)", RED, 460),
+    ]:
+        months = [it["ano_mes"] for it in series]
+        x, w, h = 80, 1250, 220
+        y = y_start
+        pieces.append(rect(x - 18, y - 28, w + 36, h + 84, WHITE, SLATE_LIGHT, 18))
+        pieces.append(text(x, y - 4, title, 15, "700", BLUE))
+        draw_badge(pieces, x + w - 140, y - 22, f"{months[0][:4]}–{months[-1][:4]}", RIVER_PALE, color)
+        all_vals = [it["value"] for it in series] + [it["value"] for it in rolling_mean(series)]
+        mn, mx = nice_domain(all_vals)
+        x_map = x_lookup_from_months(months, x, w)
+        draw_y_guides(pieces, x, w, y + 16, h, mn, mx)
+        raw_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in series if it["ano_mes"] in x_map]
+        trend_pts = [(x_map[it["ano_mes"]], scale(it["value"], mn, mx, y + 16 + h, y + 16)) for it in rolling_mean(series) if it["ano_mes"] in x_map]
+        if raw_pts:
+            pieces.append(polygon([(raw_pts[0][0], y + 16 + h)] + raw_pts + [(raw_pts[-1][0], y + 16 + h)], color, 0.08))
+            pieces.append(polyline(raw_pts, color, 2, opacity=0.35))
+        if trend_pts:
+            pieces.append(polyline(trend_pts, BLUE, 4))
+        draw_time_axis(pieces, months, x_map, y + 16 + h)
+
+    pieces.append("</svg>")
+    save_svg("report_fig7_conductance_turbidity.svg", "".join(pieces))
+
+
+def report_fig8_quality_flow_coupling(bridge_rows: list[dict], correlation_rows: list[dict]) -> None:
+    """Act 4 — Quality x flow cross-analysis: 4 large individual scatterplots with r."""
+    targets = [
+        ("dock_conductance_us_cm", "Conductance (µS/cm)", ORANGE),
+        ("dock_do_mg_l",           "DO (mg/L)",           RIVER_BLUE),
+        ("dock_turbidity_fnu",     "Turbidity (FNU)",     RED),
+        ("dock_water_temp_c",      "Temperature (°C)",    TEAL),
+    ]
+    corr_lookup = {(r["source_series_slug"], r["target_series_slug"]): float(r["correlation"])
+                   for r in correlation_rows}
+
+    width, height = 1400, 820
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Cross-analysis: discharge x water quality (monthly, 2006–2026)", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Each point is one month. Dashed line is linear regression. r is Pearson correlation with Augusta discharge.", 14, "400", SLATE))
+
+    positions = [(80, 148), (740, 148), (80, 508), (740, 508)]
+    for idx, (slug, label, color) in enumerate(targets):
+        px, py = positions[idx]
+        pw, ph = 560, 260
+        pieces.append(rect(px - 18, py - 34, pw + 36, ph + 90, WHITE, SLATE_LIGHT, 18))
+        pieces.append(text(px, py - 8, f"Augusta discharge vs {label}", 14, "700", BLUE))
+
+        pts = []
+        for row in bridge_rows:
+            xv = to_float(row.get("augusta_flow_cfs"))
+            yv = to_float(row.get(slug))
+            if xv is not None and yv is not None:
+                pts.append((xv, yv))
+
+        r_val = corr_lookup.get(("augusta_flow_cfs", slug))
+        draw_scatter_panel(pieces, pts, px, py + 14, pw, ph, color, BLUE,
+                           "Augusta discharge (ft³/s)", label, r_val)
+
+    pieces.append("</svg>")
+    save_svg("report_fig8_quality_flow_coupling.svg", "".join(pieces))
+
+
+def report_fig9_pressures(
+    npdes_rows: list[dict],
+    tmdl_sediment_rows: list[dict],
+    tmdl_bacteria_rows: list[dict],
+    do_rows: list[dict],
+) -> None:
+    """Act 5 — Environmental pressures: NPDES + sediment TMDL + bacteria + DO."""
+    width, height = 1400, 980
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 60, "Environmental pressures — Savannah River Basin", 30, "700", BLUE))
+    pieces.append(text(70, 88, "Regulatory inventory: NPDES, sediment loads, bacteria-impaired reaches, and DO deficit in the estuary.", 14, "400", SLATE))
+
+    # Panel A: NPDES by sub-watershed
+    ax, ay, aw, ah = 70, 120, 580, 290
+    pieces.append(rect(ax - 14, ay - 28, aw + 28, ah + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(ax, ay - 4, "NPDES facilities by watershed segment", 16, "700", BLUE))
+    segments = [("Seneca", "03060101"), ("Tugaloo", "03060102"), ("Upper Savannah", "03060103"), ("Broad", "03060104")]
+    seg_counts, seg_viols = {}, {}
+    for r in npdes_rows:
+        h = r.get("huc8", "")
+        seg_counts[h] = seg_counts.get(h, 0) + 1
+        if r.get("compliance_violation_flag") == "1":
+            seg_viols[h] = seg_viols.get(h, 0) + 1
+    seg_colors = {"03060101": TEAL, "03060102": PURPLE, "03060103": ORANGE, "03060104": RIVER_BLUE}
+    max_count = max((seg_counts.get(h, 0) for _, h in segments), default=1)
+    bar_w = aw - 150
+    for i, (label, huc) in enumerate(segments):
+        by = ay + 24 + i * 64
+        count = seg_counts.get(huc, 0)
+        viols = seg_viols.get(huc, 0)
+        color = seg_colors.get(huc, SLATE)
+        filled_w = (count / max_count) * bar_w
+        pieces.append(text(ax, by + 16, label, 13, "600", BLUE))
+        pieces.append(rect(ax, by + 22, bar_w, 20, SLATE_LIGHT, "none", 6))
+        pieces.append(rect(ax, by + 22, filled_w, 20, color, "none", 6))
+        pieces.append(text(ax + filled_w + 8, by + 37, str(count), 13, "700", color))
+        if viols:
+            pieces.append(text(ax + filled_w + 60, by + 37, f"({viols} violações)", 11, "500", RED))
+    total = len(npdes_rows)
+    total_v = sum(1 for r in npdes_rows if r.get("compliance_violation_flag") == "1")
+    sig_v = sum(1 for r in npdes_rows if r.get("significant_violation_flag") == "1")
+    pieces.append(rect(ax, ay + 266, 200, 50, BACKGROUND, SLATE_LIGHT, 10))
+    pieces.append(text(ax + 12, ay + 286, f"{total:,} total facilities", 13, "700", BLUE))
+    pieces.append(text(ax + 12, ay + 303, f"{total_v} in non-compliance · {sig_v} significant", 11, "500", RED))
+
+    # Panel B: TMDL sedimento
+    bx, by2, bw, bh = 700, 120, 630, 290
+    pieces.append(rect(bx - 14, by2 - 28, bw + 28, bh + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(bx, by2 - 4, "Sediment load: current vs TMDL (tons/year)", 16, "700", BLUE))
+    tmdl_plot = sorted(tmdl_sediment_rows, key=lambda r: -(to_float(r.get("current_load_tons_year")) or 0))[:8]
+    max_load = max((to_float(r.get("current_load_tons_year")) or 0 for r in tmdl_plot), default=1)
+    tw = bw - 140
+    for i, r in enumerate(tmdl_plot):
+        ty = by2 + 24 + i * 32
+        current = to_float(r.get("current_load_tons_year")) or 0
+        allowable = to_float(r.get("total_allowable_load_tons_year")) or 0
+        reduction = to_float(r.get("reduction_required_pct")) or 0
+        label = r.get("subwatershed_name", "")[:22]
+        curr_w = (current / max_load) * tw
+        allow_w = (allowable / max_load) * tw
+        pieces.append(text(bx, ty + 14, label, 11, "500", SLATE))
+        pieces.append(rect(bx, ty + 17, tw, 10, SLATE_LIGHT, "none", 4))
+        pieces.append(rect(bx, ty + 17, curr_w, 10, ORANGE, "none", 4))
+        pieces.append(rect(bx, ty + 17, allow_w, 4, TEAL, "none", 3))
+        if reduction > 0:
+            pieces.append(text(bx + curr_w + 6, ty + 26, f"−{reduction:.0f}%", 10, "700", RED))
+    lx, ly = bx, by2 + bh + 14
+    pieces.append(rect(lx, ly, 14, 10, ORANGE, "none", 3))
+    pieces.append(text(lx + 18, ly + 9, "Current load", 11, "500", SLATE))
+    pieces.append(rect(lx + 110, ly, 14, 6, TEAL, "none", 3))
+    pieces.append(text(lx + 128, ly + 9, "TMDL allowable", 11, "500", SLATE))
+
+    # Panel C: Bacteria TMDL
+    cx2, cy, cw, ch = 70, 475, 580, 240
+    pieces.append(rect(cx2 - 14, cy - 28, cw + 28, ch + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(cx2, cy - 4, "Bacteria-impaired reaches (TMDL 2023)", 16, "700", BLUE))
+    indicators = {}
+    for r in tmdl_bacteria_rows:
+        ind = r.get("bacterial_indicator", "Outro")
+        indicators[ind] = indicators.get(ind, 0) + 1
+    total_b_segs = len(set(r.get("auid", "") for r in tmdl_bacteria_rows if r.get("auid")))
+    reaches = list(dict.fromkeys(r.get("impacted_reach", "") for r in tmdl_bacteria_rows if r.get("impacted_reach")))
+    pieces.append(rect(cx2, cy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+    pieces.append(text(cx2 + 14, cy + 44, f"{total_b_segs}", 28, "700", RED))
+    pieces.append(text(cx2 + 14, cy + 62, "impaired segments", 11, "500", SLATE))
+    pieces.append(rect(cx2 + 190, cy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+    pieces.append(text(cx2 + 204, cy + 44, f"{len(reaches)}", 28, "700", ORANGE))
+    pieces.append(text(cx2 + 204, cy + 62, "unique reaches", 11, "500", SLATE))
+    ind_colors = {"E. coli": RED, "Fecal coliform": ORANGE, "enterococci": PURPLE}
+    max_ind = max(indicators.values()) if indicators else 1
+    for i, (ind, count) in enumerate(sorted(indicators.items(), key=lambda x: -x[1])[:4]):
+        iy = cy + 100 + i * 34
+        ibar_w = (count / max_ind) * (cw - 60)
+        color = ind_colors.get(ind, SLATE)
+        pieces.append(text(cx2, iy + 12, ind, 12, "600", BLUE))
+        pieces.append(rect(cx2, iy + 16, cw - 60, 14, SLATE_LIGHT, "none", 5))
+        pieces.append(rect(cx2, iy + 16, ibar_w, 14, color, "none", 5))
+        pieces.append(text(cx2 + ibar_w + 8, iy + 27, str(count), 11, "700", color))
+
+    # Panel D: DO restoration
+    dx, dy, dw, dh = 700, 475, 630, 240
+    pieces.append(rect(dx - 14, dy - 28, dw + 28, dh + 62, WHITE, SLATE_LIGHT, 18))
+    pieces.append(text(dx, dy - 4, "DO deficit — Savannah Harbor impact zones", 16, "700", BLUE))
+    if do_rows:
+        row0 = do_rows[0]
+        criterion = to_float(row0.get("daily_avg_do_criterion_mg_l")) or 5.0
+        min_crit = to_float(row0.get("minimum_do_criterion_mg_l")) or 4.0
+        pieces.append(rect(dx, dy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+        pieces.append(text(dx + 14, dy + 44, f"{criterion:.1f} mg/L", 24, "700", RIVER_BLUE))
+        pieces.append(text(dx + 14, dy + 62, "daily avg criterion", 11, "500", SLATE))
+        pieces.append(rect(dx + 190, dy + 18, 170, 56, BACKGROUND, SLATE_LIGHT, 10))
+        pieces.append(text(dx + 204, dy + 44, f"{min_crit:.1f} mg/L", 24, "700", TEAL))
+        pieces.append(text(dx + 204, dy + 62, "minimum criterion", 11, "500", SLATE))
+        max_deficit = max((to_float(r.get("existing_permitted_do_deficit_mg_l")) or 0 for r in do_rows), default=1)
+        for i, r in enumerate(do_rows):
+            zy = dy + 105 + i * 44
+            zone = r.get("zone_of_impact", "")
+            permitted = to_float(r.get("existing_permitted_do_deficit_mg_l")) or 0
+            predicted = to_float(r.get("predicted_do_deficit_mg_l")) or 0
+            progress = to_float(r.get("progress_toward_attainment_pct")) or 0
+            bar_scale = dw - 200
+            p_w = (permitted / max_deficit) * bar_scale if max_deficit else 0
+            pred_w = (predicted / max_deficit) * bar_scale if max_deficit else 0
+            pieces.append(text(dx, zy + 12, f"Zone {zone}", 12, "700", BLUE))
+            pieces.append(rect(dx, zy + 16, bar_scale, 10, SLATE_LIGHT, "none", 4))
+            pieces.append(rect(dx, zy + 16, p_w, 10, RED, "none", 4))
+            pieces.append(rect(dx, zy + 16, pred_w, 6, TEAL, "none", 3))
+            pieces.append(text(dx + bar_scale + 8, zy + 25, f"{progress:.0f}% attained", 11, "600", TEAL))
+
+    pieces.append(text(70, height - 22, "Sources: EPA ECHO NPDES (2026) · Georgia EPD Sediment TMDL 2010 · Bacteria TMDL 2023 · Savannah Harbor 5R DO Plan 2015", 10, "400", SLATE))
+    pieces.append("</svg>")
+    save_svg("report_fig9_pressures.svg", "".join(pieces))
+
+
+def report_fig10_sediment_score(master_rows: list[dict], score_rows: list[dict]) -> None:
+    """Act 6a — Sediment: depositional score per site, horizontal ranking."""
+    score_lookup = {r["site"]: to_float(r.get("fine_depositional_score")) for r in score_rows}
+    sites = sorted(master_rows, key=lambda r: -(score_lookup.get(r["site"]) or 0))
+
+    width, height = 1400, 780
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Depositional score — 19 sediment core sites at Clarks Hill", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Composite score: clay%, silt%, water%, OC%. High-scoring sites concentrate the finest, most chemically reactive fractions — where Fe and Mn accumulate.", 14, "400", SLATE))
+
+    x, y, w = 200, 130, 800
+    max_score = max((score_lookup.get(r["site"]) or 0 for r in sites), default=1)
+
+    for i, r in enumerate(sites):
+        site = r["site"]
+        score = score_lookup.get(site) or 0
+        fe = to_float(r.get("fe_ppm")) or 0
+        mn = to_float(r.get("mn_ppm")) or 0
+        clay = to_float(r.get("clay_pct")) or 0
+        oc = to_float(r.get("carbon_pct")) or 0
+        row_y = y + i * 30
+        bar_filled = (score / max_score) * w
+        # gradient color: high score = blue, low = slate
+        intensity = score / max_score
+        bar_color = BLUE if intensity > 0.7 else (RIVER_BLUE if intensity > 0.4 else SLATE)
+        pieces.append(text(x - 12, row_y + 14, f"Site {site:>2}", 12, "600", BLUE, "end"))
+        pieces.append(rect(x, row_y + 2, w, 20, SLATE_LIGHT, "none", 6))
+        pieces.append(rect(x, row_y + 2, bar_filled, 20, bar_color, "none", 6))
+        pieces.append(text(x + bar_filled + 8, row_y + 16, f"{score:.2f}", 11, "700", bar_color))
+        # Fe and Mn inline chips
+        pieces.append(text(x + w + 80, row_y + 16, f"Fe {format_number(fe)} ppm", 10, "500", TEAL))
+        pieces.append(text(x + w + 200, row_y + 16, f"Mn {format_number(mn)} ppm", 10, "500", PURPLE))
+        pieces.append(text(x + w + 320, row_y + 16, f"clay {clay:.0f}%", 10, "500", SLATE))
+        pieces.append(text(x + w + 390, row_y + 16, f"OC {oc:.2f}%", 10, "500", GOLD))
+
+    # legend
+    lx, ly = x, y + len(sites) * 30 + 30
+    pieces.append(text(lx, ly, "Score = composite z-score of clay%, silt%, water_pct, OC%", 11, "400", SLATE))
+
+    pieces.append("</svg>")
+    save_svg("report_fig10_sediment_score.svg", "".join(pieces))
+
+
+def report_fig11_sediment_geochemistry(master_rows: list[dict]) -> None:
+    """Act 6b -- Sediment: 6 geochemical pairs expanded into individual scatterplots."""
+    pairs = [
+        ("fe_ppm",     "mn_ppm",      "Fe (ppm) vs Mn (ppm)",         TEAL,      "Diagenetic co-enrichment"),
+        ("fe_ppm",     "carbon_pct",  "Fe (ppm) vs OC (%)",            BLUE,      "Organo-mineral coupling"),
+        ("clay_pct",   "fe_ppm",      "Clay (%) vs Fe (ppm)",          PURPLE,    "Grain-size control"),
+        ("fe_ppm",     "water_pct",   "Fe (ppm) vs Water (%)",         RIVER_BLUE,"Fe in saturated sediments"),
+        ("mn_ppm",     "do_pct",      "Mn (ppm) vs DO (%)",            ORANGE,    "Reductive mobilization of Mn"),
+        ("carbon_pct", "water_pct",   "OC (%) vs Water (%)",           TEAL,      "Saturation favors OC accumulation"),
+    ]
+
+    width, height = 1400, 960
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Sediment geochemistry -- relationships between parameters", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Six fundamental geochemical pairs. Pearson r is shown in each panel. The sequence runs from metal-metal to metal-OC to redox control.", 14, "400", SLATE))
+
+    positions = [(80, 148), (740, 148), (80, 488), (740, 488), (80, 700), (740, 700)]
+    # last row has smaller height
+    for idx, (xf, yf, title, color, note) in enumerate(pairs):
+        if idx < 4:
+            px, py = positions[idx]
+            pw, ph = 560, 240
+        else:
+            px, py = positions[idx]
+            pw, ph = 560, 160
+
+        pieces.append(rect(px - 18, py - 34, pw + 36, ph + 86, WHITE, SLATE_LIGHT, 18))
+        pieces.append(text(px, py - 8, title, 14, "700", BLUE))
+        pieces.append(text(px + pw, py - 8, note, 10, "400", SLATE, "end"))
+
+        pts = []
+        for row in master_rows:
+            xv = to_float(row.get(xf))
+            yv = to_float(row.get(yf))
+            if xv is not None and yv is not None:
+                pts.append((xv, yv))
+
+        draw_scatter_panel(pieces, pts, px, py + 14, pw, ph, color, BLUE,
+                           xf.replace("_", " "), yf.replace("_", " "))
+
+    pieces.append("</svg>")
+    save_svg("report_fig11_sediment_geochemistry.svg", "".join(pieces))
+
+
+def report_fig12_sediment_spatial(master_rows: list[dict]) -> None:
+    """Act 6c -- Spatial gradient: Fe and Mn by site latitude."""
+    # Sort by latitude N→S
+    sites = sorted(master_rows, key=lambda r: -(to_float(r.get("latitude")) or 0))
+    lats = [to_float(r.get("latitude")) or 0 for r in sites]
+    fe_vals = [to_float(r.get("fe_ppm")) or 0 for r in sites]
+    mn_vals = [to_float(r.get("mn_ppm")) or 0 for r in sites]
+
+    r_fe_lat = pearson_r(lats, fe_vals) if len(lats) >= 5 else None
+    r_mn_lat = pearson_r(lats, mn_vals) if len(lats) >= 5 else None
+
+    width, height = 1400, 780
+    pieces = [svg_header(width, height), rect(0, 0, width, height, BACKGROUND)]
+    pieces.append(text(70, 62, "Spatial gradient of Fe and Mn -- distribution by site latitude", 30, "700", BLUE))
+    pieces.append(text(70, 90, "Sites with higher latitude are closer to Thurmond Dam (north). The South-to-North gradient reveals preferential accumulation zones.", 14, "400", SLATE))
+
+    for panel_idx, (vals, label, color, r_val) in enumerate([
+        (fe_vals, "Fe (ppm)", TEAL, r_fe_lat),
+        (mn_vals, "Mn (ppm)", PURPLE, r_mn_lat),
+    ]):
+        px = 80
+        py = 140 + panel_idx * 300
+        pw, ph = 1250, 230
+
+        pieces.append(rect(px - 18, py - 34, pw + 36, ph + 80, WHITE, SLATE_LIGHT, 18))
+        pieces.append(text(px, py - 8, label, 15, "700", BLUE))
+        if r_val is not None:
+            r_color = TEAL if r_val > 0 else RED
+            pieces.append(text(px + pw, py - 8, f"r (lat × {label.split()[0]}) = {r_val:.2f}", 13, "700", r_color, "end"))
+
+        max_val = max(vals) if vals else 1
+        bar_w = pw / len(sites)
+
+        for i, (r, val) in enumerate(zip(sites, vals)):
+            bx = px + i * bar_w
+            bh_val = (val / max_val) * ph
+            by = py + 16 + ph - bh_val
+            bar_color = color if val >= sum(vals) / len(vals) else f"{color}88"
+            pieces.append(rect(bx + 2, by, bar_w - 4, bh_val, color, "none", 6))
+            pieces.append(text(bx + bar_w / 2, py + 16 + ph + 20, f"S{r['site']}", 9, "500", SLATE, "middle"))
+            # value label on tall bars
+            if bh_val > 40:
+                pieces.append(text(bx + bar_w / 2, by - 6, format_number(val), 9, "700", color, "middle"))
+
+        # latitude axis annotation
+        pieces.append(line(px, py + 16 + ph, px + pw, py + 16 + ph, SLATE_LIGHT, 2))
+        pieces.append(text(px, py + 16 + ph + 36, f"<-- North ({max(lats):.3f}deg)", 10, "400", SLATE))
+        pieces.append(text(px + pw, py + 16 + ph + 36, f"South ({min(lats):.3f}deg) -->", 10, "400", SLATE, "end"))
+
+    # Interpretive note
+    pieces.append(text(70, height - 30, "Sites 3, 6, 7, 9 (south, low latitude) concentrate the highest Fe and Mn values -- depositional trap zone in the Clarks Hill cove.", 12, "500", BLUE))
+
+    pieces.append("</svg>")
+    save_svg("report_fig12_sediment_spatial.svg", "".join(pieces))
+
+
+# ─── Main ─────────────────────────────────────────────────────────────────────
+
 def main() -> None:
     ensure_dirs()
 
     monthly_rows = load_monthly_behavior()
+    climatology_rows = load_climatology()
     correlation_rows = load_correlations()
     bridge_rows = load_bridge()
     sediment_rows = load_sediment_master()
@@ -1523,26 +2340,37 @@ def main() -> None:
     pairwise_rows = load_sediment_pairwise()
     reservoir_monthly_rows = load_reservoir_operations_monthly()
     reservoir_summary_rows = load_reservoir_operation_summary()
-    savannah_main_summary_rows = load_savannah_main_summary()
-    savannah_main_long_rows = load_savannah_main_long()
+    npdes_rows = load_npdes_dischargers()
+    tmdl_sediment_rows = load_tmdl_sediment()
+    tmdl_bacteria_rows = load_tmdl_bacteria()
+    do_rows = load_do_restoration()
 
-    clean_fig1_river_mainstem_hydrograph(monthly_rows)
-    print("fig1 done")
-    clean_fig2_cascade_operations(reservoir_monthly_rows, reservoir_summary_rows)
-    print("fig2 done")
-    clean_fig3_thurmond_augusta_bridge(bridge_rows)
-    print("fig3 done")
-    clean_fig4_lower_river_quality(monthly_rows)
-    print("fig4 done")
-    clean_fig5_pressures_pollutants(savannah_main_summary_rows, savannah_main_long_rows)
-    print("fig5 done")
-    clean_fig6_flow_quality_coupling(correlation_rows, bridge_rows)
-    print("fig6 done")
-    clean_fig7_sediment_texture_score(sediment_rows, score_rows)
-    print("fig7 done")
-    clean_fig8_sediment_relations(sediment_rows, pairwise_rows)
-    print("fig8 done")
-    print(f"\nActive report figures written to {DOCS_FIG_DIR}")
+    # ── Narrative figure sequence ──────────────────────────────────────────────
+    report_fig1_data_availability(monthly_rows, reservoir_summary_rows, sediment_rows, npdes_rows, tmdl_sediment_rows)
+    print("fig1 done -- data coverage")
+    report_fig2_flow_regime(monthly_rows)
+    print("fig2 done -- Augusta discharge")
+    report_fig3_flow_seasonality(monthly_rows, climatology_rows)
+    print("fig3 done -- seasonality")
+    report_fig4_cascade_operations(reservoir_monthly_rows)
+    print("fig4 done -- reservoir cascade")
+    report_fig5_thurmond_bridge(bridge_rows)
+    print("fig5 done -- Thurmond-Augusta bridge")
+    report_fig6_water_temp_do(monthly_rows)
+    print("fig6 done -- temperature and DO")
+    report_fig7_conductance_turbidity(monthly_rows)
+    print("fig7 done -- conductance and turbidity")
+    report_fig8_quality_flow_coupling(bridge_rows, correlation_rows)
+    print("fig8 done -- water quality x discharge")
+    report_fig9_pressures(npdes_rows, tmdl_sediment_rows, tmdl_bacteria_rows, do_rows)
+    print("fig9 done -- environmental pressures")
+    report_fig10_sediment_score(sediment_rows, score_rows)
+    print("fig10 done -- depositional score")
+    report_fig11_sediment_geochemistry(sediment_rows)
+    print("fig11 done -- sediment geochemistry")
+    report_fig12_sediment_spatial(sediment_rows)
+    print("fig12 done -- spatial gradient")
+    print("\n12 narrative figures written to " + str(DOCS_FIG_DIR))
 
 
 if __name__ == "__main__":

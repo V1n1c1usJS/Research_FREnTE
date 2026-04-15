@@ -1,0 +1,482 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - img "Project 100K" [ref=e5]
+        - img "Georgia university logo" [ref=e8]
+        - img "SENAI logo" [ref=e10]
+      - generic [ref=e11]:
+        - generic [ref=e12]: Project FREnTE — EDA
+        - generic [ref=e13]: In development
+  - generic [ref=e16]:
+    - paragraph [ref=e17]: Exploratory Data Report — Savannah River / Clarks Hill
+    - heading "Savannah River — Flow, Water Quality, Pressures & Sediments From hydrological behavior to the geochemical record in Clarks Hill sediment cores" [level=1] [ref=e18]:
+      - text: Savannah River — Flow, Water Quality, Pressures & Sediments
+      - generic [ref=e19]: From hydrological behavior to the geochemical record in Clarks Hill sediment cores
+    - paragraph [ref=e20]: This report tells a sequential story. It begins with what the river does — discharge, seasonality, reservoir cascade operations. Then it examines water quality parameters as independent series. Next, quality is crossed with hydrological behavior. Environmental pressures (NPDES, TMDL, DO) are introduced. Finally, sediments appear as the physical archive of everything that happened before.
+    - generic [ref=e21]:
+      - generic [ref=e22]: 12 figures
+      - generic [ref=e23]: Narrative sequence
+      - generic [ref=e24]: Individual figures per topic
+      - generic [ref=e25]: Sediments last
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e28]: waves
+        - paragraph [ref=e29]: 2006–2026
+        - paragraph [ref=e30]: 21 years · Augusta (02197000) + USACE Dock, Savannah (021989773)
+      - generic [ref=e31]:
+        - generic [ref=e32]: water_drop
+        - paragraph [ref=e33]: 3 reservoirs
+        - paragraph [ref=e34]: Hartwell · Russell · Thurmond — outflow, storage, power
+      - generic [ref=e35]:
+        - generic [ref=e36]: science
+        - paragraph [ref=e37]: 1,845 NPDES
+        - paragraph [ref=e38]: Facilities across 4 HUC8 watersheds — 179 in non-compliance
+      - generic [ref=e39]:
+        - generic [ref=e40]: layers
+        - paragraph [ref=e41]: 19 sites
+        - paragraph [ref=e42]: Sediment cores with Fe, Mn, OC, grain size
+  - generic [ref=e46]:
+    - generic [ref=e47]:
+      - generic [ref=e49]: map
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]: Location
+          - generic [ref=e53]: Data collection stations
+        - heading "Where data were collected — Savannah River Basin" [level=2] [ref=e54]
+    - generic [ref=e57]:
+      - generic [ref=e58]: USGS gauge (flow / water quality)
+      - generic [ref=e60]: USACE reservoir
+      - generic [ref=e62]: Sediment core site
+      - generic [ref=e64]: Historical WQP station
+    - generic [ref=e66]:
+      - generic:
+        - generic:
+          - img
+      - generic:
+        - generic [ref=e95]:
+          - button "Zoom in" [ref=e96] [cursor=pointer]: +
+          - button "Zoom out" [ref=e97] [cursor=pointer]: −
+        - generic [ref=e98]:
+          - link "Leaflet" [ref=e99] [cursor=pointer]:
+            - /url: https://leafletjs.com
+            - img [ref=e100]
+            - text: Leaflet
+          - text: "| ©"
+          - link "OpenStreetMap" [ref=e104] [cursor=pointer]:
+            - /url: https://www.openstreetmap.org/copyright
+    - generic [ref=e105]: "Interactive map — click markers for details. Tiles: OpenStreetMap © contributors."
+  - main [ref=e106]:
+    - generic [ref=e107]:
+      - generic [ref=e108]: "1"
+      - generic [ref=e109]:
+        - paragraph [ref=e110]: Act 1
+        - heading "Available data coverage" [level=2] [ref=e111]
+    - paragraph [ref=e113]: Six analytical domains form the backbone of this report. The report follows this exact sequence — each layer depends on the previous one to be correctly interpreted. Sediments only make sense after we understand what the river does, what the cascade controls, and what pressures reach the basin.
+    - generic [ref=e114]:
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - generic [ref=e120]: waves
+          - generic [ref=e121]:
+            - paragraph [ref=e122]: 01 — River flow
+            - paragraph [ref=e123]: Augusta + USACE Dock
+        - generic [ref=e125]:
+          - generic [ref=e126]:
+            - paragraph [ref=e127]: Period
+            - paragraph [ref=e128]: 2006–2026
+          - generic [ref=e129]:
+            - paragraph [ref=e130]: Coverage
+            - paragraph [ref=e131]: 21 years
+        - paragraph [ref=e132]: Daily discharge USGS (02197000) aggregated into monthly series. The mandatory starting point — everything that follows is a consequence of this signal.
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - generic [ref=e138]: water_drop
+          - generic [ref=e139]:
+            - paragraph [ref=e140]: 02 — Cascade operations
+            - paragraph [ref=e141]: Hartwell · Russell · Thurmond
+        - generic [ref=e143]:
+          - generic [ref=e144]:
+            - paragraph [ref=e145]: Period
+            - paragraph [ref=e146]: 2006–2026
+          - generic [ref=e147]:
+            - paragraph [ref=e148]: Reservoirs
+            - paragraph [ref=e149]: 3 in cascade
+        - paragraph [ref=e150]: Monthly outflow, storage, and power generation per reservoir. Explains how USACE operations modulate the downstream hydrological signal.
+      - generic [ref=e153]:
+        - generic [ref=e154]:
+          - generic [ref=e156]: science
+          - generic [ref=e157]:
+            - paragraph [ref=e158]: 03 — Water quality
+            - paragraph [ref=e159]: USACE Dock, Savannah — 5 parameters
+        - generic [ref=e161]:
+          - generic [ref=e162]:
+            - paragraph [ref=e163]: Period
+            - paragraph [ref=e164]: 2007–2026
+          - generic [ref=e165]:
+            - paragraph [ref=e166]: Samples
+            - paragraph [ref=e167]: ~227 months
+        - paragraph [ref=e168]: Temperature, DO, pH, conductance since 2007. Turbidity since 2013. Analyzed first as independent series, then crossed with hydrology.
+      - generic [ref=e171]:
+        - generic [ref=e172]:
+          - generic [ref=e174]: warning
+          - generic [ref=e175]:
+            - paragraph [ref=e176]: 04 — NPDES pressures
+            - paragraph [ref=e177]: HUC8 03060101–03060104
+        - generic [ref=e179]:
+          - generic [ref=e180]:
+            - paragraph [ref=e181]: Period
+            - paragraph [ref=e182]: 2023–2026
+          - generic [ref=e183]:
+            - paragraph [ref=e184]: Facilities
+            - paragraph [ref=e185]: 1,845
+        - paragraph [ref=e186]: EPA ECHO inventory of NPDES permittees across 4 HUC8 sub-watersheds. Includes facility type, violations, and geographic distribution.
+      - generic [ref=e189]:
+        - generic [ref=e190]:
+          - generic [ref=e192]: terrain
+          - generic [ref=e193]:
+            - paragraph [ref=e194]: 05 — Sediment TMDL
+            - paragraph [ref=e195]: Georgia EPD 2010
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - paragraph [ref=e199]: Type
+            - paragraph [ref=e200]: Static
+          - generic [ref=e201]:
+            - paragraph [ref=e202]: Sub-watersheds
+            - paragraph [ref=e203]: "10"
+        - paragraph [ref=e204]: Total maximum daily loads for sediment and bacteria issued by Georgia EPD. Regulatory reference for interpreting observed loads.
+      - generic [ref=e207]:
+        - generic [ref=e208]:
+          - generic [ref=e210]: layers
+          - generic [ref=e211]:
+            - paragraph [ref=e212]: 06 — Sediment cores
+            - paragraph [ref=e213]: 19 sites — Clarks Hill reservoir
+        - generic [ref=e215]:
+          - generic [ref=e216]:
+            - paragraph [ref=e217]: Type
+            - paragraph [ref=e218]: Point-in-time
+          - generic [ref=e219]:
+            - paragraph [ref=e220]: Variables
+            - paragraph [ref=e221]: 15 parameters
+        - paragraph [ref=e222]: Fe, Mn, OC, water%, grain size (clay/silt/sand/d₁₀/d₅₀/d₉₀), pH, DO%, conductance — 19 core sites. The geochemical archive of everything that came before.
+    - generic [ref=e223]:
+      - generic [ref=e224]: flag
+      - generic [ref=e225]:
+        - paragraph [ref=e226]: Reading guide
+        - paragraph [ref=e227]: The numbering 01 through 06 is deliberate. Each domain depends on the previous one to be correctly interpreted. Sediments only make sense after we understand what the river does, what the cascade controls, and what pressures reach the basin.
+    - generic [ref=e228]:
+      - generic [ref=e229]: "2"
+      - generic [ref=e230]:
+        - paragraph [ref=e231]: Act 2
+        - heading "River behavior" [level=2] [ref=e232]
+    - generic [ref=e233]:
+      - generic [ref=e234]:
+        - generic [ref=e236]: waves
+        - generic [ref=e237]:
+          - generic [ref=e238]:
+            - generic [ref=e239]: Hydrology
+            - generic [ref=e240]: FIG2
+          - heading "Savannah River discharge at Augusta — monthly series 2006–2026" [level=2] [ref=e241]
+      - img "Monthly discharge Augusta 2006-2026 with 12-month moving average" [ref=e245]
+      - generic [ref=e246]:
+        - generic [ref=e247]:
+          - paragraph [ref=e248]:
+            - generic [ref=e249]: description
+            - text: What it shows
+          - paragraph [ref=e250]: Monthly discharge (ft³/s) at USGS gauge 02197000 in Augusta, with a 12-month moving average overlaid. Annotated points mark the 2009 peak, the 2015 drought, and the 2022 flood. The filled area conveys interannual variability; the thick line reveals the medium-term trend.
+        - generic [ref=e251]:
+          - paragraph [ref=e252]:
+            - generic [ref=e253]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e254]: This is the anchor for everything that follows. The discharge regime at Augusta integrates precipitation, evapotranspiration, and upstream reservoir operations. All water quality parameters and all sediment depositional patterns are, ultimately, a response to this curve.
+        - generic [ref=e255]:
+          - paragraph [ref=e256]:
+            - generic [ref=e257]: flag
+            - text: Takeaway
+          - paragraph [ref=e258]: The river has wide interannual amplitude — peak discharge exceeds 3× the drought minimum — with strong seasonality and identifiable extreme events. The moving average reveals that 2015–2016 was the driest period in the record; 2009 and 2022 were the wettest.
+      - paragraph [ref=e260]: "Source: USGS NWIS — gauge 02197000, Savannah River at Augusta, GA"
+    - generic [ref=e261]:
+      - generic [ref=e262]:
+        - generic [ref=e264]: calendar_month
+        - generic [ref=e265]:
+          - generic [ref=e266]:
+            - generic [ref=e267]: Seasonality
+            - generic [ref=e268]: FIG3
+          - heading "Monthly flow climatology — seasonal pattern and variability envelope" [level=2] [ref=e269]
+      - img "Monthly flow climatology with individual years" [ref=e273]
+      - generic [ref=e274]:
+        - generic [ref=e275]:
+          - paragraph [ref=e276]:
+            - generic [ref=e277]: description
+            - text: What it shows
+          - paragraph [ref=e278]: The thick curve is the climatological mean for each calendar month across all 21 years (2006–2026). Semi-transparent thin curves are individual years overlaid. The envelope they form reveals real variability between dry and wet years within each month.
+        - generic [ref=e279]:
+          - paragraph [ref=e280]:
+            - generic [ref=e281]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e282]: The Savannah peaks hydrologically in March and reaches its minimum in September–October. This seasonal rhythm controls when low-DO pulses occur (summer–fall), when turbidity rises (spring), and when reservoir recharge happens. Understanding the seasonal pattern is a prerequisite for interpreting any water quality or sediment data.
+        - generic [ref=e283]:
+          - paragraph [ref=e284]:
+            - generic [ref=e285]: flag
+            - text: Takeaway
+          - paragraph [ref=e286]: Peak in March, minimum in September–October. Spread between years is greatest in winter–spring (when floods vary most) and smallest in summer (a more predictable low-flow period). The critical window for DO depletion and Mn mobilization coincides with the summer flow minimum.
+      - paragraph [ref=e288]: "Source: USGS NWIS — gauge 02197000, climatology computed over 2006–2026"
+    - generic [ref=e289]:
+      - generic [ref=e290]:
+        - generic [ref=e292]: water_drop
+        - generic [ref=e293]:
+          - generic [ref=e294]:
+            - generic [ref=e295]: Cascade
+            - generic [ref=e296]: FIG4
+          - heading "Reservoir cascade — Hartwell, Russell, and Thurmond monthly outflow" [level=2] [ref=e297]
+      - img "Monthly outflow from the three cascade reservoirs" [ref=e301]
+      - generic [ref=e302]:
+        - generic [ref=e303]:
+          - paragraph [ref=e304]:
+            - generic [ref=e305]: description
+            - text: What it shows
+          - paragraph [ref=e306]: Three independent panels — one per reservoir — with monthly outflow and 12-month moving average. Hartwell (green) and Russell (purple) are the headwater reservoirs; Thurmond (orange) is the direct regulator of the Savannah River. Each panel has its own Y-axis to allow shape comparison without compression by magnitude differences.
+        - generic [ref=e307]:
+          - paragraph [ref=e308]:
+            - generic [ref=e309]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e310]: The Hartwell–Russell–Thurmond cascade is the operational control mechanism of the river. Thurmond has the largest storage capacity in the system (3.82 million ac·ft) and determines the discharge regime reaching Augusta. Low-outflow periods at Thurmond coincide with documented low-DO events at the USACE Dock station.
+        - generic [ref=e311]:
+          - paragraph [ref=e312]:
+            - generic [ref=e313]: flag
+            - text: Takeaway
+          - paragraph [ref=e314]: Thurmond dominates the outflow signal reaching the river. Hartwell and Russell show distinct patterns by operating period — Russell, in particular, has periods of negative outflow (pump-back). The joint operation of all three determines how much and when Thurmond releases, directly controlling downstream water quality.
+      - paragraph [ref=e316]: "Source: USACE operational data — Hartwell, Russell, Thurmond (2006–2026)"
+    - generic [ref=e317]:
+      - generic [ref=e318]:
+        - generic [ref=e320]: compare_arrows
+        - generic [ref=e321]:
+          - generic [ref=e322]:
+            - generic [ref=e323]: Operational link
+            - generic [ref=e324]: FIG5
+          - 'heading "Thurmond to Augusta: reservoir release and downstream river response" [level=2] [ref=e325]'
+      - img "Thurmond outflow vs Augusta discharge with storage" [ref=e329]
+      - generic [ref=e330]:
+        - generic [ref=e331]:
+          - paragraph [ref=e332]:
+            - generic [ref=e333]: description
+            - text: What it shows
+          - paragraph [ref=e334]: "Upper panel: Augusta discharge (blue) overlaid with Thurmond outflow (orange) on a shared Y-axis. The Pearson r value in the corner quantifies the coupling. Lower panel: Thurmond storage (ac·ft) — the reservoir level context that governs releases."
+        - generic [ref=e335]:
+          - paragraph [ref=e336]:
+            - generic [ref=e337]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e338]: This is the most direct mechanical link in the dataset. Thurmond outflow explains a large fraction of the variance in Augusta discharge. Any pattern in downstream water quality parameters (DO, conductance, temperature) is, to a large extent, a function of what Thurmond released — and when.
+        - generic [ref=e339]:
+          - paragraph [ref=e340]:
+            - generic [ref=e341]: flag
+            - text: Takeaway
+          - paragraph [ref=e342]: Thurmond outflow and Augusta discharge are strongly covariant. During low-storage periods (2015–2016), outflow drops and the river enters a low-flow regime that promotes thermal stratification, DO depletion, and reductive mobilization of Mn and Fe from bottom sediments — the same Mn that appears enriched in the Clarks Hill sediment cores.
+      - paragraph [ref=e344]: "Sources: USACE operational data (Thurmond) · USGS 02197000 (Augusta)"
+    - generic [ref=e345]:
+      - generic [ref=e346]: "3"
+      - generic [ref=e347]:
+        - paragraph [ref=e348]: Act 3
+        - heading "Water quality — individual series" [level=2] [ref=e349]
+    - generic [ref=e350]:
+      - generic [ref=e351]:
+        - generic [ref=e353]: science
+        - generic [ref=e354]:
+          - generic [ref=e355]:
+            - generic [ref=e356]: Water quality
+            - generic [ref=e357]: FIG6
+          - heading "Water temperature and dissolved oxygen — USACE Dock (2007–2026)" [level=2] [ref=e358]
+      - img "Water temperature and dissolved oxygen at USACE Dock" [ref=e362]
+      - generic [ref=e363]:
+        - generic [ref=e364]:
+          - paragraph [ref=e365]:
+            - generic [ref=e366]: description
+            - text: What it shows
+          - paragraph [ref=e367]: "Two independent panels: water temperature (°C, green) and dissolved oxygen (mg/L, blue), both at USACE Dock gauge (021989773). The dashed red line in the DO panel marks the critical threshold of 5 mg/L — below this value, suboxic conditions promote reductive mobilization of Fe and Mn from sediments."
+        - generic [ref=e368]:
+          - paragraph [ref=e369]:
+            - generic [ref=e370]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e371]: DO and temperature are the parameters with the most direct geochemical relevance. In warm summers with low discharge (Thurmond releasing less), DO can drop below 5 mg/L. Under these conditions, Fe²⁺ and Mn²⁺ become soluble and migrate into the water column — the same iron and manganese that, upon re-oxidation and precipitation, form the metal-enriched deposits in the Clarks Hill sediment cores.
+        - generic [ref=e372]:
+          - paragraph [ref=e373]:
+            - generic [ref=e374]: flag
+            - text: Takeaway
+          - paragraph [ref=e375]: "DO shows clear seasonality: summer minima (July–September) and winter maxima. Depression below 5 mg/L occurs in drought years. Temperature follows the expected seasonal cycle, ranging from ~8°C to ~28°C annually. The mechanistic link temperature → DO → Mn mobilization is the bridge connecting river behavior to the sediment record."
+      - paragraph [ref=e377]: "Source: USGS NWIS — gauge 021989773, Savannah River at USACE Dock at Savannah, GA (2007–2026)"
+    - generic [ref=e378]:
+      - generic [ref=e379]:
+        - generic [ref=e381]: electric_bolt
+        - generic [ref=e382]:
+          - generic [ref=e383]:
+            - generic [ref=e384]: Water quality
+            - generic [ref=e385]: FIG7
+          - heading "Specific conductance and turbidity — USACE Dock (2007–2026)" [level=2] [ref=e386]
+      - img "Conductance and turbidity at USACE Dock" [ref=e390]
+      - generic [ref=e391]:
+        - generic [ref=e392]:
+          - paragraph [ref=e393]:
+            - generic [ref=e394]: description
+            - text: What it shows
+          - paragraph [ref=e395]: Specific conductance (µS/cm, orange) and turbidity (FNU, red) in separate panels. Conductance is a proxy for total ionic load — it drops when the river dilutes during flood events. Turbidity responds to discharge pulses that resuspend fine particles.
+        - generic [ref=e396]:
+          - paragraph [ref=e397]:
+            - generic [ref=e398]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e399]: Conductance is the cleanest dilution tracer in the dataset (r = −0.79 with Augusta discharge). When the river is high, conductance drops — indicating dissolved ions (including Fe²⁺ and Mn²⁺) are being diluted and transported. Turbidity, in turn, marks episodes of fine particle transport — exactly the material that settles in the low-energy zones of Clarks Hill reservoir.
+        - generic [ref=e400]:
+          - paragraph [ref=e401]:
+            - generic [ref=e402]: flag
+            - text: Takeaway
+          - paragraph [ref=e403]: "Conductance and discharge are inversely coupled — every flood peak produces a conductance depression. Turbidity has more pronounced episodic spikes than the moving average reveals: extreme turbidity events are the sediment recharge episodes for the reservoir."
+      - paragraph [ref=e405]: "Source: USGS NWIS — gauge 021989773 (conductance: 2007–2026; turbidity: 2013–2026)"
+    - generic [ref=e406]:
+      - generic [ref=e407]: "4"
+      - generic [ref=e408]:
+        - paragraph [ref=e409]: Act 4
+        - 'heading "Cross-analysis: water quality × river behavior" [level=2] [ref=e410]'
+    - generic [ref=e411]:
+      - generic [ref=e412]:
+        - generic [ref=e414]: scatter_plot
+        - generic [ref=e415]:
+          - generic [ref=e416]:
+            - generic [ref=e417]: Cross-analysis
+            - generic [ref=e418]: FIG8
+          - heading "Augusta discharge × water quality parameters — 4 scatterplots with Pearson correlation" [level=2] [ref=e419]
+      - img "Scatterplots water quality versus Augusta discharge" [ref=e423]
+      - generic [ref=e424]:
+        - generic [ref=e425]:
+          - paragraph [ref=e426]:
+            - generic [ref=e427]: description
+            - text: What it shows
+          - paragraph [ref=e428]: "Four scatterplots: Augusta discharge (X-axis) versus conductance, DO, turbidity, and temperature (Y-axis, one per panel). Each point is one month. The dashed line is the linear regression. The Pearson r value is shown in the corner of each panel, with color indicating direction (green = positive, red = negative)."
+        - generic [ref=e429]:
+          - paragraph [ref=e430]:
+            - generic [ref=e431]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e432]: This is the central quantitative cross-analysis of the report. The strong negative correlation between discharge and conductance (r = −0.79) confirms that the river dilutes its ionic load during flood events. The DO–discharge relationship is weaker because DO also depends on temperature and organic matter decomposition — factors independent of flow. Each r value here has a direct implication for metal transport and sediment geochemistry.
+        - generic [ref=e433]:
+          - paragraph [ref=e434]:
+            - generic [ref=e435]: flag
+            - text: Takeaway
+          - paragraph [ref=e436]: Conductance (r ≈ −0.79) is the parameter most mechanistically coupled to discharge — it is the dilution tracer of the system. DO and temperature show weaker coupling because other factors intervene. Turbidity correlates positively with discharge, confirming that flood pulses are the vectors of fine particle transport into Clarks Hill.
+      - paragraph [ref=e438]: "Sources: USGS NWIS — 02197000 (Augusta) × 021989773 (USACE Dock) — ~227 overlapping months"
+    - generic [ref=e439]:
+      - generic [ref=e440]: "5"
+      - generic [ref=e441]:
+        - paragraph [ref=e442]: Act 5
+        - heading "Environmental pressures in the basin" [level=2] [ref=e443]
+    - generic [ref=e444]:
+      - generic [ref=e445]:
+        - generic [ref=e447]: warning
+        - generic [ref=e448]:
+          - generic [ref=e449]:
+            - generic [ref=e450]: Pressures
+            - generic [ref=e451]: FIG9
+          - heading "Pressure inventory — NPDES, sediment TMDL, bacteria, and DO deficit" [level=2] [ref=e452]
+      - 'img "Environmental pressures: NPDES, TMDL, bacteria, DO" [ref=e456]'
+      - generic [ref=e457]:
+        - generic [ref=e458]:
+          - paragraph [ref=e459]:
+            - generic [ref=e460]: description
+            - text: What it shows
+          - paragraph [ref=e461]: "Four regulatory panels: (A) 1,845 NPDES facilities by HUC8 sub-watershed with violations highlighted; (B) sediment loads per tributary sub-watershed vs. allowed TMDL (total excess: 1,762 tons/year); (C) bacteria-impaired reaches — 14 segments, 3 indicators; (D) DO deficit zones in Savannah Harbor linked to Thurmond releases."
+        - generic [ref=e462]:
+          - paragraph [ref=e463]:
+            - generic [ref=e464]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e465]: "These four regulatory layers quantify the pressure load that the Clarks Hill sediment archive must eventually reflect. Sub-watersheds such as Dove Creek (1,138 tons/year, −55% reduction required), Big Toms (−63%), and Eastanollee (−64%) are the most likely pathways for delivery of fine, chemically reactive material to the highest-scoring depositional sites. The DO deficit in the estuary closes the chain: Thurmond releases control water quality both at Augusta and in the estuary 400 km downstream."
+        - generic [ref=e466]:
+          - paragraph [ref=e467]:
+            - generic [ref=e468]: flag
+            - text: Takeaway
+          - paragraph [ref=e469]: The Savannah basin has 1,845 active NPDES sources and multiple tributaries with sediment loads 50–64% above TMDL limits. The pressure is not diffuse noise — it is concentrated in identifiable sub-watersheds that feed directly into Clarks Hill. The regulatory inventory provides the spatial framework for interpreting Fe and Mn enrichment in the sediment cores.
+      - paragraph [ref=e471]: "Sources: EPA ECHO NPDES (2026, HUC8 03060101–03060104) · Georgia EPD Sediment TMDL 2010 · Bacteria TMDL 2023 · Savannah Harbor 5R DO Plan 2015"
+    - generic [ref=e472]:
+      - generic [ref=e473]: "6"
+      - generic [ref=e474]:
+        - paragraph [ref=e475]: Act 6
+        - heading "Sediments — the physical archive" [level=2] [ref=e476]
+    - generic [ref=e477]:
+      - generic [ref=e478]:
+        - generic [ref=e480]: layers
+        - generic [ref=e481]:
+          - generic [ref=e482]:
+            - generic [ref=e483]: Sediment
+            - generic [ref=e484]: FIG10
+          - heading "Depositional score — ranking of 19 sediment core sites" [level=2] [ref=e485]
+      - img "Depositional score by sediment core site" [ref=e489]
+      - generic [ref=e490]:
+        - generic [ref=e491]:
+          - paragraph [ref=e492]:
+            - generic [ref=e493]: description
+            - text: What it shows
+          - paragraph [ref=e494]: Horizontal ranking of the 19 sediment core sites by composite depositional score (z-score of clay%, silt%, water content, and OC%). Sites with high scores concentrate the finest, most chemically reactive fractions. For each site, Fe (ppm), Mn (ppm), clay%, and OC% are shown inline.
+        - generic [ref=e495]:
+          - paragraph [ref=e496]:
+            - generic [ref=e497]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e498]: The depositional score is the sedimentary consequence of the flow regime documented in Acts 2 and 3. Sites in coves and mid-pool basins where Savannah River current velocity collapses accumulate the finest particles, the most organic carbon, and the most Fe. These are the sites where pressure signals — metals, sorbed organics — accumulate most intensely.
+        - generic [ref=e499]:
+          - paragraph [ref=e500]:
+            - generic [ref=e501]: flag
+            - text: Takeaway
+          - paragraph [ref=e502]: "Sites 9, 3, and 7 lead the depositional score ranking and also have the highest Fe and Mn values. This is not coincidental: they are low-hydrodynamic-energy sites that preferentially capture the fine material delivered by the tributaries identified in the TMDL. These are the priority sites for future contaminant monitoring."
+      - paragraph [ref=e504]: "Data: Clarks Hill sediment cores — 19 sites with grain-size and geochemical analyses"
+    - generic [ref=e505]:
+      - generic [ref=e506]:
+        - generic [ref=e508]: bubble_chart
+        - generic [ref=e509]:
+          - generic [ref=e510]:
+            - generic [ref=e511]: Geochemistry
+            - generic [ref=e512]: FIG11
+          - heading "Sediment geochemical relationships — Fe, Mn, OC, clay, and water content (6 pairs)" [level=2] [ref=e513]
+      - img "Geochemical relationship scatterplots in sediments" [ref=e517]
+      - generic [ref=e518]:
+        - generic [ref=e519]:
+          - paragraph [ref=e520]:
+            - generic [ref=e521]: description
+            - text: What it shows
+          - paragraph [ref=e522]: "Six geochemical pair scatterplots: Fe×Mn (diagenetic co-enrichment), Fe×OC (organo-mineral coupling), clay×Fe (grain-size control), Fe×water (Fe in saturated sediments), Mn×DO (reductive mobilization), OC×water (saturation and organic matter accumulation). Each panel includes Pearson r and n."
+        - generic [ref=e523]:
+          - paragraph [ref=e524]:
+            - generic [ref=e525]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e526]: These six pairs are the geochemical structure supporting interpretation of the Clarks Hill sediment. Fe×Mn (r ≈ 0.62) confirms diagenetic co-enrichment — Fe and Mn mobilize together under reducing conditions. Fe×OC (r ≈ 0.75) confirms organo-mineral coupling — organic matter is chemically associated with iron phases. Mn×DO (r ≈ −0.55) shows that sites with lower pore-water DO have higher Mn — a direct reductive dissolution signature.
+        - generic [ref=e527]:
+          - paragraph [ref=e528]:
+            - generic [ref=e529]: flag
+            - text: Takeaway
+          - paragraph [ref=e530]: "The geochemistry of the Clarks Hill cores is internally consistent: Fe and Mn co-enrich, are associated with OC and clay, and Mn is inversely correlated with pore-water DO. The signature is that of fine, organic, suboxically deposited sediment — exactly the environment that the low-flow, low-DO regimes documented in Acts 2 and 3 create every summer."
+      - paragraph [ref=e532]: "Data: 19 sediment cores — geochemical analyses of Fe, Mn, OC, and grain size"
+    - generic [ref=e533]:
+      - generic [ref=e534]:
+        - generic [ref=e536]: map
+        - generic [ref=e537]:
+          - generic [ref=e538]:
+            - generic [ref=e539]: Spatial
+            - generic [ref=e540]: FIG12
+          - heading "Spatial gradient of Fe and Mn — latitudinal distribution across 19 sites" [level=2] [ref=e541]
+      - img "Spatial gradient of Fe and Mn by latitude" [ref=e545]
+      - generic [ref=e546]:
+        - generic [ref=e547]:
+          - paragraph [ref=e548]:
+            - generic [ref=e549]: description
+            - text: What it shows
+          - paragraph [ref=e550]: Fe (ppm) and Mn (ppm) bars by site, ordered from highest latitude (north, near Thurmond Dam) to lowest (south). The r value indicates whether there is a systematic north–south gradient. Sites with the tallest bars are the metal accumulation hotspots in the Clarks Hill basin.
+        - generic [ref=e551]:
+          - paragraph [ref=e552]:
+            - generic [ref=e553]: lightbulb
+            - text: Why it matters
+          - paragraph [ref=e554]: The spatial gradient reveals which reservoir zones concentrate the most geochemically active material. Sites at the southern end (lower latitude, closer to the Savannah River inlet) tend to have higher Fe and Mn values — they sit in the river-to-reservoir transition zone, where current velocity drops rapidly and fine particles flocculate and settle. This spatial pattern is the final link between fluvial transport and the sediment archive.
+        - generic [ref=e555]:
+          - paragraph [ref=e556]:
+            - generic [ref=e557]: flag
+            - text: Takeaway
+          - paragraph [ref=e558]: "Sites 3, 6, 7, and 9 (southern end, depositional trap zone) concentrate the highest Fe and Mn values. The spatial signature is clear: fine, metal-enriched material accumulates in the southern coves of the reservoir, fed by tributaries entering along the Savannah River axis. This is the priority target for any future contaminant monitoring in the Clarks Hill basin."
+      - paragraph [ref=e560]: "Data: 19 sediment cores — geographic coordinates and Fe and Mn analyses (ppm)"
+  - contentinfo [ref=e561]:
+    - generic [ref=e563]:
+      - generic [ref=e564]:
+        - paragraph [ref=e565]: Project FREnTE — Savannah River / Clarks Hill EDA
+        - paragraph [ref=e566]: "Data: USGS NWIS · USACE · EPA ECHO · Georgia EPD · NOAA · Clarks Hill sediment cores"
+      - generic [ref=e567]: April 2026

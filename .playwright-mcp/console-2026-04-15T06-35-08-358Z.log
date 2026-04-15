@@ -1,0 +1,15 @@
+[     150ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/?plugins=forms,container-queries:63
+[     420ms] [LOG] Live reload enabled. @ http://127.0.0.1:8080/docs/clarks-hill/index.html:967
+[     531ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/favicon.ico:0
+[    6328ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/?plugins=forms,container-queries:63
+[    6419ms] [LOG] Live reload enabled. @ http://127.0.0.1:8080/docs/clarks-hill/index.html:967
+[   10570ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/?plugins=forms,container-queries:63
+[   10689ms] [LOG] Live reload enabled. @ http://127.0.0.1:8080/docs/clarks-hill/index.html:967
+[   43070ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/?plugins=forms,container-queries:63
+[   43200ms] [LOG] Live reload enabled. @ http://127.0.0.1:8080/docs/clarks-hill/index.html:967
+[  102155ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/?plugins=forms,container-queries:63
+[  102284ms] [LOG] Live reload enabled. @ http://127.0.0.1:8080/docs/clarks-hill/index.html:971
+[  106229ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/?plugins=forms,container-queries:63
+[  106335ms] [LOG] Live reload enabled. @ http://127.0.0.1:8080/docs/clarks-hill/index.html:971
+[  114244ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/?plugins=forms,container-queries:63
+[  114348ms] [LOG] Live reload enabled. @ http://127.0.0.1:8080/docs/clarks-hill/index.html:971

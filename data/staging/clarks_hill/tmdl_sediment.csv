@@ -1,0 +1,11 @@
+subwatershed_name,impacted_reach,river_segment,current_load_tons_year,wla_tons_year,wlasw_tons_year,la_tons_year,total_allowable_load_tons_year,maximum_allowable_daily_load_tons_day,reduction_required_pct,source_document_year,source_document
+Little Coldwater Creek,Little Coldwater Creek,Savannah River Basin tributary subwatershed,312.1,,,158.6,158.6,20.5,49.2,2010,Savannah River Basin Sediment TMDL 2010
+Little Cedar Creek,Little Cedar Creek,Savannah River Basin tributary subwatershed,221.7,,,189.3,189.3,24.4,14.6,2010,Savannah River Basin Sediment TMDL 2010
+Big Toms Creek/Toms Creek,Big Toms Creek/Toms Creek,Savannah River Basin tributary subwatershed,625.3,4.5,,225.7,230.2,29.7,63.2,2010,Savannah River Basin Sediment TMDL 2010
+Eastanollee Creek,Eastanollee Creek,Savannah River Basin tributary subwatershed,606.4,82.3,,134.5,216.8,28.0,64.2,2010,Savannah River Basin Sediment TMDL 2010
+Nancytown Creek,Nancytown Creek,Savannah River Basin tributary subwatershed,80.9,,,80.9,80.9,10.4,0.0,2010,Savannah River Basin Sediment TMDL 2010
+Little Shoal Creek,Little Shoal Creek,Savannah River Basin tributary subwatershed,469.3,,,375.4,375.4,48.4,20.0,2010,Savannah River Basin Sediment TMDL 2010
+Grove Creek,Grove Creek,Savannah River Basin tributary subwatershed,246.6,4.1,,238.4,242.5,31.3,1.7,2010,Savannah River Basin Sediment TMDL 2010
+Dove Creek,Dove Creek,Savannah River Basin tributary subwatershed,1137.8,,,515.4,515.4,66.5,54.7,2010,Savannah River Basin Sediment TMDL 2010
+Mattox Creek,Mattox Creek,Savannah River Basin tributary subwatershed,784.4,,,784.4,784.4,101.2,0.0,2010,Savannah River Basin Sediment TMDL 2010
+Panther Creek (Big Panther Creek),Panther Creek (Big Panther Creek),Savannah River Basin tributary subwatershed,350.0,,,278.7,278.7,36.0,20.4,2010,Savannah River Basin Sediment TMDL 2010
